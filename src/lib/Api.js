@@ -1,0 +1,47 @@
+
+import Request from './Request'
+import appendHashToData from './utils/appendHashToData'
+
+export default class Api {
+  constructor (config) {
+    this.config = config
+  }
+
+  async post (uri, data, options) {
+    return this.fetch({
+      method: 'post',
+      uri: this.config.host + uri,
+      body: JSON.stringify(
+        appendHashToData(data, this.config.key, this.config.secret, options)
+      )
+    })
+  }
+
+  async get (uri, qs, options) {
+    return this.fetch({
+      method: 'get',
+      uri: this.config.host + uri,
+      qs: appendHashToData(qs, this.config.key, this.config.secret, options)
+    })
+  }
+
+  async fetch (requestOptions, options) {
+    const req = new Request({
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      ...requestOptions
+    })
+
+    if (this.config.onRequest) {
+      this.config.onRequest(req)
+    }
+
+    await req.fetch()
+    await req.response.validateStatus({
+      validStatus: [ 0 ]
+    })
+    return await req.response.json()
+  }
+}
