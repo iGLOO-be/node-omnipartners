@@ -2,7 +2,8 @@
 
 import nock from 'nock'
 
-import { expect } from 'chai'
+import chai, { expect } from 'chai'
+chai.use(require('chai-shallow-deep-equal'))
 
 export {
   expect
@@ -33,7 +34,7 @@ export function withArguments (data, {
       try {
         response = await api[method](data)
       } catch (e) {
-        if (!shouldThrow) {
+        if (!shouldThrow || !e.isOmnipartnersError) {
           throw e
         } else {
           err = e
@@ -50,7 +51,8 @@ export function withArguments (data, {
 
 export function withMock ({
   query,
-  reply
+  reply,
+  delay
 }) {
   return (target, property, descriptor) => {
     const fn = descriptor.value
@@ -61,20 +63,21 @@ export function withMock ({
         ...query
       }
 
-      const mock = nock(this.apiConfig.host, { encodedQueryParams: true })
+      const tmpMock = nock(this.apiConfig.host, { encodedQueryParams: true })
         [httpMethod](httpPath) // eslint-disable-line no-unexpected-multiline
+
+      if (delay) {
+        tmpMock.delay(delay)
+      }
+
+      const mock = tmpMock
         .query(data)
         .reply(200, reply)
 
       const res = await fn.apply(this, args)
 
       if (!NOCK_RECORD) {
-        try {
-          mock.done()
-        } catch (e) {
-          // console.log(err)
-          throw e
-        }
+        mock.done()
       }
 
       return res

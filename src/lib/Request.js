@@ -2,23 +2,37 @@
 import { EventEmitter } from 'events'
 import querystring from 'querystring'
 import fetch from 'isomorphic-fetch'
+import uuid from 'uuid/v4'
+import reduce from 'lodash/reduce'
 import Response from './Response'
+import pkg from '../../package.json'
+import {
+  RequestTimeoutError
+} from './errors'
 
 export default class Request extends EventEmitter {
+  protectedKeys = ['key', 'hash']
+
   constructor ({
     method,
     uri,
     body,
     qs,
-    headers
+    headers,
+    timeout
   }) {
     super()
 
+    this.uuid = uuid()
     this.method = method
     this.uri = uri
     this.body = body
     this.qs = qs
-    this.headers = headers
+    this.headers = {
+      ...headers,
+      'X-Omnipartners-Request-Id': this.uuid
+    }
+    this.timeout = timeout
     this.meta = {
       start: new Date(),
       finish: null
@@ -30,14 +44,26 @@ export default class Request extends EventEmitter {
 
     let uri = this.uri
     if (this.qs) {
-      uri += '?' + querystring.stringify(this.qs)
+      uri += (~uri.indexOf('?') ? '&' : '?') + querystring.stringify(this.qs)
     }
 
-    const fetchRes = await fetch(uri, {
-      method: this.method,
-      body: this.body,
-      headers: this.headers
-    })
+    let fetchRes
+
+    try {
+      fetchRes = await fetch(uri, {
+        method: this.method,
+        body: this.body,
+        headers: this.headers,
+        timeout: this.timeout,
+        agent: `node-omnipartners/${pkg.version}`
+      })
+    } catch (e) {
+      if (e.type === 'request-timeout') {
+        throw new RequestTimeoutError(this)
+      } else {
+        throw e
+      }
+    }
 
     this.meta.finish = new Date()
     this.response = new Response(this, fetchRes)
@@ -47,9 +73,21 @@ export default class Request extends EventEmitter {
   }
 
   toJSON () {
+    const filterSensitiveData = obj => reduce(obj, (res, v, k) => ({
+      ...res,
+      [k]: ~this.protectedKeys.indexOf(k) ? '[FILTERED]' : v
+    }), {})
+
     return {
-      ...this,
-      response: this.response.toJSON()
+      uuid: this.uuid,
+      method: this.method,
+      uri: this.uri,
+      qs: this.qs && filterSensitiveData(this.qs),
+      body: this.body && filterSensitiveData(this.body),
+      headers: this.headers,
+      timeout: this.timeout,
+      meta: this.meta,
+      response: this.response && this.response.toJSON()
     }
   }
 }

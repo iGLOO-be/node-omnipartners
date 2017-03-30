@@ -22,6 +22,13 @@ class BaseError extends Error {
   }
 }
 
+export class RequestTimeoutError extends BaseError {
+  statusCode = 503
+  statusText = 'Gateway Time-out'
+  message = 'OP/Request Timeout Error'
+  code = 'OP/RequestTimeoutError'
+}
+
 export class InvalidReponseError extends BaseError {
   message = 'OP/Invalid Reponse Error'
   code = 'OP/InvalidReponseError'
@@ -40,4 +47,11 @@ export class UnknownOPStatusError extends BaseError {
 export class OPStatusError extends BaseError {
   message = 'OP/Invalid Response Error/OP Status'
   code = 'OP/OPStatusError'
+
+  constructor (request, data) {
+    super(request, data)
+    if (data.message) {
+      this.message = data.message
+    }
+  }
 }

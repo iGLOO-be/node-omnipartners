@@ -3,11 +3,13 @@ import Request from './Request'
 import appendHashToData from './utils/appendHashToData'
 
 export default class Api {
+  defaultTimeout = 30 * 1000
+
   constructor (config) {
     this.config = config
   }
 
-  async post (uri, data, options) {
+  async post (uri, data, options = {}) {
     return this.fetch({
       method: 'post',
       uri: this.config.host + uri,
@@ -17,7 +19,7 @@ export default class Api {
     })
   }
 
-  async get (uri, qs, options) {
+  async get (uri, qs, options = {}) {
     return this.fetch({
       method: 'get',
       uri: this.config.host + uri,
@@ -27,6 +29,7 @@ export default class Api {
 
   async fetch (requestOptions, options) {
     const req = new Request({
+      timeout: this.config.timeout || this.defaultTimeout,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

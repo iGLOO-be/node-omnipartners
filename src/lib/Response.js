@@ -64,7 +64,10 @@ export default class Response {
       return
     }
 
-    return new OPStatusError(this, data)
+    return new OPStatusError(this, {
+      ...data,
+      ...errorMap[opStatus]
+    })
   }
 
   toJSON () {
@@ -83,7 +86,6 @@ export default class Response {
     }), {})
 
     return {
-      url: this.res.url,
       status: this.res.status,
       statusText: this.res.statusText,
       headers: flatHeaders,
