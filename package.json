@@ -31,7 +31,8 @@
     "boom": "^4.2.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "winston": "^2.3.1"
   },
   "standard": {
     "parser": "babel-eslint"

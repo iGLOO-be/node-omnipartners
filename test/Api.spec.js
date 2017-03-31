@@ -53,7 +53,7 @@ describeApi('identity', () => {
           message: 'Invalid request in which required header or parameters are either missing or invalid.'
         },
         message: 'Invalid request in which required header or parameters are either missing or invalid.',
-        code: 'OP/OPStatusError'
+        code: 'OP/OPStatusError/2'
       })
     }
 

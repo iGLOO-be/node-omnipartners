@@ -47,8 +47,7 @@ describeApi('identity', () => {
       shouldThrow: true
     })
     'with invalid credentials' ({ err }) {
-      expect(err).to.be.an('error')
-      expect(err.code).to.be.equal('OP/OPStatusError')
+      expect(err.code).to.be.equal('OP/OPStatusError/5')
     }
 
     @withMock({

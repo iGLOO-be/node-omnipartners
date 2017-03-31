@@ -58,6 +58,7 @@ export default class Request extends EventEmitter {
         agent: `node-omnipartners/${pkg.version}`
       })
     } catch (e) {
+      this.emit('fetchError', e)
       if (e.type === 'request-timeout') {
         throw new RequestTimeoutError(this)
       } else {

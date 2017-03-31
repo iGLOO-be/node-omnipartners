@@ -6,6 +6,10 @@ import {
   OPStatusError,
   UnknownOPStatusError
 } from './errors'
+import {
+  getOpErrorFromStatus,
+  findOpStatus
+} from './OPStatusError'
 
 export default class Response {
   constructor (request, res) {
@@ -19,14 +23,14 @@ export default class Response {
     }
   }
 
-  async validateStatus ({ validStatus }) {
+  async validateStatus ({ validStatus, errorMap } = {}) {
     const body = await this.json()
-    const opStatus = parseInt(body.statusCode)
+    const opStatus = findOpStatus(body)
     if (typeof opStatus === 'undefined') {
       throw new NoOPStatusError(this)
     }
 
-    const err = this.getErrorForOPStatus(body)
+    const err = this.getErrorForOPStatus(body, opStatus, errorMap)
     if (err) {
       throw err
     }
@@ -43,30 +47,22 @@ export default class Response {
     return this._json
   }
 
-  getErrorForOPStatus (data) {
-    const errorMap = {
-      2: {
-        message: 'Invalid request in which required header or parameters are either missing or invalid.'
-      },
-      3: {
-        message: 'User not found in the system.'
-      },
-      4: {
-        message: 'User is found but not active in the system.'
-      },
-      5: {
-        message: 'Password is incorrect.'
-      }
+  getErrorForOPStatus (data, opStatus, errorMap) {
+    let error = null
+
+    if (errorMap && errorMap[opStatus]) {
+      error = errorMap[opStatus]
+    } else {
+      error = getOpErrorFromStatus(opStatus)
     }
 
-    const opStatus = parseInt(data.statusCode)
-    if (!errorMap[opStatus]) {
+    if (!error) {
       return
     }
 
     return new OPStatusError(this, {
       ...data,
-      ...errorMap[opStatus]
+      ...error
     })
   }
 

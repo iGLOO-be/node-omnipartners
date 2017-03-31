@@ -16,7 +16,7 @@ export default class Api {
       body: JSON.stringify(
         appendHashToData(data, this.config.key, this.config.secret, options)
       )
-    })
+    }, options)
   }
 
   async get (uri, qs, options = {}) {
@@ -24,10 +24,10 @@ export default class Api {
       method: 'get',
       uri: this.config.host + uri,
       qs: appendHashToData(qs, this.config.key, this.config.secret, options)
-    })
+    }, options)
   }
 
-  async fetch (requestOptions, options) {
+  async fetch (requestOptions, options = {}) {
     const req = new Request({
       timeout: this.config.timeout || this.defaultTimeout,
       headers: {
@@ -43,6 +43,7 @@ export default class Api {
 
     await req.fetch()
     await req.response.validateStatus({
+      errorMap: options.errorMap,
       validStatus: [ 0 ]
     })
     return await req.response.json()

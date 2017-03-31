@@ -53,5 +53,8 @@ export class OPStatusError extends BaseError {
     if (data.message) {
       this.message = data.message
     }
+    if (data.statusCode) {
+      this.code = `OP/OPStatusError/${data.statusCode}`
+    }
   }
 }
