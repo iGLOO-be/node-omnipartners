@@ -7,11 +7,16 @@ export default function dataHashAppend (data, key, secret, options) {
     allData.key = key
   }
 
-  const sortedKeys = Object.keys(allData).sort()
+  let hashKeys = typeof options.hashKeys === 'function'
+    ? options.hashKeys(data)
+    : options.hashKeys
+  if (!hashKeys) {
+    hashKeys = Object.keys(allData).sort()
+  }
 
-  const hash = sortedKeys.reduce((res, key) => [
+  const hash = hashKeys.reduce((res, key) => [
     ...res,
-    allData[key]
+    typeof allData[key] === 'undefined' ? '' : allData[key]
   ], []).join('') + secret
 
   const signedBody = {
