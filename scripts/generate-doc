@@ -1,0 +1,27 @@
+#!/usr/bin/env babel-node
+
+import Identity from '../src/api/identity'
+import IdentityAuthenticate from '../src/api/identity/Authenticate'
+
+const apis = [
+  ['api.identity', 'Identity', Identity],
+  ['api.identity', 'Identity > Authenticate', IdentityAuthenticate]
+]
+
+apis.forEach(([ path, title, Api ]) => {
+  console.log(`## ${title}`)
+
+  Object.getOwnPropertyNames(Api.prototype)
+    .filter(method => method !== 'constructor')
+    .forEach(method => {
+      const fn = Api.prototype[method]
+
+      console.log('### ' + path + '.' + method)
+      console.log(`- [Documentation](${fn.documentationUrl})`)
+      console.log(`- Snippet:
+\`\`\`js
+const result = await ${path}.${method}({ ${(fn.filterInput || []).join(', ')} })
+\`\`\`
+`)
+    })
+})

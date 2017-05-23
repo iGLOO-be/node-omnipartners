@@ -41,7 +41,7 @@ export default class Response {
   }
 
   async json () {
-    if (this._json_promise) return await this._json_promise
+    if (this._json_promise) return this._json_promise
     this._json_promise = this.res.json()
     this._json = await this._json_promise
     return this._json

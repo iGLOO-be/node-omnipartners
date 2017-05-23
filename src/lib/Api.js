@@ -46,6 +46,7 @@ export default class Api {
       errorMap: options.errorMap,
       validStatus: [ 0 ]
     })
-    return await req.response.json()
+
+    return req.response.json()
   }
 }

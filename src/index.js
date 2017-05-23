@@ -2,7 +2,7 @@
 import Identity from './api/identity'
 
 export default class Omnipartners {
-  constructor () {
-    this.identify = new Identity(this)
+  constructor (config) {
+    this.identify = new Identity(config)
   }
 }

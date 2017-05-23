@@ -31,7 +31,7 @@ class BaseIdentityTest {
   apiConfig = baseConfig
 }
 
-describeApi('identity', () => {
+describeApi('Api', () => {
   describeMethod(class basicGet extends BaseIdentityTest {
     name = 'basicGet'
     httpPath = '/get'

@@ -20,8 +20,12 @@ export const apiExtends = ExtendApi => (Target, property, descriptor) => {
   return Klass
 }
 
+const setPropertyOnMethod = (fn, property, value) => {
+  (fn._originalFn || fn)[property] = value
+}
+
 export const doc = url => (target, property, descriptor) => {
-  target[property].documentationUrl = url
+  setPropertyOnMethod(target[property], 'documentationUrl', url)
 }
 
 export const filterInput = allowKeys => (target, property, descriptor) => {
@@ -29,4 +33,7 @@ export const filterInput = allowKeys => (target, property, descriptor) => {
   target[property] = (data) => {
     return fn.apply(target, pick(data, allowKeys))
   }
+  target[property]._originalFn = fn
+
+  setPropertyOnMethod(target[property], 'filterInput', allowKeys)
 }
