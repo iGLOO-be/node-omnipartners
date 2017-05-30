@@ -30,6 +30,7 @@ export default class Request extends EventEmitter {
     this.qs = qs
     this.headers = {
       ...headers,
+      'User-Agent': `node-omnipartners/${pkg.version}`,
       'X-Omnipartners-Request-Id': this.uuid
     }
     this.timeout = timeout
@@ -54,8 +55,7 @@ export default class Request extends EventEmitter {
         method: this.method,
         body: this.body,
         headers: this.headers,
-        timeout: this.timeout,
-        agent: `node-omnipartners/${pkg.version}`
+        timeout: this.timeout
       })
     } catch (e) {
       this.emit('fetchError', e)

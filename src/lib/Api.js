@@ -4,15 +4,20 @@ import appendHashToData from './utils/appendHashToData'
 
 export default class Api {
   defaultTimeout = 30 * 1000
+  defaultHost = null
 
   constructor (config) {
     this.config = config
   }
 
+  get host () {
+    return this.config.host || this.defaultHost
+  }
+
   async post (uri, data, options = {}) {
     return this.fetch({
       method: 'post',
-      uri: this.config.host + uri,
+      uri: this.host + uri,
       body: JSON.stringify(
         appendHashToData(data, this.config.key, this.config.secret, options)
       )
@@ -22,7 +27,7 @@ export default class Api {
   async get (uri, qs, options = {}) {
     return this.fetch({
       method: 'get',
-      uri: this.config.host + uri,
+      uri: this.host + uri,
       qs: appendHashToData(qs, this.config.key, this.config.secret, options)
     }, options)
   }
