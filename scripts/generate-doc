@@ -2,17 +2,19 @@
 
 import Identity from '../src/api/identity'
 import IdentityAuthenticate from '../src/api/identity/Authenticate'
+import Partners from '../src/api/partners'
 
 const apis = [
   ['api.identity', 'Identity', Identity],
-  ['api.identity', 'Identity > Authenticate', IdentityAuthenticate]
+  ['api.identity', 'Identity > Authenticate', IdentityAuthenticate],
+  ['api.partners', 'Partners', Partners]
 ]
 
 apis.forEach(([ path, title, Api ]) => {
   console.log(`## ${title}`)
 
   Object.getOwnPropertyNames(Api.prototype)
-    .filter(method => method !== 'constructor')
+    .filter(method => method !== 'constructor' && !method.match(/^_/))
     .forEach(method => {
       const fn = Api.prototype[method]
 

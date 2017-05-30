@@ -1,0 +1,36 @@
+
+import Api from '../../lib/Api'
+import { doc, filterInput } from '../../lib/apiDecorators'
+
+export default class Partners extends Api {
+  defaultHost = 'http://partners.omnipartners.be/'
+
+  _call (action, data) {
+    return this.post('/', {
+      action: action,
+      ...data
+    }, {
+      hashKeys: ['action']
+    })
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/List_Partners')
+  @filterInput([
+    'partner_type',           // (Optional) The “Partner Type” used to filter and retrieve partners information relative to the types. Eg: "shops,vets,suppliers" .
+    'partner_group_handle',   // (Optional) The “Partner Group Handle” used to filter the partners with that partner group handle's. Eg: "handle_1,handle_2" .
+    'collection_ref',         // (Optional) Collection reference to which the stock level is associated. Required if "stock_level" is provided.
+    'stock_level',            // (Optional) Stock level which is a value between 0 and 10. The comparison will be done as ">= stock_level". Required if "collection_ref" is provided.
+    'search_term',            // (Optional) The “Search Term” used to filter and retrieve partners information relative to the searched term text. It will check that term exists in partner invoice name, partner public name, email or partner VAT information.
+    'search_strict',          // (Optional) Defines the behavior of the “Search Term”. Valid values are 0 and 1. If the value is 0 partial matches will appear in the result. If the value is 1 search term will be matched exactly. Default value is 0.
+    'partner_status',         // (Optional) The “Partner Status” used to filter the partners with that partner status. Valid Status are A and I ( A: active partners I: inactive partners ) If not send this parameter then service will return active partners only. If this parameter is with empty string (Eg: partner_status:"" ) then it will return all active and inactive partners information.
+    'partner_updated_date',   // (Optional) This is to list all partners that have been updated on or after the date specified. It should be valid date with this format.
+                              // (Eg: partner_updated_date:"2014-06-05" OR  partner_updated_date:"2014-06-05 14:10" time should be in 24H format )
+                              // When the partner_updated_date is empty string OR not send with request we return all records.
+    'page',                   // (Optional) The “Page” used for pagination. Page number of the result. Its a number. The default value is 1.
+    'rows',                   // (Optional) The “Rows” used for pagination. Number of records per page. Its a number. The default value is 10. The maximum value is 100.
+    'show_hidden'             // (Optional) States whether to include the hidden partners in the result. (Valid Values: 0 OR 1) default 0
+  ])
+  listPartners (data) {
+    return this._call('get-partners', data)
+  }
+}

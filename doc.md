@@ -112,3 +112,11 @@ const result = await api.identity.authenticateByAccessToken({ access_token, data
 const result = await api.identity.authenticateByEmail({ email, data_options })
 ```
 
+## Partners
+### api.partners.listPartners
+- [Documentation](http://doc.omnipartners.be/index.php/List_Partners)
+- Snippet:
+```js
+const result = await api.partners.listPartners({ partner_type, partner_group_handle, collection_ref, stock_level, search_term, search_strict, partner_status, partner_updated_date, page, rows, show_hidden })
+```
+
