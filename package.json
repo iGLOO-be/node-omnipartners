@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel ./src -d ./lib",
+    "build:watch": "babel ./src -wd ./lib",
     "lint": "standard",
     "test": " mocha --compilers js:babel-core/register {test,src}/**/*.spec.js",
     "test:watch": " mocha --watch --compilers js:babel-core/register {test,src}/**/*.spec.js"
