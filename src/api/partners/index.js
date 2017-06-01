@@ -45,7 +45,7 @@ export default class Partners extends Api {
     'show_hidden'             // (Optional) States whether to include the hidden partners in the result. (Valid Values: 0 OR 1) default 0
   ])
   listPartners (data) {
-    return this._call('get-partners', data)
+    return this._call('get-partners', data, { retry: true })
   }
 
   @doc('http://doc.omnipartners.be/index.php/Get_Partners_Details')
@@ -55,7 +55,8 @@ export default class Partners extends Api {
   ])
   partnerDetails (data) {
     return this._call('get-partner-details', data, {
-      hashKeys: ['action', 'partner_ext_id']
+      hashKeys: ['action', 'partner_ext_id'],
+      retry: true
     })
   }
 }

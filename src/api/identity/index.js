@@ -32,13 +32,13 @@ export default class Identity extends Api {
   @doc('http://doc.omnipartners.be/index.php/Find_account_GUID_by_mobile_phone_(strict)')
   @filterInput(['mobile_no', 'include_loyalty_cards'])
   findAccountByPhone (data) {
-    return this.get('/service/user/resolve-by-mobile-number', data)
+    return this.get('/service/user/resolve-by-mobile-number', data, { retry: true })
   }
 
   @doc('http://doc.omnipartners.be/index.php/Find_account_GUID_by_email_(strict)')
   @filterInput(['email', 'include_user_type'])
   findAccountByEmail (data) {
-    return this.get('/service/user/resolve-by-email', data)
+    return this.get('/service/user/resolve-by-email', data, { retry: true })
   }
 
   @doc('http://doc.omnipartners.be/index.php/Recover_by_email_or_user_id')
@@ -77,6 +77,6 @@ export default class Identity extends Api {
   @doc('http://doc.omnipartners.be/index.php/Retrieve_Users_List')
   @filterInput(['first_name', 'last_name', 'email', 'postcode', 'mobile', 'partner_ext_id', 'partner_relationship', 'page', 'records_per_page'])
   getUserList (data) {
-    return this.get('/service/profile/get-user-lis', data)
+    return this.get('/service/profile/get-user-lis', data, { retry: true })
   }
 }
