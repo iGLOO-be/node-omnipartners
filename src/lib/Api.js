@@ -2,6 +2,7 @@
 import Request from './Request'
 import appendHashToData from './utils/appendHashToData'
 import deprecate from 'deprecate'
+import pick from 'lodash/pick'
 
 export default class Api {
   defaultTimeout = 30 * 1000
@@ -42,7 +43,9 @@ export default class Api {
     const req = new Request({
       timeout: this.config.timeout || this.defaultTimeout,
       json: true,
-      ...requestOptions
+      ...requestOptions,
+      ...pick(options, ['retries', 'retryDelay']),
+      ...(options.retry ? { retries: 3 } : {})
     })
 
     if (this.config.onRequest) {

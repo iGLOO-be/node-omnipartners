@@ -1,7 +1,7 @@
 
 import { EventEmitter } from 'events'
 import querystring from 'querystring'
-import fetch from 'isomorphic-fetch'
+import fetch from 'fetch-retry'
 import uuid from 'uuid/v4'
 import reduce from 'lodash/reduce'
 import Response from './Response'
@@ -20,7 +20,9 @@ export default class Request extends EventEmitter {
     json,
     qs,
     headers,
-    timeout
+    timeout,
+    retries = -1,
+    retryDelay = 500
   }) {
     super()
 
@@ -40,6 +42,8 @@ export default class Request extends EventEmitter {
       start: new Date(),
       finish: null
     }
+    this.retries = retries
+    this.retryDelay = retryDelay
   }
 
   async fetch () {
@@ -65,7 +69,9 @@ export default class Request extends EventEmitter {
         method: this.method,
         body: this.json ? JSON.stringify(this.body) : this.body,
         headers: headers,
-        timeout: this.timeout
+        timeout: this.timeout,
+        retries: this.retries,
+        retryDelay: this.retryDelay
       })
     } catch (e) {
       this.emit('fetchError', e)
