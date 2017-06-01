@@ -7,7 +7,8 @@ import reduce from 'lodash/reduce'
 import Response from './Response'
 import pkg from '../../package.json'
 import {
-  RequestTimeoutError
+  RequestTimeoutError,
+  RequestError
 } from './errors'
 
 export default class Request extends EventEmitter {
@@ -77,6 +78,8 @@ export default class Request extends EventEmitter {
       this.emit('fetchError', e)
       if (e.type === 'request-timeout') {
         throw new RequestTimeoutError(this)
+      } else if (e.code === 'ECONNRESET') {
+        throw new RequestError(this)
       } else {
         throw e
       }

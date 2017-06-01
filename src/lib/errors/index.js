@@ -22,6 +22,13 @@ class BaseError extends Error {
   }
 }
 
+export class RequestError extends BaseError {
+  statusCode = 500
+  statusText = 'Gateway Error'
+  message = 'OP/Request Error'
+  code = 'OP/RequestError'
+}
+
 export class RequestTimeoutError extends BaseError {
   statusCode = 503
   statusText = 'Gateway Time-out'
