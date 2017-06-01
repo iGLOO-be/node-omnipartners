@@ -5,12 +5,26 @@ import { doc, filterInput } from '../../lib/apiDecorators'
 export default class Partners extends Api {
   defaultHost = 'http://partners.omnipartners.be/'
 
-  _call (action, data) {
+  errorMap = {
+    1001: { message: 'Invalid action.' },
+    1002: { message: 'Client key not available.' },
+    1003: { message: 'Invalid client key.' },
+    1004: { message: 'Hash not available.' },
+    1005: { message: 'Invalid hash.' },
+    1006: { message: 'Access denied.' },
+    1007: { message: 'Invalid request. This code is returned upon data validation failure.' },
+    1008: { message: 'Missing required fields' },
+    1025: { message: 'Internal Error' },
+    1036: { message: 'Service input data is Invalid.' }
+  }
+
+  _call (action, data, options = {}) {
     return this.post('/', {
       action: action,
       ...data
     }, {
-      hashKeys: ['action']
+      hashKeys: ['action'],
+      ...options
     })
   }
 
@@ -32,5 +46,16 @@ export default class Partners extends Api {
   ])
   listPartners (data) {
     return this._call('get-partners', data)
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/Get_Partners_Details')
+  @filterInput([
+    'partner_ext_id',   // (Required) The “Partner Ext Id” used to filter the partners using Partner Ext Id. If you need to filter the partners with multiple ext_ids, then its value should be comma separated.
+    'indexed_result'    // (Optional) The “Indexed Result” used get result indexed with partner_ext_id. Possible values are TRUE/FALSE
+  ])
+  partnerDetails (data) {
+    return this._call('get-partner-details', data, {
+      hashKeys: ['action', 'partner_ext_id']
+    })
   }
 }

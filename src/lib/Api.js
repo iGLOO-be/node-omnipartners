@@ -7,6 +7,9 @@ export default class Api {
   defaultTimeout = 30 * 1000
   defaultHost = null
 
+  validStatus = [ 0 ]
+  errorMap = {}
+
   constructor (config) {
     this.config = config
     if (!config.host && config.uri) {
@@ -23,9 +26,7 @@ export default class Api {
     return this.fetch({
       method: 'post',
       uri: this.host + uri,
-      body: JSON.stringify(
-        appendHashToData(data, this.config.key, this.config.secret, options)
-      )
+      body: appendHashToData(data, this.config.key, this.config.secret, options)
     }, options)
   }
 
@@ -40,10 +41,7 @@ export default class Api {
   async fetch (requestOptions, options = {}) {
     const req = new Request({
       timeout: this.config.timeout || this.defaultTimeout,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
+      json: true,
       ...requestOptions
     })
 
@@ -53,8 +51,14 @@ export default class Api {
 
     await req.fetch()
     await req.response.validateStatus({
-      errorMap: options.errorMap,
-      validStatus: [ 0 ]
+      errorMap: {
+        ...this.errorMap || {},
+        ...options.errorMap || {}
+      },
+      validStatus: [
+        ...this.validStatus || {},
+        ...options.validStatus || {}
+      ]
     })
 
     return req.response.json()

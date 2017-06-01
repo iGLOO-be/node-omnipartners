@@ -17,6 +17,7 @@ export default class Request extends EventEmitter {
     method,
     uri,
     body,
+    json,
     qs,
     headers,
     timeout
@@ -27,6 +28,7 @@ export default class Request extends EventEmitter {
     this.method = method
     this.uri = uri
     this.body = body
+    this.json = json
     this.qs = qs
     this.headers = {
       ...headers,
@@ -50,11 +52,19 @@ export default class Request extends EventEmitter {
 
     let fetchRes
 
+    const headers = {
+      ...this.headers,
+      ...this.json ? {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      } : {}
+    }
+
     try {
       fetchRes = await fetch(uri, {
         method: this.method,
-        body: this.body,
-        headers: this.headers,
+        body: this.json ? JSON.stringify(this.body) : this.body,
+        headers: headers,
         timeout: this.timeout
       })
     } catch (e) {
