@@ -1,6 +1,7 @@
 
 import Request from './Request'
 import appendHashToData from './utils/appendHashToData'
+import deprecate from 'deprecate'
 
 export default class Api {
   defaultTimeout = 30 * 1000
@@ -8,6 +9,10 @@ export default class Api {
 
   constructor (config) {
     this.config = config
+    if (!config.host && config.uri) {
+      this.config.host = config.uri
+      deprecate('Option "uri" is deprecated')
+    }
   }
 
   get host () {
