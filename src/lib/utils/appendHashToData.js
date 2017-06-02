@@ -7,6 +7,10 @@ export default function dataHashAppend (data, key, secret, options) {
     allData.key = key
   }
 
+  if (options.hash === false) {
+    return allData
+  }
+
   let hashKeys = typeof options.hashKeys === 'function'
     ? options.hashKeys(data)
     : options.hashKeys
