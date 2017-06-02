@@ -54,7 +54,10 @@ export default class Partners extends Api {
     'indexed_result'    // (Optional) The “Indexed Result” used get result indexed with partner_ext_id. Possible values are TRUE/FALSE
   ])
   partnerDetails (data) {
-    return this._call('get-partner-details', data, {
+    return this._call('get-partner-details', {
+      ...data,
+      partner_ext_id: data.partner_ext_id ? data.partner_ext_id.toString() : null
+    }, {
       hashKeys: ['action', 'partner_ext_id'],
       retry: true
     })
