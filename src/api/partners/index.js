@@ -62,4 +62,15 @@ export default class Partners extends Api {
       retry: true
     })
   }
+
+  @doc('http://doc.omnipartners.be/index.php/Get_Featured_Activities')
+  @filterInput([
+    'lang'  // (Optional) The language used to return the translated contents
+  ])
+  featuredActivities (data) {
+    return this._call('get-featured-activities', {
+      ...data,
+      partner_ext_id: data.partner_ext_id ? data.partner_ext_id.toString() : null
+    }, { retry: true })
+  }
 }
