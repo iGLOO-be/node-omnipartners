@@ -29,4 +29,10 @@ export default class MetaData extends Api {
   animalBreeds (data) {
     return this._call('/service/data/get-animal-breeds', data)
   }
+
+  @doc('http://doc.omnipartners.be/index.php/Animal_universes_list')
+  @filterInput(['type', 'lang'])
+  animalUniverses (data) {
+    return this._call('/service/data/get-animal-universes', data)
+  }
 }
