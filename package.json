@@ -31,7 +31,7 @@
   "dependencies": {
     "babel-runtime": "^6.23.0",
     "boom": "^4.3.1",
-    "deprecate": "^1.0.0",
+    "depd": "^1.1.0",
     "fetch-retry": "^1.1.1",
     "lodash": "^4.17.4",
     "uuid": "^3.0.1",

@@ -1,8 +1,10 @@
 
 import Request from './Request'
 import appendHashToData from './utils/appendHashToData'
-import deprecate from 'deprecate'
+import depd from 'depd'
 import pick from 'lodash/pick'
+
+const deprecate = depd('API')
 
 export default class Api {
   defaultTimeout = 30 * 1000
