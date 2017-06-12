@@ -9,7 +9,7 @@ import {
 import {
   getOpErrorFromStatus,
   findOpStatus
-} from './OPStatusError'
+} from './opStatusError'
 
 export default class Response {
   constructor (request, res) {
