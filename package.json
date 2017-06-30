@@ -11,6 +11,7 @@
     "test:watch": " mocha --watch --compilers js:babel-core/register {test,src}/**/*.spec.js",
     "prepublish": "npm run build"
   },
+  "repository": "https://github.com/iGLOO-be/node-omnipartners",
   "author": "",
   "license": "ISC",
   "devDependencies": {
