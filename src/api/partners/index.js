@@ -73,4 +73,38 @@ export default class Partners extends Api {
       partner_ext_id: data.partner_ext_id ? data.partner_ext_id.toString() : null
     }, { retry: true })
   }
+
+  @doc('http://doc.omnipartners.be/index.php/Retrieve_Links')
+  @filterInput([
+    'partner_ext_id', // (Required) The ext id of the partner.
+    'type'            // (Optional) Links have a type (photo, video) to start with. If set then gives relative type of records only.
+  ])
+  getLinks (data) {
+    return this._call('get-partner-links', {
+      ...data,
+      partner_ext_id: data.partner_ext_id ? data.partner_ext_id.toString() : null
+    }, {
+      hashKeys: ['action', 'partner_ext_id'],
+      retry: true,
+      errorMap: {
+        1032: { message: 'Partner_ext_id not found.' }
+      }
+    })
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/Add_Link')
+  @filterInput([
+    'partner_ext_id', // (Required) The ext id of the partner.
+    'type',           // (Required) Links have a type (photo, video) to start with. If set then gives relative type of records only.
+    'link_data'       // (Required) json enccoded array data, it fill with languge code and its link data
+  ])
+  addLink (data) {
+    return this._call('add-partner-links', {
+      ...data,
+      partner_ext_id: data.partner_ext_id ? data.partner_ext_id.toString() : null
+    }, {
+      hashKeys: ['action', 'partner_ext_id', 'type'],
+      retry: true
+    })
+  }
 }
