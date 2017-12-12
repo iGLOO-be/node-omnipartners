@@ -51,13 +51,21 @@ export default class Partners extends Api {
   @doc('http://doc.omnipartners.be/index.php/Get_Partners_Details')
   @filterInput([
     'partner_ext_id',   // (Required) The “Partner Ext Id” used to filter the partners using Partner Ext Id. If you need to filter the partners with multiple ext_ids, then its value should be comma separated.
-    'indexed_result'    // (Optional) The “Indexed Result” used get result indexed with partner_ext_id. Possible values are TRUE/FALSE
+    'indexed_result',   // (Optional) The “Indexed Result” used get result indexed with partner_ext_id. Possible values are TRUE/FALSE
+    'lang',             // The language used to retrieve the translated contents.If not specified generic values will be returned instead of translated contents.
+    'data_options'      // This defines information that is returned in the profile object. It should be a comma separated list of values. For more information please refer Data Options.
   ])
   partnerDetails (data) {
-    return this._call('get-partner-details', {
+    const options = {
       ...data,
       partner_ext_id: data.partner_ext_id ? data.partner_ext_id.toString() : null
-    }, {
+    }
+    if (data.data_options) {
+      options.data_options = typeof data.data_options !== 'string'
+        ? data.data_options.join(',')
+        : data.data_options
+    }
+    return this._call('get-partner-details', options, {
       hashKeys: ['action', 'partner_ext_id'],
       retry: true
     })
