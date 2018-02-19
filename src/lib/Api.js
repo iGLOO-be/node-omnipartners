@@ -1,4 +1,5 @@
 
+import { EventEmitter } from 'events'
 import Request from './Request'
 import appendHashToData from './utils/appendHashToData'
 import depd from 'depd'
@@ -6,7 +7,7 @@ import pick from 'lodash/pick'
 
 const deprecate = depd('API')
 
-export default class Api {
+export default class Api extends EventEmitter {
   defaultTimeout = 30 * 1000
   defaultHost = null
 
@@ -14,6 +15,8 @@ export default class Api {
   errorMap = {}
 
   constructor (config) {
+    super()
+
     this.config = config
     if (!config.host && config.uri) {
       this.config.host = config.uri
@@ -54,18 +57,27 @@ export default class Api {
       this.config.onRequest(req)
     }
 
-    await req.fetch()
-    await req.response.validateStatus({
-      errorMap: {
-        ...this.errorMap || {},
-        ...options.errorMap || {}
-      },
-      validStatus: [
-        ...this.validStatus || {},
-        ...options.validStatus || {}
-      ]
-    })
+    try {
+      await req.fetch()
+      await req.response.validateStatus({
+        errorMap: {
+          ...this.errorMap || {},
+          ...options.errorMap || {}
+        },
+        validStatus: [
+          ...this.validStatus || {},
+          ...options.validStatus || {}
+        ]
+      })
 
-    return req.response.json()
+      const result = await req.response.json()
+
+      this.emit('fetchSuccess', req)
+
+      return result
+    } catch (err) {
+      this.emit('fetchError', err, req)
+      throw err
+    }
   }
 }
