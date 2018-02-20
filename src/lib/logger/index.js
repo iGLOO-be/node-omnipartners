@@ -29,7 +29,6 @@ export default function createLogger (winstonOptions = winstonDefaultOptions) {
     api.on('fetchSuccess', (request) => {
       prepareRequest(request).then(() => {
         logger.info(logStructure({ type: 'SUCCESS', request }))
-        api.emit('logSuccessEnd')
       })
     })
 

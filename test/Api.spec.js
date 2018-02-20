@@ -15,7 +15,6 @@ const baseConfig = {
   host: 'http://httpbin.org',
   key: 'aaa',
   secret: 'bbb'
-  // onRequest: consoleLogger
 }
 
 class TestApi extends Api {
