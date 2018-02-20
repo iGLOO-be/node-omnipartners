@@ -2,7 +2,16 @@
 import winston from 'winston'
 import logStructure from './logStructure'
 
-function prepareRequest (request) {
+const winstonDefaultOptions = {
+  transports: [
+    new winston.transports.Console()
+  ]
+}
+
+async function prepareRequest (request) {
+  if (!request.response) {
+    return
+  }
   // Try to resolve JSON response before
   return request.response.json()
     .catch(err => { console.error(err) })
@@ -13,20 +22,26 @@ function prepareRequest (request) {
     })
 }
 
-export default function createLogger (winstonOptions) {
+export default function createLogger (winstonOptions = winstonDefaultOptions) {
   const logger = new winston.Logger(winstonOptions)
 
-  return api => {
+  const fn = api => {
     api.on('fetchSuccess', (request) => {
       prepareRequest(request).then(() => {
         logger.info(logStructure({ type: 'SUCCESS', request }))
+        api.emit('logSuccessEnd')
       })
     })
 
     api.on('fetchError', (error, request) => {
       prepareRequest(request).then(() => {
-        logger.info(logStructure({ type: 'ERROR', request, error }))
+        logger.error(logStructure({ type: 'ERROR', request, error }))
       })
     })
   }
+
+  // Expose logger for external usage
+  fn.logger = logger
+
+  return fn
 }
