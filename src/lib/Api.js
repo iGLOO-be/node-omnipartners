@@ -14,7 +14,7 @@ export default class Api extends EventEmitter {
   validStatus = [ 0 ]
   errorMap = {}
 
-  constructor (config) {
+  constructor (config = {}) {
     super()
 
     this.config = config
