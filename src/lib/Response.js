@@ -40,10 +40,16 @@ export default class Response {
     }
   }
 
+  async text () {
+    if (this._text_promise) return this._text_promise
+    this._text_promise = this.res.text()
+    this._text = await this._text_promise
+    return this._text
+  }
+
   async json () {
-    if (this._json_promise) return this._json_promise
-    this._json_promise = this.res.json()
-    this._json = await this._json_promise
+    this._json = await this.text()
+      .then(value => JSON.parse(value))
     return this._json
   }
 
@@ -74,7 +80,7 @@ export default class Response {
         ? headers.raw()
         : {}
 
-    const flatHeaders = reduce(rawHeaders, (res, name, value) => ({
+    const flatHeaders = reduce(rawHeaders, (res, value, name) => ({
       ...res,
       [name]: Array.isArray(value) && value.length === 1
         ? value.join('')
@@ -86,7 +92,7 @@ export default class Response {
       statusText: this.res.statusText,
       headers: flatHeaders,
       ok: this.res.ok,
-      body: this._json,
+      body: this._json || this._text,
       size: this.res.size,
       timeout: this.res.timeout
     }

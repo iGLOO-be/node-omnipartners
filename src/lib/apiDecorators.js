@@ -2,22 +2,13 @@
 import pick from 'lodash/pick'
 
 export const apiExtends = ExtendApi => (Target, property, descriptor) => {
-  function Klass (config) {
-    const extendApi = new ExtendApi(config)
-    const target = new Target(config)
+  Object.getOwnPropertyNames(ExtendApi.prototype)
+    .filter(method => method !== 'constructor')
+    .forEach(method => {
+      Target.prototype[method] = ExtendApi.prototype[method]
+    })
 
-    Object.getOwnPropertyNames(ExtendApi.prototype)
-      .filter(method => method !== 'constructor')
-      .forEach(method => {
-        target[method] = extendApi[method].bind(extendApi)
-      })
-
-    return target
-  }
-
-  Klass.prototype = Target.prototype
-
-  return Klass
+  return Target
 }
 
 const setPropertyOnMethod = (fn, property, value) => {

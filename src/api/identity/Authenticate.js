@@ -33,6 +33,6 @@ export default class Authenticate extends Api {
   @doc('http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Email_ONLY_Service')
   @filterInput(['email', 'data_options'])
   authenticateByEmail (data) {
-    return this.get('/service/auth/email', data, { retry: true })
+    return this.get('/service/auth/email', data, { retry: true, hashKeys: ['email'] })
   }
 }

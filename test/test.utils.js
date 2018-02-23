@@ -27,6 +27,9 @@ export function withArguments (data, {
     const fn = descriptor.value
     descriptor.value = async function () {
       const api = new this.Api(this.apiConfig)
+      if (this.use) {
+        this.use(api)
+      }
       const method = this.name
       let err = null
       let response = null
@@ -41,7 +44,7 @@ export function withArguments (data, {
         }
       }
 
-      fn({
+      return fn({
         response,
         err
       })
