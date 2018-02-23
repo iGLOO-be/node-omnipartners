@@ -65,8 +65,8 @@ export default class Api extends EventEmitter {
           ...options.errorMap || {}
         },
         validStatus: [
-          ...this.validStatus || {},
-          ...options.validStatus || {}
+          ...this.validStatus || [],
+          ...options.validStatus || []
         ]
       })
 
