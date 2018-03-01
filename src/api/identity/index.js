@@ -16,7 +16,17 @@ export default class Identity extends Api {
   @doc('http://doc.omnipartners.be/index.php/Update_Password')
   @filterInput(['token', 'password'])
   updateRecoveredPassword (data) {
-    return this.get('/service/account/create-password', data)
+    return this.get('/service/account/create-password', data, {
+      hashKeys: ['password'],
+      errorMap: {
+        2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
+        3: { message: 'User not found in the system.' },
+        4: { message: 'User is found but not active in the system.' },
+        6: { message: 'Not authorised to use this function or its disabled.' },
+        8: { message: 'Internal error.' },
+        16: { message: 'Invalid hash.' },
+      }
+    })
   }
 
   @doc('http://doc.omnipartners.be/index.php/Create_Access_Token')
@@ -40,14 +50,26 @@ export default class Identity extends Api {
   @doc('http://doc.omnipartners.be/index.php/Find_account_GUID_by_email_(strict)')
   @filterInput(['email', 'include_user_type'])
   findAccountByEmail (data) {
-    return this.get('/service/user/resolve-by-email', data, { retry: true })
+    return this.get('/service/user/resolve-by-email', data, {
+      retry: true,
+      hashKeys: ['email']
+    })
   }
 
   @doc('http://doc.omnipartners.be/index.php/Recover_by_email_or_user_id')
   @filterInput(['uid', 'mode', 'url'])
   recoverPassword (data) {
     return this.get('/service/account/recover-password', data, {
-      hashKeys: ['uid']
+      hashKeys: ['uid'],
+      errorMap: {
+        2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
+        3: { message: 'User not found in the system.' },
+        4: { message: 'User is found but not active in the system.' },
+        6: { message: 'Not authorised to use this function or its disabled.' },
+        8: { message: 'Internal error.' },
+        16: { message: 'Invalid hash.' },
+        27: { message: 'Password could not be auto generated because of validation constraints.' }
+      }
     })
   }
 
@@ -65,7 +87,16 @@ export default class Identity extends Api {
       hashKeys: [
         data.user_email ? 'user_email' : 'user_mobile_phone',
         'user_password'
-      ]
+      ],
+      errorMap: {
+        2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
+        6: { message: 'Not authorised to use this function or its disabled.' },
+        8: { message: 'Error saving data to the database.' },
+        9: { message: 'Pet information required but not specified.' },
+        16: { message: 'Invalid hash.' },
+        18: { message: 'Email address already exists in the system.' },
+        23: { message: 'Duplicate request.' }
+      }
     })
   }
 
@@ -94,6 +125,95 @@ export default class Identity extends Api {
         8: { message: 'Error saving data to the database.' },
         16: { message: 'Invalid hash.' },
         36: { message: 'User in blacklist.' }
+      }
+    })
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/List_User_Addresses')
+  @filterInput([
+    'user_guid'
+  ])
+  listUserAddress (data) {
+    return this.post('/service/user-address/list', data, { hashNoKey: true, retry: true })
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/Add_User_Address')
+  @filterInput([
+    'user_guid', // (Required)
+    'address_type',
+    'address_name',
+    'address_company',
+    'address_phone',
+    'address_streetnum',
+    'address_street1',
+    'address_street2',
+    'address_postal_code', // (Required)
+    'address_city', // (Required)
+    'address_region',
+    'address_county',
+    'address_comment',
+    'address_is_default',
+    'address_lat',
+    'address_lng'
+  ])
+  registerUserAddress (data) {
+    return this.post('/service/user-address/add', data, {
+      hashKeys: ['user_guid'],
+      errorMap: {
+        2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
+        3: { message: 'User not found in the system.' },
+        8: { message: 'Internal error.' },
+        16: { message: 'Invalid hash.' }
+      }
+    })
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/Update_User_Address')
+  @filterInput([
+    'user_guid', // (Required)
+    'address_type',
+    'address_name',
+    'address_company',
+    'address_phone',
+    'address_streetnum',
+    'address_street1',
+    'address_street2',
+    'address_postal_code', // (Required)
+    'address_city', // (Required)
+    'address_region',
+    'address_county',
+    'address_comment',
+    'address_is_default',
+    'address_lat',
+    'address_lng'
+  ])
+  updateUserAddress (data) {
+    return this.post('/service/user-address/update', data, {
+      hashKeys: ['user_guid'],
+      errorMap: {
+        2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
+        3: { message: 'User not found in the system.' },
+        8: { message: 'Internal error.' },
+        16: { message: 'Invalid hash.' },
+        22: { message: 'Update restricted, if it is the only address and trying to update it as "not default".' },
+        26: { message: 'Address not found in the system.' }
+      }
+    })
+  }
+
+
+  @doc('http://doc.omnipartners.be/index.php/Delete_User_Address')
+  @filterInput(['user_guid', 'address_id'])
+  deleteUserAddress (data) {
+    return this.post('/service/user-address/delete', data, {
+      hashKeys: ['user_guid'],
+      errorMap: {
+        2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
+        3: { message: 'User not found in the system.' },
+        8: { message: 'Internal error.' },
+        16: { message: 'Invalid hash.' },
+        22: { message: 'Delete restricted if address is the default address.' },
+        26: { message: 'Address not found in the system.' }
       }
     })
   }

@@ -36,7 +36,13 @@ export default class Request extends EventEmitter {
     this.headers = {
       ...headers,
       'User-Agent': `node-omnipartners/${pkg.version}`,
-      'X-Omnipartners-Request-Id': this.uuid
+      'X-Omnipartners-Request-Id': this.uuid,
+      ...this.json && {
+        'Accept': 'application/json'
+      },
+      ...this.json && this.body && {
+        'Content-Type': 'application/json'
+      }
     }
     this.timeout = timeout
     this.meta = {
@@ -57,19 +63,11 @@ export default class Request extends EventEmitter {
 
     let fetchRes
 
-    const headers = {
-      ...this.headers,
-      ...this.json ? {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      } : {}
-    }
-
     try {
       fetchRes = await fetch(uri, {
         method: this.method,
         body: this.json ? JSON.stringify(this.body) : this.body,
-        headers: headers,
+        headers: this.headers,
         timeout: this.timeout,
         retries: this.retries,
         retryDelay: this.retryDelay
