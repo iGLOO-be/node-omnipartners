@@ -55,7 +55,7 @@ export default class Api extends EventEmitter {
       disableRetry: this.disableRetry,
       ...requestOptions,
       ...pick(options, ['retries', 'retryDelay']),
-      ...(options.retry ? { retries: 3 } : {}),
+      ...(options.retry ? { retries: 3 } : {})
     })
 
     if (this.config.onRequest) {
