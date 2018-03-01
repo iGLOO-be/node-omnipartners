@@ -18,6 +18,14 @@ export default class MetaData extends Api {
     return this._call('/service/data/get-languages', data)
   }
 
+  @doc('http://doc.omnipartners.be/index.php/Get_Counties')
+  @filterInput(['lang', 'indexed'])
+  countries (data) {
+    return this._call('/service/data/get-counties', data, {
+      retry: true
+    })
+  }
+
   @doc('http://doc.omnipartners.be/index.php/Animal_types_list')
   @filterInput(['lang'])
   animalTypes (data) {
