@@ -22,8 +22,9 @@ export default class Request extends EventEmitter {
     qs,
     headers,
     timeout,
+    disableRetry = false,
     retries = -1,
-    retryDelay = 500
+    retryDelay = 5000
   }) {
     super()
 
@@ -49,7 +50,7 @@ export default class Request extends EventEmitter {
       start: new Date(),
       finish: null
     }
-    this.retries = retries
+    this.retries = disableRetry ? -1 : retries
     this.retryDelay = retryDelay
   }
 

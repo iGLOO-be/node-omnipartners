@@ -14,6 +14,8 @@ export default class Api extends EventEmitter {
   validStatus = [ 0 ]
   errorMap = {}
 
+  disableRetry = false
+
   constructor (config = {}) {
     super()
 
@@ -22,6 +24,8 @@ export default class Api extends EventEmitter {
       this.config.host = config.uri
       deprecate('Option "uri" is deprecated')
     }
+
+    this.disableRetry = config.disableRetry
   }
 
   get host () {
@@ -48,9 +52,10 @@ export default class Api extends EventEmitter {
     const req = new Request({
       timeout: this.config.timeout || this.defaultTimeout,
       json: true,
+      disableRetry: this.disableRetry,
       ...requestOptions,
       ...pick(options, ['retries', 'retryDelay']),
-      ...(options.retry ? { retries: 3 } : {})
+      ...(options.retry ? { retries: 3 } : {}),
     })
 
     if (this.config.onRequest) {
