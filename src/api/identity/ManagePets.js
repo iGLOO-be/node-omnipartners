@@ -46,7 +46,7 @@ export default class ManagePets extends Api {
   ])
   createPet (data) {
     return this.get('/service/pets/add', data, {
-      hashKeys: ['user_guid', 'pet_name'],
+      hashKeys: ['pet_name', 'user_guid'],
       errorMap: {
         2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
         3: { message: 'User not found in the system.' },

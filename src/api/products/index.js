@@ -38,4 +38,24 @@ export default class Products extends Api {
       }
     })
   }
+
+  @doc('http://doc.omnipartners.be/index.php/Find_product_collection')
+  @filterInput([
+    'use_https_urls',
+    'resolve_by',
+    'value',
+    'language'
+  ])
+  findProductCollection (data) {
+    return this._call('find-product-collection', { 'resolve-by': data.resolve_by, ...data }, {
+      retry: true,
+      errorMap: {
+        1011: { message: 'resolve-by field can not be empty.' },
+        1012: { message: 'resolve-by field can not be empty.' },
+        1013: { message: 'resolve-by field can not be empty.' },
+        1014: { message: 'resolve-by field can not be empty.' },
+        1029: { message: 'resolve-by field can not be empty.' }
+      }
+    })
+  }
 }
