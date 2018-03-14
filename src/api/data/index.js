@@ -18,10 +18,18 @@ export default class MetaData extends Api {
     return this._call('/service/data/get-languages', data)
   }
 
-  @doc('http://doc.omnipartners.be/index.php/Get_Counties')
+  @doc('http://doc.omnipartners.be/index.php/Country_list')
   @filterInput(['lang', 'indexed'])
   countries (data) {
-    return this._call('/service/data/get-counties', data, {
+    return this._call('/service/data/get-countries', data, {
+      retry: true
+    })
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/User_title_list')
+  @filterInput(['lang'])
+  titles (data) {
+    return this._call('/service/data/get-user-titles', data, {
       retry: true
     })
   }
@@ -42,5 +50,11 @@ export default class MetaData extends Api {
   @filterInput(['type', 'lang'])
   animalUniverses (data) {
     return this._call('/service/data/get-animal-universes', data)
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/Subscriptions_list')
+  @filterInput(['lang'])
+  subscriptions (data) {
+    return this._call('/service/data/get-subscriptions', data)
   }
 }
