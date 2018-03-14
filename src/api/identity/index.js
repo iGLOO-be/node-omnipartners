@@ -151,6 +151,7 @@ export default class Identity extends Api {
     'address_city', // (Required)
     'address_region',
     'address_county',
+    'address_country',
     'address_comment',
     'address_is_default',
     'address_lat',
@@ -182,6 +183,7 @@ export default class Identity extends Api {
     'address_city', // (Required)
     'address_region',
     'address_county',
+    'address_country',
     'address_comment',
     'address_is_default',
     'address_lat',
