@@ -49,6 +49,34 @@ export default class Partners extends Api {
     return this._call('get-partners', data, { retry: true })
   }
 
+  @doc('http://doc.omnipartners.be/index.php/Find_Partners')
+  @filterInput([
+    'partner_lat',
+    'partner_lng',
+    'indexed_result',
+    'partner_type',
+    'partner_group_handle',
+    'collection_ref',
+    'stock_level',
+    'search_term',
+    'radius',
+    'limit',
+    'show_hidden',
+    'add_cis_guid',
+    'partner_status'
+  ])
+  findPartners (data) {
+    return this._call('find-partners', data, {
+      hashKeys: ['action', 'partner_lat', 'partner_lng'],
+      retry: true,
+      errorMap: {
+        1008: { message: 'Missing required fields' },
+        1030: { message: 'Invalid partner group handle.' },
+        1031: { message: 'Invalid partner type.' }
+      }
+    })
+  }
+
   @doc('http://doc.omnipartners.be/index.php/Get_Partners_Details')
   @filterInput([
     'partner_ext_id',   // (Required) The “Partner Ext Id” used to filter the partners using Partner Ext Id. If you need to filter the partners with multiple ext_ids, then its value should be comma separated.

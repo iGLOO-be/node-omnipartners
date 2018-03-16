@@ -115,6 +115,21 @@ export default class Identity extends Api {
     return this.get('/service/profile/get-user-lis', data, { retry: true })
   }
 
+  @doc('http://doc.omnipartners.be/index.php/Retrieve_user_preferences')
+  @filterInput(['user_guid'])
+  retrieveUserSubscriptions (data) {
+    return this.get('/service/preferences/get', data, {
+      hashKeys: ['user_guid'],
+      errorMap: {
+        2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
+        3: { message: 'User not found in the system.' },
+        6: { message: 'Not authorised to use this function or it\'s disabled.' },
+        8: { message: 'Error saving data to the database.' },
+        16: { message: 'Invalid hash.' }
+      }
+    })
+  }
+
   @doc('http://doc.omnipartners.be/index.php/Update_user_preferences')
   @filterInput(['user_guid', 'com_prefs', 'interests', 'subscriptions'])
   updateSubscriptions (data) {
