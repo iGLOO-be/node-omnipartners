@@ -3,9 +3,11 @@ import Api from '../../lib/Api'
 import { apiExtends, doc, filterInput } from '../../lib/apiDecorators'
 import AuthenticateApi from './Authenticate'
 import ManagePetsApi from './ManagePets'
+import ManagePartners from './ManagePartners'
 
 @apiExtends(AuthenticateApi)
 @apiExtends(ManagePetsApi)
+@apiExtends(ManagePartners)
 export default class Identity extends Api {
   @doc('http://doc.omnipartners.be/index.php/Delete_User_Accounts')
   @filterInput(['owner_guid'])
@@ -111,6 +113,21 @@ export default class Identity extends Api {
   @filterInput(['first_name', 'last_name', 'email', 'postcode', 'mobile', 'partner_ext_id', 'partner_relationship', 'page', 'records_per_page'])
   getUserList (data) {
     return this.get('/service/profile/get-user-lis', data, { retry: true })
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/Retrieve_user_preferences')
+  @filterInput(['user_guid'])
+  retrieveUserSubscriptions (data) {
+    return this.get('/service/preferences/get', data, {
+      hashKeys: ['user_guid'],
+      errorMap: {
+        2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
+        3: { message: 'User not found in the system.' },
+        6: { message: 'Not authorised to use this function or it\'s disabled.' },
+        8: { message: 'Error saving data to the database.' },
+        16: { message: 'Invalid hash.' }
+      }
+    })
   }
 
   @doc('http://doc.omnipartners.be/index.php/Update_user_preferences')

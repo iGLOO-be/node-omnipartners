@@ -1,6 +1,6 @@
 
 import { EventEmitter } from 'events'
-import querystring from 'querystring'
+import querystring from 'qs'
 import fetch from 'fetch-retry'
 import uuid from 'uuid/v4'
 import reduce from 'lodash/reduce'
