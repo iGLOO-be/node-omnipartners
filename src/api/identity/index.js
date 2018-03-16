@@ -3,9 +3,11 @@ import Api from '../../lib/Api'
 import { apiExtends, doc, filterInput } from '../../lib/apiDecorators'
 import AuthenticateApi from './Authenticate'
 import ManagePetsApi from './ManagePets'
+import ManagePartners from './ManagePartners'
 
 @apiExtends(AuthenticateApi)
 @apiExtends(ManagePetsApi)
+@apiExtends(ManagePartners)
 export default class Identity extends Api {
   @doc('http://doc.omnipartners.be/index.php/Delete_User_Accounts')
   @filterInput(['owner_guid'])
