@@ -44,7 +44,8 @@ export default class Products extends Api {
     'use_https_urls',
     'resolve_by',
     'value',
-    'language'
+    'language',
+    'data_options'
   ])
   findProductCollection (data) {
     return this._call('find-product-collection', { 'resolve-by': data.resolve_by, ...data }, {
