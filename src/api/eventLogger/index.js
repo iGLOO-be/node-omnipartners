@@ -30,21 +30,26 @@ export default class EventLogger extends Api {
 
   @doc('http://doc.omnipartners.be/index.php/Log_Events')
   @filterInput([
-    'uid',          // (Required) The ACCOUNT id of the user.
-    'eve_source',   // (Required) The source system on which the event is generated.
-    'event',        // (Required) text string used to describe the event that took place (e.g. redeem coupon, login, register).
-    'timestamp',    // (Required) Unix timestamp of the event (UTC time zone).
-    'cust_id',      // (Required) The id used for each specific client (e.g. RC_UK, RC_BE). This value is given by the administrator.
-    'network',      // (Optinal) Customer id of the partner where the event took place.
-    'network_type', // (Optinal) Type of partner where the event too place (e.g. vets, shops, breeders).
-    'category',     // (Optinal) Set of custom values describing the event (see below). Formatted as json array.
-    'lon',          // (Optinal) longitude of the location. Should be floating pint value (eg, 79.86124)
-    'lat',          // (Optinal) latitude of the location. Should be floating pint value (eg, 6.92708)
-    'ip'            // (Optinal) Ip address of the user, (eg, 54.23.20.167)
+    'user_guid',           // (Required) The ACCOUNT id of the user.
+    'event_source',        // (Required) The source system on which the event is generated.
+    'event_name',          // (Required) text string used to describe the event that took place (e.g. redeem coupon, login, register).
+    'event_ts',            // (Required) Unix timestamp of the event (UTC time zone).
+    'clixray_instance_id', // (Required) The id used for each specific client (e.g. RC_UK, RC_BE). This value is given by the administrator.
+    'partner_ext_id',
+    'partner_type',
+    'event_category',
+    'event_lon',
+    'event_lat',
+    'ip'
   ])
-  pokePartner (data) {
+  logEvents (data) {
     return this.post('/tracker', data, {
-      hashKeys: ['cust_id', 'eve_source', 'event', 'timestamp']
+      hashKeys: ['clixray_instance_id', 'event_source', 'event_name', 'event_ts'],
+      errorMap: {
+        1003: { message: 'Does not contain eve_source parameter or empty object.' },
+        1004: { message: 'Does not contain required data.(Mainly cust_id).' },
+        1005: { message: 'Incorrect hash value.' }
+      }
     })
   }
 }
