@@ -64,6 +64,22 @@ export default class Deals extends Api {
     })
   }
 
+  @doc('http://doc.omnipartners.be/index.php/Check_deal_validity')
+  @filterInput([
+    'user_guid',
+    'pet_guid',
+    'deal_ref'
+  ])
+  checkDealValidity (data) {
+    return this._call('check-deal-validity', data, {
+      retry: true,
+      hashKeys: [
+        'deal_ref',
+        'user_guid'
+      ]
+    })
+  }
+
   @doc('http://doc.omnipartners.be/index.php/Subscribe_to_a_deal')
   @filterInput([
     'user_guid',          // (Required) GUID of an active user
