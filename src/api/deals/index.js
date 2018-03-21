@@ -64,6 +64,26 @@ export default class Deals extends Api {
     })
   }
 
+  @doc('http://doc.omnipartners.be/index.php/Get_visible_partners')
+  @filterInput([
+    'deal_ref',
+    'user_guid',
+    'search',
+    'favorite_only',
+    'partner_lat',
+    'partner_lng',
+    'radius',
+    'p_page',
+    'p_length',
+    'limit'
+  ])
+  getVisiblePartner (data) {
+    return this._call('get-visible-partners-for-user', data, {
+      retry: true,
+      hashKeys: ['deal_ref']
+    })
+  }
+
   @doc('http://doc.omnipartners.be/index.php/Check_deal_validity')
   @filterInput([
     'user_guid',
