@@ -58,7 +58,7 @@ export class OPStatusError extends BaseError {
   constructor (request, data) {
     super(request, data)
     if (data.message) {
-      this.message = data.message
+      this.message = `OP/${data.message}`
     }
     if (data.statusCode) {
       this.code = `OP/OPStatusError/${data.statusCode}`
