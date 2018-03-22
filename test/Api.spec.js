@@ -51,7 +51,7 @@ describeApi('Api', () => {
           statusCode: 2,
           message: 'Invalid request in which required header or parameters are either missing or invalid.'
         },
-        message: 'Invalid request in which required header or parameters are either missing or invalid.',
+        message: 'OP/Invalid request in which required header or parameters are either missing or invalid.',
         code: 'OP/OPStatusError/2'
       })
     }
