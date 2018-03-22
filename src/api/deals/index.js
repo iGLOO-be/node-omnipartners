@@ -155,4 +155,37 @@ export default class Deals extends Api {
       }
     })
   }
+
+  @doc('http://doc.omnipartners.be/index.php/List_vouchers')
+  @filterInput([
+    'user_guid',          // Subscribed or invited user's GUID
+    'show',               // Flag to attache additional detailed to response object. Has two possible values 'basic' and 'extended'. Response object will contain 'owner' and 'pet' information for the extended
+    'from',               // Date time value to filter on creation date/subscription date (date is taken according to the status filter)
+    'to',                 // Date time value to filter on creation date/subscription date (date is taken according to the status filter)
+    'redeemed_from',      // Date time value to filter on redeemed date
+    'redeemed_to',        // Date time value to filter on redeemed date
+    'barcode',            // Barcode value to filter. This could be full or a part of the barcode
+    'partner_extid',      // To filter on the specified partner. Allowed only valid external-customer-id.
+    'deal_ref',           // Deal reference. Filter on the specified deal.
+    'status',             // The status of the coupons subscription to filter. allowed values INVITED,SUBSCRIBED,REDEEMED.
+    'inv_resend_count',   // To filter on the number of invitation send
+    'sort_field',         // Field name to be apply the sorting. Allowed fields ts_created,subs_partner_id,coupon_id,status,num_invi_resend,ts_last_send,partner_name,user_identity
+    'sort_order',         // Sort order. possible values are DESC,ASC
+    'q',                  // Can apply global searching on partner name and the user identity which use to send the invitation
+    'p_length',           // Item per page
+    'p_page'              // current page. start at 0
+  ])
+  listVouchers (data) {
+    return this._call('listoffers', data, {
+      retry: true,
+      errorMap: {
+        2021: { message: 'User GUID is not found in database.' },
+        3020: { message: 'User GUID is not set in request.' },
+        3022: { message: 'Subscription status code is not set in request.' },
+        3023: { message: 'Subscription status code is not valid text.' },
+        3044: { message: 'Partner can\'t resolve by the supplied external-customer-id' },
+        3035: { message: 'Invalid deal reference code' }
+      }
+    })
+  }
 }
