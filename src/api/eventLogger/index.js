@@ -40,10 +40,11 @@ export default class EventLogger extends Api {
     'event_category',
     'event_lon',
     'event_lat',
-    'ip'
+    'ip',
+    'custom_fields'
   ])
-  logEvents (data) {
-    return this.post('/tracker', data, {
+  logEvents ({ custom_fields = {}, ...data }) {
+    return this.post('/tracker', { ...data, ...custom_fields }, {
       hashKeys: ['clixray_instance_id', 'event_source', 'event_name', 'event_ts'],
       errorMap: {
         1003: { message: 'Does not contain eve_source parameter or empty object.' },
