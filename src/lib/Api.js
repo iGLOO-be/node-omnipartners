@@ -16,6 +16,8 @@ export default class Api extends EventEmitter {
 
   disableRetry = false
 
+  responseAsJson = true
+
   constructor (config = {}) {
     super()
 
@@ -52,6 +54,7 @@ export default class Api extends EventEmitter {
     const req = new Request({
       timeout: this.config.timeout || this.defaultTimeout,
       json: true,
+      responseAsJson: this.responseAsJson,
       disableRetry: this.disableRetry,
       ...requestOptions,
       ...pick(options, ['retries', 'retryDelay']),
@@ -75,7 +78,13 @@ export default class Api extends EventEmitter {
         ]
       })
 
-      const result = await req.response.json()
+      let result
+
+      if (this.responseAsJson) {
+        result = await req.response.json()
+      } else {
+        result = await req.response.text()
+      }
 
       this.emit('fetchSuccess', req)
 

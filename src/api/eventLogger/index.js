@@ -4,6 +4,7 @@ import { doc, filterInput } from '../../lib/apiDecorators'
 
 export default class EventLogger extends Api {
   defaultHost = 'http://cloudlogger.omnipartners.be/'
+  responseAsJson = false
 
   errorMap = {
     1000: { message: 'Unknown Error' },
