@@ -12,7 +12,46 @@ export default class Deals extends Api {
     1009: { message: 'Deals Service Hash not sent.' },
     1010: { message: 'Deals Service action not sent.' },
     1024: { message: 'Invalid Hash text sent with request.' },
+    2021: { message: 'User GUID is not found in database.' },
+    3020: { message: 'Parameter user_guid not available in the request.' },
+    3022: { message: 'Subscription status code is not set in request.' },
+    3023: { message: 'Subscription status code is not valid text.' },
+    3026: { message: 'The ref parameter not available in the request' },
     3033: { message: 'When the post body empty or content not valid JSON obejct' },
+    3035: { message: 'invalid deal reference.' },
+    3044: { message: 'Partner can\'t resolve by the supplied external-customer-id' },
+    3059: { message: 'Parameter partner_extid not available in the request.' },
+    3051: { message: 'Parameter ean_code not available in the request' },
+    3034: { message: 'Invalid EAN code' },
+    1019: { message: 'Can\'t resolve partner.' },
+    3055: { message: 'Subscription fail due to error in barcode generation.' },
+    3028: { message: 'Inactive deal' },
+    3029: { message: 'Deal already expired.' },
+    3049: { message: 'Stock not available.' },
+    3030: { message: 'User not in the allowed segment.' },
+    3056: { message: 'User not have a pet with a restricted pet type.' },
+    3052: { message: 'User not have a pet with a restricted pet breed.' },
+    3053: { message: 'If pet is required for the deal and user not have a pet.' },
+    3054: { message: 'User subscription limit reach.' },
+    3057: { message: 'Deal is not allowed for the supplied product.' },
+    3058: { message: 'The deal is not allowed for the supplied partner.' },
+    3063: { message: 'Secure code parameter not available in the request' },
+    3064: { message: 'Invalid secure code' },
+    3069: { message: 'Invalid pet guid' },
+    3086: { message: 'Invalid IBAN' },
+    3087: { message: 'Invalid BIC' },
+    3088: { message: 'The minimum number of loyalty points required to subscribe is not reached.' },
+    3091: { message: 'The deal is denied for the user since user is inactive.' },
+    3092: { message: 'Use Send invitation Link to send invitation since user is inactive.' },
+    3093: { message: 'Saving date of the deal has expired.' },
+    3097: { message: 'Not enough points for pay off the deal subscription point redemption' },
+    3098: { message: 'User doesn\'t have a pet in allowed age limit.' },
+    3108: { message: 'Referral code parameter not available in the request.' },
+    3109: { message: 'Invalid Referral code parameter.' },
+    3110: { message: 'Referral code is not allowed.' },
+    3111: { message: 'Delivery address ID parameter is not available in the request.' },
+    3112: { message: 'Doesn\'t have any address associated with the user.' },
+    3113: { message: 'Invalid delivery address ID.' },
     5000: { message: 'Internal Error.' }
   }
 
@@ -34,11 +73,7 @@ export default class Deals extends Api {
   getDeal (data) {
     return this._call('get-deal-details', data, {
       retry: true,
-      hashKeys: ['ref'],
-      errorMap: {
-        3026: { message: 'The ref parameter not available in the request' },
-        3035: { message: 'invalid deal reference.' }
-      }
+      hashKeys: ['ref']
     })
   }
 
@@ -56,11 +91,7 @@ export default class Deals extends Api {
   getRegisteredPartners (data) {
     return this._call('get-registered-partners', data, {
       retry: true,
-      hashKeys: ['deal_ref'],
-      errorMap: {
-        3026: { message: 'deal_ref is not available in the request parameters' },
-        3035: { message: 'invalid deal_ref' }
-      }
+      hashKeys: ['deal_ref']
     })
   }
 
@@ -116,43 +147,7 @@ export default class Deals extends Api {
   subscribeToDeal (data) {
     return this._call('deal-subscribe', data, {
       retry: true,
-      hashKeys: ['ref'],
-      errorMap: {
-        3020: { message: 'Parameter user_guid not available in the request.' },
-        3026: { message: 'Parameter ref not available in the request' },
-        3059: { message: 'Parameter partner_extid not available in the request.' },
-        3051: { message: 'Parameter ean_code not available in the request' },
-        3034: { message: 'Invalid EAN code' },
-        1019: { message: 'Can\'t resolve partner.' },
-        3055: { message: 'Subscription fail due to error in barcode generation.' },
-        3028: { message: 'Inactive deal' },
-        3029: { message: 'Deal already expired.' },
-        3049: { message: 'Stock not available.' },
-        3030: { message: 'User not in the allowed segment.' },
-        3056: { message: 'User not have a pet with a restricted pet type.' },
-        3052: { message: 'User not have a pet with a restricted pet breed.' },
-        3053: { message: 'If pet is required for the deal and user not have a pet.' },
-        3054: { message: 'User subscription limit reach.' },
-        3057: { message: 'Deal is not allowed for the supplied product.' },
-        3058: { message: 'The deal is not allowed for the supplied partner.' },
-        3063: { message: 'Secure code parameter not available in the request' },
-        3064: { message: 'Invalid secure code' },
-        3069: { message: 'Invalid pet guid' },
-        3086: { message: 'Invalid IBAN' },
-        3087: { message: 'Invalid BIC' },
-        3088: { message: 'The minimum number of loyalty points required to subscribe is not reached.' },
-        3091: { message: 'The deal is denied for the user since user is inactive.' },
-        3092: { message: 'Use Send invitation Link to send invitation since user is inactive.' },
-        3093: { message: 'Saving date of the deal has expired.' },
-        3097: { message: 'Not enough points for pay off the deal subscription point redemption' },
-        3098: { message: 'User doesn\'t have a pet in allowed age limit.' },
-        3108: { message: 'Referral code parameter not available in the request.' },
-        3109: { message: 'Invalid Referral code parameter.' },
-        3110: { message: 'Referral code is not allowed.' },
-        3111: { message: 'Delivery address ID parameter is not available in the request.' },
-        3112: { message: 'Doesn\'t have any address associated with the user.' },
-        3113: { message: 'Invalid delivery address ID.' }
-      }
+      hashKeys: ['ref']
     })
   }
 
@@ -177,15 +172,7 @@ export default class Deals extends Api {
   ])
   listVouchers (data) {
     return this._call('listoffers', data, {
-      retry: true,
-      errorMap: {
-        2021: { message: 'User GUID is not found in database.' },
-        3020: { message: 'User GUID is not set in request.' },
-        3022: { message: 'Subscription status code is not set in request.' },
-        3023: { message: 'Subscription status code is not valid text.' },
-        3044: { message: 'Partner can\'t resolve by the supplied external-customer-id' },
-        3035: { message: 'Invalid deal reference code' }
-      }
+      retry: true
     })
   }
 }
