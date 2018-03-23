@@ -19,6 +19,7 @@ export default class Request extends EventEmitter {
     uri,
     body,
     json,
+    responseAsJson,
     qs,
     headers,
     timeout,
@@ -33,6 +34,7 @@ export default class Request extends EventEmitter {
     this.uri = uri
     this.body = body
     this.json = json
+    this.responseAsJson = responseAsJson
     this.qs = qs
     this.headers = {
       ...headers,

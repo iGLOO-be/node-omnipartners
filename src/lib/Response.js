@@ -24,6 +24,10 @@ export default class Response {
   }
 
   async validateStatus ({ validStatus, errorMap } = {}) {
+    if (!this.request.responseAsJson) {
+      return
+    }
+
     const body = await this.json()
     const opStatus = findOpStatus(body)
     if (typeof opStatus === 'undefined') {
