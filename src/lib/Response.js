@@ -40,7 +40,7 @@ export default class Response {
     }
 
     if (!~validStatus.indexOf(opStatus)) {
-      throw new UnknownOPStatusError(this)
+      throw new UnknownOPStatusError(this, opStatus)
     }
   }
 

@@ -47,8 +47,14 @@ export class NoOPStatusError extends BaseError {
 }
 
 export class UnknownOPStatusError extends BaseError {
-  message = 'OP/Invalid Response Error - Unkown OP Status'
-  code = 'OP/UnknownOPStatusError'
+  constructor (response, opStatus) {
+    super(response, {
+      statusCode: opStatus
+    })
+
+    this.message = `OP/Invalid Response Error - Unkown OP Status/${opStatus}`
+    this.code = `OP/UnknownOPStatusError/${opStatus}`
+  }
 }
 
 export class OPStatusError extends BaseError {
