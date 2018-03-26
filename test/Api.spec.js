@@ -56,6 +56,21 @@ describeApi('Api', () => {
       })
     }
 
+    @withMock({ reply: { 'statusCode': 99 } })
+    @withArguments({}, { shouldThrow: true })
+    'handle unkown opStatus' ({ err }) {
+      expect(err).to.shallowDeepEqual({
+        statusCode: 502,
+        statusText: 'Bad Gateway',
+        isOmnipartnersError: true,
+        message: 'OP/Invalid Response Error - Unkown OP Status/99',
+        code: 'OP/UnknownOPStatusError/99',
+        data: {
+          statusCode: 99
+        }
+      })
+    }
+
     @withMock({ reply: {}, delay: { head: 99999 } })
     @withArguments({}, { shouldThrow: true })
     'handle socket timeout' ({ err }) {
