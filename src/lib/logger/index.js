@@ -27,13 +27,13 @@ export default function createLogger (winstonOptions = winstonDefaultOptions) {
   const fn = api => {
     api.on('fetchSuccess', (request) => {
       prepareRequest(request).then(() => {
-        logger.info(logStructure({ type: 'SUCCESS', request }))
+        logger.info(logStructure({ type: 'SUCCESS', request }), { request: request.toJSON() })
       })
     })
 
     api.on('fetchError', (error, request) => {
       prepareRequest(request).then(() => {
-        logger.error(logStructure({ type: 'ERROR', request, error }))
+        logger.error(logStructure({ type: 'ERROR', request, error }), { request: request.toJSON() })
       })
     })
   }
