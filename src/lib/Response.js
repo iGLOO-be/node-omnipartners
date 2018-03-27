@@ -4,7 +4,8 @@ import {
   InvalidReponseError,
   NoOPStatusError,
   OPStatusError,
-  UnknownOPStatusError
+  UnknownOPStatusError,
+  InvalidJSONReponseError
 } from './errors'
 import {
   getOpErrorFromStatus,
@@ -53,7 +54,13 @@ export default class Response {
 
   async json () {
     this._json = await this.text()
-      .then(value => JSON.parse(value))
+      .then(value => {
+        try {
+          return JSON.parse(value)
+        } catch (err) {
+          throw new InvalidJSONReponseError(this, { text: value })
+        }
+      })
     return this._json
   }
 

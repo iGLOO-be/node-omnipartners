@@ -41,6 +41,11 @@ export class InvalidReponseError extends BaseError {
   code = 'OP/InvalidReponseError'
 }
 
+export class InvalidJSONReponseError extends BaseError {
+  message = 'OP/Invalid JSON Reponse Error'
+  code = 'OP/InvalidJSONReponseError'
+}
+
 export class NoOPStatusError extends BaseError {
   message = 'OP/Invalid Response Error - No OP Status'
   code = 'OP/NoOPStatusError'
