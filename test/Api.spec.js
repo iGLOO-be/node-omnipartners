@@ -40,6 +40,21 @@ describeApi('Api', () => {
       'key': baseConfig.key
     }
 
+    @withMock({ reply: `{ invalid json! }` })
+    @withArguments({}, { shouldThrow: true })
+    'handle invalid json' ({ err }) {
+      expect(err).to.shallowDeepEqual({
+        statusCode: 502,
+        statusText: 'Bad Gateway',
+        isOmnipartnersError: true,
+        data: {
+          text: '{ invalid json! }'
+        },
+        message: 'OP/Invalid JSON Reponse Error',
+        code: 'OP/InvalidJSONReponseError'
+      })
+    }
+
     @withMock({ reply: { 'statusCode': 2 } })
     @withArguments({}, { shouldThrow: true })
     'handle invalid opStatus' ({ err }) {

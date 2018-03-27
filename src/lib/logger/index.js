@@ -14,6 +14,7 @@ async function prepareRequest (request) {
   }
   // Try to resolve JSON response before
   return request.response.json()
+    .catch(err => { console.error(err) })
     .then(() => {
       // In case of invalid JSON, we need body text
       return request.response.text()
