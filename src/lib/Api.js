@@ -4,6 +4,7 @@ import Request from './Request'
 import appendHashToData from './utils/appendHashToData'
 import depd from 'depd'
 import pick from 'lodash/pick'
+import urlJoin from 'url-join'
 
 const deprecate = depd('API')
 
@@ -37,7 +38,7 @@ export default class Api extends EventEmitter {
   async post (uri, data, options = {}) {
     return this.fetch({
       method: 'post',
-      uri: this.host + uri,
+      uri: urlJoin(this.host + uri),
       body: appendHashToData(data, this.config.key, this.config.secret, options)
     }, options)
   }
@@ -45,7 +46,7 @@ export default class Api extends EventEmitter {
   async get (uri, qs, options = {}) {
     return this.fetch({
       method: 'get',
-      uri: this.host + uri,
+      uri: urlJoin(this.host + uri),
       qs: appendHashToData(qs, this.config.key, this.config.secret, options)
     }, options)
   }
