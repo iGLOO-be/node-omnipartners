@@ -3,7 +3,7 @@ import Api from '../../lib/Api'
 import { doc, filterInput } from '../../lib/apiDecorators'
 
 export default class Products extends Api {
-  defaultHost = 'http://products.omnipartners.be/'
+  defaultHost = 'https://products.clixray.io/'
 
   errorMap = {
     1000: { message: 'Action not available.' },
