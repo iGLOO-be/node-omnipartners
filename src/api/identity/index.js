@@ -58,6 +58,12 @@ export default class Identity extends Api {
     })
   }
 
+  @doc('http://doc.omnipartners.be/index.php/Find_account_GUID_by_public_token')
+  @filterInput(['token'])
+  findAccountByPublicToken (data) {
+    return this.get('/service/user/resolve-by-public-token', data, { retry: true })
+  }
+
   @doc('http://doc.omnipartners.be/index.php/Recover_by_email_or_user_id')
   @filterInput(['uid', 'mode', 'url'])
   recoverPassword (data) {

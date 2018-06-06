@@ -3,7 +3,7 @@ import Api from '../../lib/Api'
 import { doc, filterInput } from '../../lib/apiDecorators'
 
 export default class EventLogger extends Api {
-  defaultHost = ' https://events.clixray.io'
+  defaultHost = 'https://events.clixray.io/'
   responseAsJson = false
 
   errorMap = {

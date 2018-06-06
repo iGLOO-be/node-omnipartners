@@ -3,7 +3,7 @@ import Api from '../../lib/Api'
 import { doc, filterInput } from '../../lib/apiDecorators'
 
 export default class Deals extends Api {
-  defaultHost = 'http://deals.omnipartners.be/'
+  defaultHost = 'https://deals.clixray.io/'
 
   errorMap = {
     1005: { message: 'Database connection or SQL error.' },
