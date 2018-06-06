@@ -236,4 +236,49 @@ export default class Identity extends Api {
       }
     })
   }
+
+  @doc('http://doc.omnipartners.be/index.php/Confirm_Legal_Form')
+  @filterInput([
+    'legal_form_code',
+    'user_guid',
+    'confirmed_place',
+    'send_notification',
+    'signature'
+  ])
+  confirmLegalForm (data) {
+    return this.post('/service/legal-form/confirm-legal-form', data, {
+      errorMap: {
+        2: { message: 'Invalid request in which required header or parameters are either missing or invalid.' },
+        3: { message: 'Specified user not found.' },
+        6: { message: 'Not authorised to use this function or its disabled.' },
+        8: { message: '	Error saving data to the database.' },
+        16: { message: 'Invalid hash.' },
+        39: { message: 'Error in File upload.' },
+        40: { message: 'Legal form is already confirmed.' },
+        41: { message: 'Invalid File.' }
+      }
+    })
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/Get_Confirmed_Legal_Forms')
+  @filterInput([
+    'user_guid'
+  ])
+  getConfirmedLegalForm (data) {
+    return this.post('/service/legal-form/get-confirmed-legal-forms', data)
+  }
+
+  @doc('http://doc.omnipartners.be/index.php/Revoke_Legal_Form')
+  @filterInput([
+    'legal_form_code',
+    'user_guid',
+    'send_notification'
+  ])
+  revokeLegalForm (data) {
+    return this.post('/service/legal-form/revoke-legal-form', data, {
+      errorMap: {
+        26: { message: 'Legal code not found.' }
+      }
+    })
+  }
 }
