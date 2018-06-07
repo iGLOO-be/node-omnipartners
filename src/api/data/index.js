@@ -2,7 +2,7 @@
 import Api from '../../lib/Api'
 import { doc, filterInput } from '../../lib/apiDecorators'
 
-export default class MetaData extends Api {
+export default class Data extends Api {
   _call (url, data, options = {}) {
     return this.get(url, data, {
       hashNoKey: true,
