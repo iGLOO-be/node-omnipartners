@@ -2,7 +2,7 @@
 import Api from '../../lib/Api'
 import { doc, filterInput } from '../../lib/apiDecorators'
 
-export default class MeatData extends Api {
+export default class Metadata extends Api {
   defaultHost = 'http://metadata.omnipartners.be/'
 
   _call (action, data, options = {}) {

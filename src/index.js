@@ -6,7 +6,7 @@ import Partners from './api/partners'
 import Products from './api/products'
 import Deals from './api/deals'
 import Data from './api/data'
-import MetaData from './api/metadata'
+import Metadata from './api/metadata'
 import EventLogger from './api/eventLogger'
 
 export {
@@ -20,7 +20,7 @@ export class Omnipartners {
     this.data = new Data(config.cis)
     this.products = new Products(config.products)
     this.deals = new Deals(config.deals)
-    this.metadata = new MetaData(config.metadata)
+    this.metadata = new Metadata(config.metadata)
     this.eventLogger = new EventLogger(config.eventLogger)
     this._apis = [
       this.identify,
