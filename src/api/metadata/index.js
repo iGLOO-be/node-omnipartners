@@ -140,6 +140,15 @@ export default class Metadata extends Api {
     return this._call('get-animal-types', data)
   }
 
+  @doc('http://doc.omnipartners.be/index.php/Get_Animal_Types')
+  @filterInput([
+    'lang',
+    'indexed',
+  ])
+  getAnimalTypes (data) {
+    return this._call('get-animal-types', data)
+  }
+
   @doc('http://doc.omnipartners.be/index.php/Get_Animal_Breeds')
   @filterInput([
     'lang',
