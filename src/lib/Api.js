@@ -38,7 +38,7 @@ export default class Api extends EventEmitter {
   async post (uri, data, options = {}) {
     return this.fetch({
       method: 'post',
-      uri: urlJoin(this.host + uri),
+      uri: urlJoin(this.host, uri),
       body: appendHashToData(data, this.config.key, this.config.secret, options)
     }, options)
   }
@@ -46,7 +46,7 @@ export default class Api extends EventEmitter {
   async get (uri, qs, options = {}) {
     return this.fetch({
       method: 'get',
-      uri: urlJoin(this.host + uri),
+      uri: urlJoin(this.host, uri),
       qs: appendHashToData(qs, this.config.key, this.config.secret, options)
     }, options)
   }
