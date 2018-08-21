@@ -29,6 +29,9 @@ const errorMap = {
   },
   28: {
     message: 'Password does not meet the required specifications.'
+  },
+  37: {
+    message: 'An email address with the specified domain is not allowed.'
   }
 }
 
