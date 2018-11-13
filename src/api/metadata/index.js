@@ -300,4 +300,13 @@ export default class Metadata extends Api {
   getLoyaltyProgram (data) {
     return this._call('get-loyalty-programs', data)
   }
+
+  @doc('http://doc.omnipartners.be/index.php/Get_Featured_Activities_List')
+  @filterInput([
+    'lang',
+    'indexed'
+  ])
+  getFeaturedAactivities(data) {
+    return this._call('get-featured-activities', data)
+  }
 }
