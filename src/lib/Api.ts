@@ -15,7 +15,7 @@ export interface IApiOptions {
   key: string;
   secret: string;
   timeout?: number;
-  onRequest: (req: Request) => void;
+  onRequest?: (req: Request) => void;
 }
 
 interface IApiFetchAllOptions extends IRequestOptions {
@@ -44,7 +44,11 @@ export default class Api extends EventEmitter {
 
   private config: IApiOptions;
 
-  constructor(config: IApiOptions) {
+  constructor(config: IApiOptions = {
+    key: "",
+    secret: "",
+    uri: ""
+  }) {
     super();
 
     this.config = config;
