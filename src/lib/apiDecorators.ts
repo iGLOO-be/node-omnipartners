@@ -18,7 +18,10 @@ export const doc = (url: string) => (target: any, property: string) => {
   setPropertyOnMethod(target[property], "documentationUrl", url);
 };
 
-export const filterInput = (allowKeys: string[]) => (target: any, property: string) => {
+export const filterInput = (allowKeys: string[]) => (
+  target: any,
+  property: string,
+) => {
   const fn = target[property];
   target[property] = (data: any) => {
     return fn.apply(target, pick(data, allowKeys));

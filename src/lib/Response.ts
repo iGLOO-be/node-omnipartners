@@ -5,19 +5,19 @@ import {
   InvalidReponseError,
   NoOPStatusError,
   OPStatusError,
-  UnknownOPStatusError
+  UnknownOPStatusError,
 } from "./errors";
 import { findOpStatus, getOpErrorFromStatus, IErrorMap } from "./opStatusError";
 import Request from "./Request";
 
 export default class Response {
-  public readonly request: Request
+  public readonly request: Request;
 
-  private readonly res: FetchResponse
+  private readonly res: FetchResponse;
 
-  private textPromise?: Promise<string>
-  private bodyText?: string
-  private bodyJson?: Promise<any>
+  private textPromise?: Promise<string>;
+  private bodyText?: string;
+  private bodyJson?: Promise<any>;
 
   constructor(request: Request, res: FetchResponse) {
     this.request = request;
@@ -30,7 +30,13 @@ export default class Response {
     }
   }
 
-  public async validateStatus({ validStatus, errorMap }: { validStatus: number[], errorMap: IErrorMap }) {
+  public async validateStatus({
+    validStatus,
+    errorMap,
+  }: {
+    validStatus: number[];
+    errorMap: IErrorMap;
+  }) {
     if (!this.request.responseAsJson) {
       return;
     }
@@ -52,7 +58,9 @@ export default class Response {
   }
 
   public async text() {
-    if (this.textPromise) { return this.textPromise; }
+    if (this.textPromise) {
+      return this.textPromise;
+    }
     this.textPromise = this.res.text();
     this.bodyText = await this.textPromise;
     return this.bodyText;
@@ -69,8 +77,15 @@ export default class Response {
     return this.bodyJson;
   }
 
-  public getErrorForOPStatus(data: { [key: string]: any }, opStatus: number, errorMap: IErrorMap) {
-    const error = errorMap && errorMap[opStatus] ?  errorMap[opStatus] : getOpErrorFromStatus(opStatus);
+  public getErrorForOPStatus(
+    data: { [key: string]: any },
+    opStatus: number,
+    errorMap: IErrorMap,
+  ) {
+    const error =
+      errorMap && errorMap[opStatus]
+        ? errorMap[opStatus]
+        : getOpErrorFromStatus(opStatus);
 
     if (!error) {
       return;
@@ -78,7 +93,7 @@ export default class Response {
 
     return new OPStatusError(this, {
       ...data,
-      ...error
+      ...error,
     });
   }
 
@@ -96,9 +111,9 @@ export default class Response {
       (res, value, name) => ({
         ...res,
         [name]:
-          Array.isArray(value) && value.length === 1 ? value.join("") : value
+          Array.isArray(value) && value.length === 1 ? value.join("") : value,
       }),
-      {}
+      {},
     );
 
     return {
@@ -108,7 +123,7 @@ export default class Response {
       size: this.res.size,
       status: this.res.status,
       statusText: this.res.statusText,
-      timeout: this.res.timeout
+      timeout: this.res.timeout,
     };
   }
 }

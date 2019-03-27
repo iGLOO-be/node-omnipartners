@@ -21,7 +21,8 @@ class BaseError extends Error {
     this.message = "";
     this.code = "";
 
-    this.request = request instanceof Request ? request.toJSON() : request.request.toJSON();
+    this.request =
+      request instanceof Request ? request.toJSON() : request.request.toJSON();
   }
 }
 

@@ -1,45 +1,49 @@
-
-import winston from 'winston'
-import logStructure from './logStructure'
+import winston from "winston";
+import logStructure from "./logStructure";
 
 const winstonDefaultOptions = {
-  transports: [
-    new winston.transports.Console()
-  ]
-}
+  transports: [new winston.transports.Console()],
+};
 
-async function prepareRequest (request) {
+async function prepareRequest(request) {
   if (!request.response) {
-    return
+    return;
   }
   // Try to resolve JSON response before
-  return request.response.json()
-    .catch(err => { console.error(err) })
+  return request.response
+    .json()
+    .catch(err => {
+      console.error(err);
+    })
     .then(() => {
       // In case of invalid JSON, we need body text
-      return request.response.text()
-    })
+      return request.response.text();
+    });
 }
 
-export default function createLogger (winstonOptions = winstonDefaultOptions) {
-  const logger = new winston.Logger(winstonOptions)
+export default function createLogger(winstonOptions = winstonDefaultOptions) {
+  const logger = new winston.Logger(winstonOptions);
 
   const fn = api => {
-    api.on('fetchSuccess', (request) => {
+    api.on("fetchSuccess", request => {
       prepareRequest(request).then(() => {
-        logger.info(logStructure({ type: 'SUCCESS', request }), { request: request.toJSON() })
-      })
-    })
+        logger.info(logStructure({ type: "SUCCESS", request }), {
+          request: request.toJSON(),
+        });
+      });
+    });
 
-    api.on('fetchError', (error, request) => {
+    api.on("fetchError", (error, request) => {
       prepareRequest(request).then(() => {
-        logger.error(logStructure({ type: 'ERROR', request, error }), { request: request.toJSON() })
-      })
-    })
-  }
+        logger.error(logStructure({ type: "ERROR", request, error }), {
+          request: request.toJSON(),
+        });
+      });
+    });
+  };
 
   // Expose logger for external usage
-  fn.logger = logger
+  fn.logger = logger;
 
-  return fn
+  return fn;
 }

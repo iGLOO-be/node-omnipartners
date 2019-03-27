@@ -46,7 +46,7 @@ export class Omnipartners {
       this.deals,
       this.data,
       this.metadata,
-      this.eventLogger
+      this.eventLogger,
     ];
 
     apis.forEach(fn);

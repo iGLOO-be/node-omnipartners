@@ -1,14 +1,22 @@
+const toJSON = data => JSON.stringify(data, null, 2);
 
-const toJSON = (data) => JSON.stringify(data, null, 2)
-
-function logStructure ({ type = '', request, error } = {}) {
-  const { method, uri, qs, body, headers, timeout, meta, response } = request.toJSON()
-  let message
+function logStructure({ type = "", request, error } = {}) {
+  const {
+    method,
+    uri,
+    qs,
+    body,
+    headers,
+    timeout,
+    meta,
+    response,
+  } = request.toJSON();
+  let message;
 
   if (!error) {
-    message = `[${method.toUpperCase()}] ${uri}`
+    message = `[${method.toUpperCase()}] ${uri}`;
   } else {
-    message = `${error.message}\n${error.stack}`
+    message = `${error.message}\n${error.stack}`;
   }
 
   return `
@@ -20,7 +28,7 @@ Body: ${body && toJSON(body)}
 Params: ${toJSON(qs)}
 
 Response: ${toJSON(response)}
-`.trim()
+`.trim();
 }
 
-export default logStructure
+export default logStructure;

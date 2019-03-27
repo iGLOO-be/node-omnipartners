@@ -15,7 +15,7 @@ export interface IApiOptions {
   key: string;
   secret: string;
   timeout?: number;
-  onRequest: (req: Request) => void
+  onRequest: (req: Request) => void;
 }
 
 export default class Api extends EventEmitter {
@@ -64,7 +64,11 @@ export default class Api extends EventEmitter {
     );
   }
 
-  public async get(uri: string, qs: { [key: string]: any }, options: IDataHashOptions = {}) {
+  public async get(
+    uri: string,
+    qs: { [key: string]: any },
+    options: IDataHashOptions = {},
+  ) {
     return this.fetch(
       {
         method: "get",
@@ -76,7 +80,14 @@ export default class Api extends EventEmitter {
     );
   }
 
-  public async fetch(requestOptions: IRequestOptions, options: { retry?: number, errorMap?: IErrorMap, validStatus?: number[] } = {}) {
+  public async fetch(
+    requestOptions: IRequestOptions,
+    options: {
+      retry?: number;
+      errorMap?: IErrorMap;
+      validStatus?: number[];
+    } = {},
+  ) {
     const req = new Request({
       disableRetry: this.disableRetry,
 

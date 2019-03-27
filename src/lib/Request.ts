@@ -13,12 +13,12 @@ export interface IRequestOptions {
   body?: any;
   json?: boolean;
   responseAsJson?: boolean;
-  qs?: any
-  headers?: {[key: string]: any};
-  timeout?: number
-  disableRetry?: boolean
-  retries?: number,
-  retryDelay?: number
+  qs?: any;
+  headers?: { [key: string]: any };
+  timeout?: number;
+  disableRetry?: boolean;
+  retries?: number;
+  retryDelay?: number;
 }
 
 export default class Request extends EventEmitter {
@@ -31,12 +31,12 @@ export default class Request extends EventEmitter {
   public readonly json?: boolean;
   public readonly responseAsJson?: boolean;
   public readonly qs: string;
-  public readonly headers: {[key: string]: any};
+  public readonly headers: { [key: string]: any };
   public readonly timeout?: number;
   public readonly meta: {
-    start: Date,
-    finish: Date | null
-  }
+    start: Date;
+    finish: Date | null;
+  };
   public readonly retries: number;
   public readonly retryDelay: number;
 
@@ -53,7 +53,7 @@ export default class Request extends EventEmitter {
     timeout,
     disableRetry = false,
     retries = -1,
-    retryDelay = 5000
+    retryDelay = 5000,
   }: IRequestOptions) {
     super();
 
@@ -69,12 +69,12 @@ export default class Request extends EventEmitter {
       "User-Agent": `node-omnipartners/${pkg.version}`,
       "X-Omnipartners-Request-Id": this.uuid,
       ...(this.json && {
-        Accept: "application/json"
+        Accept: "application/json",
       }),
       ...(this.json &&
         this.body && {
-          "Content-Type": "application/json"
-        })
+          "Content-Type": "application/json",
+        }),
     };
     this.timeout = timeout;
     this.meta = {
@@ -90,7 +90,8 @@ export default class Request extends EventEmitter {
 
     let uri = this.uri;
     if (this.qs) {
-      uri += (uri.indexOf("?") >= 0 ? "&" : "?") + querystring.stringify(this.qs);
+      uri +=
+        (uri.indexOf("?") >= 0 ? "&" : "?") + querystring.stringify(this.qs);
     }
 
     let fetchRes: FetchResponse;
@@ -122,7 +123,7 @@ export default class Request extends EventEmitter {
 
     this.emit("fetchSuccess");
 
-    return this.response
+    return this.response;
   }
 
   public toJSON() {
@@ -131,9 +132,9 @@ export default class Request extends EventEmitter {
         obj,
         (res, v, k) => ({
           ...res,
-          [k]: this.protectedKeys.indexOf(k) >= 0 ? "[FILTERED]" : v
+          [k]: this.protectedKeys.indexOf(k) >= 0 ? "[FILTERED]" : v,
         }),
-        {}
+        {},
       );
 
     return {
