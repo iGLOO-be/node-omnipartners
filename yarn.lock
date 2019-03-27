@@ -72,6 +72,11 @@
   dependencies:
     "@types/node" "*"
 
+"@zeit/ncc@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@zeit/ncc/-/ncc-0.17.0.tgz#f6121a15cf7ec76a65c17a3aa7d38e98151ea76e"
+  integrity sha512-PEu1L+bqj5c/BbkmBu3IRKOP10jprmJu4+EtHaFBQzeTfGcXnzbrssUVhzXpGi2X6Dw5S1FvwLWFGP3X5uEKYA==
+
 acorn-jsx@^5.0.0:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.0.1.tgz#32a064fd925429216a09b141102bfdd185fae40e"
