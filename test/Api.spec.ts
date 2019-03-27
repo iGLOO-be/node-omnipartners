@@ -41,7 +41,7 @@ class BasicGet extends BaseIdentityTest {
   @withMock({ reply: `{ invalid json! }` })
   @withArguments({}, { shouldThrow: true })
   public "handle invalid json"({ err }: { err: any }) {
-    expect(err).toEqual({
+    expect(err).toMatchObject({
       code: "OP/InvalidJSONReponseError",
       data: {
         text: "{ invalid json! }",
@@ -56,7 +56,7 @@ class BasicGet extends BaseIdentityTest {
   @withMock({ reply: { statusCode: 2 } })
   @withArguments({}, { shouldThrow: true })
   public "handle invalid opStatus"({ err }: { err: any }) {
-    expect(err).toEqual({
+    expect(err).toMatchObject({
       code: "OP/OPStatusError/2",
       data: {
         message:
@@ -74,7 +74,7 @@ class BasicGet extends BaseIdentityTest {
   @withMock({ reply: { statusCode: 99 } })
   @withArguments({}, { shouldThrow: true })
   public "handle unkown opStatus"({ err }: { err: any }) {
-    expect(err).toEqual({
+    expect(err).toMatchObject({
       code: "OP/UnknownOPStatusError/99",
       data: {
         statusCode: 99,
@@ -89,7 +89,7 @@ class BasicGet extends BaseIdentityTest {
   @withMock({ reply: {}, delay: { head: 99999 } })
   @withArguments({}, { shouldThrow: true })
   public "handle socket timeout"({ err }: { err: any }) {
-    expect(err).toEqual({
+    expect(err).toMatchObject({
       code: "OP/RequestTimeoutError",
       data: undefined,
       isOmnipartnersError: true,

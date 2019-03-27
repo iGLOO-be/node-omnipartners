@@ -122,3 +122,7 @@ export function describeMethod(Klass: any) {
 export function describeApi(api: string, fn: () => void) {
   describe(`API: ${api}`, fn);
 }
+
+describe('Test utils', () => {
+  it('works', () => {})
+})
