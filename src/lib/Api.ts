@@ -1,98 +1,123 @@
+import depd from "depd";
+import { EventEmitter } from "events";
+import pick from "lodash/pick";
+import urlJoin from "url-join";
+import { IErrorMap } from "./opStatusError";
+import Request, { IRequestOptions } from "./Request";
+import appendHashToData, { IDataHashOptions } from "./utils/appendHashToData";
 
-import { EventEmitter } from 'events'
-import Request from './Request'
-import appendHashToData from './utils/appendHashToData'
-import depd from 'depd'
-import pick from 'lodash/pick'
-import urlJoin from 'url-join'
+const deprecate = depd("API");
 
-const deprecate = depd('API')
+export interface IApiOptions {
+  host?: string;
+  uri: string;
+  disableRetry?: boolean;
+  key: string;
+  secret: string;
+  timeout?: number;
+  onRequest: (req: Request) => void
+}
 
 export default class Api extends EventEmitter {
-  defaultTimeout = 30 * 1000
-  defaultHost = null
+  public defaultTimeout = 30 * 1000;
+  public defaultHost = null;
 
-  validStatus = [ 0 ]
-  errorMap = {}
+  public validStatus = [0];
+  public errorMap = {};
 
-  disableRetry = false
+  public disableRetry = false;
 
-  responseAsJson = true
+  public responseAsJson = true;
 
-  constructor (config = {}) {
-    super()
+  private config: IApiOptions;
 
-    this.config = config
+  constructor(config: IApiOptions) {
+    super();
+
+    this.config = config;
     if (!config.host && config.uri) {
-      this.config.host = config.uri
-      deprecate('Option "uri" is deprecated')
+      this.config.host = config.uri;
+      deprecate('Option "uri" is deprecated');
     }
 
-    this.disableRetry = config.disableRetry
+    this.disableRetry = config.disableRetry || false;
   }
 
-  get host () {
-    return this.config.host || this.defaultHost
+  get host() {
+    return this.config.host || this.defaultHost || "";
   }
 
-  async post (uri, data, options = {}) {
-    return this.fetch({
-      method: 'post',
-      uri: urlJoin(this.host, uri),
-      body: appendHashToData(data, this.config.key, this.config.secret, options)
-    }, options)
+  public async post(uri: string, data: any, options: IDataHashOptions = {}) {
+    return this.fetch(
+      {
+        body: appendHashToData(
+          data,
+          this.config.key,
+          this.config.secret,
+          options,
+        ),
+        method: "post",
+        uri: urlJoin(this.host, uri),
+      },
+      // TODO retry:
+      // options
+    );
   }
 
-  async get (uri, qs, options = {}) {
-    return this.fetch({
-      method: 'get',
-      uri: urlJoin(this.host, uri),
-      qs: appendHashToData(qs, this.config.key, this.config.secret, options)
-    }, options)
+  public async get(uri: string, qs: { [key: string]: any }, options: IDataHashOptions = {}) {
+    return this.fetch(
+      {
+        method: "get",
+        qs: appendHashToData(qs, this.config.key, this.config.secret, options),
+        uri: urlJoin(this.host, uri),
+      },
+      // TODO retry:
+      // options
+    );
   }
 
-  async fetch (requestOptions, options = {}) {
+  public async fetch(requestOptions: IRequestOptions, options: { retry?: number, errorMap?: IErrorMap, validStatus?: number[] } = {}) {
     const req = new Request({
-      timeout: this.config.timeout || this.defaultTimeout,
-      json: true,
-      responseAsJson: this.responseAsJson,
       disableRetry: this.disableRetry,
+
+      json: true,
+
+      responseAsJson: this.responseAsJson,
+
+      timeout: this.config.timeout || this.defaultTimeout,
+
       ...requestOptions,
-      ...pick(options, ['retries', 'retryDelay']),
-      ...(options.retry ? { retries: 3 } : {})
-    })
+      ...pick(options, ["retries", "retryDelay"]),
+      ...(options.retry ? { retries: 3 } : {}),
+    });
 
     if (this.config.onRequest) {
-      this.config.onRequest(req)
+      this.config.onRequest(req);
     }
 
     try {
-      await req.fetch()
-      await req.response.validateStatus({
+      const response = await req.fetch();
+      await response.validateStatus({
         errorMap: {
-          ...this.errorMap || {},
-          ...options.errorMap || {}
+          ...(this.errorMap || {}),
+          ...(options.errorMap || {}),
         },
         validStatus: [
-          ...this.validStatus || [],
-          ...options.validStatus || []
-        ]
-      })
+          ...(this.validStatus || []),
+          ...(options.validStatus || []),
+        ],
+      });
 
-      let result
+      const result = this.responseAsJson
+        ? await response.json()
+        : await response.text();
 
-      if (this.responseAsJson) {
-        result = await req.response.json()
-      } else {
-        result = await req.response.text()
-      }
+      this.emit("fetchSuccess", req);
 
-      this.emit('fetchSuccess', req)
-
-      return result
+      return result;
     } catch (err) {
-      this.emit('fetchError', err, req)
-      throw err
+      this.emit("fetchError", err, req);
+      throw err;
     }
   }
 }

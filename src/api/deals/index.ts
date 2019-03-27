@@ -3,9 +3,9 @@ import Api from '../../lib/Api'
 import { doc, filterInput } from '../../lib/apiDecorators'
 
 export default class Deals extends Api {
-  defaultHost = 'https://deals.clixray.io/'
+  public defaultHost = 'https://deals.clixray.io/'
 
-  errorMap = {
+  public errorMap = {
     1005: { message: 'Database connection or SQL error.' },
     1006: { message: 'Unauthorized user access, input authenticate key might be invalid.' },
     1008: { message: 'Deals Service Key not sent.' },
@@ -55,9 +55,9 @@ export default class Deals extends Api {
     5000: { message: 'Internal Error.' }
   }
 
-  _call (action, data, options = {}) {
+  public _call (action, data, options = {}) {
     return this.post('/', {
-      action: action,
+      action,
       ...data
     }, {
       hashKeys: ['action'],
@@ -70,7 +70,7 @@ export default class Deals extends Api {
     'ref',         // (Required) Deal reference code
     'default_lang' // (Optional) Language code.
   ])
-  getDeal (data) {
+  public getDeal (data) {
     return this._call('get-deal-details', data, {
       retry: true,
       hashKeys: ['ref']
@@ -88,7 +88,7 @@ export default class Deals extends Api {
     'radius',        // (Optional) Radius in km, If not set then it set as 10km, Service will check partners located with in that "Radius"
     'partner_status' // (Optional) Used to filter results using partner status. If this is not specified, default value is "A".
   ])
-  getRegisteredPartners (data) {
+  public getRegisteredPartners (data) {
     return this._call('get-registered-partners', data, {
       retry: true,
       hashKeys: ['deal_ref']
@@ -108,7 +108,7 @@ export default class Deals extends Api {
     'p_length',
     'limit'
   ])
-  getVisiblePartner (data) {
+  public getVisiblePartner (data) {
     return this._call('get-visible-partners-for-user', data, {
       retry: true,
       hashKeys: ['deal_ref']
@@ -121,7 +121,7 @@ export default class Deals extends Api {
     'pet_guid',
     'deal_ref'
   ])
-  checkDealValidity (data) {
+  public checkDealValidity (data) {
     return this._call('check-deal-validity', data, {
       retry: true,
       hashKeys: [
@@ -144,7 +144,7 @@ export default class Deals extends Api {
     'referral_code',      // (Optional) Referral code of the referring partner
     'delivery_address_id' // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
   ])
-  subscribeToDeal (data) {
+  public subscribeToDeal (data) {
     return this._call('deal-subscribe', data, {
       retry: true,
       hashKeys: ['ref']
@@ -170,7 +170,7 @@ export default class Deals extends Api {
     'p_length',           // Item per page
     'p_page'              // current page. start at 0
   ])
-  listVouchers (data) {
+  public listVouchers (data) {
     return this._call('listoffers', data, {
       retry: true
     })

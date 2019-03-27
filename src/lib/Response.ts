@@ -1,111 +1,114 @@
-
-import reduce from 'lodash/reduce'
+import reduce from "lodash/reduce";
+import { Response as FetchResponse } from "node-fetch"; // TODO: switch to fetch-retry
 import {
+  InvalidJSONReponseError,
   InvalidReponseError,
   NoOPStatusError,
   OPStatusError,
-  UnknownOPStatusError,
-  InvalidJSONReponseError
-} from './errors'
-import {
-  getOpErrorFromStatus,
-  findOpStatus
-} from './opStatusError'
+  UnknownOPStatusError
+} from "./errors";
+import { findOpStatus, getOpErrorFromStatus, IErrorMap } from "./opStatusError";
+import Request from "./Request";
 
 export default class Response {
-  constructor (request, res) {
-    this.request = request
-    this.res = res
+  public readonly request: Request
+
+  private readonly res: FetchResponse
+
+  private textPromise?: Promise<string>
+  private bodyText?: string
+  private bodyJson?: Promise<any>
+
+  constructor(request: Request, res: FetchResponse) {
+    this.request = request;
+    this.res = res;
   }
 
-  checkRequestStatus () {
+  public checkRequestStatus() {
     if (this.res.status !== 200) {
-      throw new InvalidReponseError(this)
+      throw new InvalidReponseError(this);
     }
   }
 
-  async validateStatus ({ validStatus, errorMap } = {}) {
+  public async validateStatus({ validStatus, errorMap }: { validStatus: number[], errorMap: IErrorMap }) {
     if (!this.request.responseAsJson) {
-      return
+      return;
     }
 
-    const body = await this.json()
-    const opStatus = findOpStatus(body)
-    if (typeof opStatus === 'undefined') {
-      throw new NoOPStatusError(this)
+    const body = await this.json();
+    const opStatus = findOpStatus(body);
+    if (typeof opStatus === "undefined") {
+      throw new NoOPStatusError(this);
     }
 
-    const err = this.getErrorForOPStatus(body, opStatus, errorMap)
+    const err = this.getErrorForOPStatus(body, opStatus, errorMap);
     if (err) {
-      throw err
+      throw err;
     }
 
-    if (!~validStatus.indexOf(opStatus)) {
-      throw new UnknownOPStatusError(this, opStatus)
+    if (validStatus.indexOf(opStatus) < 0) {
+      throw new UnknownOPStatusError(this, opStatus);
     }
   }
 
-  async text () {
-    if (this._text_promise) return this._text_promise
-    this._text_promise = this.res.text()
-    this._text = await this._text_promise
-    return this._text
+  public async text() {
+    if (this.textPromise) { return this.textPromise; }
+    this.textPromise = this.res.text();
+    this.bodyText = await this.textPromise;
+    return this.bodyText;
   }
 
-  async json () {
-    this._json = await this.text()
-      .then(value => {
-        try {
-          return JSON.parse(value)
-        } catch (err) {
-          throw new InvalidJSONReponseError(this, { text: value })
-        }
-      })
-    return this._json
+  public async json() {
+    this.bodyJson = await this.text().then(value => {
+      try {
+        return JSON.parse(value);
+      } catch (err) {
+        throw new InvalidJSONReponseError(this, { text: value });
+      }
+    });
+    return this.bodyJson;
   }
 
-  getErrorForOPStatus (data, opStatus, errorMap) {
-    let error = null
-
-    if (errorMap && errorMap[opStatus]) {
-      error = errorMap[opStatus]
-    } else {
-      error = getOpErrorFromStatus(opStatus)
-    }
+  public getErrorForOPStatus(data: { [key: string]: any }, opStatus: number, errorMap: IErrorMap) {
+    const error = errorMap && errorMap[opStatus] ?  errorMap[opStatus] : getOpErrorFromStatus(opStatus);
 
     if (!error) {
-      return
+      return;
     }
 
     return new OPStatusError(this, {
       ...data,
       ...error
-    })
+    });
   }
 
-  toJSON () {
-    const headers = this.res.headers
-    const rawHeaders = typeof headers.values === 'function'
-      ? headers.values()
-      : typeof headers.raw === 'function'
+  public toJSON() {
+    const headers = this.res.headers;
+    const rawHeaders =
+      typeof headers.values === "function"
+        ? headers.values()
+        : typeof headers.raw === "function"
         ? headers.raw()
-        : {}
+        : {};
 
-    const flatHeaders = reduce(rawHeaders, (res, value, name) => ({
-      ...res,
-      [name]: Array.isArray(value) && value.length === 1
-        ? value.join('')
-        : value
-    }), {})
+    const flatHeaders = reduce(
+      rawHeaders,
+      (res, value, name) => ({
+        ...res,
+        [name]:
+          Array.isArray(value) && value.length === 1 ? value.join("") : value
+      }),
+      {}
+    );
 
     return {
-      status: this.res.status,
-      statusText: this.res.statusText,
+      body: this.bodyJson || this.bodyText,
       headers: flatHeaders,
       ok: this.res.ok,
-      body: this._json || this._text,
       size: this.res.size,
+      status: this.res.status,
+      statusText: this.res.statusText,
       timeout: this.res.timeout
-    }
+    };
   }
 }
