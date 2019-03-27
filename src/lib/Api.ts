@@ -18,13 +18,14 @@ export interface IApiOptions {
   onRequest: (req: Request) => void;
 }
 
-interface IApiFetchBaseOptions {
-  retry?: boolean | number;
+interface IApiFetchAllOptions extends IRequestOptions {
+  retry?: boolean;
   errorMap?: IErrorMap;
   validStatus?: number[];
 }
 
-export type IApiFetchOptions = IApiFetchBaseOptions & IDataHashOptions;
+export type IApiFetchOptions = Partial<IApiFetchAllOptions> &
+  Partial<IDataHashOptions>;
 
 export interface IApiPostData {
   [key: string]: any;
@@ -96,10 +97,7 @@ export default class Api extends EventEmitter {
     );
   }
 
-  public async fetch(
-    requestOptions: IRequestOptions,
-    options: IApiFetchBaseOptions = {},
-  ) {
+  public async fetch(requestOptions: IApiFetchAllOptions) {
     const req = new Request({
       disableRetry: this.disableRetry,
 
@@ -110,8 +108,8 @@ export default class Api extends EventEmitter {
       timeout: this.config.timeout || this.defaultTimeout,
 
       ...requestOptions,
-      ...pick(options, ["retries", "retryDelay"]),
-      ...(options.retry ? { retries: 3 } : {}),
+      ...pick(requestOptions, ["retries", "retryDelay"]),
+      ...(requestOptions.retry ? { retries: 3 } : {}),
     });
 
     if (this.config.onRequest) {
@@ -123,11 +121,11 @@ export default class Api extends EventEmitter {
       await response.validateStatus({
         errorMap: {
           ...(this.errorMap || {}),
-          ...(options.errorMap || {}),
+          ...(requestOptions.errorMap || {}),
         },
         validStatus: [
           ...(this.validStatus || []),
-          ...(options.validStatus || []),
+          ...(requestOptions.validStatus || []),
         ],
       });
 

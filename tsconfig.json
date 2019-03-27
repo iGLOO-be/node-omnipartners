@@ -4,7 +4,7 @@
   ],
   "exclude": [
     "node_modules",
-    "test/*.ts"
+    "src/**/*.spec.ts"
   ],
   "compilerOptions": {
     "outDir": "lib",
