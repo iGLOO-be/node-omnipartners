@@ -1,31 +1,34 @@
 import winston from "winston";
+import Api from "../Api";
+import Request from "../Request";
 import logStructure from "./logStructure";
 
 const winstonDefaultOptions = {
   transports: [new winston.transports.Console()],
 };
 
-async function prepareRequest(request) {
+async function prepareRequest(request: Request) {
   if (!request.response) {
     return;
   }
+  const response = request.response;
   // Try to resolve JSON response before
-  return request.response
+  return response
     .json()
     .catch(err => {
       console.error(err);
     })
     .then(() => {
       // In case of invalid JSON, we need body text
-      return request.response.text();
+      return response.text();
     });
 }
 
 export default function createLogger(winstonOptions = winstonDefaultOptions) {
-  const logger = new winston.Logger(winstonOptions);
+  const logger = winston.createLogger(winstonOptions);
 
-  const fn = api => {
-    api.on("fetchSuccess", request => {
+  const fn = (api: Api) => {
+    api.on("fetchSuccess", (request: Request) => {
       prepareRequest(request).then(() => {
         logger.info(logStructure({ type: "SUCCESS", request }), {
           request: request.toJSON(),
@@ -33,7 +36,7 @@ export default function createLogger(winstonOptions = winstonDefaultOptions) {
       });
     });
 
-    api.on("fetchError", (error, request) => {
+    api.on("fetchError", (error: Error, request: Request) => {
       prepareRequest(request).then(() => {
         logger.error(logStructure({ type: "ERROR", request, error }), {
           request: request.toJSON(),

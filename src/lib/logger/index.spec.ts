@@ -1,12 +1,10 @@
 /* eslint-env mocha */
 
 import {
+  describeApi,
+  describeMethod,
   expect,
   REGEX_HASH,
-  withArguments,
-  withMock,
-  describeMethod,
-  describeApi,
 } from "../../../test/test.utils";
 
 import sinon from "sinon";
@@ -21,16 +19,16 @@ const baseConfig = {
 };
 
 class TestApi extends Api {
-  defaultTimeout = 10;
+  public defaultTimeout = 10;
 
-  basicGet(data) {
+  public basicGet(data) {
     return this.get("/get", data);
   }
 }
 
 class LoggerTest {
-  Api = TestApi;
-  apiConfig = baseConfig;
+  public Api = TestApi;
+  public apiConfig = baseConfig;
 }
 
 const logger = createLogger();
@@ -46,18 +44,18 @@ describeApi("Api", () => {
     });
     describeMethod(
       class basicGet extends LoggerTest {
-        name = "basicGet";
-        httpPath = "/get";
-        httpMethod = "get";
-        httpDefaultData = {
+        public name = "basicGet";
+        public httpPath = "/get";
+        public httpMethod = "get";
+        public httpDefaultData = {
           hash: REGEX_HASH,
           key: baseConfig.key,
         };
-        use = logger;
+        public use = logger;
 
         @withMock({ reply: { statusCode: 0, hello: "world" } })
         @withArguments({})
-        "should works"() {
+        public "should works"() {
           return new Promise(resolve => setTimeout(resolve, 10)).then(() => {
             expect(logger.logger.info.called).to.equal(true);
           });
@@ -78,18 +76,18 @@ describeApi("Api", () => {
 
     describeMethod(
       class basicGet extends LoggerTest {
-        name = "basicGet";
-        httpPath = "/get";
-        httpMethod = "get";
-        httpDefaultData = {
+        public name = "basicGet";
+        public httpPath = "/get";
+        public httpMethod = "get";
+        public httpDefaultData = {
           hash: REGEX_HASH,
           key: baseConfig.key,
         };
-        use = logger;
+        public use = logger;
 
         @withMock({ reply: { statusCode: 2 } })
         @withArguments({}, { shouldThrow: true })
-        "handle invalid opStatus"({ err }) {
+        public "handle invalid opStatus"({ err }) {
           expect(err).to.shallowDeepEqual({
             statusCode: 502,
             statusText: "Bad Gateway",

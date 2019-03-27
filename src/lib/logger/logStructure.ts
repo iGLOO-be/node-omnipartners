@@ -1,24 +1,20 @@
-const toJSON = data => JSON.stringify(data, null, 2);
+import Request from "../Request";
 
-function logStructure({ type = "", request, error } = {}) {
-  const {
-    method,
-    uri,
-    qs,
-    body,
-    headers,
-    timeout,
-    meta,
-    response,
-  } = request.toJSON();
-  let message;
+const toJSON = (data?: {}) => JSON.stringify(data, null, 2);
 
-  if (!error) {
-    message = `[${method.toUpperCase()}] ${uri}`;
-  } else {
-    message = `${error.message}\n${error.stack}`;
-  }
-
+function logStructure({
+  type = "",
+  request,
+  error,
+}: {
+  type: string;
+  request: Request;
+  error?: Error;
+}) {
+  const { method = "GET", uri, qs, body, headers, response } = request.toJSON();
+  const message = !error
+    ? `[${method.toUpperCase()}] ${uri}`
+    : `${error.message}\n${error.stack}`;
   return `
 [${type}] ${message}
 
