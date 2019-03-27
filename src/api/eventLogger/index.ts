@@ -1,11 +1,11 @@
-import Api from "../../lib/Api";
+import Api, { IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 
 export default class EventLogger extends Api {
-  defaultHost = "https://events.clixray.io/";
-  responseAsJson = false;
+  public defaultHost = "https://events.clixray.io/";
+  public responseAsJson = false;
 
-  errorMap = {
+  public errorMap = {
     1000: { message: "Unknown Error" },
     1001: { message: "Empty Request – if the request body contains no data." },
     1002: {
@@ -26,18 +26,11 @@ export default class EventLogger extends Api {
     1009: { message: "Invalid data format." },
   };
 
-  _call(action, data, options = {}) {
-    return this.post(
-      "/",
-      {
-        action: action,
-        ...data,
-      },
-      {
-        hashKeys: ["action"],
-        ...options,
-      },
-    );
+  public _call(action: string, data: IApiPostData) {
+    return this.post("/", {
+      action,
+      ...data,
+    });
   }
 
   @doc("http://doc.omnipartners.be/index.php/Log_Events")
@@ -55,17 +48,27 @@ export default class EventLogger extends Api {
     "ip",
     "custom_fields",
   ])
-  logEvents({ custom_fields = {}, ...data }) {
+  public logEvents({
+    custom_fields = {},
+    ...data
+  }: {
+    user_guid: string;
+    event_source: string;
+    event_name: string;
+    event_ts: string;
+    clixray_instance_id: string;
+    partner_ext_id: string;
+    partner_type: string;
+    event_category: string;
+    event_lon: number;
+    event_lat: number;
+    ip: string;
+    custom_fields: any;
+  }) {
     return this.post(
       "/tracker",
       { ...data, ...custom_fields },
       {
-        hashKeys: [
-          "clixray_instance_id",
-          "event_source",
-          "event_name",
-          "event_ts",
-        ],
         errorMap: {
           1003: {
             message: "Does not contain eve_source parameter or empty object.",
@@ -73,6 +76,12 @@ export default class EventLogger extends Api {
           1004: { message: "Does not contain required data.(Mainly cust_id)." },
           1005: { message: "Incorrect hash value." },
         },
+        hashKeys: [
+          "clixray_instance_id",
+          "event_source",
+          "event_name",
+          "event_ts",
+        ],
       },
     );
   }

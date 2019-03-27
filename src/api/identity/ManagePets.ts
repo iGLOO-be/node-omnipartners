@@ -4,10 +4,8 @@ import { doc, filterInput } from "../../lib/apiDecorators";
 export default class ManagePets extends Api {
   @doc("http://doc.omnipartners.be/index.php/Retrieve_pet_information")
   @filterInput(["user_guid"])
-  getPets(data) {
+  public getPets(data: { user_guid: string }) {
     return this.get("/service/pets/get", data, {
-      hashNoKey: true,
-      retry: true,
       errorMap: {
         2: {
           message:
@@ -17,6 +15,8 @@ export default class ManagePets extends Api {
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
       },
+      hashNoKey: true,
+      retry: true,
     });
   }
 
@@ -41,14 +41,35 @@ export default class ManagePets extends Api {
     "pet_declarative_product", // (Optional) The products given to the pet. Please refer Product collections list for valid values.
     "tattoo_number", // (Optional) The tattoo number of the pet.
     "chip_number", // (Optional) The chip number of the pet.
-    "kc_number", // (Optional) The Kennel Club identifier.
     "pet_picture", // (Optional) The picture should be uploaded using POST request.
     "kc_number", // (Optional) The Kennel Club identifier.
     "pet_ext_id", // (Optional) The external id of the pet. This should be a unique value.
   ])
-  createPet(data) {
+  public createPet(data: {
+    user_guid: string;
+    pet_name: string;
+    pet_type: string;
+    pet_breed: string;
+    pet_breed_com_id: string;
+    pet_pedigreename?: string;
+    pet_dob: string;
+    pet_dob_approx?: string;
+    pet_neutered?: string;
+    pet_neutering_date?: string;
+    pet_gender?: string;
+    vaccination_date?: string;
+    pet_insured?: string;
+    pet_medical_condition?: string;
+    pet_lifestyle?: string;
+    pet_brand?: string;
+    pet_declarative_product?: string;
+    tattoo_number?: string;
+    chip_number?: string;
+    pet_picture?: string;
+    kc_number?: string;
+    pet_ext_id?: string;
+  }) {
     return this.get("/service/pets/add", data, {
-      hashKeys: ["pet_name", "user_guid"],
       errorMap: {
         2: {
           message:
@@ -60,6 +81,7 @@ export default class ManagePets extends Api {
         16: { message: "Invalid hash." },
         35: { message: "Pet limit reached for this account." },
       },
+      hashKeys: ["pet_name", "user_guid"],
     });
   }
 }

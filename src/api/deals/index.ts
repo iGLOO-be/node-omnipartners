@@ -1,4 +1,4 @@
-import Api from "../../lib/Api";
+import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 
 export default class Deals extends Api {
@@ -76,29 +76,15 @@ export default class Deals extends Api {
     5000: { message: "Internal Error." },
   };
 
-  public _call(action, data, options = {}) {
-    return this.post(
-      "/",
-      {
-        action,
-        ...data,
-      },
-      {
-        hashKeys: ["action"],
-        ...options,
-      },
-    );
-  }
-
   @doc("http://doc.omnipartners.be/index.php/Get_deals_details")
   @filterInput([
     "ref", // (Required) Deal reference code
     "default_lang", // (Optional) Language code.
   ])
-  public getDeal(data) {
+  public getDeal(data: { ref: string; default_lang: string }) {
     return this._call("get-deal-details", data, {
-      retry: true,
       hashKeys: ["ref"],
+      retry: true,
     });
   }
 
@@ -113,10 +99,19 @@ export default class Deals extends Api {
     "radius", // (Optional) Radius in km, If not set then it set as 10km, Service will check partners located with in that "Radius"
     "partner_status", // (Optional) Used to filter results using partner status. If this is not specified, default value is "A".
   ])
-  public getRegisteredPartners(data) {
+  public getRegisteredPartners(data: {
+    deal_ref: string;
+    search_term: string;
+    p_length: number;
+    p_page: number;
+    partner_lat: number;
+    partner_lng: number;
+    radius: number;
+    partner_status: string;
+  }) {
     return this._call("get-registered-partners", data, {
-      retry: true,
       hashKeys: ["deal_ref"],
+      retry: true,
     });
   }
 
@@ -133,19 +128,34 @@ export default class Deals extends Api {
     "p_length",
     "limit",
   ])
-  public getVisiblePartner(data) {
+  public getVisiblePartner(data: {
+    deal_ref: string;
+    user_guid: string;
+    search: string;
+    favorite_only: boolean;
+    partner_lat: number;
+    partner_lng: number;
+    radius: number;
+    p_page: number;
+    p_length: number;
+    limit: number;
+  }) {
     return this._call("get-visible-partners-for-user", data, {
-      retry: true,
       hashKeys: ["deal_ref"],
+      retry: true,
     });
   }
 
   @doc("http://doc.omnipartners.be/index.php/Check_deal_validity")
   @filterInput(["user_guid", "pet_guid", "deal_ref"])
-  public checkDealValidity(data) {
+  public checkDealValidity(data: {
+    user_guid: string;
+    pet_guid: string;
+    deal_ref: string;
+  }) {
     return this._call("check-deal-validity", data, {
-      retry: true,
       hashKeys: ["deal_ref", "user_guid"],
+      retry: true,
     });
   }
 
@@ -162,10 +172,21 @@ export default class Deals extends Api {
     "referral_code", // (Optional) Referral code of the referring partner
     "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
   ])
-  public subscribeToDeal(data) {
+  public subscribeToDeal(data: {
+    user_guid: string;
+    ref: string;
+    partner_extid: string;
+    ean_code: string;
+    secure_code: string;
+    pet_guid: string;
+    iban: string;
+    bic: string;
+    referral_code: string;
+    delivery_address_id: string;
+  }) {
     return this._call("deal-subscribe", data, {
-      retry: true,
       hashKeys: ["ref"],
+      retry: true,
     });
   }
 
@@ -188,9 +209,44 @@ export default class Deals extends Api {
     "p_length", // Item per page
     "p_page", // current page. start at 0
   ])
-  public listVouchers(data) {
+  public listVouchers(data: {
+    user_guid: string;
+    show: string;
+    from: string;
+    to: string;
+    redeemed_from: string;
+    redeemed_to: string;
+    barcode: string;
+    partner_extid: string;
+    deal_ref: string;
+    status: string;
+    inv_resend_count: string;
+    sort_field: string;
+    sort_order: string;
+    q: string;
+    p_length: number;
+    p_page: number;
+  }) {
     return this._call("listoffers", data, {
       retry: true,
     });
+  }
+
+  private _call(
+    action: string,
+    data: IApiPostData,
+    options: IApiFetchOptions = {},
+  ) {
+    return this.post(
+      "/",
+      {
+        action,
+        ...data,
+      },
+      {
+        hashKeys: ["action"],
+        ...options,
+      },
+    );
   }
 }

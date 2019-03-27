@@ -18,9 +18,21 @@ export interface IApiOptions {
   onRequest: (req: Request) => void;
 }
 
+interface IApiFetchBaseOptions {
+  retry?: boolean | number;
+  errorMap?: IErrorMap;
+  validStatus?: number[];
+}
+
+export type IApiFetchOptions = IApiFetchBaseOptions & IDataHashOptions;
+
+export interface IApiPostData {
+  [key: string]: any;
+}
+
 export default class Api extends EventEmitter {
   public defaultTimeout = 30 * 1000;
-  public defaultHost = null;
+  public defaultHost?: string;
 
   public validStatus = [0];
   public errorMap = {};
@@ -47,7 +59,11 @@ export default class Api extends EventEmitter {
     return this.config.host || this.defaultHost || "";
   }
 
-  public async post(uri: string, data: any, options: IDataHashOptions = {}) {
+  public async post(
+    uri: string,
+    data: IApiPostData,
+    options: IApiFetchOptions = {},
+  ) {
     return this.fetch(
       {
         body: appendHashToData(
@@ -66,8 +82,8 @@ export default class Api extends EventEmitter {
 
   public async get(
     uri: string,
-    qs: { [key: string]: any },
-    options: IDataHashOptions = {},
+    qs: { [key: string]: any } = {},
+    options: IApiFetchOptions = {},
   ) {
     return this.fetch(
       {
@@ -82,11 +98,7 @@ export default class Api extends EventEmitter {
 
   public async fetch(
     requestOptions: IRequestOptions,
-    options: {
-      retry?: number;
-      errorMap?: IErrorMap;
-      validStatus?: number[];
-    } = {},
+    options: IApiFetchBaseOptions = {},
   ) {
     const req = new Request({
       disableRetry: this.disableRetry,

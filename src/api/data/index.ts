@@ -15,17 +15,13 @@ export default class Data extends Api {
   @doc("http://doc.omnipartners.be/index.php/Country_list")
   @filterInput(["lang", "indexed"])
   public countries(data: IInput) {
-    return this._call("/service/data/get-countries", data, {
-      retry: true,
-    });
+    return this._call("/service/data/get-countries", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/User_title_list")
   @filterInput(["lang"])
   public titles(data: IInput) {
-    return this._call("/service/data/get-user-titles", data, {
-      retry: true,
-    });
+    return this._call("/service/data/get-user-titles", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Animal_types_list")
@@ -54,16 +50,11 @@ export default class Data extends Api {
     return this._call("/service/data/get-subscriptions", data);
   }
 
-  private _call(
-    url: string,
-    data: IInput = {},
-    options: { [key: string]: any } = {},
-  ) {
+  private _call(url: string, data: IInput = {}) {
     return this.get(url, data, {
       hash: false,
       hashNoKey: true,
-      // retry: true,
-      ...options,
+      retry: true,
     });
   }
 }

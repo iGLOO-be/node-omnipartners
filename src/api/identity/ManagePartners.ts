@@ -12,9 +12,16 @@ export default class ManagePartners extends Api {
     "page", // (Optional) The page number to be retrieved.
     "records_per_page", // (Optional) The number of records per page. Minimum value is 1 and maximum is 100.
   ])
-  getPartnerAccountRelations(data) {
+  public getPartnerAccountRelations(data: {
+    user_guid: string;
+    partner_relationship?: string;
+    partner_relationship_role?: string;
+    show_not_accepted?: string;
+    data_options?: string;
+    page?: string;
+    records_per_page?: string;
+  }) {
     return this.post("/service/user/get-partners/", data, {
-      retry: true,
       errorMap: {
         2: {
           message:
@@ -26,6 +33,7 @@ export default class ManagePartners extends Api {
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
       },
+      retry: true,
     });
   }
 
@@ -40,14 +48,15 @@ export default class ManagePartners extends Api {
     "partner_status", // (Required) The status of the relationship between the partner and user. Valid status values are submitted, accepted, pending and refused.
     "notify", // Flag used to determine if the preset notification email has to be sent to the user. If the value is "1" then the email is sent.
   ])
-  createPartnerAccountRelation(data) {
+  public createPartnerAccountRelation(data: {
+    user_guid: string;
+    partner_ext_id: string;
+    partner_relationship: string;
+    partner_roles?: string;
+    partner_status: string;
+    notify?: boolean;
+  }) {
     return this.post("/service/partners/add/", data, {
-      hashKeys: [
-        "user_guid",
-        "partner_ext_id",
-        "partner_relationship",
-        "partner_status",
-      ],
       errorMap: {
         2: {
           message:
@@ -59,6 +68,12 @@ export default class ManagePartners extends Api {
         16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
       },
+      hashKeys: [
+        "user_guid",
+        "partner_ext_id",
+        "partner_relationship",
+        "partner_status",
+      ],
     });
   }
 }

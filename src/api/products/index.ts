@@ -1,10 +1,10 @@
-import Api from "../../lib/Api";
+import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 
 export default class Products extends Api {
-  defaultHost = "https://products.clixray.io/";
+  public defaultHost = "https://products.clixray.io/";
 
-  errorMap = {
+  public errorMap = {
     1000: { message: "Action not available." },
     1001: { message: "Invalid action." },
     1002: { message: "Client key not available." },
@@ -17,11 +17,11 @@ export default class Products extends Api {
     1030: { message: "Missing required fields." },
   };
 
-  _call(action, data, options = {}) {
+  public _call(action: string, data: any, options: IApiFetchOptions = {}) {
     return this.post(
       "/",
       {
-        action: action,
+        action,
         ...data,
       },
       {
@@ -33,12 +33,12 @@ export default class Products extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Get_Product_By_EAN_or_Code")
   @filterInput(["product_ean", "product_code"])
-  getProduct(data) {
+  public getProduct(data: { product_ean: string; product_code: string }) {
     return this._call("get-product", data, {
-      retry: true,
       errorMap: {
         1020: { message: "Product ean or code required." },
       },
+      retry: true,
     });
   }
 
@@ -50,12 +50,17 @@ export default class Products extends Api {
     "language",
     "data_options",
   ])
-  findProductCollection(data) {
+  public findProductCollection(data: {
+    use_https_urls: string;
+    resolve_by: string;
+    value: string;
+    language: string;
+    data_options: string;
+  }) {
     return this._call(
       "find-product-collection",
       { "resolve-by": data.resolve_by, ...data },
       {
-        retry: true,
         errorMap: {
           1011: { message: "resolve-by field can not be empty." },
           1012: { message: "resolve-by field can not be empty." },
@@ -63,6 +68,7 @@ export default class Products extends Api {
           1014: { message: "resolve-by field can not be empty." },
           1029: { message: "resolve-by field can not be empty." },
         },
+        retry: true,
       },
     );
   }
