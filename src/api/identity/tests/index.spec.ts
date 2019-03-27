@@ -9,6 +9,6 @@ export const baseConfig = {
 };
 
 export class BaseIdentityTest {
-  Api = Identity;
-  apiConfig = baseConfig;
+  public Api = Identity;
+  public apiConfig = baseConfig;
 }

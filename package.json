@@ -3,34 +3,39 @@
   "version": "1.1.23",
   "description": "",
   "main": "dist/index.js",
-  "files": ["dist/*"],
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "build": "ncc build src/index.ts",
     "build:watch": "ncc build --watch src/index.ts",
     "lint": "standard",
     "test": " mocha --exit --compilers js:babel-core/register {test,src}/**/*.spec.js",
     "test:watch": " mocha --watch --compilers js:babel-core/register {test,src}/**/*.spec.js",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "repository": "https://github.com/iGLOO-be/node-omnipartners",
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/depd": "^1.1.32",
+    "@types/jest": "^24.0.11",
     "@types/lodash": "^4.14.123",
+    "@types/nock": "^9.3.1",
     "@types/node": "^11.12.0",
     "@types/node-fetch": "^2.1.7",
     "@types/qs": "^6.5.2",
+    "@types/sinon": "^7.0.10",
     "@types/url-join": "^4.0.0",
     "@types/uuid": "^3.4.4",
     "@zeit/ncc": "^0.17.0",
-    "chai": "^4.2.0",
-    "chai-shallow-deep-equal": "^1.4.6",
+    "jest": "^24.5.0",
     "mocha": "^6.0.2",
     "nock": "^10.0.6",
     "prettier": "^1.16.4",
     "sinon": "^7.3.1",
     "standard": "^12.0.1",
+    "ts-jest": "^24.0.0",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.3.4000"

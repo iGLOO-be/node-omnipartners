@@ -46,7 +46,14 @@ export function findOpStatus({
   status?: string;
   statusCode?: string;
 }) {
-  return parseInt(status || statusCode || "", 10);
+  return parseInt(
+    typeof status !== "undefined"
+      ? status
+      : typeof statusCode !== "undefined"
+      ? statusCode
+      : "-1",
+    10,
+  );
 }
 
 export function getOpErrorFromStatus(opStatus: number) {
