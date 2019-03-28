@@ -1,15 +1,5 @@
 import pick from "lodash/pick";
 
-export const apiExtends = (ExtendApi: any) => (Target: any) => {
-  Object.getOwnPropertyNames(ExtendApi.prototype)
-    .filter(method => method !== "constructor")
-    .forEach(method => {
-      Target.prototype[method] = ExtendApi.prototype[method];
-    });
-
-  return Target;
-};
-
 const setPropertyOnMethod = (fn: any, property: string, value: any) => {
   (fn._originalFn || fn)[property] = value;
 };

@@ -123,6 +123,6 @@ export function describeApi(api: string, fn: () => void) {
   describe(`API: ${api}`, fn);
 }
 
-describe('Test utils', () => {
-  it('works', () => {})
-})
+describe("Test utils", () => {
+  it("works", () => {});
+});

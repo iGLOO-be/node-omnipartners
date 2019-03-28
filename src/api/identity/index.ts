@@ -1,12 +1,6 @@
 import Api from "../../lib/Api";
-import { apiExtends, doc, filterInput } from "../../lib/apiDecorators";
-import AuthenticateApi from "./Authenticate";
-import ManagePartners from "./ManagePartners";
-import ManagePetsApi from "./ManagePets";
+import { doc, filterInput } from "../../lib/apiDecorators";
 
-@apiExtends(AuthenticateApi)
-@apiExtends(ManagePetsApi)
-@apiExtends(ManagePartners)
 export default class Identity extends Api {
   @doc("http://doc.omnipartners.be/index.php/Delete_User_Accounts")
   @filterInput(["owner_guid"])
@@ -396,6 +390,246 @@ export default class Identity extends Api {
       errorMap: {
         26: { message: "Legal code not found." },
       },
+    });
+  }
+
+  /*
+    Authenticate
+  */
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_User_Credentials",
+  )
+  @filterInput([
+    "identifier",
+    "password",
+    "data_options",
+    "partner_data_options",
+  ])
+  public authenticate(data: {
+    identifier: string;
+    password: string;
+    data_options?: string;
+    partner_data_options?: string;
+  }) {
+    return this.get("/service/auth/credentials", data, {
+      hashKeys: ["identifier", "password"],
+      hashNoKey: true,
+      retry: true,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_User_GUID_ONLY",
+  )
+  @filterInput(["user_guid", "data_options"])
+  public authenticateByGUID(data: { user_guid: string; data_options: string }) {
+    return this.get("/service/auth/user-guid", data, { retry: true });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Session_Tokens",
+  )
+  @filterInput(["session_token", "data_options"])
+  public authenticateBySessionToken(data: {
+    session_token: string;
+    data_options: string;
+  }) {
+    return this.get("/service/auth/session-token", data, { retry: true });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Access_Tokens",
+  )
+  @filterInput([
+    "access_token",
+    "data_options",
+    "partner_data_options",
+    "related_partners_filter_xxxx",
+  ])
+  public authenticateByAccessToken(data: {
+    access_token: string;
+    data_options: string;
+    partner_data_options: string;
+    related_partners_filter_xxxx: string;
+  }) {
+    return this.get("/service/auth/access-token", data, { retry: true });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Email_ONLY_Service",
+  )
+  @filterInput(["email", "data_options"])
+  public authenticateByEmail(data: { email: string; data_options: string }) {
+    return this.get("/service/auth/email", data, {
+      hashKeys: ["email"],
+      retry: true,
+    });
+  }
+
+  /*
+    Manage partners
+  */
+
+  @doc("http://doc.omnipartners.be/index.php/Get_partners_-_account_relations")
+  @filterInput([
+    "user_guid", // (Required) The GUID of the user.
+    "partner_relationship", // (Optional) The relationship between the partner and the account. Valid values are “clientof” and “partof”.
+    "partner_relationship_role", // (Optional) The role of the relationship.
+    "show_not_accepted", // (Optional) Sates whether to include the relationships that are not in accepted state. Valid values are 1 and 0. Default values is 0.
+    "data_options", // (Optional) This defines information that is returned in the partner profiles for the related partners. For more information please refer Partner Data Options.
+    "page", // (Optional) The page number to be retrieved.
+    "records_per_page", // (Optional) The number of records per page. Minimum value is 1 and maximum is 100.
+  ])
+  public getPartnerAccountRelations(data: {
+    user_guid: string;
+    partner_relationship?: string;
+    partner_relationship_role?: string;
+    show_not_accepted?: string;
+    data_options?: string;
+    page?: string;
+    records_per_page?: string;
+  }) {
+    return this.post("/service/user/get-partners/", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        4: { message: "User not active in the system." },
+        6: { message: "Not authorized to use this function or its disabled." },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+      },
+      retry: true,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Add_new_partner_-_account_relation",
+  )
+  @filterInput([
+    "user_guid", // (Required) The GUID of the user.
+    "partner_ext_id", // (Required) The external id of the partner.
+    "partner_relationship", // (Required) The relationship between the partner and the account. Valid values are “clientof” and “partof”.
+    "partner_roles", // (Optional) The roles assigned to this relationship. If empty the default roles configured for this instance of CIS will be automatically assigned.
+    "partner_status", // (Required) The status of the relationship between the partner and user. Valid status values are submitted, accepted, pending and refused.
+    "notify", // Flag used to determine if the preset notification email has to be sent to the user. If the value is "1" then the email is sent.
+  ])
+  public createPartnerAccountRelation(data: {
+    user_guid: string;
+    partner_ext_id: string;
+    partner_relationship: string;
+    partner_roles?: string;
+    partner_status: string;
+    notify?: boolean;
+  }) {
+    return this.post("/service/partners/add/", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: { message: "Not authorised to use this function or its disabled." },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+        19: { message: "Partner not found." },
+      },
+      hashKeys: [
+        "user_guid",
+        "partner_ext_id",
+        "partner_relationship",
+        "partner_status",
+      ],
+    });
+  }
+
+  /*
+    Manage pets
+  */
+
+  @doc("http://doc.omnipartners.be/index.php/Retrieve_pet_information")
+  @filterInput(["user_guid"])
+  public getPets(data: { user_guid: string }) {
+    return this.get("/service/pets/get", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+      },
+      hashNoKey: true,
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Add_new_pet")
+  @filterInput([
+    "user_guid", // (Required) The GUID of the owner of the pet.
+    "pet_name", // (Required) The name of the pet.
+    "pet_type", // (Required) The type of pet. Please refer Animal types list for valid values.
+    "pet_breed", // (Required if pet_breed_com_id not supplied) The id of the pet breed. Please refer Animal breeds list for valid values.
+    "pet_breed_com_id", // (Required if pet_breed not supplied) The common id of the pet breed. Please refer Animal breeds list for valid values. If both pet_breed and pet_breed_com_id are supplied pet_breed_com_id has the priority.
+    "pet_pedigreename", // (Optional) The pedigree name of the pet.
+    "pet_dob", // (Required) The birthday of the pet in the format YYYY-MM-DD.
+    "pet_dob_approx", // (Optional) States whether pet date of birth is approximative. Valid values are 0 (no correction), 1 (day is not provided by user) and 2 (day and month are not provided by user). Default value is 0.
+    "pet_neutered", // (Optional) This state whether pet is neutered or not. Valid values are “Y” and “N”.
+    "pet_neutering_date", // (Optional) The date which the pet was neutered in the format YYYY-MM-DD.
+    "pet_gender", // (Optional) The gender of the pet. Valid values are “M” and “F”.
+    "vaccination_date", // (Optional) The date of vaccination in the format YYYY-MM-DD.
+    "pet_insured", // (Optional) This state whether pet is insured or not. Valid values are “Y” and “N”.
+    "pet_medical_condition", // (Optional) The medical conditions for the pet.Multiple values could be specified by mimicking the submission behavior of check boxes in an html form. Please refer Animal medical conditions list for valid values.
+    "pet_lifestyle", // (Optional) The lifestyle of the pet. Please refer Animal lifestyles list for valid values.
+    "pet_brand", // (Optional) The brand products given to the pet. Please refer Brands list for valid values.
+    "pet_declarative_product", // (Optional) The products given to the pet. Please refer Product collections list for valid values.
+    "tattoo_number", // (Optional) The tattoo number of the pet.
+    "chip_number", // (Optional) The chip number of the pet.
+    "pet_picture", // (Optional) The picture should be uploaded using POST request.
+    "kc_number", // (Optional) The Kennel Club identifier.
+    "pet_ext_id", // (Optional) The external id of the pet. This should be a unique value.
+  ])
+  public createPet(data: {
+    user_guid: string;
+    pet_name: string;
+    pet_type: string;
+    pet_breed: string;
+    pet_breed_com_id: string;
+    pet_pedigreename?: string;
+    pet_dob: string;
+    pet_dob_approx?: string;
+    pet_neutered?: string;
+    pet_neutering_date?: string;
+    pet_gender?: string;
+    vaccination_date?: string;
+    pet_insured?: string;
+    pet_medical_condition?: string;
+    pet_lifestyle?: string;
+    pet_brand?: string;
+    pet_declarative_product?: string;
+    tattoo_number?: string;
+    chip_number?: string;
+    pet_picture?: string;
+    kc_number?: string;
+    pet_ext_id?: string;
+  }) {
+    return this.get("/service/pets/add", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: { message: "Not authorised to use this function or its disabled." },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+        35: { message: "Pet limit reached for this account." },
+      },
+      hashKeys: ["pet_name", "user_guid"],
     });
   }
 }

@@ -44,11 +44,13 @@ export default class Api extends EventEmitter {
 
   private config: IApiOptions;
 
-  constructor(config: IApiOptions = {
-    key: "",
-    secret: "",
-    uri: ""
-  }) {
+  constructor(
+    config: IApiOptions = {
+      key: "",
+      secret: "",
+      uri: "",
+    },
+  ) {
     super();
 
     this.config = config;

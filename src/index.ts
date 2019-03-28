@@ -8,8 +8,9 @@ import Metadata from "./api/metadata";
 import Partners from "./api/partners";
 import Products from "./api/products";
 import { IApiOptions } from "./lib/Api";
+import { OmnipartnersError } from "./lib/errors"
 
-export { createLogger };
+export { createLogger, OmnipartnersError };
 
 export interface IOmnipartnersConfig {
   cis?: IApiOptions;

@@ -5,7 +5,7 @@ interface IAnyData {
   [key: string]: any;
 }
 
-class BaseError extends Error {
+export class OmnipartnersError extends Error {
   public readonly statusCode: number = 502;
   public readonly statusText: string = "Bad Gateway";
   public readonly isOmnipartnersError: boolean = true;
@@ -26,36 +26,36 @@ class BaseError extends Error {
   }
 }
 
-export class RequestError extends BaseError {
+export class RequestError extends OmnipartnersError {
   public statusCode = 500;
   public statusText = "Gateway Error";
   public message = "OP/Request Error";
   public code = "OP/RequestError";
 }
 
-export class RequestTimeoutError extends BaseError {
+export class RequestTimeoutError extends OmnipartnersError {
   public statusCode = 503;
   public statusText = "Gateway Time-out";
   public message = "OP/Request Timeout Error";
   public code = "OP/RequestTimeoutError";
 }
 
-export class InvalidReponseError extends BaseError {
+export class InvalidReponseError extends OmnipartnersError {
   public message = "OP/Invalid Reponse Error";
   public code = "OP/InvalidReponseError";
 }
 
-export class InvalidJSONReponseError extends BaseError {
+export class InvalidJSONReponseError extends OmnipartnersError {
   public message = "OP/Invalid JSON Reponse Error";
   public code = "OP/InvalidJSONReponseError";
 }
 
-export class NoOPStatusError extends BaseError {
+export class NoOPStatusError extends OmnipartnersError {
   public message = "OP/Invalid Response Error - No OP Status";
   public code = "OP/NoOPStatusError";
 }
 
-export class UnknownOPStatusError extends BaseError {
+export class UnknownOPStatusError extends OmnipartnersError {
   constructor(request: Request | Response, opStatus: number) {
     super(request, {
       statusCode: opStatus,
@@ -66,7 +66,7 @@ export class UnknownOPStatusError extends BaseError {
   }
 }
 
-export class OPStatusError extends BaseError {
+export class OPStatusError extends OmnipartnersError {
   public message = "OP/Invalid Response Error/OP Status";
   public code = "OP/OPStatusError";
 
