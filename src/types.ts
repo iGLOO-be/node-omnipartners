@@ -1,25 +1,23 @@
-
-
 type IUserDataOption =
-| "owner_details"
-| "pet_details"
-| "pet_breed_details"
-| "pet_medical_condition_details"
-| "preferences"
-| "related_partners"
-| "related_partners_details"
-| "segments"
-| "stamp_counts"
-| "loyalty_cards"
-| "access_rights"
-| "children"
-| "pet_eco_systems"
-| "user_tags"
-| "-owner_details"
-| "-pet_details"
-| "-preferences"
-| "-loyalty_cards"
-| "-access_rights";
+  | "owner_details"
+  | "pet_details"
+  | "pet_breed_details"
+  | "pet_medical_condition_details"
+  | "preferences"
+  | "related_partners"
+  | "related_partners_details"
+  | "segments"
+  | "stamp_counts"
+  | "loyalty_cards"
+  | "access_rights"
+  | "children"
+  | "pet_eco_systems"
+  | "user_tags"
+  | "-owner_details"
+  | "-pet_details"
+  | "-preferences"
+  | "-loyalty_cards"
+  | "-access_rights";
 export type IUserDataOptions = IUserDataOption[] | IUserDataOption;
 
 export interface IUserPartial {
@@ -204,4 +202,31 @@ export interface IUser {
     handle: string;
   }>;
   stamps_count: number | null;
+}
+
+export interface IUserAddress {
+  address_id: number;
+  address_name: string;
+  address_company: string | null;
+  address_phone: string | null;
+  address_region: string | null;
+  address_streetnum: string;
+  address_street1: string;
+  address_street2: string | null;
+  address_postal_code: string;
+  address_city: string;
+  address_county: string | null;
+  address_country: string;
+  address_type: string;
+  address_is_default: boolean;
+  address_comment: string | null;
+  address_latitude: number;
+  address_longitude: number;
+  user_streetnum: string;
+  user_street1: string;
+  user_street2: string | null;
+  user_postal_code: string;
+  user_city: string;
+  user_county: string | null;
+  is_default: boolean;
 }
