@@ -12,12 +12,12 @@ import { IApiOptions } from "./lib/Api";
 export { createLogger };
 
 export interface IOmnipartnersConfig {
-  cis: IApiOptions;
-  partners: IApiOptions;
-  products: IApiOptions;
-  deals: IApiOptions;
-  metadata: IApiOptions;
-  eventLogger: IApiOptions;
+  cis?: IApiOptions;
+  partners?: IApiOptions;
+  products?: IApiOptions;
+  deals?: IApiOptions;
+  metadata?: IApiOptions;
+  eventLogger?: IApiOptions;
 }
 export class Omnipartners {
   public identify: Identity;

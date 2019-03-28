@@ -14,8 +14,8 @@ export default class Authenticate extends Api {
   public authenticate(data: {
     identifier: string;
     password: string;
-    data_options: string;
-    partner_data_options: string;
+    data_options?: string;
+    partner_data_options?: string;
   }) {
     return this.get("/service/auth/credentials", data, {
       hashKeys: ["identifier", "password"],
