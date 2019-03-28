@@ -1,5 +1,6 @@
 import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
+import { IUser, IUserDataOptions , IUserPartial, IUserPet } from "../../types";
 
 export default class Identity extends Api {
   @doc("http://doc.omnipartners.be/index.php/Delete_User_Accounts")
@@ -29,7 +30,13 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Create_Access_Token")
   @filterInput(["session_token", "ttl"])
-  public getAccessToken(data: { session_token: string; ttl: string }) {
+  public getAccessToken(data: {
+    session_token: string;
+    ttl: string;
+  }): Promise<{
+    statusCode: 0;
+    data: { token: string };
+  }> {
     return this.get("/service/access-tokens/get-token", data);
   }
 
@@ -59,7 +66,7 @@ export default class Identity extends Api {
   public findAccountByEmail(data: {
     email: string;
     include_user_type?: string;
-  }) {
+  }): Promise<IUserPartial> {
     return this.get("/service/user/resolve-by-email", data, {
       hashKeys: ["email"],
       retry: true,
@@ -406,24 +413,28 @@ export default class Identity extends Api {
     "data_options",
     "partner_data_options",
   ])
-  public authenticate(data: {
+  public async authenticate(data: {
     identifier: string;
     password: string;
-    data_options?: string;
+    data_options?: IUserDataOptions;
     partner_data_options?: string;
-  }) {
-    return this.get("/service/auth/credentials", data, {
+  }): Promise<IUser> {
+    const result = await this.get("/service/auth/credentials", data, {
       hashKeys: ["identifier", "password"],
       hashNoKey: true,
       retry: true,
     });
+    return result;
   }
 
   @doc(
     "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_User_GUID_ONLY",
   )
   @filterInput(["user_guid", "data_options"])
-  public authenticateByGUID(data: { user_guid: string; data_options: string }) {
+  public authenticateByGUID(data: {
+    user_guid: string;
+    data_options?: IUserDataOptions;
+  }) {
     return this.get("/service/auth/user-guid", data, { retry: true });
   }
 
@@ -433,7 +444,7 @@ export default class Identity extends Api {
   @filterInput(["session_token", "data_options"])
   public authenticateBySessionToken(data: {
     session_token: string;
-    data_options: string;
+    data_options?: IUserDataOptions;
   }) {
     return this.get("/service/auth/session-token", data, { retry: true });
   }
@@ -447,20 +458,33 @@ export default class Identity extends Api {
     "partner_data_options",
     "related_partners_filter_xxxx",
   ])
-  public authenticateByAccessToken(data: {
+  public authenticateByAccessToken({
+    data_options,
+    ...data
+  }: {
     access_token: string;
-    data_options: string;
-    partner_data_options: string;
-    related_partners_filter_xxxx: string;
-  }) {
-    return this.get("/service/auth/access-token", data, { retry: true });
+    data_options?: IUserDataOptions;
+    partner_data_options?: string;
+    related_partners_filter_xxxx?: string;
+  }): Promise<IUser> {
+    return this.get(
+      "/service/auth/access-token",
+      {
+        ...data,
+        data_options:
+          data_options && Array.isArray(data_options)
+            ? data_options.join(",")
+            : data_options,
+      },
+      { retry: true },
+    );
   }
 
   @doc(
     "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Email_ONLY_Service",
   )
   @filterInput(["email", "data_options"])
-  public authenticateByEmail(data: { email: string; data_options: string }) {
+  public authenticateByEmail(data: { email: string; data_options?: string }) {
     return this.get("/service/auth/email", data, {
       hashKeys: ["email"],
       retry: true,
@@ -486,7 +510,7 @@ export default class Identity extends Api {
     partner_relationship?: string;
     partner_relationship_role?: string;
     show_not_accepted?: string;
-    data_options?: string;
+    data_options?: IUserDataOptions;
     page?: string;
     records_per_page?: string;
   }) {
@@ -552,7 +576,7 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Retrieve_pet_information")
   @filterInput(["user_guid"])
-  public getPets(data: { user_guid: string }) {
+  public getPets(data: { user_guid: string }): Promise<{ data: IUserPet[] }> {
     return this.get("/service/pets/get", data, {
       errorMap: {
         2: {
