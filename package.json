@@ -11,8 +11,7 @@
     "build": "ncc build src/index.ts",
     "build:watch": "ncc build --watch src/index.ts",
     "lint": "standard",
-    "test": " mocha --exit --compilers js:babel-core/register {test,src}/**/*.spec.js",
-    "test:watch": " mocha --watch --compilers js:babel-core/register {test,src}/**/*.spec.js",
+    "test": "jest",
     "prepare": "npm run build"
   },
   "repository": "https://github.com/iGLOO-be/node-omnipartners",
