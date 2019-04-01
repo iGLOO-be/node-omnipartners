@@ -13,6 +13,7 @@ export class OmnipartnersError extends Error {
   public readonly request: IAnyData;
   public message: string;
   public code: string;
+  public errors?: { [key: string]: { [validator: string]: string } };
 
   constructor(request: Request | Response, data?: IAnyData) {
     super();
@@ -20,6 +21,7 @@ export class OmnipartnersError extends Error {
     this.data = data;
     this.message = "";
     this.code = "";
+    this.errors = data && data.errors;
 
     this.request =
       request instanceof Request ? request.toJSON() : request.request.toJSON();

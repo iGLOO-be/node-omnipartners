@@ -1,5 +1,6 @@
 import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
+import { IUserPet } from "../../types";
 
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
@@ -228,6 +229,17 @@ export default class Deals extends Api {
     p_page: number;
   }) {
     return this._call("listoffers", data, {
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/List_Eligible_Pets")
+  @filterInput(["deal_ref", "user_guid"])
+  public listEligiblePets(data: {
+    deal_ref: string;
+    user_guid: string;
+  }): Promise<{ data: IUserPet[] }> {
+    return this._call("list-eligible-pets", data, {
       retry: true,
     });
   }

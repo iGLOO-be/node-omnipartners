@@ -1,6 +1,13 @@
 import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IUser, IUserAddress, IUserDataOptions, IUserPartial, IUserPet } from "../../types";
+import {
+  IRegisterUserInput,
+  IUser,
+  IUserAddress,
+  IUserDataOptions,
+  IUserPartial,
+  IUserPet,
+} from "../../types";
 
 export default class Identity extends Api {
   @doc("http://doc.omnipartners.be/index.php/Delete_User_Accounts")
@@ -113,7 +120,7 @@ export default class Identity extends Api {
   }
 
   @doc("http://doc.omnipartners.be/index.php/Create_User_Accounts")
-  public register(data: { [key: string]: string }) {
+  public register(data: IRegisterUserInput): Promise<{ data: IUser }> {
     return this.get("/service/user/register", data, {
       errorMap: {
         2: {
@@ -211,7 +218,9 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/List_User_Addresses")
   @filterInput(["user_guid"])
-  public listUserAddress(data: { user_guid: string }): Promise<{ data: IUserAddress[] }> {
+  public listUserAddress(data: {
+    user_guid: string;
+  }): Promise<{ data: IUserAddress[] }> {
     return this.post("/service/user-address/list", data, {
       hashNoKey: true,
       retry: true,

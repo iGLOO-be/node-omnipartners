@@ -1,3 +1,5 @@
+import depd from "depd";
+
 import createLogger from "./lib/logger";
 
 import Data from "./api/data";
@@ -13,6 +15,9 @@ import { OmnipartnersError } from "./lib/errors";
 export { createLogger, OmnipartnersError };
 
 export * from "./types";
+export * from "./data-types";
+
+const deprecate = depd("API");
 
 export interface IOmnipartnersConfig {
   cis?: IApiOptions;
@@ -24,6 +29,7 @@ export interface IOmnipartnersConfig {
 }
 export class Omnipartners {
   public identify: Identity;
+  public identity: Identity;
   public partners: Partners;
   public data: Data;
   public products: Products;
@@ -32,6 +38,7 @@ export class Omnipartners {
   public eventLogger: EventLogger;
 
   constructor(config: IOmnipartnersConfig) {
+    this.identity = new Identity(config.cis);
     this.identify = new Identity(config.cis);
     this.partners = new Partners(config.partners);
     this.data = new Data(config.cis);
@@ -39,6 +46,8 @@ export class Omnipartners {
     this.deals = new Deals(config.deals);
     this.metadata = new Metadata(config.metadata);
     this.eventLogger = new EventLogger(config.eventLogger);
+
+    deprecate.property(this, "identify", "API `identify` is deprecated. Please use `identity`.");
   }
 
   public use(fn: (api: any) => void) {
