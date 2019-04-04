@@ -47,12 +47,17 @@ export class Omnipartners {
     this.metadata = new Metadata(config.metadata);
     this.eventLogger = new EventLogger(config.eventLogger);
 
-    deprecate.property(this, "identify", "API `identify` is deprecated. Please use `identity`.");
+    deprecate.property(
+      this,
+      "identify",
+      "API `identify` is deprecated. Please use `identity`.",
+    );
   }
 
   public use(fn: (api: any) => void) {
     const apis = [
       this.identify,
+      this.identity,
       this.partners,
       this.products,
       this.deals,
