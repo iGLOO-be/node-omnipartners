@@ -2,9 +2,11 @@ import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
   IRegisterUserInput,
+  IUpdateUserInput,
   IUser,
   IUserAddress,
   IUserDataOptions,
+  IUserOwner,
   IUserPartial,
   IUserPet,
 } from "../../types";
@@ -142,9 +144,9 @@ export default class Identity extends Api {
   }
 
   @doc("http://doc.omnipartners.be/index.php/Edit_User_Accounts")
-  public update(data: { [key: string]: string }) {
+  public update(data: IUpdateUserInput): Promise<{ data: IUserOwner }> {
     return this.get("/service/user/update", data, {
-      hashKeys: ["user_email"],
+      hashKeys: ["user_email", "user_guid"],
     });
   }
 
@@ -443,8 +445,11 @@ export default class Identity extends Api {
   public authenticateByGUID(data: {
     user_guid: string;
     data_options?: IUserDataOptions;
-  }) {
-    return this.get("/service/auth/user-guid", data, { retry: true });
+  }): Promise<IUser> {
+    return this.get("/service/auth/user-guid", {
+      ...data,
+      data_options: Array.isArray(data.data_options) ? data.data_options.join(',') : data.data_options,
+    }, { retry: true });
   }
 
   @doc(

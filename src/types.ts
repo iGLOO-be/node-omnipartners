@@ -204,7 +204,12 @@ export interface IUser {
   stamps_count: number | null;
 }
 
-export interface IRegisterUserInput {
+export interface IUpdateUserInput extends IBaseUserInput {
+  // The GUID of the user.
+  user_guid: string;
+}
+
+interface IBaseUserInput {
   // The title code of the user. Please refer <b><a href="/index.php/User_title_list" title="User title list">User title list</a></b> for valid values.
   user_title: string;
   // The first name of the user.
@@ -226,10 +231,6 @@ export interface IRegisterUserInput {
   // Part of the user’s address.
   // 100 chars
   user_street2: string;
-  // Latitude of the geo location associated to the user's address.
-  user_lat: string;
-  // Longitude of the geo location associated to the user's address.
-  user_lng: string;
   // Post code that comes along with the address.
   // 15 chars
   user_postal_code: string;
@@ -253,8 +254,11 @@ export interface IRegisterUserInput {
   // The username of the user. The username should be a unique value. If it's not supplied the value of email will be used.
   // 90 chars
   user_username: string;
-  // The confirmation status of the user. Valid values will be 0 or 1. Default value is 0. Please refer <b><a href="/index.php/Confirm_User_Accounts" title="Confirm User Accounts">Confirm User Accounts</a></b> for more details.
-  user_confirmed: string;
+  // The password of the user. It needs to be at least 5 characters long.
+  // 20 chars
+  user_password: string;
+  // The language code of the user’s language. Please refer <b><a href="/index.php/Language_list" title="Language list">Language list</a></b> for valid values.
+  user_language: string;
   // The external id of the user. This should be a unique value.
   // 50 chars
   user_ext_id: string;
@@ -264,13 +268,17 @@ export interface IRegisterUserInput {
   // The facebook id of the user. This should be a unique value.
   // 50 chars
   user_facebook_id: string;
-  // The password of the user. It needs to be at least 5 characters long.
-  // 20 chars
-  user_password: string;
+}
+
+export interface IRegisterUserInput extends IBaseUserInput {
+  // Latitude of the geo location associated to the user's address.
+  user_lat: string;
+  // Longitude of the geo location associated to the user's address.
+  user_lng: string;
+  // The confirmation status of the user. Valid values will be 0 or 1. Default value is 0. Please refer <b><a href="/index.php/Confirm_User_Accounts" title="Confirm User Accounts">Confirm User Accounts</a></b> for more details.
+  user_confirmed: string;
   // When no password is supplied for the user in the registration request this parameter specifies the method to retrieve a valid password. Valid values are <b>link</b>, <b>password</b> and <b>remoteform</b>. The default value is <b>link</b>. If <b>link</b> is specified the registration confirmation email will contain a link to create a new password. If <b>password</b> is specified the registration confirmation mail will contain a auto generated password for the account. Otherwise the response will contain an additional property called “url”. This property contains a url which a remote site could use to create a new password. Please refer to the <b><a href="/index.php/Update_Password" title="Update Password">Update Password</a></b> page for more details about using this feature.
   password_mode: string;
-  // The language code of the user’s language. Please refer <b><a href="/index.php/Language_list" title="Language list">Language list</a></b> for valid values.
-  user_language: string;
   // This state whether the user has a pet. If there is no pet 1 should be passed and otherwise 0 should be passed. When noPets = 1 is passed then the account will be created as an active account even if there is a global / key constraint on pets. In other words this parameter allows to bypass the pet constraint for an active account.
   noPets: string;
   // Required if “noPet” is 0. The name of the pet.
