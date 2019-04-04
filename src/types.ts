@@ -460,7 +460,7 @@ export interface IUserAddress {
   is_default: boolean;
 }
 
-export interface IRegisterUserAddressInput {
+interface IBaseUserAddressInput {
   user_guid: string;
   address_type?: string;
   address_name?: string;
@@ -478,6 +478,12 @@ export interface IRegisterUserAddressInput {
   address_is_default?: string;
   address_lat?: string;
   address_lng?: string;
+}
+
+export type IRegisterUserAddressInput = IBaseUserAddressInput;
+
+export interface IUpdateUserAddressInput extends IBaseUserAddressInput {
+  address_id: string;
 }
 
 export interface ICountry {

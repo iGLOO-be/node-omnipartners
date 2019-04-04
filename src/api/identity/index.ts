@@ -14,6 +14,7 @@ import {
   IUserPetUpdateInput,
   IUsetPetDataOptions,
   IUsetPetWithOwner,
+  IUpdateUserAddressInput,
 } from "../../types";
 
 export default class Identity extends Api {
@@ -274,6 +275,7 @@ export default class Identity extends Api {
   @doc("http://doc.omnipartners.be/index.php/Update_User_Address")
   @filterInput([
     "user_guid", // (Required)
+    "address_id",
     "address_type",
     "address_name",
     "address_company",
@@ -291,25 +293,9 @@ export default class Identity extends Api {
     "address_lat",
     "address_lng",
   ])
-  public updateUserAddress(data: {
-    user_guid: string;
-    address_type?: string;
-    address_name?: string;
-    address_company?: string;
-    address_phone?: string;
-    address_streetnum?: string;
-    address_street1?: string;
-    address_street2?: string;
-    address_postal_code: string;
-    address_city: string;
-    address_region?: string;
-    address_county?: string;
-    address_country?: string;
-    address_comment?: string;
-    address_is_default?: string;
-    address_lat?: string;
-    address_lng?: string;
-  }) {
+  public updateUserAddress(
+    data: IUpdateUserAddressInput,
+  ): Promise<{ data: IUserAddress }> {
     return this.post("/service/user-address/update", data, {
       errorMap: {
         2: {
