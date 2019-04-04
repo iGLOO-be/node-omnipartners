@@ -494,3 +494,9 @@ export interface ICountry {
   has_post_code: string;
   region: string | null;
 }
+
+export interface IUserPreferences {
+  communicationPreferences: string[];
+  interests: string[];
+  subscriptions: string[];
+}

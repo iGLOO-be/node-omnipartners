@@ -15,6 +15,7 @@ import {
   IUsetPetDataOptions,
   IUsetPetWithOwner,
   IUpdateUserAddressInput,
+  IUserPreferences,
 } from "../../types";
 
 export default class Identity extends Api {
@@ -184,7 +185,11 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Retrieve_user_preferences")
   @filterInput(["user_guid"])
-  public retrieveUserSubscriptions(data: { user_guid: string }) {
+  public retrieveUserSubscriptions(data: {
+    user_guid: string;
+  }): Promise<{
+    data: IUserPreferences;
+  }> {
     return this.get("/service/preferences/get", data, {
       errorMap: {
         2: {
