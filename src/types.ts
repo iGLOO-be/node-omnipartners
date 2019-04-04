@@ -20,6 +20,27 @@ type IUserDataOption =
   | "-access_rights";
 export type IUserDataOptions = IUserDataOption[] | IUserDataOption;
 
+type IUsetPetDataOption =
+  // Basic information of the pet
+  // The most basic information of the pet which includes name, species, breed, date of birth.
+  | "basic_details"
+  // Extended information of the pets
+  // Rest of the information of the pet which is not included in basic information.
+  | "extended_details"
+  // Detailed information of pet breed.
+  | "breed_details"
+  // Detailed information of pet pathologies under the pet details.
+  | "pet_medical_condition_details"
+  // The stage information of the pet
+  | "stage"
+  // Pathologies of the pet.
+  | "medical_conditions"
+  // The ecosystems of the pet.
+  | "pet_eco_systems"
+  // Information of pet tags.
+  | "user_tags";
+export type IUsetPetDataOptions = IUsetPetDataOption[] | IUsetPetDataOption;
+
 export interface IUserPartial {
   statusCode: 0;
   user_guid: string;
@@ -122,6 +143,10 @@ export interface IUserPet {
   medicalConditions: [];
 }
 
+export interface IUsetPetWithOwner extends IUserPet {
+  pet_owner: IUserOwner
+}
+
 export interface IUserPetCreateInput {
   user_guid: string;
   pet_name: string;
@@ -144,6 +169,53 @@ export interface IUserPetCreateInput {
   chip_number?: string;
   pet_picture?: string;
   kc_number?: string;
+  pet_ext_id?: string;
+}
+
+export interface IUserPetUpdateInput {
+  // The GUID of the pet.
+  pet_guid: string;
+  // The name of the pet.
+  pet_name?: string;
+  // The type of pet. Please refer <b><a href="/index.php/Animal_types_list" title="Animal types list">Animal types list</a></b> for valid values.
+  pet_type?: string;
+  // The id of the pet breed. Please refer <b><a href="/index.php/Animal_breeds_list" title="Animal breeds list">Animal breeds list</a></b> for valid values.
+  pet_breed?: string;
+  // The pedigree name of the pet.
+  pet_pedigreename?: string;
+  // The common id of the pet breed. Please refer <b><a href="/index.php/Animal_breeds_list" title="Animal breeds list">Animal breeds list</a></b> for valid values.  If both pet_breed and pet_breed_com_id are supplied pet_breed_com_id has the priority.
+  pet_breed_com_id?: string;
+  // The date of birth of the pet in the format YYYY-MM-DD.
+  pet_dob?: string;
+  // States whether pet date of birth is approximative. Valid values are 0 (no correction), 1 (day is not provided by user) and 2 (day and month are not provided by user). Default value is 0.
+  pet_dob_approx?: string;
+  // The gender of the pet. Valid values are “M” and “F”.
+  pet_gender?: string;
+  // This state whether pet is neutered or not. Valid values are “Y” and “N”.
+  pet_neutered?: string;
+  // The date which the pet was neutered.
+  pet_neutering_date?: string;
+  // The date of vaccination in the format YYYY-MM-DD.
+  vaccination_date?: string;
+  // This state whether pet is insured or not. Valid values are “Y” and “N”.
+  pet_insured?: string;
+  // The medical conditions for the pet. Multiple values (see metadata page) can be sent mimicking the submission behavior of check boxes in a html form. Please refer <b><a href="/index.php/Animal_medical_conditions_list" title="Animal medical conditions list">Animal medical conditions list</a></b> for valid values.
+  pet_medical_condition?: string;
+  // The lifestyle of the pet. Please refer <b><a href="/index.php/Animal_lifestyles_list" title="Animal lifestyles list">Animal lifestyles list</a></b> for valid values.
+  pet_lifestyle?: string;
+  // The brand products given to the pet. Please refer <b><a href="/index.php/Brands_list" title="Brands list">Brands list</a></b> for valid values. Required if <i>pet_declarative_product</i> is specified.
+  pet_brand?: string;
+  // The products given to the pet. Please refer <b><a href="/index.php/Product_collections_list" title="Product collections list">Product collections list</a></b> for valid values.
+  pet_declarative_product?: string;
+  // The tattoo number of the pet.
+  tattoo_number?: string;
+  // The chip number of the pet.
+  chip_number?: string;
+  // The Kennel Club number of the pet.
+  kc_number?: string;
+  // The petpicture. The request should be a “POST” request if picture is specified.
+  pet_picture?: string;
+  // The external id of the pet. This should be a unique value.
   pet_ext_id?: string;
 }
 

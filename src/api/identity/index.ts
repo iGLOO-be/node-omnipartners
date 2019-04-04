@@ -10,6 +10,9 @@ import {
   IUserPartial,
   IUserPet,
   IUserPetCreateInput,
+  IUserPetUpdateInput,
+  IUsetPetDataOptions,
+  IUsetPetWithOwner,
 } from "../../types";
 
 export default class Identity extends Api {
@@ -447,10 +450,16 @@ export default class Identity extends Api {
     user_guid: string;
     data_options?: IUserDataOptions;
   }): Promise<IUser> {
-    return this.get("/service/auth/user-guid", {
-      ...data,
-      data_options: Array.isArray(data.data_options) ? data.data_options.join(',') : data.data_options,
-    }, { retry: true });
+    return this.get(
+      "/service/auth/user-guid",
+      {
+        ...data,
+        data_options: Array.isArray(data.data_options)
+          ? data.data_options.join(",")
+          : data.data_options,
+      },
+      { retry: true },
+    );
   }
 
   @doc(
@@ -607,6 +616,28 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Get_information_by_pet_guid")
+  @filterInput(["pet_guid"])
+  public getPet(data: {
+    pet_guid: string;
+    data_options?: IUsetPetDataOptions;
+  }): Promise<{ data: IUsetPetWithOwner }> {
+    return this.get("/service/pets/get-pet", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        8: { message: "Internal error." },
+        9: { message: "Pet not found in the system." },
+        16: { message: "Invalid hash." },
+      },
+      hashNoKey: true,
+      retry: true,
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Add_new_pet")
   @filterInput([
     "user_guid", // (Required) The GUID of the owner of the pet.
@@ -646,6 +677,48 @@ export default class Identity extends Api {
         35: { message: "Pet limit reached for this account." },
       },
       hashKeys: ["pet_name", "user_guid"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Update_pet_information")
+  @filterInput([
+    "pet_guid",
+    "pet_name",
+    "pet_type",
+    "pet_breed",
+    "pet_pedigreename",
+    "pet_breed_com_id",
+    "pet_dob",
+    "pet_dob_approx",
+    "pet_gender",
+    "pet_neutered",
+    "pet_neutering_date",
+    "vaccination_date",
+    "pet_insured",
+    "pet_medical_condition",
+    "pet_lifestyle",
+    "pet_brand",
+    "pet_declarative_product",
+    "tattoo_number",
+    "chip_number",
+    "kc_number",
+    "pet_picture",
+    "pet_ext_id",
+  ])
+  public updatePet(data: IUserPetUpdateInput): Promise<{ data: IUserPet }> {
+    return this.get("/service/pets/update", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: { message: "Not authorised to use this function or its disabled." },
+        8: { message: "Internal error." },
+        9: { message: "Pet not found in the system." },
+        16: { message: "Invalid hash." },
+      },
+      hashKeys: ["pet_name", "pet_guid"],
     });
   }
 }
