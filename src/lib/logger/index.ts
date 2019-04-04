@@ -4,6 +4,7 @@ import Request from "../Request";
 import logStructure from "./logStructure";
 
 const winstonDefaultOptions = {
+  format: winston.format.prettyPrint(),
   transports: [new winston.transports.Console()],
 };
 
