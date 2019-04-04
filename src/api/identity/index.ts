@@ -9,6 +9,7 @@ import {
   IUserOwner,
   IUserPartial,
   IUserPet,
+  IUserPetCreateInput,
 } from "../../types";
 
 export default class Identity extends Api {
@@ -631,30 +632,7 @@ export default class Identity extends Api {
     "kc_number", // (Optional) The Kennel Club identifier.
     "pet_ext_id", // (Optional) The external id of the pet. This should be a unique value.
   ])
-  public createPet(data: {
-    user_guid: string;
-    pet_name: string;
-    pet_type: string;
-    pet_breed: string;
-    pet_breed_com_id: string;
-    pet_pedigreename?: string;
-    pet_dob: string;
-    pet_dob_approx?: string;
-    pet_neutered?: string;
-    pet_neutering_date?: string;
-    pet_gender?: string;
-    vaccination_date?: string;
-    pet_insured?: string;
-    pet_medical_condition?: string;
-    pet_lifestyle?: string;
-    pet_brand?: string;
-    pet_declarative_product?: string;
-    tattoo_number?: string;
-    chip_number?: string;
-    pet_picture?: string;
-    kc_number?: string;
-    pet_ext_id?: string;
-  }) {
+  public createPet(data: IUserPetCreateInput): Promise<{ data: IUserPet }> {
     return this.get("/service/pets/add", data, {
       errorMap: {
         2: {
