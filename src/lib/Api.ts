@@ -71,20 +71,17 @@ export default class Api extends EventEmitter {
     data: IApiPostData,
     options: IApiFetchOptions = {},
   ) {
-    return this.fetch(
-      {
-        body: appendHashToData(
-          data,
-          this.config.key,
-          this.config.secret,
-          options,
-        ),
-        method: "post",
-        uri: urlJoin(this.host, uri),
-      },
-      // TODO retry:
-      // options
-    );
+    return this.fetch({
+      body: appendHashToData(
+        data,
+        this.config.key,
+        this.config.secret,
+        options,
+      ),
+      method: "post",
+      uri: urlJoin(this.host, uri),
+      ...options,
+    });
   }
 
   public async get(
@@ -92,15 +89,12 @@ export default class Api extends EventEmitter {
     qs: { [key: string]: any } = {},
     options: IApiFetchOptions = {},
   ) {
-    return this.fetch(
-      {
-        method: "get",
-        qs: appendHashToData(qs, this.config.key, this.config.secret, options),
-        uri: urlJoin(this.host, uri),
-      },
-      // TODO retry:
-      // options
-    );
+    return this.fetch({
+      method: "get",
+      qs: appendHashToData(qs, this.config.key, this.config.secret, options),
+      uri: urlJoin(this.host, uri),
+      ...options,
+    });
   }
 
   public async fetch(requestOptions: IApiFetchAllOptions) {
