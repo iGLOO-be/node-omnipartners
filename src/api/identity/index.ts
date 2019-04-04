@@ -1,6 +1,7 @@
 import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
+  IRegisterUserAddressInput,
   IRegisterUserInput,
   IUpdateUserInput,
   IUser,
@@ -253,25 +254,9 @@ export default class Identity extends Api {
     "address_lat",
     "address_lng",
   ])
-  public registerUserAddress(data: {
-    user_guid: string;
-    address_type?: string;
-    address_name?: string;
-    address_company?: string;
-    address_phone?: string;
-    address_streetnum?: string;
-    address_street1?: string;
-    address_street2?: string;
-    address_postal_code: string;
-    address_city: string;
-    address_region?: string;
-    address_county?: string;
-    address_country?: string;
-    address_comment?: string;
-    address_is_default?: string;
-    address_lat?: string;
-    address_lng?: string;
-  }) {
+  public registerUserAddress(
+    data: IRegisterUserAddressInput,
+  ): Promise<{ data: IUserAddress }> {
     return this.post("/service/user-address/add", data, {
       errorMap: {
         2: {

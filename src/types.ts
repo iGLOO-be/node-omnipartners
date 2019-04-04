@@ -144,7 +144,7 @@ export interface IUserPet {
 }
 
 export interface IUsetPetWithOwner extends IUserPet {
-  pet_owner: IUserOwner
+  pet_owner: IUserOwner;
 }
 
 export interface IUserPetCreateInput {
@@ -458,6 +458,26 @@ export interface IUserAddress {
   user_city: string;
   user_county: string | null;
   is_default: boolean;
+}
+
+export interface IRegisterUserAddressInput {
+  user_guid: string;
+  address_type?: string;
+  address_name?: string;
+  address_company?: string;
+  address_phone?: string;
+  address_streetnum?: string;
+  address_street1?: string;
+  address_street2?: string;
+  address_postal_code: string;
+  address_city: string;
+  address_region?: string;
+  address_county?: string;
+  address_country?: string;
+  address_comment?: string;
+  address_is_default?: string;
+  address_lat?: string;
+  address_lng?: string;
 }
 
 export interface ICountry {
