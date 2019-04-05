@@ -535,3 +535,10 @@ export interface IUserConfirmLegalFormsInput {
   send_notification?: string;
   signature?: string;
 }
+
+export interface IUserUpdateSubscriptionsInput {
+  user_guid: string;
+  com_prefs?: string;
+  interests?: string;
+  subscriptions?: string;
+}
