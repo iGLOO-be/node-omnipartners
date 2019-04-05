@@ -116,6 +116,7 @@ export default class Identity extends Api {
           message:
             "Password could not be auto generated because of validation constraints.",
         },
+        48: { message: "The email could not be sent because the email address has been marked as invalid by the email bounce management system." },
       },
       hashKeys: ["uid"],
     });

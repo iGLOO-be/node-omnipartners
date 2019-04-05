@@ -18,10 +18,10 @@ export default class Metadata extends Api {
   @doc("http://doc.omnipartners.be/index.php/Get_Legal_Forms")
   @filterInput(["legal_form_codes", "lang", "indexed"])
   public getLegalForms(data?: {
-    legal_form_codes: string;
-    lang: string;
-    indexed: string;
-  }) {
+    legal_form_codes?: string;
+    lang?: string;
+    indexed?: string;
+  }): Promise<{ data: any }> {
     return this._call("get-legal-forms", data);
   }
 
