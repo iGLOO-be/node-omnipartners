@@ -542,3 +542,98 @@ export interface IUserUpdateSubscriptionsInput {
   interests?: string;
   subscriptions?: string;
 }
+
+export interface IDeal {
+  id: number;
+  ref: string;
+  name: string;
+  type: string;
+  redeem_days: string[];
+  is_locked: boolean;
+  partner_visibility: string;
+  restrict_registration: boolean;
+  image_url: string;
+  postal_address_required: boolean;
+  optin_options: Array<{
+    id: string;
+    visible: "1" | "0";
+    default_value: string;
+    can_change: "1" | "0";
+  }>;
+  display_on_terminal: number;
+  redeem_duration_value: number;
+  redeem_duration_unit: string;
+  is_relative_redeem_dates: boolean;
+  google_tracking_id: string | null;
+  status: string;
+  referrer_required: number;
+  pet_required: "1" | "0";
+  pet_type: string;
+  pet_universe: string | null;
+  pet_breed: [];
+  pet_age_limit_value: "1" | "0";
+  pet_age_limit_unit: string;
+  pet_age_limit_operator: string;
+  send_voucher_email: boolean;
+  send_voucher_sms: boolean;
+  need_to_scan: number;
+  available_from: string;
+  available_to: string;
+  redeem_validity_from: string;
+  redeem_validity_to: string;
+  validity_message: string;
+  confirmation_text: string;
+  description: string;
+  slogan: string;
+  public_name: string;
+  site_footer: string;
+  voucher_small_print: string;
+  redemption_confirmation_text: string;
+  redirect_url: string | null;
+  langs: string[];
+  logo_url: string | null;
+  css_file_url: string | null;
+  internal_barcode: string | null;
+  presentation_images: {
+    small: { NL: string | null; FR: null };
+    large: { NL: string | null; FR: null };
+  };
+  subscription_count: {
+    REDEEMED: number;
+    SUBSCRIBED: number;
+    IN_PROGRESS: number;
+  };
+  saving_end_time_value: string | null;
+  saving_end_time_unit: string | null;
+  saving_end_date: string | null;
+  allowed_partner_groups: [];
+  excluded_partner_groups: [];
+  deal_groups: string | null;
+  products: Array<{
+    ean: string;
+    id: number;
+    label: string;
+    friendly_name: string;
+    min_qty: number;
+    collection: {
+      generic_name: string;
+      reference: string;
+      name: {
+        EN: string;
+        FR: string;
+        NL: string;
+      };
+      has_image: boolean;
+      image_info: {
+        image: string;
+        image_small: string;
+        image_medium: string;
+        image_large: string;
+      };
+    };
+    qty: number;
+    label_with_qty: string;
+    coll_with_qty: string;
+  }>;
+  type_details: { discount_type: string; amounts: [] };
+}

@@ -1,6 +1,6 @@
 import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IUserPet } from "../../types";
+import { IDeal, IUserPet } from "../../types";
 
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
@@ -82,7 +82,7 @@ export default class Deals extends Api {
     "ref", // (Required) Deal reference code
     "default_lang", // (Optional) Language code.
   ])
-  public getDeal(data: { ref: string; default_lang: string }) {
+  public getDeal(data: { ref: string; default_lang: string }): Promise<{ data: IDeal }> {
     return this._call("get-deal-details", data, {
       hashKeys: ["ref"],
       retry: true,
@@ -240,6 +240,15 @@ export default class Deals extends Api {
     user_guid: string;
   }): Promise<{ data: IUserPet[] }> {
     return this._call("list-eligible-pets", data, {
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_product_list")
+  @filterInput(["deal_ref"])
+  public getProductList(data: { deal_ref: string }): Promise<{ data: any }> {
+    return this._call("get-product-list", data, {
+      hashKeys: ["deal_ref"],
       retry: true,
     });
   }
