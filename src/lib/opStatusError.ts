@@ -43,17 +43,26 @@ export function findOpStatus({
   status,
   statusCode,
 }: {
-  status?: string;
-  statusCode?: string;
+  status?: string | number | boolean;
+  statusCode?: string | number | boolean;
 }) {
-  return parseInt(
+  let foundStatus =
     typeof status !== "undefined"
       ? status
       : typeof statusCode !== "undefined"
       ? statusCode
-      : "-1",
-    10,
-  );
+      : "-1";
+
+  // Hack for `confirmLegalForm` which may results status:
+  // { statusCode: false,
+  //   errors:
+  //    { legal_form_code:
+  //       { invalidLegalFormCode: 'Invalid legal form code \'foo\' specified' } } }
+  if (foundStatus === false) {
+    foundStatus = -1;
+  }
+
+  return parseInt(`${foundStatus}`, 10);
 }
 
 export function getOpErrorFromStatus(opStatus: number) {

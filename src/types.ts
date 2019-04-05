@@ -527,3 +527,11 @@ export interface IUserPreferences {
   interests: string[];
   subscriptions: string[];
 }
+
+export interface IUserConfirmLegalFormsInput {
+  legal_form_code: string;
+  user_guid: string;
+  confirmed_place: string;
+  send_notification?: string;
+  signature?: string;
+}

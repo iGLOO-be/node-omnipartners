@@ -8,6 +8,7 @@ import {
   IUpdateUserInput,
   IUser,
   IUserAddress,
+  IUserConfirmLegalFormsInput,
   IUserDataOptions,
   IUserOwner,
   IUserPartial,
@@ -116,7 +117,10 @@ export default class Identity extends Api {
           message:
             "Password could not be auto generated because of validation constraints.",
         },
-        48: { message: "The email could not be sent because the email address has been marked as invalid by the email bounce management system." },
+        48: {
+          message:
+            "The email could not be sent because the email address has been marked as invalid by the email bounce management system.",
+        },
       },
       hashKeys: ["uid"],
     });
@@ -349,13 +353,7 @@ export default class Identity extends Api {
     "send_notification",
     "signature",
   ])
-  public confirmLegalForm(data: {
-    legal_form_code: string;
-    user_guid: string;
-    confirmed_place: string;
-    send_notification: string;
-    signature: string;
-  }) {
+  public confirmLegalForm(data: IUserConfirmLegalFormsInput) {
     return this.post("/service/legal-form/confirm-legal-form", data, {
       errorMap: {
         2: {
@@ -364,7 +362,7 @@ export default class Identity extends Api {
         },
         3: { message: "Specified user not found." },
         6: { message: "Not authorised to use this function or its disabled." },
-        8: { message: "	Error saving data to the database." },
+        8: { message: "Error saving data to the database." },
         16: { message: "Invalid hash." },
         39: { message: "Error in File upload." },
         40: { message: "Legal form is already confirmed." },
