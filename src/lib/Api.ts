@@ -84,6 +84,22 @@ export default class Api extends EventEmitter {
     });
   }
 
+  public signForGet(
+    uri: string,
+    qs: { [key: string]: any } = {},
+    options: IApiFetchOptions = {},
+  ): {
+    qs: {
+      [key: string]: any;
+    };
+    uri: string;
+  } {
+    return {
+      qs: appendHashToData(qs, this.config.key, this.config.secret, options),
+      uri: urlJoin(this.host, uri),
+    };
+  }
+
   public async get(
     uri: string,
     qs: { [key: string]: any } = {},
@@ -91,8 +107,7 @@ export default class Api extends EventEmitter {
   ) {
     return this.fetch({
       method: "get",
-      qs: appendHashToData(qs, this.config.key, this.config.secret, options),
-      uri: urlJoin(this.host, uri),
+      ...this.signForGet(uri, qs, options),
       ...options,
     });
   }

@@ -82,7 +82,10 @@ export default class Deals extends Api {
     "ref", // (Required) Deal reference code
     "default_lang", // (Optional) Language code.
   ])
-  public getDeal(data: { ref: string; default_lang: string }): Promise<{ data: IDeal }> {
+  public getDeal(data: {
+    ref: string;
+    default_lang: string;
+  }): Promise<{ data: IDeal }> {
     return this._call("get-deal-details", data, {
       hashKeys: ["ref"],
       retry: true,

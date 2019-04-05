@@ -1,3 +1,4 @@
+import querystring from "querystring";
 import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
@@ -700,5 +701,17 @@ export default class Identity extends Api {
       },
       hashKeys: ["pet_name", "pet_guid"],
     });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Retrieve_pet_picture")
+  public getPetPictureUrl(data: {
+    pet_guid: string;
+    w?: number;
+    h?: number;
+  }): string {
+    const { qs, uri } = this.signForGet("/service/pets/get-picture", data, {
+      hashKeys: ["w", "h"],
+    });
+    return `${uri}?${querystring.stringify(qs)}`;
   }
 }
