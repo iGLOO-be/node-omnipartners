@@ -240,6 +240,7 @@ export default class Deals extends Api {
     user_guid: string;
   }): Promise<{ data: IUserPet[] }> {
     return this._call("list-eligible-pets", data, {
+      hashKeys: undefined,
       retry: true,
     });
   }
