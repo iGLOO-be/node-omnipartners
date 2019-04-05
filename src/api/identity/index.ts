@@ -356,6 +356,14 @@ export default class Identity extends Api {
   public confirmLegalForm(data: IUserConfirmLegalFormsInput) {
     return this.post("/service/legal-form/confirm-legal-form", data, {
       errorMap: {
+        // Special case here:
+        // { statusCode: false,
+        //   errors:
+        //    { legal_form_code:
+        //       { invalidLegalFormCode: 'Invalid legal form code \'foo\' specified' } }
+        [-1]: {
+          message: "An error is occured.",
+        },
         2: {
           message:
             "Invalid request in which required header or parameters are either missing or invalid.",
