@@ -27,6 +27,7 @@ export interface IOmnipartnersConfig {
   metadata?: IApiOptions;
   eventLogger?: IApiOptions;
 }
+
 export class Omnipartners {
   public identify: Identity;
   public identity: Identity;

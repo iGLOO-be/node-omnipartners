@@ -1,8 +1,10 @@
 import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
+  IPartnerDataOptions,
   IRegisterUserAddressInput,
   IRegisterUserInput,
+  IUpdateUserAddressInput,
   IUpdateUserInput,
   IUser,
   IUserAddress,
@@ -12,10 +14,9 @@ import {
   IUserPet,
   IUserPetCreateInput,
   IUserPetUpdateInput,
+  IUserPreferences,
   IUsetPetDataOptions,
   IUsetPetWithOwner,
-  IUpdateUserAddressInput,
-  IUserPreferences,
 } from "../../types";
 
 export default class Identity extends Api {
@@ -507,12 +508,12 @@ export default class Identity extends Api {
   ])
   public getPartnerAccountRelations(data: {
     user_guid: string;
-    partner_relationship?: string;
+    partner_relationship?: "clientof" | "partof";
     partner_relationship_role?: string;
     show_not_accepted?: string;
-    data_options?: IUserDataOptions;
-    page?: string;
-    records_per_page?: string;
+    data_options?: IPartnerDataOptions;
+    page?: string | number;
+    records_per_page?: string | number;
   }) {
     return this.post("/service/user/get-partners/", data, {
       errorMap: {

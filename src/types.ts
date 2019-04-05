@@ -41,6 +41,33 @@ type IUsetPetDataOption =
   | "user_tags";
 export type IUsetPetDataOptions = IUsetPetDataOption[] | IUsetPetDataOption;
 
+type IPartnerDataOption =
+  // Basic information of the partner
+  | "partner_details"
+  // Links associated to the partner
+  | "links"
+  // Activities associated to the partner.
+  | "activities"
+  // Services associated to the partners.
+  | "services"
+  // The custom values specified in the partner profile.
+  | "extended_profile"
+  // CIS account guid associated to the partners. This is resolved by using the email address of primary contact.
+  | "cis_account_guid"
+  // Open hours of the partner.
+  | "open_close_hours"
+  // Links to the logo image.
+  | "logo_images"
+  // List of groups which partner belongs to.
+  | "groups"
+  // Coordinates of the location of the partner.
+  | "location"
+  // Specifies whether translatable values should be translated in the partner profile. In order for this to work the request should contain the desired language.
+  | "translations"
+  // Return breed relations information.
+  | "partner_breed_relations";
+export type IPartnerDataOptions = IPartnerDataOption[] | IPartnerDataOption;
+
 export interface IUserPartial {
   statusCode: 0;
   user_guid: string;
