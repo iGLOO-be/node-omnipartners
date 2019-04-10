@@ -16,6 +16,7 @@ export { createLogger, OmnipartnersError };
 
 export * from "./types";
 export * from "./data-types";
+export * from "./api/metadata";
 
 const deprecate = depd("API");
 
