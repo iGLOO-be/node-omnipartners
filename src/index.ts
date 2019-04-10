@@ -9,7 +9,7 @@ import Identity from "./api/identity";
 import Metadata from "./api/metadata";
 import Partners from "./api/partners";
 import Products from "./api/products";
-import { IApiOptions } from "./lib/Api";
+import Api, { IApiOptions } from "./lib/Api";
 import { OmnipartnersError } from "./lib/errors";
 
 export { createLogger, OmnipartnersError };
@@ -37,6 +37,7 @@ export class Omnipartners {
   public deals: Deals;
   public metadata: Metadata;
   public eventLogger: EventLogger;
+  private apis: Api[];
 
   constructor(config: IOmnipartnersConfig) {
     this.identity = new Identity(config.cis);
@@ -47,16 +48,7 @@ export class Omnipartners {
     this.deals = new Deals(config.deals);
     this.metadata = new Metadata(config.metadata);
     this.eventLogger = new EventLogger(config.eventLogger);
-
-    deprecate.property(
-      this,
-      "identify",
-      "API `identify` is deprecated. Please use `identity`.",
-    );
-  }
-
-  public use(fn: (api: any) => void) {
-    const apis = [
+    this.apis = [
       this.identify,
       this.identity,
       this.partners,
@@ -65,9 +57,23 @@ export class Omnipartners {
       this.data,
       this.metadata,
       this.eventLogger,
-    ];
+    ]
 
-    apis.forEach(fn);
+    deprecate.property(
+      this,
+      "identify",
+      "API `identify` is deprecated. Please use `identity`.",
+    );
+
+    deprecate.property(
+      this,
+      "data",
+      "API `data` is deprecated. Please use `metadata`.",
+    );
+  }
+
+  public use(fn: (api: any) => void) {
+    this.apis.forEach(fn);
   }
 }
 
