@@ -18,6 +18,7 @@ export interface IMetadataLegalForm {
   name: string;
   description: string;
   forget_on_revoke: boolean;
+  url: string;
 }
 
 export interface IMetadataCounty {
