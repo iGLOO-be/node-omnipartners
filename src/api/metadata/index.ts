@@ -16,9 +16,9 @@ interface IBasePaginatedResult<T> {
 export interface IMetadataLegalForm {
   code: string;
   name: string;
-  description: string;
+  description?: string | null;
   forget_on_revoke: boolean;
-  url: string;
+  url?: string | null;
 }
 
 export interface IMetadataCounty {
