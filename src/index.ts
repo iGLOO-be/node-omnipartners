@@ -57,7 +57,7 @@ export class Omnipartners {
       this.data,
       this.metadata,
       this.eventLogger,
-    ]
+    ];
 
     deprecate.property(
       this,

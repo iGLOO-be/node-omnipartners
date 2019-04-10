@@ -5,6 +5,214 @@ interface IBaseInput {
   lang: string;
 }
 
+interface IBasePaginatedResult<T> {
+  data: T[];
+  page: number;
+  records_per_page: number;
+  total_record_count: string;
+  total_pages: number;
+}
+
+export interface IMetadataLegalForm {
+  code: string;
+  name: string;
+  description: string;
+  forget_on_revoke: boolean;
+}
+
+export interface IMetadataCountry {
+  id: string;
+  name: string;
+  country: string;
+  order: string;
+}
+
+export interface IMetadataAddressType {
+  code: string;
+  name: string;
+}
+
+export interface IMetadataMemberCountry {
+  code: string;
+  name: string;
+  order: string;
+  has_post_code: string;
+  mobile_validation_rule: string | null;
+  phone_prefix: string;
+  region: string | null;
+  registration_age_limit: string | null;
+}
+
+export interface IMetadataCommunicationPreference {
+  code: string;
+  name: string;
+}
+
+export interface IMetadataInterest {
+  code: string;
+  name: string;
+}
+
+export interface IMetadataUserTitle {
+  code: string;
+  name: string;
+  gender: string;
+}
+
+export interface IMetadataMemberLanguage {
+  code: string;
+  name: string;
+}
+
+export interface IMetadataSubscription {
+  code: string;
+  name: string;
+  type: string;
+}
+
+export interface IMetadataPlaceOfPurchase {
+  code: string;
+  name: string;
+}
+
+export interface IMetadataCustomerGroup {
+  code: string;
+  name: string;
+  description: string;
+}
+
+export interface IMetadataAnimalType {
+  code: string;
+  name: string;
+}
+
+export interface IMetadataAnimalBreed {
+  id: string;
+  name: string;
+  species: string;
+  order: string;
+  com_id: string;
+  universe: string;
+  alt_name: string | null;
+  synonyms: string | null;
+  adult_weight_min: string;
+  adult_weight_max: string;
+  has_dedicated_product: string;
+  other_ids: string | null;
+  other: string;
+  is_high_energy: string;
+  is_low_energy: string;
+  has_image: boolean;
+}
+
+export interface IMetadataAnimalLifestyle {
+  code: string;
+  name: string;
+  species: string;
+}
+
+export interface IMetadataAgendaCategory {
+  code: string;
+  name: string;
+}
+
+export interface IMetadataAnimalUniverse {
+  id: string;
+  name: string;
+  species: string;
+  default_breed_id: string | null;
+  default_breed_com_id: string | null;
+  has_image: boolean;
+  stages: IMetadataAnimalUniverseStage[];
+}
+
+interface IMetadataAnimalUniverseStage {
+  stage_name: string;
+  stage_code: string;
+  stage_order: string;
+  stage_feeding_stage: string;
+  universe_id: string;
+  stage_from: string;
+  stage_from_unit: string;
+  stage_to: string;
+  stage_to_unit: string;
+  species_code: string;
+  breed_id: string | null;
+}
+
+export interface IMetadataAnimalPathology {
+  code: string;
+  name: string;
+  species: string | null;
+  has_dedicated_product: string;
+}
+
+export interface IMetadataAnimalStage {
+  species: string;
+  universe_id: string;
+  breed_id: string | null;
+  stage_code: string;
+  stage_name: string;
+  stage_to: string;
+  stage_to_unit: string;
+  stage_from: string;
+  stage_from_unit: string;
+  stage_order: string;
+  feeding_stage: string;
+}
+
+export interface IMetadataDiagnosticCode {
+  diagnostic_code: string;
+  generic_name: string;
+  name: string;
+}
+
+export interface IMetadataPartnerType {
+  code: string;
+  name: string;
+  member_cardinality: string;
+}
+
+export interface IMetadataProductRange {
+  reference: string;
+  generic_name: string;
+  priority: string;
+  name: string;
+  tag_line: string | null;
+  description: string | null;
+  public_visibility: string;
+  partner_visibility: boolean;
+  incl_partner_groups: any[];
+  excl_partner_groups: any[];
+  incl_places_purchase: any[];
+  excl_places_purchase: any[];
+  incl_partner_types: any[];
+  excl_partner_types: any[];
+}
+
+export interface IMetadataProductBrand {
+  id: string;
+  name: string;
+}
+
+export interface IMetadataCollectionRelationType {
+  reference: string;
+  name: string;
+}
+
+export interface IMetadataLoyaltyProgramType {
+  id: string;
+  name: string;
+  show_in_website: "Y" | "N";
+}
+
+export interface IMetadataLoyaltyProgram {
+  id: string;
+  name: string;
+  type: string;
+  thirdParty: "Y" | "N";
+}
+
 export default class Metadata extends Api {
   public defaultHost = "http://metadata.omnipartners.be/";
 
@@ -21,7 +229,7 @@ export default class Metadata extends Api {
     legal_form_codes?: string;
     lang?: string;
     indexed?: string;
-  }): Promise<{ data: any }> {
+  }): Promise<{ data: IMetadataLegalForm[] }> {
     return this._call("get-legal-forms", data);
   }
 
@@ -31,73 +239,93 @@ export default class Metadata extends Api {
     country: string;
     lang: string;
     indexed: string;
-  }) {
+  }): Promise<{ data: IMetadataCountry[] }> {
     return this._call("get-counties", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Address_Types")
   @filterInput(["lang", "indexed"])
-  public getAddressTypes(data?: IBaseInput) {
+  public getAddressTypes(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataAddressType[] }> {
     return this._call("get-address-types", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Member_Countries")
   @filterInput(["lang", "indexed"])
-  public getMemberCountries(data?: IBaseInput) {
+  public getMemberCountries(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataMemberCountry[] }> {
     return this._call("get-countries", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Communication_Preferences")
   @filterInput(["lang", "indexed"])
-  public getCommunicationPreferences(data?: IBaseInput) {
+  public getCommunicationPreferences(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataCommunicationPreference[] }> {
     return this._call("get-communication-preferences", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Interests")
   @filterInput(["lang", "indexed"])
-  public getInterests(data?: IBaseInput) {
+  public getInterests(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataInterest[] }> {
     return this._call("get-interests", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_User_Titles")
   @filterInput(["lang", "indexed"])
-  public getUserTitles(data?: IBaseInput) {
+  public getUserTitles(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataUserTitle[] }> {
     return this._call("get-user-titles", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Member_Languages")
   @filterInput(["lang", "indexed"])
-  public getMemberLanguages(data?: IBaseInput) {
+  public getMemberLanguages(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataMemberLanguage[] }> {
     return this._call("get-languages", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Access_Rights")
   @filterInput(["lang", "indexed"])
-  public getAccessRights(data?: IBaseInput) {
+  public getAccessRights(data?: IBaseInput): Promise<{ data: any }> {
     return this._call("get-access-rights", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Subscriptions")
   @filterInput(["lang", "indexed"])
-  public getSubscriptions(data?: IBaseInput) {
+  public getSubscriptions(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataSubscription[] }> {
     return this._call("get-subscriptions", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Place_of_Purchase")
   @filterInput(["lang", "indexed"])
-  public getPlaceOfPurchase(data?: IBaseInput) {
+  public getPlaceOfPurchase(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataPlaceOfPurchase[] }> {
     return this._call("get-places-of-purchases", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Customer_Groups")
   @filterInput(["lang", "indexed"])
-  public getCustomerGroups(data?: IBaseInput) {
+  public getCustomerGroups(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataCustomerGroup[] }> {
     return this._call("get-customer-groups", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Animal_Types")
   @filterInput(["lang", "indexed"])
-  public getAnimalTypes(data?: IBaseInput) {
+  public getAnimalTypes(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataAnimalType[] }> {
     return this._call("get-animal-types", data);
   }
 
@@ -109,13 +337,13 @@ export default class Metadata extends Api {
     indexed: string;
     search: string;
     order: string;
-  }) {
+  }): Promise<{ data: IMetadataAnimalBreed[] }> {
     return this._call("get-animal-breeds", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Animal_Deletion_Causes")
   @filterInput(["lang", "indexed"])
-  public getAnimalDeletionCauses(data?: IBaseInput) {
+  public getAnimalDeletionCauses(data?: IBaseInput): Promise<{ data: any }> {
     return this._call("get-deletion-causes", data);
   }
 
@@ -125,31 +353,39 @@ export default class Metadata extends Api {
     type: string;
     lang: string;
     indexed: string;
-  }) {
+  }): Promise<{ data: IMetadataAnimalLifestyle[] }> {
     return this._call("get-animal-lifestyles", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Agenda_Categories")
   @filterInput(["lang", "indexed"])
-  public getAgendaCategories(data?: IBaseInput) {
+  public getAgendaCategories(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataAgendaCategory[] }> {
     return this._call("get-agenda-categories", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Animal_Universe")
   @filterInput(["lang", "indexed"])
-  public getAnimalUniverse(data?: IBaseInput) {
+  public getAnimalUniverse(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataAnimalUniverse[] }> {
     return this._call("get-animal-universes", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Animal_Pathologies")
   @filterInput(["lang", "indexed"])
-  public getAnimalPathologies(data?: IBaseInput) {
+  public getAnimalPathologies(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataAnimalPathology[] }> {
     return this._call("get-animal-pathologies", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Animal_Stages")
   @filterInput(["lang", "indexed"])
-  public getAnimalStages(data?: IBaseInput) {
+  public getAnimalStages(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataAnimalStage[] }> {
     return this._call("get-animal-universes-stages", data);
   }
 
@@ -161,7 +397,7 @@ export default class Metadata extends Api {
     search: string;
     page: number;
     "record_per-page": number;
-  }) {
+  }): Promise<IBasePaginatedResult<IMetadataDiagnosticCode>> {
     return this._call("get-diagnostic-codes", data);
   }
 
@@ -171,31 +407,37 @@ export default class Metadata extends Api {
     lang: string;
     species: string;
     universe: string;
-  }) {
+  }): Promise<{ data: any }> {
     return this._call("get-animal-bcs", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Partner_Types_List")
   @filterInput(["lang", "indexed"])
-  public getPartnerTypesList(data?: IBaseInput) {
+  public getPartnerTypesList(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataPartnerType[] }> {
     return this._call("get-partner-types", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Product_Ranges")
   @filterInput(["lang", "indexed"])
-  public getProductRanges(data?: IBaseInput) {
+  public getProductRanges(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataProductRange[] }> {
     return this._call("get-product-ranges", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Product_Brands")
   @filterInput(["lang", "indexed"])
-  public getProductBrands(data?: IBaseInput) {
+  public getProductBrands(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataProductBrand[] }> {
     return this._call("get-product-brands", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Product_Families")
   @filterInput(["lang", "indexed"])
-  public getProductFamilies(data?: IBaseInput) {
+  public getProductFamilies(data?: IBaseInput): Promise<{ data: any }> {
     return this._call("get-product-families", data);
   }
 
@@ -203,25 +445,31 @@ export default class Metadata extends Api {
     "http://doc.omnipartners.be/index.php/Get_Collection_Relation_Types_List",
   )
   @filterInput(["lang", "indexed"])
-  public getCollectionRelationTypesList(data?: IBaseInput) {
+  public getCollectionRelationTypesList(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataCollectionRelationType[] }> {
     return this._call("get-collection-relation-types", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Loyalty_Program_Types")
   @filterInput(["lang", "indexed"])
-  public getLoyaltyProgramTypes(data?: IBaseInput) {
+  public getLoyaltyProgramTypes(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataLoyaltyProgramType[] }> {
     return this._call("get-loyalty-program-types", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_loyalty_Programs")
   @filterInput(["lang", "indexed"])
-  public getLoyaltyProgram(data?: IBaseInput) {
+  public getLoyaltyProgram(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataLoyaltyProgram[] }> {
     return this._call("get-loyalty-programs", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Featured_Activities_List")
   @filterInput(["lang", "indexed"])
-  public getFeaturedAactivities(data?: IBaseInput) {
+  public getFeaturedAactivities(data?: IBaseInput): Promise<{ data: any }> {
     return this._call("get-featured-activities", data);
   }
 }
