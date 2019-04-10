@@ -56,7 +56,7 @@ export default class Api extends EventEmitter {
     this.config = config;
     if (!config.host && config.uri) {
       this.config.host = config.uri;
-      deprecate('Option "uri" is deprecated');
+      deprecate('Option "uri" is deprecated. Use "host" instead.');
     }
 
     this.disableRetry = config.disableRetry || false;
