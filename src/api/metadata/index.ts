@@ -2,7 +2,7 @@ import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 
 interface IBaseInput {
-  lang: string;
+  lang?: string;
 }
 
 interface IBasePaginatedResult<T> {
@@ -20,7 +20,7 @@ export interface IMetadataLegalForm {
   forget_on_revoke: boolean;
 }
 
-export interface IMetadataCountry {
+export interface IMetadataCounty {
   id: string;
   name: string;
   country: string;
@@ -239,7 +239,7 @@ export default class Metadata extends Api {
     country: string;
     lang: string;
     indexed: string;
-  }): Promise<{ data: IMetadataCountry[] }> {
+  }): Promise<{ data: IMetadataCounty[] }> {
     return this._call("get-counties", data);
   }
 
@@ -332,11 +332,11 @@ export default class Metadata extends Api {
   @doc("http://doc.omnipartners.be/index.php/Get_Animal_Breeds")
   @filterInput(["lang", "type", "indexed", "search", "order"])
   public getAnimalBreeds(data?: {
-    lang: string;
-    type: string;
-    indexed: string;
-    search: string;
-    order: string;
+    lang?: string;
+    type?: string;
+    indexed?: string;
+    search?: string;
+    order?: string;
   }): Promise<{ data: IMetadataAnimalBreed[] }> {
     return this._call("get-animal-breeds", data);
   }
