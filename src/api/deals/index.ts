@@ -2,6 +2,19 @@ import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import { IDeal, IUserPet } from "../../types";
 
+export interface ISubscribeToDealInput {
+  user_guid: string;
+  ref: string;
+  partner_extid: string;
+  ean_code?: string;
+  secure_code?: string;
+  pet_guid?: string;
+  iban?: string;
+  bic?: string;
+  referral_code?: string;
+  delivery_address_id?: string;
+}
+
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
 
@@ -176,18 +189,7 @@ export default class Deals extends Api {
     "referral_code", // (Optional) Referral code of the referring partner
     "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
   ])
-  public subscribeToDeal(data: {
-    user_guid: string;
-    ref: string;
-    partner_extid: string;
-    ean_code: string;
-    secure_code: string;
-    pet_guid: string;
-    iban: string;
-    bic: string;
-    referral_code: string;
-    delivery_address_id: string;
-  }) {
+  public subscribeToDeal(data: ISubscribeToDealInput) {
     return this._call("deal-subscribe", data, {
       hashKeys: ["ref"],
       retry: true,
