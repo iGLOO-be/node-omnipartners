@@ -9,8 +9,8 @@ import appendHashToData, { IDataHashOptions } from "./utils/appendHashToData";
 const deprecate = depd("API");
 
 export interface IApiOptions {
-  host?: string;
-  uri: string;
+  host: string;
+  uri?: string;
   disableRetry?: boolean;
   key: string;
   secret: string;
@@ -46,9 +46,9 @@ export default class Api extends EventEmitter {
 
   constructor(
     config: IApiOptions = {
+      host: "",
       key: "",
       secret: "",
-      uri: "",
     },
   ) {
     super();
