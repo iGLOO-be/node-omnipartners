@@ -1,4 +1,4 @@
-import winston from "winston";
+import winston, { LoggerOptions } from "winston";
 import Api from "../Api";
 import Request from "../Request";
 import logStructure from "./logStructure";
@@ -25,7 +25,9 @@ async function prepareRequest(request: Request) {
     });
 }
 
-export default function createLogger(winstonOptions = winstonDefaultOptions) {
+export default function createLogger(
+  winstonOptions: LoggerOptions = winstonDefaultOptions,
+) {
   const logger = winston.createLogger(winstonOptions);
 
   const fn = (api: Api) => {
