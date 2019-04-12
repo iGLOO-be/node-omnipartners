@@ -1,6 +1,35 @@
 import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IProductDataOptions } from "../../types";
+import { ICollectionDataOptions, IProductDataOptions } from "../../types";
+
+export interface IProduct {
+  product_id: string;
+  product_ean: string;
+  product_label: string;
+  product_friendly_name: string;
+  product_recommended_retail_price: string;
+  product_weight: string;
+  product_net_weight: string;
+  product_gross_weight: string | null;
+  product_packaging_units: string | null;
+  product_packaging_container_type_info: string | null;
+  product_packaging_value: string | null;
+  product_packaging_gross_weight: string | null;
+  product_collection_reference: string;
+  product_groups: string[];
+  "pro_adviced_price ": string; // LOL
+  pro_animal_type: string;
+  pro_cust_box: string;
+  pro_deals_label: string;
+  pro_inventory: string;
+  pro_net_weight: string;
+  pro_price: string;
+  pro_price_cat: string;
+  pro_price_catconv: string;
+  pro_price_dog: string;
+  pro_price_dogconv: string;
+  pro_price_pos: string;
+}
 
 export type IGetCollectionsByTargetingInfoInputFilterByAll =
   | {
@@ -249,6 +278,54 @@ export interface IGetCollectionsByTargetingInfoCollection {
   }>;
 }
 
+export interface IGetCollectionDetailsInput {
+  // (Required) This will hold the Reference of the collection. (http://doc.omnipartners.be/index.php/List_Collection_References)
+  collection_reference: string;
+  // (Required) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
+  language: string;
+  // (Optional) States whether returned URLs should be secured or not. Valid values are 0 and 1. Default value is 0.
+  use_https_urls?: string;
+  // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
+  data_options?: ICollectionDataOptions;
+  // (Optional) Valid value is "component_name". If this is provided and not empty, then the collection components in the response will order according to the alphabetical order of components name. Otherwise it'll get ordered from the order defined in the collection level components.
+  component_sort_order?: string;
+  // (Optional) Ignore the old format of the response.Valid values are 0 and 1. Default value is 0.
+  ignore_old_format?: string;
+}
+
+export interface ICollectionDetailBenefit {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+export interface ICollectionDetail {
+  reference: string;
+  generic_name: string;
+  name: string;
+  energy_level: number;
+  has_image: boolean;
+  contains: [];
+  does_not_contain: [];
+  caloric_table: null;
+  benefits: ICollectionDetailBenefit[];
+  collection_reference: string;
+  collection_generic_name: string;
+  collection_name: string;
+  collection_description: string;
+  collection_tag_line: string;
+  collection_introduction: string;
+  collection_range_reference: string;
+  collection_range_family_reference: string;
+  collection_energy_level: number;
+  collection_image: string;
+  collection_image_small: string;
+  collection_image_medium: string;
+  collection_image_large: string;
+  collection_caloric_table: null;
+}
+
 export default class Products extends Api {
   public defaultHost = "https://products.clixray.io/";
 
@@ -281,10 +358,29 @@ export default class Products extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Get_Product_By_EAN_or_Code")
   @filterInput(["product_ean", "product_code"])
-  public getProduct(data: { product_ean: string; product_code: string }) {
+  public getProduct(data: {
+    product_ean?: string;
+    product_code?: string;
+  }): Promise<{ data: IProduct[] }> {
     return this._call("get-product", data, {
       errorMap: {
         1020: { message: "Product ean or code required." },
+      },
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_Collection_Details")
+  @filterInput(["product_ean", "product_code"])
+  public getCollectionDetails(
+    data: IGetCollectionDetailsInput,
+  ): Promise<{ data: ICollectionDetail }> {
+    return this._call("get-collection-details", data, {
+      errorMap: {
+        1018: { message: "collection reference can not be empty." },
+        1019: { message: "language reference can not be empty." },
+        1014: { message: "Invalid language." },
+        2005: { message: "Invalid Component sort order field found." },
       },
       retry: true,
     });

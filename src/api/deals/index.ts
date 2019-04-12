@@ -15,18 +15,20 @@ export interface ISubscribeToDealInput {
   delivery_address_id?: string;
 }
 
+export interface IDealProductCollection {
+  generic_name?: string;
+  reference?: string;
+  name?: { [key: string]: string };
+  has_image: boolean;
+}
+
 export interface IDealProduct {
   ean: string;
   id: string;
   label: string;
   friendly_name: string;
   min_qty: number;
-  collection: {
-    generic_name: string | null;
-    reference: string | null;
-    name: string | null;
-    has_image: boolean;
-  };
+  collection: IDealProductCollection;
 }
 
 export default class Deals extends Api {
@@ -266,7 +268,9 @@ export default class Deals extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Get_product_list")
   @filterInput(["deal_ref"])
-  public getProductList(data: { deal_ref: string }): Promise<{ data: IDealProduct[] }> {
+  public getProductList(data: {
+    deal_ref: string;
+  }): Promise<{ data: IDealProduct[] }> {
     return this._call("get-product-list", data, {
       hashKeys: ["deal_ref"],
       retry: true,

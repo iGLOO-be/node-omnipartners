@@ -119,6 +119,59 @@ type IProductDataOption =
   | "targeting_constraints";
 export type IProductDataOptions = IProductDataOption[] | IProductDataOption;
 
+type ICollectionDataOption =
+  // Basic information of the collection
+  // Properties : "reference","generic_name","name","energy_level","has_image".
+  | "collection_details"
+  // Images of the collection
+  // Please refer "images" property here .
+  | "images"
+  // Key benefits of the collection.
+  // Please refer "key_benefits" property here .
+  | "key_benefits"
+  // Collections that have relationships to the collection.
+  // Please refer "related_collections" property here .
+  | "related_collections"
+  // Targeting Information of the collection.
+  // Please refer "targeting" property here .
+  | "targeting"
+  // Range Information of the collection.
+  // Please refer "range" property here .
+  | "range"
+  // Family of the collection range.
+  // Please refer "family" property here .
+  | "family"
+  // Description of the collection.
+  // Properties : "description","tag_line","introduction"
+  | "collection_description"
+  // Benefits list of the collection.
+  // Please refer "benefits" property here .
+  | "benefits"
+  // Pathologies list of the collection.
+  // Please refer "pathologies" property here .
+  | "pathologies"
+  // links list of the collection.
+  // Please refer "links" property here .
+  | "links"
+  // products list of the collection.
+  // Please refer "products" propety here .
+  | "products"
+  // Component list of the collection.
+  // Please refer "components" property here .
+  | "collection_components"
+  // Available Product Packages of a collection.
+  // Please refer "available_packages" property here .
+  | "available_packages"
+  // List of Product Groups.
+  // Please refer "product_groups" property here .
+  | "product_groups"
+  // Information about the constraints of each field in collection targeting data. This option will be allowed only if targeting information are requested.
+  // Please refer "targeting_constraints" property here .
+  | "targeting_constraints";
+export type ICollectionDataOptions =
+  | ICollectionDataOption[]
+  | ICollectionDataOption;
+
 export interface IUserPartial {
   statusCode: 0;
   user_guid: string;
