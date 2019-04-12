@@ -134,7 +134,9 @@ export interface IGetCollectionsByTargetingInfoInput {
   // (Optional) Diagnostic Codes. This should be a comma separated string or an array of codes. When provided the diagnostic codes will be mapped against PATHOLOGIES in order to set the global filter. These values override any pathology provided explicitely in the method. Moreover, the operator which is applying for the criteria match will be "Any" by default. (i.e. if there is a diagnotic code and a pathology, the pathology will be ignored and replaced by the one derived from the diagnotic code... even if there is no pathology.).
   diagnostic_codes?: string;
   // (Optional) Criteria block to filter collections by all the given criteria (All the criteria should match)
-  filter_by_all?: IGetCollectionsByTargetingInfoInputFilterByAllSimple[] | IGetCollectionsByTargetingInfoInputFilterByAll[];
+  filter_by_all?:
+    | IGetCollectionsByTargetingInfoInputFilterByAllSimple[]
+    | IGetCollectionsByTargetingInfoInputFilterByAll[];
   // (Optional) Type of filter criteria. There can be multiple criterias combined. Valid types are SPECIES, NEUTERED, GENDER, PURCHASE_PLACE, AGE, PATHOLOGIES, LIFESTYLE, RANGE,TARGET_AUDIENCE,PET_ALLERGENS,PET_HEALTH_CONTEXT or PET_BCS.
   filter_type?: string;
   // (Optional) Id of the pet type (see http://doc.omnipartners.be/index.php/Animal_types_list) (for filter_type = SPECIES)
