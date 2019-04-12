@@ -18,6 +18,7 @@ export * from "./types";
 export * from "./data-types";
 export * from "./api/metadata";
 export * from "./api/deals";
+export * from "./api/products";
 
 const deprecate = depd("API");
 
