@@ -116,7 +116,7 @@ type IProductDataOption =
   | "product_groups"
   // Information about the constraints of each field in collection targeting data. This option will be allowed only if targeting information are requested.
   // Please refer "targeting_constraints" property here .
-  | "targeting_constraints"
+  | "targeting_constraints";
 export type IProductDataOptions = IProductDataOption[] | IProductDataOption;
 
 export interface IUserPartial {

@@ -2,6 +2,122 @@ import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import { IProductDataOptions } from "../../types";
 
+export type IGetCollectionsByTargetingInfoInputFilterByAll =
+  | {
+      filter_type: "SPECIES";
+      species_type?: string;
+      univers?: string;
+      breed?: string;
+    }
+  | {
+      filter_type: "NEUTERED";
+      neutered: "YES" | "NO";
+    }
+  | {
+      filter_type: "GENDER";
+      gender: "M" | "F";
+    }
+  | {
+      filter_type: "PURCHASE_PLACE";
+      purchase_place: string;
+    }
+  | {
+      filter_type: "AGE";
+      unit?: "WEEK" | "MONTH" | "YEAR";
+      age?: string;
+      age_from?: string;
+      age_to?: string;
+    }
+  | {
+      filter_type: "RANGE";
+      range_reference: string;
+    }
+  | {
+      filter_type: "PET_BCS";
+      pet_bcs: number;
+    }
+  | {
+      filter_type: "PET_WEIGHT";
+      pet_weight: string;
+    }
+  | {
+      filter_type: "PET_STAGES";
+      pet_stages: string[];
+    }
+  | {
+      filter_type: "TARGET_AUDIENCE";
+      public_visibility: "YES" | "NO";
+      partners_visibility: "YES" | "NO";
+      partner_types: string[];
+    }
+  | {
+      filter_type: "PET_ALLERGENS";
+      pet_allergens: string[];
+    }
+  | {
+      filter_type: "PET_HEALTH_CONTEXT";
+      pet_health_context: string[];
+    };
+
+export interface IGetCollectionsByTargetingInfoInputFilterByAllSimple {
+  filter_type:
+    | "SPECIES"
+    | "NEUTERED"
+    | "GENDER"
+    | "PURCHASE_PLACE"
+    | "AGE"
+    | "RANGE"
+    | "PET_BCS"
+    | "PET_WEIGHT"
+    | "PET_STAGES"
+    | "TARGET_AUDIENCE"
+    | "PET_ALLERGENS"
+    | "PET_HEALTH_CONTEXT";
+
+  // SPECIES
+  species_type?: string;
+  univers?: string;
+  breed?: string;
+
+  // NEUTERED
+  neutered?: "YES" | "NO";
+
+  // GENDER
+  gender?: "M" | "F";
+
+  // PURCHASE_PLACE
+  purchase_place?: string;
+
+  // AGE
+  unit?: "WEEK" | "MONTH" | "YEAR";
+  age?: string;
+  age_from?: string;
+  age_to?: string;
+
+  // RANGE
+  range_reference?: string;
+
+  // PET_BCS
+  pet_bcs?: number;
+
+  // PET_WEIGHT
+  pet_weight?: string;
+
+  // PET_STAGES
+  pet_stages?: string[];
+
+  // TARGET_AUDIENCE
+  public_visibility?: "YES" | "NO";
+  partners_visibility?: "YES" | "NO";
+  partner_types?: string[];
+
+  // PET_ALLERGENS
+  pet_allergens?: string[];
+
+  // PET_HEALTH_CONTEXT
+  pet_health_context?: string[];
+}
+
 export interface IGetCollectionsByTargetingInfoInput {
   // (Optional) Partner Id. Two types of IDs are acceptable here which are terminal Id (http://doc.omnipartners.be/index.php/List_Partners_with_Terminals) and Partner Ext Id (http://doc.omnipartners.be/index.php/List_Partners). Moreover the parameter has a single input. partner_id has first priority than partner_group_handle.
   partner_id?: string;
@@ -18,7 +134,7 @@ export interface IGetCollectionsByTargetingInfoInput {
   // (Optional) Diagnostic Codes. This should be a comma separated string or an array of codes. When provided the diagnostic codes will be mapped against PATHOLOGIES in order to set the global filter. These values override any pathology provided explicitely in the method. Moreover, the operator which is applying for the criteria match will be "Any" by default. (i.e. if there is a diagnotic code and a pathology, the pathology will be ignored and replaced by the one derived from the diagnotic code... even if there is no pathology.).
   diagnostic_codes?: string;
   // (Optional) Criteria block to filter collections by all the given criteria (All the criteria should match)
-  filter_by_all?: string;
+  filter_by_all?: IGetCollectionsByTargetingInfoInputFilterByAllSimple[] | IGetCollectionsByTargetingInfoInputFilterByAll[];
   // (Optional) Type of filter criteria. There can be multiple criterias combined. Valid types are SPECIES, NEUTERED, GENDER, PURCHASE_PLACE, AGE, PATHOLOGIES, LIFESTYLE, RANGE,TARGET_AUDIENCE,PET_ALLERGENS,PET_HEALTH_CONTEXT or PET_BCS.
   filter_type?: string;
   // (Optional) Id of the pet type (see http://doc.omnipartners.be/index.php/Animal_types_list) (for filter_type = SPECIES)
