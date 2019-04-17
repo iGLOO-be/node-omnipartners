@@ -1,6 +1,6 @@
 import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IDeal, IUserPet } from "../../types";
+import { IDeal } from "../../types";
 
 export interface ISubscribeToDealInput {
   user_guid: string;
@@ -29,6 +29,11 @@ export interface IDealProduct {
   friendly_name: string;
   min_qty: number;
   collection: IDealProductCollection;
+}
+
+export interface IDealEligiblePet {
+  pet_guid: string;
+  pet_name: string;
 }
 
 export default class Deals extends Api {
@@ -259,7 +264,7 @@ export default class Deals extends Api {
   public listEligiblePets(data: {
     deal_ref: string;
     user_guid: string;
-  }): Promise<{ data: IUserPet[] }> {
+  }): Promise<{ data: IDealEligiblePet[] }> {
     return this._call("list-eligible-pets", data, {
       hashKeys: undefined,
       retry: true,
