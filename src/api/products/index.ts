@@ -6,7 +6,7 @@ export interface IProduct {
   product_id: string;
   product_ean: string;
   product_label: string;
-  product_friendly_name: string;
+  product_friendly_name?: string;
   product_recommended_retail_price: string;
   product_weight: string;
   product_net_weight: string;
@@ -319,10 +319,10 @@ export interface ICollectionDetail {
   collection_range_reference: string;
   collection_range_family_reference: string;
   collection_energy_level: number;
-  collection_image: string;
-  collection_image_small: string;
-  collection_image_medium: string;
-  collection_image_large: string;
+  collection_image?: string;
+  collection_image_small?: string;
+  collection_image_medium?: string;
+  collection_image_large?: string;
   collection_caloric_table: null;
 }
 
