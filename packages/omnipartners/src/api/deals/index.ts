@@ -26,7 +26,7 @@ export interface IDealProduct {
   ean: string;
   id: string;
   label: string;
-  friendly_name: string;
+  friendly_name?: string;
   min_qty: number;
   collection: IDealProductCollection;
 }

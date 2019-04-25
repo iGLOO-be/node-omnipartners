@@ -717,7 +717,7 @@ export interface IDeal {
     ean: string;
     id: number;
     label: string;
-    friendly_name: string;
+    friendly_name?: string;
     min_qty: number;
     collection: {
       generic_name: string;
