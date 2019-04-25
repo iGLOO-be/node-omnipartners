@@ -1,10 +1,25 @@
 import { ApolloServer } from "apollo-server";
-import createOmnipartners from "omnipartners";
+import createOmnipartners, { IOmnipartnersConfig } from "omnipartners";
 import { Context, createSchema } from "../src";
 
+let config: IOmnipartnersConfig | null = null;
+try {
+  config = require("../dev-config.js");
+} catch (err) {
+  if (err.code !== "MODULE_NOT_FOUND") {
+    throw err;
+  }
+}
+
 const createServer = async () => {
+  if (!config) {
+    console.error('Unable to find omnipartners config. Please create a file `dev-config.js`.')
+    process.exit(0)
+    return
+  }
+
   const context = new Context({
-    omnipartners: createOmnipartners()
+    omnipartners: createOmnipartners(config),
   });
   const server = new ApolloServer({ schema: await createSchema(), context });
   return server;
