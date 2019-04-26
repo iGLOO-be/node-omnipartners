@@ -12,7 +12,8 @@
     "no-empty": false,
     "max-classes-per-file": false,
     "no-submodule-imports": false,
-    "variable-name": false
+    "variable-name": false,
+    "object-literal-sort-keys": false
   },
   "rulesDirectory": []
 }
