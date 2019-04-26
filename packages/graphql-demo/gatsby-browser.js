@@ -1,8 +1,12 @@
 import React from "react";
 import { GraphQLProvider } from "./src/lib/GraphQLProvider";
+import { Menu } from "./src/layout/Menu"
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <GraphQLProvider>{element}</GraphQLProvider>
+    <GraphQLProvider>
+      <Menu />
+      {element}
+    </GraphQLProvider>
   );
 };
