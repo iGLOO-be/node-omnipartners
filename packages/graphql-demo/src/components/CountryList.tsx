@@ -13,7 +13,7 @@ const GetCountriesQuery = gql`
 `;
 
 export const CountryList = () => {
-  const { data, error, loading } = useQuery<
+  const { data } = useQuery<
     GetCountries,
     GetCountriesVariables
   >(GetCountriesQuery, {
