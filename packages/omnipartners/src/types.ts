@@ -396,7 +396,7 @@ export interface IUserOwner {
   user_email_status: string;
   type: string[];
   businessName: string;
-  dob: null;
+  dob: string;
   countyId: null;
   website: string;
   profile_completion: string;

@@ -10,7 +10,18 @@ interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
 @ObjectType()
 class UserOwner
   implements
-    Pick<IUserOwner, "firstName" | "lastName" | "email" | "guid"> {
+    Pick<
+      IUserOwner,
+      | "firstName"
+      | "lastName"
+      | "email"
+      | "guid"
+      | "title"
+      | "dob"
+      | "gender"
+      | "mobilePhone"
+      | "language"
+    > {
   @Field()
   public guid: string;
   @Field()
@@ -19,6 +30,16 @@ class UserOwner
   public lastName: string;
   @Field()
   public email: string;
+  @Field()
+  public title: string;
+  @Field({ nullable: true })
+  public dob: string;
+  @Field()
+  public gender: string;
+  @Field()
+  public mobilePhone: string;
+  @Field()
+  public language: string;
 }
 
 @ObjectType()

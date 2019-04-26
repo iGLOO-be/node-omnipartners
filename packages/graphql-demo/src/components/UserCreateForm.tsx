@@ -1,8 +1,7 @@
-import { Field, Form, Formik, FormikValues } from "formik";
+import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
 import React from "react";
 import { useMutation } from "react-apollo-hooks";
-import { UserCreateInput } from "../../__generated__/globalTypes";
 import { SimpleInput } from "../layout/SimpleInput";
 import { UserCreate, UserCreateVariables } from "./__generated__/UserCreate";
 import { GenderRadio } from "./GenderRadio";
@@ -31,8 +30,8 @@ export const UserCreateForm = () => {
     <div>
       <h1>Create user</h1>
       <Formik
-        onSubmit={values => {
-          const data = userCreate({ variables: { userInput: { ...values } } })
+        onSubmit={async values => {
+          const { data } = await userCreate({ variables: { userInput: { ...values } } })
           if (data && data.userCreate) {
             if (data.userCreate.result) {
               console.log(data.userCreate.result)
@@ -43,7 +42,7 @@ export const UserCreateForm = () => {
           }
         }}
         initialValues={{
-          title: "",
+          title: "Mr",
           firstName: "",
           lastName: "",
           dob: "",

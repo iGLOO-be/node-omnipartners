@@ -1,43 +1,135 @@
 import { Field, Form, Formik } from "formik";
+import gql from "graphql-tag";
+import { pickBy } from "lodash";
 import React from "react";
+import { useMutation, useQuery } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
+import { useUserToken } from "../lib/useUserToken";
+import { UserUpdate, UserUpdateVariables } from "./__generated__/UserUpdate";
+import {
+  UserUpdateFormRead,
+  UserUpdateFormReadVariables,
+} from "./__generated__/UserUpdateFormRead";
+import { GenderRadio } from "./GenderRadio";
+import { TitleRadio } from "./TitleRadio";
 
-export const UserUpdateForm = () => (
-  <div>
-    <h1>Update profile</h1>
-    <Formik
-      onSubmit={values => console.log(values)}
-      initialValues={{
-        user_city: "",
-        user_country: "",
-        user_county: "",
-        user_dob: "",
-        user_email: "",
-        user_ext_id: "",
-        user_facebook_id: "",
-        user_first_name: "",
-        user_gender: "",
-        user_language: "",
-        user_last_name: "",
-        user_lat: "",
-        user_lng: "",
-        user_mobile_phone: "",
-        user_national_id: "",
-        user_password: "",
-        user_postal_code: "",
-        user_street1: "",
-        user_street2: "",
-        user_streetnum: "",
-        user_telephone: "",
-        user_title: "",
-        user_username: "",
-        user_website: "",
-      }}
-      render={() => (
-        <Form>
-          <Field name="user_first_name" component={SimpleInput} />
-        </Form>
+const UserUpdateMutation = gql`
+  mutation UserUpdate($token: String!, $userInput: UserUpdateInput!) {
+    userUpdate(token: $token, userInput: $userInput) {
+      result {
+        owner {
+          guid
+          firstName
+          lastName
+          email
+        }
+      }
+      error {
+        message
+        code
+      }
+    }
+  }
+`;
+
+const UserUpdateFormReadQuery = gql`
+  query UserUpdateFormRead($userToken: String!) {
+    user(token: $userToken) {
+      result {
+        owner {
+          firstName
+          lastName
+          email
+          gender
+          mobilePhone
+          title
+          dob
+          language
+        }
+      }
+      error {
+        message
+      }
+    }
+  }
+`;
+
+export const UserUpdateForm = () => {
+  const userToken = useUserToken();
+  const { data } = useQuery<UserUpdateFormRead, UserUpdateFormReadVariables>(
+    UserUpdateFormReadQuery,
+    {
+      skip: !userToken.token,
+      variables: {
+        userToken: userToken.token,
+      },
+    },
+  );
+
+  const userUpdate = useMutation<UserUpdate, UserUpdateVariables>(
+    UserUpdateMutation,
+  );
+  return (
+    <div>
+      <h1>Update profile</h1>
+
+      {userToken.renderInput}
+
+      {data && data.user && data.user.result && data.user.result.owner && (
+        <Formik
+          onSubmit={async values => {
+            const { data: updatedData, errors } = await userUpdate({
+              variables: {
+                token: userToken.token,
+                userInput: values,
+              },
+            });
+
+            if (
+              updatedData &&
+              updatedData.userUpdate &&
+              updatedData.userUpdate.result
+            ) {
+              console.log(updatedData.userUpdate.result.owner);
+            }
+
+            if (errors) {
+              console.error(errors);
+            }
+
+            if (
+              updatedData &&
+              updatedData.userUpdate &&
+              updatedData.userUpdate.error
+            ) {
+              console.log(updatedData.userUpdate.error);
+            }
+          }}
+          initialValues={{
+            title: data.user.result.owner.title || "",
+            firstName: data.user.result.owner.firstName || "",
+            lastName: data.user.result.owner.lastName || "",
+            dob: data.user.result.owner.dob || "",
+            gender: data.user.result.owner.gender || "",
+            mobilePhone: data.user.result.owner.mobilePhone || "",
+            email: data.user.result.owner.email || "",
+            language: data.user.result.owner.language || "",
+          }}
+          render={() => (
+            <Form>
+              <TitleRadio />
+              <Field name="firstName" component={SimpleInput} />
+              <Field name="lastName" component={SimpleInput} />
+              <Field name="dob" type="date" component={SimpleInput} />
+              <GenderRadio />
+              <Field name="mobilePhone" type="phone" component={SimpleInput} />
+              <Field name="email" type="email" component={SimpleInput} />
+              <Field name="language" component={SimpleInput} />
+              <button type="submit">Submit</button>
+            </Form>
+          )}
+        />
       )}
-    />
-  </div>
-);
+    </div>
+  );
+};
