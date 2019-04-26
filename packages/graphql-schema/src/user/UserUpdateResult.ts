@@ -1,5 +1,5 @@
 import { Field, ObjectType } from "type-graphql";
-import { GenericValidationError } from "./GenericValidationError";
+import { GenericValidationError } from "../types/GenericValidationError";
 import { UserResult } from "./UserResult";
 
 @ObjectType()

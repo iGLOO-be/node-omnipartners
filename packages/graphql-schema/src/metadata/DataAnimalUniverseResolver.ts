@@ -12,7 +12,7 @@ export class AnimalUniverse implements Partial<IMetadataAnimalUniverse> {
 @Resolver(() => AnimalUniverse)
 export class DataAnimalUniverseResolver {
   @Query(() => [AnimalUniverse])
-  public async animalUniverses(
+  public async metadataAnimalUniverses(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<AnimalUniverse[]> {

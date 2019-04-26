@@ -2,10 +2,10 @@ import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { User } from "../types/User";
-import { UserAddress } from "../types/UserAddress";
-import { UserAddressUpdateResult } from "../types/UserAddressUpdateResult";
+import { User } from "./User";
+import { UserAddress } from "./UserAddress";
 import { UserAddressCreateInput } from "./UserAddressCreateResolver";
+import { UserAddressUpdateResult } from "./UserAddressUpdateResult";
 import { dataOptions } from "./UserResolver";
 
 @InputType()

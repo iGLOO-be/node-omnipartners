@@ -20,7 +20,7 @@ export class LegalForm implements IMetadataLegalForm {
 @Resolver(() => LegalForm)
 export class DataLegalFormResolver {
   @Query(() => [LegalForm])
-  public async legalForms(
+  public async metadataLegalForms(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<LegalForm[]> {

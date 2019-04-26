@@ -30,7 +30,7 @@ export class AnimalBreed
 @Resolver(() => AnimalBreed)
 export class DataAnimalBreedResolver {
   @Query(() => [AnimalBreed])
-  public async animalBreeds(
+  public async metadataAnimalBreeds(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
     @Arg("type", { nullable: true }) type?: string,

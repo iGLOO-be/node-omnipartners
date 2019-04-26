@@ -1,5 +1,5 @@
 import { Field, ObjectType } from "type-graphql";
-import { GenericResult } from "./GenericResult";
+import { GenericResult } from "../types/GenericResult";
 import { User } from "./User";
 
 @ObjectType()

@@ -1,24 +1,24 @@
 import "reflect-metadata";
 
 import { buildSchema, BuildSchemaOptions } from "type-graphql";
-import { DataAnimalBreedResolver } from "./resolvers/DataAnimalBreedResolver";
-import { DataAnimalTypeResolver } from "./resolvers/DataAnimalTypeResolver";
-import { DataAnimalUniverseResolver } from "./resolvers/DataAnimalUniverseResolver";
-import { DataCountryResolver } from "./resolvers/DataCountryResolver";
-import { DataLanguageResolver } from "./resolvers/DataLanguageResolver";
-import { DataLegalFormResolver } from "./resolvers/DataLegalFormResolver";
-import { DataSubscriptionResolver } from "./resolvers/DataSubscriptionResolver";
-import { DataUserTitleResolver } from "./resolvers/DataUserTitleResolver";
+import { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
+import { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
+import { DataAnimalUniverseResolver } from "./metadata/DataAnimalUniverseResolver";
+import { DataCountryResolver } from "./metadata/DataCountryResolver";
+import { DataLanguageResolver } from "./metadata/DataLanguageResolver";
+import { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
+import { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
+import { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
 import { DealResolver } from "./resolvers/DealResolver";
 import { ProductResolver } from "./resolvers/ProductResolver";
-import { UserAddressCreateResolver } from "./resolvers/UserAddressCreateResolver";
-import { UserAddressUpdateResolver } from "./resolvers/UserAddressUpdateResolver";
-import { UserCreateResolver } from "./resolvers/UserCreateResolver";
-import { UserPetCreateResolver } from "./resolvers/UserPetCreateResolver";
-import { UserPetUpdateResolver } from "./resolvers/UserPetUpdateResolver";
-import { UserResolver } from "./resolvers/UserResolver";
-import { UserUpdateResolver } from "./resolvers/UserUpdateResolver";
 import { Context } from "./types/Context";
+import { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
+import { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
+import { UserCreateResolver } from "./user/UserCreateResolver";
+import { UserPetCreateResolver } from "./user/UserPetCreateResolver";
+import { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
+import { UserResolver } from "./user/UserResolver";
+import { UserUpdateResolver } from "./user/UserUpdateResolver";
 
 const createSchema = async (options?: Partial<BuildSchemaOptions>) =>
   buildSchema({

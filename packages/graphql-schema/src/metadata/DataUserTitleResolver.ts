@@ -16,7 +16,7 @@ export class UserTitle implements IMetadataUserTitle {
 @Resolver(() => UserTitle)
 export class DataUserTitleResolver {
   @Query(() => [UserTitle])
-  public async titles(
+  public async metadataUserTitles(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<UserTitle[]> {

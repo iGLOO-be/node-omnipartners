@@ -11,9 +11,9 @@ import {
 import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { User } from "../types/User";
-import { UserUpdateResult } from "../types/UserUpdateResult";
+import { User } from "./User";
 import { dataOptions } from "./UserResolver";
+import { UserUpdateResult } from "./UserUpdateResult";
 
 @InputType()
 class UserUpdateInput implements Omit<IUpdateUserInput, "user_guid"> {

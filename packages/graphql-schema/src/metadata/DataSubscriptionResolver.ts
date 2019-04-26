@@ -16,7 +16,7 @@ export class Subscription implements IMetadataSubscription {
 @Resolver(() => Subscription)
 export class DataSubscriptionResolver {
   @Query(() => [Subscription])
-  public async subscriptions(
+  public async metadataSubscriptions(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<Subscription[]> {

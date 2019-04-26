@@ -16,7 +16,7 @@ export class Country implements Partial<IMetadataMemberCountry> {
 @Resolver(() => Country)
 export class DataCountryResolver {
   @Query(() => [Country])
-  public async countries(
+  public async metadataCountries(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<Country[]> {

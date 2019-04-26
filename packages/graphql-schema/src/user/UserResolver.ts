@@ -18,8 +18,8 @@ import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericError, handleGeneric } from "../types/GenericResult";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { User } from "../types/User";
-import { UserResult } from "../types/UserResult";
+import { User } from "./User";
+import { UserResult } from "./UserResult";
 
 export const dataOptions: IUserDataOptions = [
   "-pet_details",

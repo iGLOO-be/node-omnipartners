@@ -1,37 +1,36 @@
-import { IUserPetUpdateInput } from "omnipartners";
+import { IUserPetCreateInput } from "omnipartners";
+import { Omit } from "type-fest";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { User } from "../types/User";
-import { UserPet } from "../types/UserPet";
-import { UserPetUpdateResult } from "../types/UserPetUpdateResult";
+import { User } from "./User";
+import { UserPet } from "./UserPet";
+import { UserPetUpdateResult } from "./UserPetUpdateResult";
 import { dataOptions } from "./UserResolver";
 
 @InputType()
-class UserPetUpdateInput implements IUserPetUpdateInput {
+class UserPetCreateInput implements Omit<IUserPetCreateInput, "user_guid"> {
   @Field()
-  public pet_guid: string;
-  @Field({ nullable: true })
-  public pet_name?: string;
-  @Field({ nullable: true })
-  public pet_type?: string;
-  @Field({ nullable: true })
-  public pet_breed?: string;
-  @Field({ nullable: true })
-  public pet_pedigreename?: string;
+  public pet_name: string;
+  @Field()
+  public pet_type: string;
+  @Field()
+  public pet_breed: string;
   @Field({ nullable: true })
   public pet_breed_com_id?: string;
   @Field({ nullable: true })
-  public pet_dob?: string;
+  public pet_pedigreename?: string;
+  @Field()
+  public pet_dob: string;
   @Field({ nullable: true })
   public pet_dob_approx?: string;
-  @Field({ nullable: true })
-  public pet_gender?: string;
   @Field({ nullable: true })
   public pet_neutered?: string;
   @Field({ nullable: true })
   public pet_neutering_date?: string;
+  @Field({ nullable: true })
+  public pet_gender?: string;
   @Field({ nullable: true })
   public vaccination_date?: string;
   @Field({ nullable: true })
@@ -49,42 +48,34 @@ class UserPetUpdateInput implements IUserPetUpdateInput {
   @Field({ nullable: true })
   public chip_number?: string;
   @Field({ nullable: true })
-  public kc_number?: string;
-  @Field({ nullable: true })
   public pet_picture?: string;
+  @Field({ nullable: true })
+  public kc_number?: string;
   @Field({ nullable: true })
   public pet_ext_id?: string;
 }
 
 @Resolver(() => User)
-export class UserPetUpdateResolver {
+export class UserPetCreateResolver {
   @Mutation(() => UserPetUpdateResult, { nullable: false })
-  public async userPetUpdate(
+  public async userPetCreate(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
-    @Arg("userPetInput") userPetInput: UserPetUpdateInput,
+    @Arg("userPetInput") userPetInput: UserPetCreateInput,
   ): Promise<UserPetUpdateResult> {
     const { user_guid } = parse(token);
     try {
-      const pet = (await ctx.omnipartners.identity.getPet({
-        pet_guid: userPetInput.pet_guid,
+      const pet = (await ctx.omnipartners.identity.createPet({
+        ...userPetInput,
+        user_guid,
       })).data;
-
-      if (pet.pet_owner.user_guid !== user_guid) {
-        // TODO: better error
-        throw new Error("Not your pet!");
-      }
-
-      const updatedPet = (await ctx.omnipartners.identity.updatePet(
-        userPetInput,
-      )).data;
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: dataOptions,
         user_guid,
       });
       return new UserPetUpdateResult({
         result: {
-          pet: new UserPet(updatedPet),
+          pet: new UserPet(pet),
           user: new User(user),
         },
       });

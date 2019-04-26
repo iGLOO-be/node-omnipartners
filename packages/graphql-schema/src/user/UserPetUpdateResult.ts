@@ -1,6 +1,6 @@
 import { Field, ObjectType } from "type-graphql";
-import { GenericResult } from "./GenericResult";
-import { GenericValidationError } from "./GenericValidationError";
+import { GenericResult } from "../types/GenericResult";
+import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserPet } from "./UserPet";
 

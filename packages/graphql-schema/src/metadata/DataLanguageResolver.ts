@@ -14,7 +14,7 @@ export class Language implements IMetadataMemberLanguage {
 @Resolver(() => Language)
 export class DataLanguageResolver {
   @Query(() => [Language])
-  public async languages(
+  public async metadataLanguages(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<Language[]> {

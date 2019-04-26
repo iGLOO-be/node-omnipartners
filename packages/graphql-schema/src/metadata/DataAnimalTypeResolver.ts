@@ -14,7 +14,7 @@ export class AnimalType implements IMetadataAnimalType {
 @Resolver(() => AnimalType)
 export class DataAnimalTypeResolver {
   @Query(() => [AnimalType])
-  public async animalTypes(
+  public async metadataAnimalTypes(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<AnimalType[]> {
