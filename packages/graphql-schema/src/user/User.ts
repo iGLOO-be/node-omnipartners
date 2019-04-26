@@ -10,9 +10,9 @@ interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
 @ObjectType()
 class UserOwner
   implements
-    Pick<IUserOwner, "firstName" | "lastName" | "email" | "user_guid"> {
+    Pick<IUserOwner, "firstName" | "lastName" | "email" | "guid"> {
   @Field()
-  public user_guid: string;
+  public guid: string;
   @Field()
   public firstName: string;
   @Field()
@@ -50,7 +50,7 @@ export class User {
         session_token: this.data.session_token,
         ttl: "3600",
       })).data.token,
-      user_guid: this.owner.user_guid,
+      user_guid: this.owner.guid,
     });
   }
 
@@ -61,12 +61,12 @@ export class User {
   ): Promise<UserPet[]> {
     const [petsResult, dealPetsResult] = await Promise.all([
       ctx.omnipartners.identity.getPets({
-        user_guid: this.owner.user_guid,
+        user_guid: this.owner.guid,
       }),
       dealRef &&
         ctx.omnipartners.deals.listEligiblePets({
           deal_ref: dealRef,
-          user_guid: this.owner.user_guid,
+          user_guid: this.owner.guid,
         }),
     ]);
 
@@ -83,7 +83,7 @@ export class User {
   @Field(() => [UserAddress], { nullable: false })
   public async addresses(@Ctx() ctx: Context): Promise<UserAddress[]> {
     const res = await ctx.omnipartners.identity.listUserAddress({
-      user_guid: this.owner.user_guid,
+      user_guid: this.owner.guid,
     });
     return res.data.map(d => new UserAddress(d));
   }
@@ -91,7 +91,7 @@ export class User {
   @Field(() => UserPreferences, { nullable: false })
   public async preferences(@Ctx() ctx: Context): Promise<IUserPreferences> {
     const res = await ctx.omnipartners.identity.retrieveUserSubscriptions({
-      user_guid: this.owner.user_guid,
+      user_guid: this.owner.guid,
     });
     return res.data;
   }

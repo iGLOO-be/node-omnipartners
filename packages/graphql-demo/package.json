@@ -27,6 +27,7 @@
     "react-apollo": "^2.5.4",
     "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
+    "type-fest": "^0.4.1",
     "typescript": "3.3.4000"
   },
   "devDependencies": {

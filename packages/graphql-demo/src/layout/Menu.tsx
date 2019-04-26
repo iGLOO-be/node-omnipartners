@@ -10,7 +10,7 @@ export const Menu = () => (
       <Link to="/metadata">Metadata</Link>
     </div>
     <div>
-      <Link to="/update">Update profile</Link>
+      <Link to="/user">User</Link>
     </div>
   </div>
 );
