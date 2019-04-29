@@ -12,5 +12,8 @@ export const Menu = () => (
     <div>
       <Link to="/user">User</Link>
     </div>
+    <div>
+      <Link to="/pet">Pet</Link>
+    </div>
   </div>
 );
