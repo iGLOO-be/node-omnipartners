@@ -4,7 +4,7 @@ import React from "react";
 import { useMutation } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
 import { UserCreate, UserCreateVariables } from "./__generated__/UserCreate";
-import { GenderRadio } from "./GenderRadio";
+import { Radio } from "./Radio";
 import { TitleRadio } from "./TitleRadio";
 
 const UserCreateMutation = gql`
@@ -59,7 +59,7 @@ export const UserCreateForm = () => {
             <Field name="firstName" component={SimpleInput} />
             <Field name="lastName" component={SimpleInput} />
             <Field name="dob" type="date" component={SimpleInput} />
-            <GenderRadio />
+            <Radio choices={["M", "F"]} label="Gender" name="gender" />
             <Field name="mobilePhone" type="phone" component={SimpleInput} />
             <Field name="email" type="email" component={SimpleInput} />
             <Field name="password" component={SimpleInput} />

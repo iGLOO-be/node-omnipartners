@@ -9,7 +9,7 @@ import {
   UserUpdateFormRead,
   UserUpdateFormReadVariables,
 } from "./__generated__/UserUpdateFormRead";
-import { GenderRadio } from "./GenderRadio";
+import { Radio } from "./Radio";
 import { TitleRadio } from "./TitleRadio";
 
 const UserUpdateMutation = gql`
@@ -125,7 +125,7 @@ export const UserUpdateForm = () => {
               <Field name="firstName" component={SimpleInput} />
               <Field name="lastName" component={SimpleInput} />
               <Field name="dob" type="date" component={SimpleInput} />
-              <GenderRadio />
+              <Radio choices={["M", "F"]} label="Gender" name="gender" />
               <Field name="mobilePhone" type="phone" component={SimpleInput} />
               <Field name="email" type="email" component={SimpleInput} />
               <Field name="language" component={SimpleInput} />
