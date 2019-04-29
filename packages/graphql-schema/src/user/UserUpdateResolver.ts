@@ -1,5 +1,4 @@
 import { IUpdateUserInput } from "omnipartners";
-import { Omit } from "type-fest";
 import {
   Arg,
   Ctx,

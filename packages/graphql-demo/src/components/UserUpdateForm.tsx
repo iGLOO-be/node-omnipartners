@@ -1,6 +1,5 @@
 import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
-import { pickBy } from "lodash";
 import React from "react";
 import { useMutation, useQuery } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
@@ -22,6 +21,11 @@ const UserUpdateMutation = gql`
           firstName
           lastName
           email
+          gender
+          mobilePhone
+          title
+          dob
+          language
         }
       }
       error {
