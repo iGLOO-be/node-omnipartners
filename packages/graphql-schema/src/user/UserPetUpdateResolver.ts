@@ -9,52 +9,54 @@ import { UserPetUpdateResult } from "./UserPetUpdateResult";
 import { dataOptions } from "./UserResolver";
 
 @InputType()
-class UserPetUpdateInput implements IUserPetUpdateInput {
+class UserPetUpdateInput {
   @Field()
-  public pet_guid: string;
+  public guid: string;
+
   @Field({ nullable: true })
-  public pet_name?: string;
+  public name?: string;
+
   @Field({ nullable: true })
-  public pet_type?: string;
+  public type?: string;
+
   @Field({ nullable: true })
-  public pet_breed?: string;
+  public breed?: string;
+
   @Field({ nullable: true })
-  public pet_pedigreename?: string;
+  public dob?: string;
+
   @Field({ nullable: true })
-  public pet_breed_com_id?: string;
+  public gender?: string;
+
   @Field({ nullable: true })
-  public pet_dob?: string;
+  public neutered?: string;
+
   @Field({ nullable: true })
-  public pet_dob_approx?: string;
-  @Field({ nullable: true })
-  public pet_gender?: string;
-  @Field({ nullable: true })
-  public pet_neutered?: string;
-  @Field({ nullable: true })
-  public pet_neutering_date?: string;
-  @Field({ nullable: true })
-  public vaccination_date?: string;
-  @Field({ nullable: true })
-  public pet_insured?: string;
-  @Field({ nullable: true })
-  public pet_medical_condition?: string;
-  @Field({ nullable: true })
-  public pet_lifestyle?: string;
-  @Field({ nullable: true })
-  public pet_brand?: string;
-  @Field({ nullable: true })
-  public pet_declarative_product?: string;
-  @Field({ nullable: true })
-  public tattoo_number?: string;
-  @Field({ nullable: true })
-  public chip_number?: string;
-  @Field({ nullable: true })
-  public kc_number?: string;
-  @Field({ nullable: true })
-  public pet_picture?: string;
-  @Field({ nullable: true })
-  public pet_ext_id?: string;
+  public pictureUrl?: string;
 }
+
+const mapClixrayFields = (
+  userPetInput: UserPetUpdateInput,
+): Pick<
+  IUserPetUpdateInput,
+  | "pet_guid"
+  | "pet_name"
+  | "pet_type"
+  | "pet_breed"
+  | "pet_dob"
+  | "pet_gender"
+  | "pet_neutered"
+  | "pet_picture"
+> => ({
+  pet_guid: userPetInput.guid,
+  pet_name: userPetInput.name,
+  pet_type: userPetInput.type,
+  pet_breed: userPetInput.breed,
+  pet_dob: userPetInput.dob,
+  pet_gender: userPetInput.gender,
+  pet_neutered: userPetInput.neutered,
+  pet_picture: userPetInput.pictureUrl,
+});
 
 @Resolver(() => User)
 export class UserPetUpdateResolver {
@@ -67,7 +69,7 @@ export class UserPetUpdateResolver {
     const { user_guid } = parse(token);
     try {
       const pet = (await ctx.omnipartners.identity.getPet({
-        pet_guid: userPetInput.pet_guid,
+        pet_guid: userPetInput.guid,
       })).data;
 
       if (pet.pet_owner.user_guid !== user_guid) {
@@ -76,7 +78,7 @@ export class UserPetUpdateResolver {
       }
 
       const updatedPet = (await ctx.omnipartners.identity.updatePet(
-        userPetInput,
+        mapClixrayFields(userPetInput),
       )).data;
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: dataOptions,

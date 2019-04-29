@@ -7,12 +7,36 @@ import {
   UserPetCreate,
   UserPetCreateVariables,
 } from "./__generated__/UserPetCreate";
+import {
+  UserPetUpdate,
+  UserPetUpdateVariables,
+} from "./__generated__/UserPetUpdate";
 import { BreedSelector } from "./BreedSelector";
 import { Radio } from "./Radio";
 
 const UserPetCreateMutation = gql`
   mutation UserPetCreate($token: String!, $userPetInput: UserPetCreateInput!) {
     userPetCreate(token: $token, userPetInput: $userPetInput) {
+      result {
+        pet {
+          name
+          guid
+          dob
+          neutered
+          gender
+          pictureUrl
+        }
+      }
+      error {
+        message
+      }
+    }
+  }
+`;
+
+const UserPetUpdateMutation = gql`
+  mutation UserPetUpdate($token: String!, $userPetInput: UserPetUpdateInput!) {
+    userPetUpdate(token: $token, userPetInput: $userPetInput) {
       result {
         pet {
           name
@@ -44,6 +68,10 @@ export const PetForm = ({
   const petCreate = useMutation<UserPetCreate, UserPetCreateVariables>(
     UserPetCreateMutation,
   );
+
+  const petUpdate = useMutation<UserPetUpdate, UserPetUpdateVariables>(
+    UserPetUpdateMutation,
+  );
   return (
     <div>
       <h1>{action.toUpperCase()}</h1>
@@ -67,30 +95,49 @@ export const PetForm = ({
             }
             if (data && data.userPetCreate && data.userPetCreate.result) {
               console.log("pet created", data.userPetCreate.result);
-              resetState()
+              resetState();
             }
           } else if (action === "update") {
-            // TODO mutation update
+            const { data } = await petUpdate({
+              variables: {
+                token,
+                userPetInput: {
+                  guid: pet.guid,
+                  ...values,
+                },
+              },
+            });
+
+            if (data && data.userPetUpdate && data.userPetUpdate.error) {
+              console.log(
+                "pet edition, validation error",
+                data.userPetUpdate.error.message,
+              );
+            }
+            if (data && data.userPetUpdate && data.userPetUpdate.result) {
+              console.log("pet updated", data.userPetUpdate.result);
+              resetState();
+            }
           }
         }}
         initialValues={{
-          name: "",
-          type: "",
-          breed: "",
-          dob: "",
-          neutered: "",
-          gender: "",
-          pictureUrl: "",
+          name: pet.name || "",
+          type: pet.type || "",
+          breed: pet.breed || "",
+          dob: pet.dob || "",
+          neutered: pet.neutered ? "Y" : "N",
+          gender: pet.gender || "",
+          pictureUrl: pet.pictureUrl || "",
         }}
         render={() => (
           <Form>
             <Field name="name" component={SimpleInput} />
             <Radio choices={["CAT", "DOG"]} label="Type" name="type" />
             <Field name="breed" component={BreedSelector} />
-            <Field name="dob" type="date" component={SimpleInput} />
+            <Field name="dob" component={SimpleInput} />
             <Radio choices={["Y", "N"]} label="Neutered" name="neutered" />
             <Radio choices={["M", "F"]} label="Gender" name="gender" />
-            <Field name="pictureUrl" component={SimpleInput} type="file" />
+            <Field name="pictureUrl" component={SimpleInput} />
             <button type="submit">Submit</button>
           </Form>
         )}

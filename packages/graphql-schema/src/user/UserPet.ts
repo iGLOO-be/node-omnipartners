@@ -3,7 +3,9 @@ import { Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
 
 @ObjectType()
-export class UserPet implements Partial<IUserPet> {
+export class UserPet
+  implements
+    Pick<Partial<IUserPet>, "name" | "guid" | "gender" | "neutered" | "breed"> {
   @Field()
   public name: string;
   @Field()
@@ -20,14 +22,15 @@ export class UserPet implements Partial<IUserPet> {
   public breed: string;
 
   constructor(data: IUserPet) {
-    this.dob = data.pet_dob;
     Object.assign(this, data);
+    this.dob = data.pet_dob;
+    this.type = data.petType;
   }
 
   @Field()
   public pictureUrl(@Ctx() ctx: Context): string {
     return ctx.omnipartners.identity.getPetPictureUrl({
-      pet_guid: this.guid
-    })
+      pet_guid: this.guid,
+    });
   }
 }
