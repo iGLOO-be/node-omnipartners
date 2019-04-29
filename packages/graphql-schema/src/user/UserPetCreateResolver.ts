@@ -29,7 +29,7 @@ class UserPetCreateInput {
   public gender?: string;
 
   @Field({ nullable: true })
-  public picture?: string;
+  public pictureUrl?: string;
 }
 
 const mapClixrayFields = (
@@ -50,7 +50,7 @@ const mapClixrayFields = (
   pet_dob: userPetInput.dob,
   pet_neutered: userPetInput.neutered,
   pet_gender: userPetInput.gender,
-  pet_picture: userPetInput.picture,
+  pet_picture: userPetInput.pictureUrl,
 });
 
 @Resolver(() => User)

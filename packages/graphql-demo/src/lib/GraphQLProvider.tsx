@@ -14,11 +14,11 @@ const createClient = () => {
   const uri = `/graphql`;
   const onErrorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
-      console.error(graphQLErrors)
+      console.error('graphQL Errors', graphQLErrors)
     }
 
     if (networkError) {
-      console.error(networkError)
+      console.error('network errors', networkError)
     }
   });
 

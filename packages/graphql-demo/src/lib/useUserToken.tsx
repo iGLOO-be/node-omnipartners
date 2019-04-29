@@ -29,7 +29,7 @@ export const useUserToken = () => {
   const updateToken = (value: string) => {
     setToken(value);
     writeFromStorage(value);
-  }
+  };
 
   const { refetch } = useQuery<UseUserTokenLogin, UseUserTokenLoginVariables>(
     UseUserTokenLoginQuery,
@@ -41,7 +41,7 @@ export const useUserToken = () => {
   return {
     token,
     renderInput: (
-      <div>
+      <div style={{ marginBottom: 15 }}>
         <input
           value={token}
           onChange={e => {

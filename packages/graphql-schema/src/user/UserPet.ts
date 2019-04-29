@@ -14,6 +14,10 @@ export class UserPet implements Partial<IUserPet> {
   public gender?: string;
   @Field()
   public neutered: boolean;
+  @Field()
+  public type: string;
+  @Field()
+  public breed: string;
 
   constructor(data: IUserPet) {
     this.dob = data.pet_dob;

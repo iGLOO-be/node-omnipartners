@@ -13,14 +13,13 @@ const GetBreedsQuery = gql`
   }
 `;
 
-export const BreedSelector = (props?: FieldProps) => {
+export const BreedSelector = ({ field }: Partial<FieldProps>) => {
   const { data } = useQuery<GetBreeds, GetBreedsVariables>(GetBreedsQuery, {
     variables: {
       lang: "fr",
     },
   });
   const breeds = (data && data.metadataAnimalBreeds) || [];
-  const field = props && props.field;
   return (
     <>
       <label htmlFor="breed" style={{ display: "block" }}>
@@ -28,7 +27,7 @@ export const BreedSelector = (props?: FieldProps) => {
       </label>
       <select {...field} style={{ marginBottom: 15 }}>
         {breeds.map(breed => (
-          <option id={breed.id}>{breed.name}</option>
+          <option key={breed.id} value={breed.id} id={breed.id}>{breed.name}</option>
         ))}
       </select>
     </>
