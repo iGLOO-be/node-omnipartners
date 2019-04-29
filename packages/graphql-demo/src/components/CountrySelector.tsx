@@ -1,3 +1,4 @@
+import { FieldProps } from "formik";
 import gql from "graphql-tag";
 import React from "react";
 import { useQuery } from "react-apollo-hooks";
@@ -15,7 +16,7 @@ const GetCountriesQuery = gql`
   }
 `;
 
-export const CountryList = () => {
+export const CountrySelector = ({ field }: Partial<FieldProps>) => {
   const { data } = useQuery<GetCountries, GetCountriesVariables>(
     GetCountriesQuery,
     {
@@ -27,14 +28,17 @@ export const CountryList = () => {
   const countries = (data && data.metadataCountries) || [];
 
   return (
-    <>
-      <select>
+    <div style={{ marginBottom: 15 }}>
+      <label htmlFor="country" style={{ display: "block" }}>
+        Country
+      </label>
+      <select {...field}>
         {countries.map(country => (
-          <option id={country.code}>{`${country.code} - ${
+          <option key={country.code} id={country.code}>{`${country.code} - ${
             country.name
           }`}</option>
         ))}
       </select>
-    </>
+    </div>
   );
 };

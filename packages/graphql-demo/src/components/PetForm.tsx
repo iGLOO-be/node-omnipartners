@@ -121,13 +121,13 @@ export const PetForm = ({
           }
         }}
         initialValues={{
-          name: pet.name || "",
-          type: pet.type || "",
-          breed: pet.breed || "",
-          dob: pet.dob || "",
-          neutered: pet.neutered ? "Y" : "N",
-          gender: pet.gender || "",
-          pictureUrl: pet.pictureUrl || "",
+          name: pet && pet.name || "",
+          type: pet && pet.type || "",
+          breed: pet && pet.breed || "",
+          dob: pet && pet.dob || "",
+          neutered: pet && pet.neutered ? "Y" : "N",
+          gender: pet && pet.gender || "",
+          pictureUrl: pet && pet.pictureUrl || "",
         }}
         render={() => (
           <Form>

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { PetForm } from "../components/PetForm";
-import { PetList } from "../components/PetList";
+import { AddressForm } from "../components/AddressForm";
+import { AddressList } from "../components/AdressList";
 import { useUserToken } from "../lib/useUserToken";
 
-const Pet = () => {
+const Address = () => {
   const [state, setState] = useState({
-    pet: null,
+    address: null,
     action: "",
   });
 
@@ -13,26 +13,26 @@ const Pet = () => {
 
   return (
     <div>
-      <h1>pet</h1>
+      <h1>address</h1>
       <div>{userToken.renderInput}</div>
-      <PetList
+      <AddressList
         handleCreate={() =>
           setState({
-            pet: null,
+            address: null,
             action: "create",
           })
         }
-        handleUpdate={pet =>
+        handleUpdate={address =>
           setState({
-            pet,
+            address,
             action: "update",
           })
         }
         token={userToken.token}
       />
-      {state.action && <PetForm token={userToken.token} resetState={() => setState({ pet: null, action: ""})} {...state} />}
+      {state.action && <AddressForm token={userToken.token} resetState={() => setState({ address: null, action: ""})} {...state} />}
     </div>
   );
 };
 
-export default Pet;
+export default Address;

@@ -1,3 +1,7 @@
+import {
+  IRegisterUserAddressInput,
+  IUpdateUserAddressInput,
+} from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
@@ -11,8 +15,32 @@ import { dataOptions } from "./UserResolver";
 @InputType()
 class UserAddressUpdateInput extends UserAddressCreateInput {
   @Field()
-  public address_id: string;
+  public id: string;
 }
+
+const mapClixrayFields = (
+  userAddressInput: UserAddressUpdateInput,
+): Pick<
+  IUpdateUserAddressInput,
+  | "address_id"
+  | "address_name"
+  | "address_company"
+  | "address_streetnum"
+  | "address_street1"
+  | "address_postal_code"
+  | "address_city"
+  | "address_country"
+  | "address_lat"
+  | "address_lng"
+> => ({
+  address_id: userAddressInput.id,
+  address_name: userAddressInput.name,
+  address_streetnum: userAddressInput.streetnum,
+  address_street1: userAddressInput.street1,
+  address_postal_code: userAddressInput.postalCode,
+  address_city: userAddressInput.city,
+  address_country: userAddressInput.country,
+});
 
 @Resolver(() => User)
 export class UserAddressUpdateResolver {
@@ -25,7 +53,7 @@ export class UserAddressUpdateResolver {
     const { user_guid } = parse(token);
     try {
       const address = (await ctx.omnipartners.identity.updateUserAddress({
-        ...userAddressInput,
+        ...mapClixrayFields(userAddressInput),
         user_guid,
       })).data;
 

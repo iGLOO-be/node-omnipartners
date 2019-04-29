@@ -1,10 +1,10 @@
 import React from "react";
 import { BreedSelector } from "../components/BreedSelector";
-import { CountryList } from "../components/CountryList";
+import { CountrySelector } from "../components/CountrySelector";
 
 const MetaData = () => <div>
   <h1>Country list:</h1>
-  <CountryList />
+  <CountrySelector />
   <BreedSelector />
 </div>;
 

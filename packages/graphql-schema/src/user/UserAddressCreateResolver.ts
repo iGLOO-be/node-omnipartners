@@ -10,40 +10,45 @@ import { UserAddressUpdateResult } from "./UserAddressUpdateResult";
 import { dataOptions } from "./UserResolver";
 
 @InputType()
-export class UserAddressCreateInput implements Omit<IRegisterUserAddressInput, "user_guid"> {
+export class UserAddressCreateInput {
   @Field({ nullable: true })
-  public address_type?: string;
+  public name?: string;
+
   @Field({ nullable: true })
-  public address_name?: string;
+  public streetnum?: string;
+
   @Field({ nullable: true })
-  public address_company?: string;
-  @Field({ nullable: true })
-  public address_phone?: string;
-  @Field({ nullable: true })
-  public address_streetnum?: string;
-  @Field({ nullable: true })
-  public address_street1?: string;
-  @Field({ nullable: true })
-  public address_street2?: string;
+  public street1?: string;
+
   @Field()
-  public address_postal_code: string;
+  public postalCode: string;
+
   @Field()
-  public address_city: string;
+  public city: string;
+
   @Field({ nullable: true })
-  public address_region?: string;
-  @Field({ nullable: true })
-  public address_county?: string;
-  @Field({ nullable: true })
-  public address_country?: string;
-  @Field({ nullable: true })
-  public address_comment?: string;
-  @Field({ nullable: true })
-  public address_is_default?: string;
-  @Field({ nullable: true })
-  public address_lat?: string;
-  @Field({ nullable: true })
-  public address_lng?: string;
+  public country?: string;
 }
+
+const mapClixrayFields = (
+  userAddressInput: UserAddressCreateInput,
+): Pick<
+  IRegisterUserAddressInput,
+  | "address_name"
+  | "address_company"
+  | "address_streetnum"
+  | "address_street1"
+  | "address_postal_code"
+  | "address_city"
+  | "address_country"
+> => ({
+  address_name: userAddressInput.name,
+  address_streetnum: userAddressInput.streetnum,
+  address_street1: userAddressInput.street1,
+  address_postal_code: userAddressInput.postalCode,
+  address_city: userAddressInput.city,
+  address_country: userAddressInput.country
+});
 
 @Resolver(() => User)
 export class UserAddressCreateResolver {
@@ -56,7 +61,7 @@ export class UserAddressCreateResolver {
     const { user_guid } = parse(token);
     try {
       const address = (await ctx.omnipartners.identity.registerUserAddress({
-        ...userAddressInput,
+        ...mapClixrayFields(userAddressInput),
         user_guid,
       })).data;
 

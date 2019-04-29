@@ -3,7 +3,7 @@ import { LoginForm } from "../components/Login";
 import { UserCreateForm } from "../components/UserCreateForm";
 import { UserUpdateForm } from "../components/UserUpdateForm";
 
-const UserPage = () => (
+const User = () => (
   <>
     <LoginForm />
     <UserCreateForm />
@@ -11,4 +11,4 @@ const UserPage = () => (
   </>
 )
 
-export default UserPage;
+export default User;
