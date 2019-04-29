@@ -3,7 +3,7 @@ import React from "react";
 import { useQuery } from "react-apollo-hooks";
 import { GetUserPets, GetUserPetsVariables } from "./__generated__/GetUserPets";
 
-const GetUserPetsQuery = gql`
+export const GetUserPetsQuery = gql`
   query GetUserPets($token: String!) {
     user(token: $token) {
       result {

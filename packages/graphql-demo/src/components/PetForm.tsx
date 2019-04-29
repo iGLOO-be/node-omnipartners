@@ -12,6 +12,7 @@ import {
   UserPetUpdateVariables,
 } from "./__generated__/UserPetUpdate";
 import { BreedSelector } from "./BreedSelector";
+import { GetUserPetsQuery } from "./PetList";
 import { Radio } from "./Radio";
 
 const UserPetCreateMutation = gql`
@@ -67,10 +68,30 @@ export const PetForm = ({
 }) => {
   const petCreate = useMutation<UserPetCreate, UserPetCreateVariables>(
     UserPetCreateMutation,
+    {
+      refetchQueries: [
+        {
+          query: GetUserPetsQuery,
+          variables: {
+            token,
+          },
+        },
+      ],
+    },
   );
 
   const petUpdate = useMutation<UserPetUpdate, UserPetUpdateVariables>(
     UserPetUpdateMutation,
+    {
+      refetchQueries: [
+        {
+          query: GetUserPetsQuery,
+          variables: {
+            token,
+          },
+        },
+      ],
+    },
   );
   return (
     <div>
@@ -121,13 +142,13 @@ export const PetForm = ({
           }
         }}
         initialValues={{
-          name: pet && pet.name || "",
-          type: pet && pet.type || "",
-          breed: pet && pet.breed || "",
-          dob: pet && pet.dob || "",
+          name: (pet && pet.name) || "",
+          type: (pet && pet.type) || "",
+          breed: (pet && pet.breed) || "",
+          dob: (pet && pet.dob) || "",
           neutered: pet && pet.neutered ? "Y" : "N",
-          gender: pet && pet.gender || "",
-          pictureUrl: pet && pet.pictureUrl || "",
+          gender: (pet && pet.gender) || "",
+          pictureUrl: (pet && pet.pictureUrl) || "",
         }}
         render={() => (
           <Form>
