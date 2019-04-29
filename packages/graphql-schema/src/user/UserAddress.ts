@@ -28,6 +28,7 @@ export class UserAddress {
   public country: string;
 
   constructor(data: IUserAddress) {
+    Object.assign(this, data);
     this.id = data.address_id;
     this.name = data.address_name;
     this.phone = data.address_phone;

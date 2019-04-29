@@ -6,6 +6,7 @@ import { SimpleInput } from "../layout/SimpleInput";
 import { UserAddressCreate, UserAddressCreateVariables } from "./__generated__/UserAddressCreate";
 import { UserAddressUpdate, UserAddressUpdateVariables } from "./__generated__/UserAddressUpdate";
 import { CountrySelector } from "./CountrySelector";
+import { GetUserAddressesQuery } from "./AddressList";
 
 const UserAddressCreateMutation = gql`
   mutation UserAddressCreate(
@@ -68,6 +69,16 @@ export const AddressForm = ({
 }) => {
   const addressCreate = useMutation<UserAddressCreate, UserAddressCreateVariables>(
     UserAddressCreateMutation,
+    {
+      refetchQueries: [
+        {
+          query: GetUserAddressesQuery,
+          variables: {
+            token,
+          },
+        },
+      ],
+    },
   );
 
   const addressUpdate = useMutation<UserAddressUpdate, UserAddressUpdateVariables>(

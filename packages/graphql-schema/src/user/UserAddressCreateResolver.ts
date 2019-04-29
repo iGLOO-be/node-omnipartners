@@ -1,5 +1,4 @@
 import { IRegisterUserAddressInput } from "omnipartners";
-import { Omit } from "type-fest";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";

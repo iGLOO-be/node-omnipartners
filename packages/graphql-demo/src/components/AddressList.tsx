@@ -6,7 +6,7 @@ import {
   GetUserAddressesVariables,
 } from "./__generated__/GetUserAddresses";
 
-const GetUserAddressesQuery = gql`
+export const GetUserAddressesQuery = gql`
   query GetUserAddresses($token: String!) {
     user(token: $token) {
       result {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AddressForm } from "../components/AddressForm";
-import { AddressList } from "../components/AdressList";
+import { AddressList } from "../components/AddressList";
 import { useUserToken } from "../lib/useUserToken";
 
 const Address = () => {

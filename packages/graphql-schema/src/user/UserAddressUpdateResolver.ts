@@ -24,14 +24,11 @@ const mapClixrayFields = (
   IUpdateUserAddressInput,
   | "address_id"
   | "address_name"
-  | "address_company"
   | "address_streetnum"
   | "address_street1"
   | "address_postal_code"
   | "address_city"
   | "address_country"
-  | "address_lat"
-  | "address_lng"
 > => ({
   address_id: userAddressInput.id,
   address_name: userAddressInput.name,
