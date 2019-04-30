@@ -1,0 +1,279 @@
+# {"identifier": "loic@igloo.be", "password": "igloo"}
+
+query Login ($identifier: String!, $password: String!) {
+  userLogin(identifier: $identifier, password: $password) {
+    result {
+      token
+      owner {
+        firstName
+        lastName
+        email
+      }
+    }
+    error {
+      message
+      code
+    }
+  }
+}
+
+# {"token": "80ac3d32a2b77eb9bdced8641f7a7913dca0b17b"}
+
+query GetUser($token: String!) {
+  user(token: $token) {
+    result {
+      owner {
+        firstName
+        lastName
+        email
+      }
+      pets {
+        name
+        guid
+        dob
+        neutered
+        gender
+      }
+      preferences {
+        communicationPreferences
+        interests
+        subscriptions
+      }
+    }
+    error {
+      message
+    }
+  }
+}
+
+query UserEmailExists {
+  userEmailExists (email: "loic@igloo.be")
+}
+
+query Data {
+  countries {
+    name
+  }
+
+  animalTypes {
+    name
+  }
+
+  languages {
+    name
+  }
+
+  titles {
+    name
+  }
+
+  animalBreeds (type: "DOG") {
+    name
+  }
+
+  animalUniverses (type: "DOG") {
+    name
+  }
+
+  subscriptions {
+    name
+  }
+}
+
+mutation UserCreate {
+  userCreate(
+    userInput: {
+      user_first_name: "A"
+      user_last_name: "B"
+      user_gender: "M"
+      user_country: "BE"
+      user_telephone: "047680927"
+      user_email: "new@user.com"
+      user_password: "123456"
+      user_language: "fr"
+    }
+  ) {
+    error {
+      message
+      code
+      validationErrors {
+        field
+        errors {
+          validator
+          message
+        }
+      }
+    }
+    result {
+      owner {
+        firstName
+      }
+    }
+  }
+}
+
+mutation UserUpdate {
+  userUpdate(
+    token: ""
+    userInput: { user_first_name: "Hello" }
+  ) {
+    result {
+      token
+      owner {
+        firstName
+      }
+    }
+    error {
+      message
+      code
+    }
+  }
+}
+
+mutation UserPetCreate {
+  userPetCreate(
+    token: ""
+    userPetInput: {
+      pet_name: "bar 1111"
+      pet_type: "DOG"
+      pet_dob: "2019/01/01"
+      pet_breed: "1"
+    }
+  ) {
+    result {
+      user {
+        owner {
+          user_guid
+        }
+        pets {
+          name
+        }
+      }
+      pet {
+        name
+      }
+    }
+    error {
+      message
+      validationErrors {
+        field
+        errors {
+          validator
+          message
+        }
+      }
+    }
+  }
+}
+
+mutation UsetPetUpdate {
+  userPetUpdate(
+    token: ""
+    userPetInput: {
+      pet_guid: "59e4ee0b4779526b1b07d35007576826"
+      pet_name: "bar 33333"
+      pet_type: "DOG"
+      pet_dob: "2019/01/01"
+      pet_breed: "1"
+    }
+  ) {
+    result {
+      user {
+        owner {
+          user_guid
+        }
+        pets {
+          name
+        }
+      }
+      pet {
+        name
+      }
+    }
+    error {
+      message
+      validationErrors {
+        field
+        errors {
+          validator
+          message
+        }
+      }
+    }
+  }
+}
+
+mutation UserAddressCreate {
+  userAddressCreate(
+    token: ""
+    userAddressInput: {
+      address_postal_code: "1348"
+      address_city: "Louvain-La-Neuve"
+      address_street1: "Rue Louis De Geer"
+    }
+  ) {
+    result {
+      address {
+        id
+        name
+        street1
+      }
+      user {
+        owner {
+          user_guid
+        }
+      }
+    }
+    error {
+      message
+      code
+      validationErrors {
+        field
+        errors {
+          validator
+          message
+        }
+      }
+    }
+  }
+}
+
+mutation UserAddressUpdate {
+  userAddressUpdate(
+    token: ""
+    userAddressInput: {
+      address_id: "105"
+      address_postal_code: "1348"
+      address_city: "Louvain-La-Neuve"
+      address_street1: "Rue Louis De Geer 2"
+    }
+  ) {
+    result {
+      address {
+        id
+        name
+        street1
+      }
+      user {
+        owner {
+          user_guid
+        }
+      }
+    }
+    error {
+      message
+      code
+      validationErrors {
+        field
+        errors {
+          validator
+          message
+        }
+      }
+    }
+  }
+}
+
+mutation UserRecoverPassword {
+  userRecoverPassword (email: "loic@igloo.be") {message, code}
+}
