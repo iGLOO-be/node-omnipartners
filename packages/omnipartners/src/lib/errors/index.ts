@@ -80,5 +80,8 @@ export class OPStatusError extends OmnipartnersError {
     if (data.statusCode) {
       this.code = `OP/OPStatusError/${data.statusCode}`;
     }
+    if (data.status) {
+      this.code = `OP/OPStatusError/${data.status}`;
+    }
   }
 }

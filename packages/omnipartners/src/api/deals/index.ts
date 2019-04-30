@@ -68,6 +68,7 @@ export default class Deals extends Api {
     3055: { message: "Subscription fail due to error in barcode generation." },
     3028: { message: "Inactive deal" },
     3029: { message: "Deal already expired." },
+    3045: { message: "Can't find a record for given data" },
     3049: { message: "Stock not available." },
     3030: { message: "User not in the allowed segment." },
     3056: { message: "User not have a pet with a restricted pet type." },
@@ -78,6 +79,8 @@ export default class Deals extends Api {
     3054: { message: "User subscription limit reach." },
     3057: { message: "Deal is not allowed for the supplied product." },
     3058: { message: "The deal is not allowed for the supplied partner." },
+    3060: { message: "'code' is not available in the request parameters" },
+    3061: { message: "Secure code already used" },
     3063: { message: "Secure code parameter not available in the request" },
     3064: { message: "Invalid secure code" },
     3069: { message: "Invalid pet guid" },
@@ -278,6 +281,23 @@ export default class Deals extends Api {
   }): Promise<{ data: IDealProduct[] }> {
     return this._call("get-product-list", data, {
       hashKeys: ["deal_ref"],
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Check_secure_code")
+  @filterInput(["deal_ref", "code"])
+  public checkSecureCode(data: {
+    deal_ref?: string;
+    code: string;
+  }): Promise<{
+    data: {
+      is_available: boolean;
+      deals: string[];
+    };
+  }> {
+    return this._call("check-secure-code", data, {
+      hashKeys: ["deal_ref", "code"],
       retry: true,
     });
   }
