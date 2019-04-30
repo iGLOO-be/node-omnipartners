@@ -1,6 +1,6 @@
-import omnipartners, { createLogger } from 'omnipartners'
+import omnipartners, { createLogger } from '..'
 import winston from 'winston'
-import WinstonCloudWatch from 'winston-cloudwatch'
+// import WinstonCloudWatch from 'winston-cloudwatch'
 
 const accountServiceConfig = {
   "apidomain": "http://x",
@@ -11,20 +11,20 @@ const accountServiceConfig = {
   }
 }
 
-const winstonCloudWatch = new WinstonCloudWatch({
-  awsAccessKeyId: 'x',
-  awsSecretKey: 'x',
-  awsRegion: 'eu-west-3',
-  logGroupName: 'test',
-  logStreamName: 'test',
-  retentionInDays: 14
-})
+// const winstonCloudWatch = new WinstonCloudWatch({
+//   awsAccessKeyId: 'x',
+//   awsSecretKey: 'x',
+//   awsRegion: 'eu-west-3',
+//   logGroupName: 'test',
+//   logStreamName: 'test',
+//   retentionInDays: 14
+// })
 
 const omni = omnipartners(accountServiceConfig)
 omni.use(createLogger({
   transports: [
     new winston.transports.Console(),
-    winstonCloudWatch
+    // winstonCloudWatch
   ]
 }))
 
@@ -38,7 +38,7 @@ doIt()
     process.exitCode = 1
   })
   .then(() => {
-    winstonCloudWatch.kthxbye(() => {
-      console.log('Bye')
-    })
+    // winstonCloudWatch.kthxbye(() => {
+    //   console.log('Bye')
+    // })
   })
