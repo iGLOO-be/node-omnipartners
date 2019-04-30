@@ -9,31 +9,31 @@
     "test": "yarn gen:types && tsc --noEmit"
   },
   "dependencies": {
-    "apollo": "^2.8.3",
+    "apollo": "^2.9.0",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.11",
     "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
     "apollo-link-retry": "^2.2.13",
-    "formik": "^1.5.3",
-    "gatsby": "^2.3.21",
+    "formik": "^1.5.4",
+    "gatsby": "^2.3.34",
     "gatsby-plugin-catch-links": "^2.0.13",
-    "gatsby-plugin-typescript": "^2.0.12",
+    "gatsby-plugin-typescript": "^2.0.13",
     "graphql-tag": "^2.10.1",
     "http-proxy-middleware": "^0.19.1",
     "isomorphic-fetch": "^2.2.1",
     "react": "^16.8.6",
-    "react-apollo": "^2.5.4",
+    "react-apollo": "^2.5.5",
     "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
     "type-fest": "^0.4.1",
-    "typescript": "3.3.4000"
+    "typescript": "3.4.5"
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
-    "@types/react": "^16.8.13",
+    "@types/react": "^16.8.15",
     "@types/react-dom": "^16.8.4",
-    "eslint-config-react-app": "^3.0.8"
+    "eslint-config-react-app": "^4.0.0"
   }
 }

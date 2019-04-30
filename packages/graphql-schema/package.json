@@ -16,19 +16,19 @@
     "start:server": "nodemon -r ts-node/register scripts/start-server.ts"
   },
   "peerDependencies": {
-    "omnipartners": "^2.0.29"
+    "omnipartners": "^2.0.30"
   },
   "devDependencies": {
-    "omnipartners": "^2.0.29",
+    "omnipartners": "^2.0.30",
     "@types/execa": "^0.9.0",
     "@types/fs-extra": "^5.0.5",
     "@types/graphql": "^14.2.0",
     "@types/graphql-relay": "^0.4.9",
-    "@types/jest": "^24.0.11",
+    "@types/jest": "^24.0.12",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/logform": "^1.2.0",
-    "@types/node-fetch": "^2.3.2",
-    "@types/tempy": "^0.2.0",
+    "@types/node-fetch": "^2.3.3",
+    "@types/tempy": "^0.3.0",
     "apollo-server": "^2.4.8",
     "chokidar": "^2.1.5",
     "concurrently": "^4.1.0",
@@ -36,20 +36,20 @@
     "fs-extra": "^7.0.1",
     "jest": "^24.7.1",
     "p-debounce": "^2.1.0",
-    "tempy": "^0.2.1",
+    "tempy": "^0.3.0",
     "ts-jest": "^24.0.2",
-    "ts-node": "^8.0.3",
-    "type-fest": "^0.3.1",
-    "typescript": "3.3.4000",
+    "ts-node": "^8.1.0",
+    "type-fest": "^0.4.1",
+    "typescript": "3.4.5",
     "winston": "^3.2.1"
   },
   "dependencies": {
     "graphql": "^14.2.1",
     "graphql-relay": "^0.6.0",
     "jsonwebtoken": "^8.5.1",
-    "omnipartners": "^2.0.29",
+    "omnipartners": "^2.0.30",
     "reflect-metadata": "^0.1.13",
-    "type-graphql": "^0.17.1",
+    "type-graphql": "^0.17.3",
     "yn": "^3.1.0"
   },
   "jest": {

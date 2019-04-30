@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "lerna": "^3.13.4",
-    "prettier": "^1.16.4",
-    "tslint": "^5.15.0",
+    "prettier": "^1.17.0",
+    "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0"
   },
   "resolutions": {
