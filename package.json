@@ -1,51 +1,27 @@
 {
-  "name": "omnipartners",
-  "version": "2.0.30",
+  "name": "@igloo-be-omnipartners/root",
+  "private": true,
+  "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "typings": "dist/src/index.d.ts",
-  "files": [
-    "dist/*"
-  ],
   "scripts": {
-    "build": "ncc build src/index.ts",
-    "build:watch": "ncc build --watch src/index.ts",
-    "lint": "standard",
-    "test": "jest",
-    "prepare": "npm run build"
+    "lint": "tslint -p .",
+    "start": "lerna run --stream --no-sort --parallel start",
+    "build": "lerna run --stream build",
+    "test": "yarn lint && lerna run --stream --concurrency 1 test",
+    "prepare": "lerna run --ignore \"*/graphql-demo\" build"
   },
-  "repository": "https://github.com/iGLOO-be/node-omnipartners",
-  "author": "",
-  "license": "ISC",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
   "devDependencies": {
-    "@types/depd": "^1.1.32",
-    "@types/jest": "^24.0.12",
-    "@types/lodash": "^4.14.123",
-    "@types/nock": "^10.0.1",
-    "@types/node": "^11.13.8",
-    "@types/node-fetch": "^2.3.3",
-    "@types/qs": "^6.5.3",
-    "@types/sinon": "^7.0.11",
-    "@types/url-join": "^4.0.0",
-    "@types/uuid": "^3.4.4",
-    "@zeit/ncc": "^0.18.1",
-    "boom": "^7.3.0",
-    "depd": "^2.0.0",
-    "fetch-retry": "^2.0.0",
-    "jest": "^24.7.1",
-    "lodash": "^4.17.11",
-    "nock": "^10.0.6",
-    "node-fetch": "^2.4.1",
+    "lerna": "^3.13.4",
     "prettier": "^1.17.0",
-    "qs": "^6.7.0",
-    "sinon": "^7.3.2",
-    "standard": "^12.0.1",
-    "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.4.5",
-    "url-join": "^4.0.0",
-    "uuid": "^3.3.2",
-    "winston": "^3.2.1"
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "resolutions": {
+    "**/graphql": "^14.2.1"
   }
 }

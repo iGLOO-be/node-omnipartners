@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "./lib",
+    "module": "commonjs",
+    "types": ["@types/jest"],
+    "experimentalDecorators": true,
+    "resolveJsonModule": true
+  }
+}
