@@ -7,7 +7,8 @@
     "lint": "tslint -p .",
     "start": "lerna run --stream --no-sort --parallel start",
     "build": "lerna run --stream build",
-    "test": "yarn lint && lerna run --stream --concurrency 1 test"
+    "test": "yarn lint && lerna run --stream --concurrency 1 test",
+    "prepare": "lerna run --ignore \"*/graphql-demo\" build"
   },
   "workspaces": {
     "packages": [
