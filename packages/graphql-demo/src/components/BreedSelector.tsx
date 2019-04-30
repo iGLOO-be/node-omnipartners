@@ -27,7 +27,9 @@ export const BreedSelector = ({ field }: Partial<FieldProps>) => {
       </label>
       <select {...field} style={{ marginBottom: 15 }}>
         {breeds.map(breed => (
-          <option key={breed.id} value={breed.id} id={breed.id}>{breed.name}</option>
+          <option key={breed.id} value={breed.id} id={breed.id}>
+            {breed.name}
+          </option>
         ))}
       </select>
     </>

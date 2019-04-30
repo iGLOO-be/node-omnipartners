@@ -21,7 +21,7 @@ export class DataCountryResolver {
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<Country[]> {
     return (await ctx.omnipartners.metadata.getMemberCountries({
-      lang
+      lang,
     })).data;
   }
 }

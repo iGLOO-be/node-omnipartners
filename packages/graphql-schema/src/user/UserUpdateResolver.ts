@@ -1,12 +1,5 @@
 import { IUpdateUserInput } from "omnipartners";
-import {
-  Arg,
-  Ctx,
-  Field,
-  InputType,
-  Mutation,
-  Resolver,
-} from "type-graphql";
+import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
@@ -65,16 +58,16 @@ const mapClixrayFields = (
   userInput: UserUpdateInput,
 ): Pick<
   IUpdateUserInput,
-  "user_title" |
-  "user_first_name" |
-  "user_last_name" |
-  "user_dob" |
-  "user_gender" |
-  "user_telephone" |
-  "user_mobile_phone" |
-  "user_email" |
-  "user_password" |
-  "user_language"
+  | "user_title"
+  | "user_first_name"
+  | "user_last_name"
+  | "user_dob"
+  | "user_gender"
+  | "user_telephone"
+  | "user_mobile_phone"
+  | "user_email"
+  | "user_password"
+  | "user_language"
 > => ({
   user_title: userInput.title,
   user_first_name: userInput.firstName,

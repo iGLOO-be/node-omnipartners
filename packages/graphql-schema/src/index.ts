@@ -4,7 +4,9 @@ export { buildSchema } from "type-graphql";
 
 export { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
 export { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
-export { DataAnimalUniverseResolver } from "./metadata/DataAnimalUniverseResolver";
+export {
+  DataAnimalUniverseResolver,
+} from "./metadata/DataAnimalUniverseResolver";
 export { DataCountryResolver } from "./metadata/DataCountryResolver";
 export { DataLanguageResolver } from "./metadata/DataLanguageResolver";
 export { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";

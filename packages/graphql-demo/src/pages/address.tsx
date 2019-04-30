@@ -30,7 +30,13 @@ const Address = () => {
         }
         token={userToken.token}
       />
-      {state.action && <AddressForm token={userToken.token} resetState={() => setState({ address: null, action: ""})} {...state} />}
+      {state.action && (
+        <AddressForm
+          token={userToken.token}
+          resetState={() => setState({ address: null, action: "" })}
+          {...state}
+        />
+      )}
     </div>
   );
 };

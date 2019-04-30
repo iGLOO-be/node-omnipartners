@@ -30,7 +30,13 @@ const Pet = () => {
         }
         token={userToken.token}
       />
-      {state.action && <PetForm token={userToken.token} resetState={() => setState({ pet: null, action: ""})} {...state} />}
+      {state.action && (
+        <PetForm
+          token={userToken.token}
+          resetState={() => setState({ pet: null, action: "" })}
+          {...state}
+        />
+      )}
     </div>
   );
 };

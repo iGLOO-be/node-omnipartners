@@ -1,4 +1,7 @@
-import { buildSchema as typeGraphqlBuildschema, BuildSchemaOptions } from "type-graphql";
+import {
+  buildSchema as typeGraphqlBuildschema,
+  BuildSchemaOptions,
+} from "type-graphql";
 import { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
 import { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
 import { DataAnimalUniverseResolver } from "./metadata/DataAnimalUniverseResolver";

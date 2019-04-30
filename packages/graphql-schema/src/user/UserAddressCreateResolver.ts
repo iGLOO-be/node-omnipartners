@@ -46,7 +46,7 @@ const mapClixrayFields = (
   address_street1: userAddressInput.street1,
   address_postal_code: userAddressInput.postalCode,
   address_city: userAddressInput.city,
-  address_country: userAddressInput.country
+  address_country: userAddressInput.country,
 });
 
 @Resolver(() => User)

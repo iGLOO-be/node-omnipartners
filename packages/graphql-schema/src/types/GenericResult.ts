@@ -19,11 +19,17 @@ export async function handleGeneric<T>(
     throw error;
   }
 
-  return new GenericResultClass({ error: error && new GenericErrorClass(error), result });
+  return new GenericResultClass({
+    error: error && new GenericErrorClass(error),
+    result,
+  });
 }
 
-function isInternalError (error: Error) {
-  return !(error instanceof OmnipartnersError) && !(error instanceof AuthenticationError)
+function isInternalError(error: Error) {
+  return (
+    !(error instanceof OmnipartnersError) &&
+    !(error instanceof AuthenticationError)
+  );
 }
 
 @ObjectType()

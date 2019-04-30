@@ -13,9 +13,11 @@ try {
 
 const createServer = async () => {
   if (!config) {
-    console.error('Unable to find omnipartners config. Please create a file `dev-config.js`.')
-    process.exit(0)
-    return
+    console.error(
+      "Unable to find omnipartners config. Please create a file `dev-config.js`.",
+    );
+    process.exit(0);
+    return;
   }
 
   const context = new Context({

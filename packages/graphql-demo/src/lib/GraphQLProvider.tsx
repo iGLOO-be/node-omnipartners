@@ -1,4 +1,3 @@
-
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { ApolloLink } from "apollo-link";
@@ -14,11 +13,11 @@ const createClient = () => {
   const uri = `/graphql`;
   const onErrorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
-      console.error('graphQL Errors', graphQLErrors)
+      console.error("graphQL Errors", graphQLErrors);
     }
 
     if (networkError) {
-      console.error('network errors', networkError)
+      console.error("network errors", networkError);
     }
   });
 

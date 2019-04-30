@@ -10,7 +10,7 @@ export class LegalForm implements IMetadataLegalForm {
   @Field()
   public name: string;
   @Field({ nullable: true })
-  public description? : string;
+  public description?: string;
   @Field()
   public forget_on_revoke: boolean;
   @Field({ nullable: true })

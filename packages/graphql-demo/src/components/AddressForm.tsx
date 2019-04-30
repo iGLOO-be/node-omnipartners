@@ -3,8 +3,14 @@ import gql from "graphql-tag";
 import React from "react";
 import { useMutation } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
-import { UserAddressCreate, UserAddressCreateVariables } from "./__generated__/UserAddressCreate";
-import { UserAddressUpdate, UserAddressUpdateVariables } from "./__generated__/UserAddressUpdate";
+import {
+  UserAddressCreate,
+  UserAddressCreateVariables,
+} from "./__generated__/UserAddressCreate";
+import {
+  UserAddressUpdate,
+  UserAddressUpdateVariables,
+} from "./__generated__/UserAddressUpdate";
 import { CountrySelector } from "./CountrySelector";
 import { GetUserAddressesQuery } from "./AddressList";
 
@@ -67,23 +73,24 @@ export const AddressForm = ({
   resetState: () => void;
   token: string;
 }) => {
-  const addressCreate = useMutation<UserAddressCreate, UserAddressCreateVariables>(
-    UserAddressCreateMutation,
-    {
-      refetchQueries: [
-        {
-          query: GetUserAddressesQuery,
-          variables: {
-            token,
-          },
+  const addressCreate = useMutation<
+    UserAddressCreate,
+    UserAddressCreateVariables
+  >(UserAddressCreateMutation, {
+    refetchQueries: [
+      {
+        query: GetUserAddressesQuery,
+        variables: {
+          token,
         },
-      ],
-    },
-  );
+      },
+    ],
+  });
 
-  const addressUpdate = useMutation<UserAddressUpdate, UserAddressUpdateVariables>(
-    UserAddressUpdateMutation,
-  );
+  const addressUpdate = useMutation<
+    UserAddressUpdate,
+    UserAddressUpdateVariables
+  >(UserAddressUpdateMutation);
   return (
     <div>
       <h1>{action.toUpperCase()}</h1>
@@ -149,12 +156,12 @@ export const AddressForm = ({
           }
         }}
         initialValues={{
-          name: address && address.name || "",
-          city: address && address.city || "",
-          country: address && address.country || "",
-          streetnum: address && address.streetnum || "",
-          street1: address && address.street1 || "",
-          postalCode: address && address.postalCode || "",
+          name: (address && address.name) || "",
+          city: (address && address.city) || "",
+          country: (address && address.country) || "",
+          streetnum: (address && address.streetnum) || "",
+          street1: (address && address.street1) || "",
+          postalCode: (address && address.postalCode) || "",
         }}
         render={() => (
           <Form>

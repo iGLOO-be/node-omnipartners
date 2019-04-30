@@ -9,47 +9,59 @@ import { Context } from "../types/Context";
 @InputType()
 class ProductCollectionsByTargetingInfoFilterByAllInput
   implements IGetCollectionsByTargetingInfoInputFilterByAllSimple {
-    @Field()
-    public filter_type: "SPECIES" | "NEUTERED" | "GENDER" | "PURCHASE_PLACE" | "AGE" | "RANGE" | "PET_BCS" | "PET_WEIGHT" | "PET_STAGES" | "TARGET_AUDIENCE" | "PET_ALLERGENS" | "PET_HEALTH_CONTEXT";
-    @Field({ nullable: true })
-    public species_type?: string;
-    @Field({ nullable: true })
-    public univers?: string;
-    @Field({ nullable: true })
-    public breed?: string;
-    @Field({ nullable: true })
-    public neutered?: "YES" | "NO";
-    @Field({ nullable: true })
-    public gender?: "M" | "F";
-    @Field({ nullable: true })
-    public purchase_place?: string;
-    @Field({ nullable: true })
-    public unit?: "WEEK" | "MONTH" | "YEAR";
-    @Field({ nullable: true })
-    public age?: string;
-    @Field({ nullable: true })
-    public age_from?: string;
-    @Field({ nullable: true })
-    public age_to?: string;
-    @Field({ nullable: true })
-    public range_reference?: string;
-    @Field({ nullable: true })
-    public pet_bcs?: number;
-    @Field({ nullable: true })
-    public pet_weight?: string;
-    @Field(() => [String], { nullable: true })
-    public pet_stages?: string[];
-    @Field({ nullable: true })
-    public public_visibility?: "YES" | "NO";
-    @Field({ nullable: true })
-    public partners_visibility?: "YES" | "NO";
-    @Field(() => [String], { nullable: true })
-    public partner_types?: string[];
-    @Field(() => [String], { nullable: true })
-    public pet_allergens?: string[];
-    @Field(() => [String], { nullable: true })
-    public pet_health_context?: string[];
-  }
+  @Field()
+  public filter_type:
+    | "SPECIES"
+    | "NEUTERED"
+    | "GENDER"
+    | "PURCHASE_PLACE"
+    | "AGE"
+    | "RANGE"
+    | "PET_BCS"
+    | "PET_WEIGHT"
+    | "PET_STAGES"
+    | "TARGET_AUDIENCE"
+    | "PET_ALLERGENS"
+    | "PET_HEALTH_CONTEXT";
+  @Field({ nullable: true })
+  public species_type?: string;
+  @Field({ nullable: true })
+  public univers?: string;
+  @Field({ nullable: true })
+  public breed?: string;
+  @Field({ nullable: true })
+  public neutered?: "YES" | "NO";
+  @Field({ nullable: true })
+  public gender?: "M" | "F";
+  @Field({ nullable: true })
+  public purchase_place?: string;
+  @Field({ nullable: true })
+  public unit?: "WEEK" | "MONTH" | "YEAR";
+  @Field({ nullable: true })
+  public age?: string;
+  @Field({ nullable: true })
+  public age_from?: string;
+  @Field({ nullable: true })
+  public age_to?: string;
+  @Field({ nullable: true })
+  public range_reference?: string;
+  @Field({ nullable: true })
+  public pet_bcs?: number;
+  @Field({ nullable: true })
+  public pet_weight?: string;
+  @Field(() => [String], { nullable: true })
+  public pet_stages?: string[];
+  @Field({ nullable: true })
+  public public_visibility?: "YES" | "NO";
+  @Field({ nullable: true })
+  public partners_visibility?: "YES" | "NO";
+  @Field(() => [String], { nullable: true })
+  public partner_types?: string[];
+  @Field(() => [String], { nullable: true })
+  public pet_allergens?: string[];
+  @Field(() => [String], { nullable: true })
+  public pet_health_context?: string[];
+}
 
 @InputType()
 class ProductCollectionsByTargetingInfoInput
@@ -68,7 +80,9 @@ class ProductCollectionsByTargetingInfoInput
   public user_guid?: string;
   @Field({ nullable: true })
   public diagnostic_codes?: string;
-  @Field(() => [ProductCollectionsByTargetingInfoFilterByAllInput], { nullable: true })
+  @Field(() => [ProductCollectionsByTargetingInfoFilterByAllInput], {
+    nullable: true,
+  })
   public filter_by_all?: ProductCollectionsByTargetingInfoFilterByAllInput[];
   @Field({ nullable: true })
   public filter_type?: string;
@@ -184,7 +198,9 @@ class ProductCollectionsByTargetingInfoCollection
 }
 
 export class ProductResolver {
-  @Query(() => [ProductCollectionsByTargetingInfoCollection], { nullable: true })
+  @Query(() => [ProductCollectionsByTargetingInfoCollection], {
+    nullable: true,
+  })
   public async productCollectionsByTargetingInfo(
     @Ctx() ctx: Context,
     @Arg("input") input: ProductCollectionsByTargetingInfoInput,

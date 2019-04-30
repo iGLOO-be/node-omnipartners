@@ -22,8 +22,8 @@ export class AnimalBreed
 
   constructor(data: IMetadataAnimalBreed) {
     this.data = data;
-    this.id = data.id
-    this.name = data.name
+    this.id = data.id;
+    this.name = data.name;
   }
 }
 
@@ -38,7 +38,6 @@ export class DataAnimalBreedResolver {
     return (await ctx.omnipartners.metadata.getAnimalBreeds({
       lang,
       type,
-    })).data
-      .map(data => new AnimalBreed(data));
+    })).data.map(data => new AnimalBreed(data));
   }
 }

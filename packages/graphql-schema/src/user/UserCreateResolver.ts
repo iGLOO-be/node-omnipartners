@@ -1,12 +1,5 @@
 import { IRegisterUserInput } from "omnipartners";
-import {
-  Arg,
-  Ctx,
-  Field,
-  InputType,
-  Mutation,
-  Resolver,
-} from "type-graphql";
+import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
@@ -91,7 +84,7 @@ const userCreateInputToRegisterUserInput = (
   user_email: userInput.email,
   user_password: userInput.password,
   user_language: userInput.language,
-  user_origin_details: userInput.originDetails
+  user_origin_details: userInput.originDetails,
 });
 
 @Resolver(() => User)

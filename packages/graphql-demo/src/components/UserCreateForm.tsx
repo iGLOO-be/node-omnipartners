@@ -31,13 +31,15 @@ export const UserCreateForm = () => {
       <h1>Create user</h1>
       <Formik
         onSubmit={async values => {
-          const { data } = await userCreate({ variables: { userInput: { ...values } } })
+          const { data } = await userCreate({
+            variables: { userInput: { ...values } },
+          });
           if (data && data.userCreate) {
             if (data.userCreate.result) {
-              console.log(data.userCreate.result)
+              console.log(data.userCreate.result);
             }
             if (data.userCreate.error) {
-              console.error(data.userCreate.error)
+              console.error(data.userCreate.error);
             }
           }
         }}
@@ -58,7 +60,11 @@ export const UserCreateForm = () => {
             <TitleRadio />
             <Field name="firstName" component={SimpleInput} />
             <Field name="lastName" component={SimpleInput} />
-            <Field name="dob" placeholder="dd-MM-yyyy" component={SimpleInput} />
+            <Field
+              name="dob"
+              placeholder="dd-MM-yyyy"
+              component={SimpleInput}
+            />
             <Radio choices={["M", "F"]} label="Gender" name="gender" />
             <Field name="mobilePhone" type="phone" component={SimpleInput} />
             <Field name="email" type="email" component={SimpleInput} />
