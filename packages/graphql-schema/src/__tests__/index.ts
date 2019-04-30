@@ -1,8 +1,8 @@
 
-import { createSchema } from "..";
+import { buildFullSchema } from "..";
 
-describe('createSchema', () => {
+describe('buildFullSchema', () => {
   it('works', async () => {
-    await createSchema()
+    await buildFullSchema()
   })
 })

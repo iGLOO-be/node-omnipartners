@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server";
 import createOmnipartners, { IOmnipartnersConfig } from "omnipartners";
-import { Context, createSchema } from "../src";
+import { buildFullSchema, Context } from "../src";
 
 let config: IOmnipartnersConfig | null = null;
 try {
@@ -21,7 +21,7 @@ const createServer = async () => {
   const context = new Context({
     omnipartners: createOmnipartners(config),
   });
-  const server = new ApolloServer({ schema: await createSchema(), context });
+  const server = new ApolloServer({ schema: await buildFullSchema(), context });
   return server;
 };
 

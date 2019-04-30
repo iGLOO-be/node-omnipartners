@@ -3,12 +3,12 @@ import execa from "execa";
 import fs from "fs-extra";
 import pDebounce from "p-debounce";
 import path from "path";
-import { createSchema } from "../src";
+import { buildFullSchema } from "../src";
 
 const write = async () => {
   const target = path.resolve(__dirname, "../__generated__/schema.graphql");
   await fs.mkdirp(path.dirname(target));
-  await createSchema({
+  await buildFullSchema({
     emitSchemaFile: path.resolve(__dirname, target),
   });
   // tslint:disable-next-line:no-console

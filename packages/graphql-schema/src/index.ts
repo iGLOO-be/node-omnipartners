@@ -1,47 +1,24 @@
 import "reflect-metadata";
 
-import { buildSchema, BuildSchemaOptions } from "type-graphql";
-import { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
-import { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
-import { DataAnimalUniverseResolver } from "./metadata/DataAnimalUniverseResolver";
-import { DataCountryResolver } from "./metadata/DataCountryResolver";
-import { DataLanguageResolver } from "./metadata/DataLanguageResolver";
-import { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
-import { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
-import { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
-import { DealResolver } from "./resolvers/DealResolver";
-import { ProductResolver } from "./resolvers/ProductResolver";
-import { Context } from "./types/Context";
-import { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
-import { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
-import { UserCreateResolver } from "./user/UserCreateResolver";
-import { UserPetCreateResolver } from "./user/UserPetCreateResolver";
-import { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
-import { UserResolver } from "./user/UserResolver";
-import { UserUpdateResolver } from "./user/UserUpdateResolver";
+export { buildSchema } from "type-graphql";
 
-const createSchema = async (options?: Partial<BuildSchemaOptions>) =>
-  buildSchema({
-    resolvers: [
-      UserResolver,
-      UserCreateResolver,
-      UserUpdateResolver,
-      UserPetCreateResolver,
-      UserPetUpdateResolver,
-      UserAddressCreateResolver,
-      UserAddressUpdateResolver,
-      DataCountryResolver,
-      DataAnimalBreedResolver,
-      DataAnimalTypeResolver,
-      DataAnimalUniverseResolver,
-      DataLanguageResolver,
-      DataSubscriptionResolver,
-      DataUserTitleResolver,
-      DataLegalFormResolver,
-      DealResolver,
-      ProductResolver,
-    ],
-    ...options,
-  });
+export { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
+export { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
+export { DataAnimalUniverseResolver } from "./metadata/DataAnimalUniverseResolver";
+export { DataCountryResolver } from "./metadata/DataCountryResolver";
+export { DataLanguageResolver } from "./metadata/DataLanguageResolver";
+export { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
+export { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
+export { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
+export { DealResolver } from "./resolvers/DealResolver";
+export { ProductResolver } from "./resolvers/ProductResolver";
+export { Context } from "./types/Context";
+export { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
+export { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
+export { UserCreateResolver } from "./user/UserCreateResolver";
+export { UserPetCreateResolver } from "./user/UserPetCreateResolver";
+export { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
+export { UserResolver } from "./user/UserResolver";
+export { UserUpdateResolver } from "./user/UserUpdateResolver";
 
-export { Context, createSchema };
+export * from "./schema";
