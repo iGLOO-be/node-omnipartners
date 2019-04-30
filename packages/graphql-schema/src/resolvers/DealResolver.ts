@@ -93,6 +93,22 @@ export class DealResolver {
     return res.map(v => new DealProduct(v));
   }
 
+  @Query(() => GenericValidationError, { nullable: true })
+  public async dealCheckSecureCode(
+    @Ctx() ctx: Context,
+    @Arg("deal_ref") deal_ref: string,
+    @Arg("code") code: string,
+  ): Promise<GenericValidationError | undefined> {
+    try {
+      await ctx.omnipartners.deals.checkSecureCode({
+        code,
+        deal_ref,
+      });
+    } catch (err) {
+      return new GenericValidationError(err);
+    }
+  }
+
   @Mutation(() => GenericValidationError, { nullable: true })
   public async dealSubscribe(
     @Ctx() ctx: Context,
