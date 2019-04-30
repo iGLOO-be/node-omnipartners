@@ -11020,11 +11020,6 @@ octokit-pagination-methods@^1.1.0:
   resolved "https://registry.yarnpkg.com/octokit-pagination-methods/-/octokit-pagination-methods-1.1.0.tgz#cf472edc9d551055f9ef73f6e42b4dbb4c80bea4"
   integrity sha512-fZ4qZdQ2nxJvtcasX7Ghl+WlWS/d9IgnBIwFZXVNNZUmzpno91SX5bc5vuxiuKoCtK78XxGGNuSCrDC7xYB3OQ==
 
-omnipartners@^2.0.30:
-  version "2.0.30"
-  resolved "https://registry.yarnpkg.com/omnipartners/-/omnipartners-2.0.30.tgz#12904c40539e4bd204094371844467b482e78989"
-  integrity sha512-LFTHU3K5LfMHOXib+J/DJSZ7Ut66S8OOJLS8Wpr5c2ijDEb/Oa8rvrU5GeDEEunkhsgVcVK6ODR0sZdKMyfTaA==
-
 on-finished@~2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/on-finished/-/on-finished-2.3.0.tgz#20f1336481b083cd75337992a16971aa2d906947"
