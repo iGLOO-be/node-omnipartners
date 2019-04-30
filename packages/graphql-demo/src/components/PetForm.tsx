@@ -155,7 +155,7 @@ export const PetForm = ({
             <Field name="name" component={SimpleInput} />
             <Radio choices={["CAT", "DOG"]} label="Type" name="type" />
             <Field name="breed" component={BreedSelector} />
-            <Field name="dob" component={SimpleInput} />
+            <Field name="dob" component={SimpleInput} placeholder="dd-MM-yyyy" />
             <Radio choices={["Y", "N"]} label="Neutered" name="neutered" />
             <Radio choices={["M", "F"]} label="Gender" name="gender" />
             <Field name="pictureUrl" component={SimpleInput} />

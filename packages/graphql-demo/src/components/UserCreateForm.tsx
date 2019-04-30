@@ -58,7 +58,7 @@ export const UserCreateForm = () => {
             <TitleRadio />
             <Field name="firstName" component={SimpleInput} />
             <Field name="lastName" component={SimpleInput} />
-            <Field name="dob" type="date" component={SimpleInput} />
+            <Field name="dob" placeholder="dd-MM-yyyy" component={SimpleInput} />
             <Radio choices={["M", "F"]} label="Gender" name="gender" />
             <Field name="mobilePhone" type="phone" component={SimpleInput} />
             <Field name="email" type="email" component={SimpleInput} />
