@@ -3,11 +3,6 @@ import Api from "../Api";
 import Request from "../Request";
 import logStructure from "./logStructure";
 
-const winstonDefaultOptions = {
-  format: winston.format.prettyPrint(),
-  transports: [new winston.transports.Console()],
-};
-
 async function prepareRequest(request: Request) {
   if (!request.response) {
     return;
@@ -26,7 +21,10 @@ async function prepareRequest(request: Request) {
 }
 
 export default function createLogger(
-  winstonOptions: LoggerOptions = winstonDefaultOptions,
+  winstonOptions: LoggerOptions = {
+    format: winston.format.prettyPrint(),
+    transports: [new winston.transports.Console()],
+  },
 ) {
   const logger = winston.createLogger(winstonOptions);
 
@@ -42,6 +40,7 @@ export default function createLogger(
     api.on("fetchError", (error: Error, request: Request) => {
       prepareRequest(request).then(() => {
         logger.error(logStructure({ type: "ERROR", request, error }), {
+          error,
           request: request.toJSON(),
         });
       });

@@ -371,7 +371,14 @@ export default class Products extends Api {
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Collection_Details")
-  @filterInput(["product_ean", "product_code"])
+  @filterInput([
+    "collection_reference",
+    "language",
+    "use_https_urls",
+    "data_options",
+    "component_sort_order",
+    "ignore_old_format",
+  ])
   public getCollectionDetails(
     data: IGetCollectionDetailsInput,
   ): Promise<{ data: ICollectionDetail }> {
