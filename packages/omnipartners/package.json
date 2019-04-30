@@ -2,17 +2,16 @@
   "name": "omnipartners",
   "version": "2.0.30",
   "description": "",
-  "main": "dist/index.js",
-  "typings": "dist/src/index.d.ts",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "files": [
-    "dist/*"
+    "lib/*"
   ],
   "scripts": {
-    "build": "ncc build src/index.ts",
-    "build:watch": "ncc build --watch src/index.ts",
-    "lint": "standard",
     "test": "jest",
-    "prepare": "npm run build"
+    "build": "rm -rf lib/* && tsc",
+    "watch": "yarn build && tsc -w",
+    "prepare": "yarn build"
   },
   "repository": "https://github.com/iGLOO-be/node-omnipartners",
   "author": "",
@@ -28,22 +27,19 @@
     "@types/sinon": "^7.0.11",
     "@types/url-join": "^4.0.0",
     "@types/uuid": "^3.4.4",
-    "@zeit/ncc": "^0.18.1",
+    "jest": "^24.7.1",
+    "sinon": "^7.3.2",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
     "boom": "^7.3.0",
     "depd": "^2.0.0",
     "fetch-retry": "^2.0.0",
-    "jest": "^24.7.1",
     "lodash": "^4.17.11",
     "nock": "^10.0.6",
     "node-fetch": "^2.4.1",
-    "prettier": "^1.17.0",
     "qs": "^6.7.0",
-    "sinon": "^7.3.2",
-    "standard": "^12.0.1",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.4.5",
     "url-join": "^4.0.0",
     "uuid": "^3.3.2",
     "winston": "^3.2.1"

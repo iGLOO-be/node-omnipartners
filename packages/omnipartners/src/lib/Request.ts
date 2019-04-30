@@ -3,7 +3,6 @@ import reduce from "lodash/reduce";
 import fetch, { Response as FetchResponse } from "node-fetch"; // TODO: switch to fetch-retry
 import querystring from "qs";
 import uuid from "uuid/v4";
-import pkg from "../../package.json";
 import { RequestError, RequestTimeoutError } from "./errors";
 import Response from "./Response";
 
@@ -66,7 +65,7 @@ export default class Request extends EventEmitter {
     this.qs = qs;
     this.headers = {
       ...headers,
-      "User-Agent": `node-omnipartners/${pkg.version}`,
+      "User-Agent": `node-omnipartners/2.0.0`,
       "X-Omnipartners-Request-Id": this.uuid,
       ...(this.json && {
         Accept: "application/json",

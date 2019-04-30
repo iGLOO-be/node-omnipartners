@@ -8,7 +8,7 @@ import {
   withMock,
 } from "./test.utils";
 
-import Api from "../src/lib/Api";
+import Api from "../lib/Api";
 
 const baseConfig = {
   host: "http://httpbin.org",

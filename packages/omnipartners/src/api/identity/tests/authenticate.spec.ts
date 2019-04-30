@@ -7,7 +7,7 @@ import {
   REGEX_HASH,
   withArguments,
   withMock,
-} from "../../../../test/test.utils";
+} from "../../../tests/test.utils";
 
 export const baseConfig = {
   host: "http://cis.staging.rcbe.omnipartners.be",
