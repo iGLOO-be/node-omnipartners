@@ -11,8 +11,8 @@ import {
   UserAddressUpdate,
   UserAddressUpdateVariables,
 } from "./__generated__/UserAddressUpdate";
-import { CountrySelector } from "./CountrySelector";
 import { GetUserAddressesQuery } from "./AddressList";
+import { CountrySelector } from "./CountrySelector";
 
 const UserAddressCreateMutation = gql`
   mutation UserAddressCreate(
