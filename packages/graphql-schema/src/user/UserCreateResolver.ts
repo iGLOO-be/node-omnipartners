@@ -52,6 +52,10 @@ class UserCreateInput {
   @Field()
   public language: string;
 
+  // Country that comes along with the address. Please refer <b><a href="/index.php/Country_list" title="Country list">Country list</a></b> for valid values.
+  @Field({ nullable: true })
+  public country: string;
+
   // Stores reference information on the origin of the user. This is used to give more context to the source of the registration. The source is taken automatically from the api key reference.
   // 50 chars
   @Field({ nullable: true })
@@ -72,6 +76,7 @@ const userCreateInputToRegisterUserInput = (
   | "user_email"
   | "user_password"
   | "user_language"
+  | "user_country"
   | "user_origin_details"
 > => ({
   user_title: userInput.title,
@@ -84,6 +89,7 @@ const userCreateInputToRegisterUserInput = (
   user_email: userInput.email,
   user_password: userInput.password,
   user_language: userInput.language,
+  user_country: userInput.country,
   user_origin_details: userInput.originDetails,
 });
 
