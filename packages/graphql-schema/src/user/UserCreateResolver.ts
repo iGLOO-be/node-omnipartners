@@ -56,6 +56,10 @@ class UserCreateInput {
   @Field({ nullable: true })
   public country: string;
 
+  // This state whether the user has a pet. If there is no pet 1 should be passed and otherwise 0 should be passed. When noPets = 1 is passed then the account will be created as an active account even if there is a global / key constraint on pets. In other words this parameter allows to bypass the pet constraint for an active account.
+  @Field({ nullable: true })
+  public noPets: boolean;
+
   // Stores reference information on the origin of the user. This is used to give more context to the source of the registration. The source is taken automatically from the api key reference.
   // 50 chars
   @Field({ nullable: true })
