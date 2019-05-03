@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-export { buildSchema } from "type-graphql";
+export { buildSchema, BuildSchemaOptions } from "type-graphql";
 
 export { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
 export { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
