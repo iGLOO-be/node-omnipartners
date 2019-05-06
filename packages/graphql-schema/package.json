@@ -20,11 +20,11 @@
   },
   "peerDependencies": {
     "graphql": "^14.2.1",
-    "omnipartners": "^2.1.0"
+    "omnipartners": "^2.1.1"
   },
   "devDependencies": {
     "@types/execa": "^0.9.0",
-    "@types/fs-extra": "^5.0.5",
+    "@types/fs-extra": "^5.1.0",
     "@types/graphql": "^14.2.0",
     "@types/graphql-relay": "^0.4.9",
     "@types/jest": "^24.0.12",
@@ -33,12 +33,12 @@
     "@types/node-fetch": "^2.3.3",
     "@types/tempy": "^0.3.0",
     "apollo-server": "^2.4.8",
-    "chokidar": "^2.1.5",
+    "chokidar": "^3.0.0",
     "concurrently": "^4.1.0",
     "execa": "^1.0.0",
     "fs-extra": "^7.0.1",
     "graphql": "^14.2.1",
-    "jest": "^24.7.1",
+    "jest": "^24.8.0",
     "omnipartners": "^2.1.1",
     "p-debounce": "^2.1.0",
     "tempy": "^0.3.0",
