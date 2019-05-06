@@ -35,6 +35,7 @@ export default class Request extends EventEmitter {
   public readonly meta: {
     start: Date;
     finish: Date | null;
+    time?: number;
   };
   public readonly retries: number;
   public readonly retryDelay: number;
@@ -117,6 +118,7 @@ export default class Request extends EventEmitter {
     }
 
     this.meta.finish = new Date();
+    this.meta.time = this.meta.finish.getTime() - this.meta.start.getTime()
     this.response = new Response(this, fetchRes);
     this.response.checkRequestStatus();
 
