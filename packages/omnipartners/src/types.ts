@@ -287,7 +287,7 @@ export interface IUserPetCreateInput {
   pet_pedigreename?: string;
   pet_dob: string;
   pet_dob_approx?: string;
-  pet_neutered?: string;
+  pet_neutered?: "Y" | "N";
   pet_neutering_date?: string;
   pet_gender?: string;
   vaccination_date?: string;
@@ -323,7 +323,7 @@ export interface IUserPetUpdateInput {
   // The gender of the pet. Valid values are “M” and “F”.
   pet_gender?: string;
   // This state whether pet is neutered or not. Valid values are “Y” and “N”.
-  pet_neutered?: string;
+  pet_neutered?: "Y" | "N";
   // The date which the pet was neutered.
   pet_neutering_date?: string;
   // The date of vaccination in the format YYYY-MM-DD.

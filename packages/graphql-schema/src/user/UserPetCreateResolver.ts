@@ -23,7 +23,7 @@ class UserPetCreateInput {
   public dob: string;
 
   @Field({ nullable: true })
-  public neutered?: string;
+  public neutered?: boolean;
 
   @Field({ nullable: true })
   public gender?: string;
@@ -48,7 +48,12 @@ const mapClixrayFields = (
   pet_type: userPetInput.type,
   pet_breed: userPetInput.breed,
   pet_dob: userPetInput.dob,
-  pet_neutered: userPetInput.neutered,
+  pet_neutered:
+    typeof userPetInput.neutered === "undefined"
+      ? undefined
+      : userPetInput.neutered
+      ? "Y"
+      : "N",
   pet_gender: userPetInput.gender,
   pet_picture: userPetInput.pictureUrl,
 });

@@ -29,7 +29,7 @@ class UserPetUpdateInput {
   public gender?: string;
 
   @Field({ nullable: true })
-  public neutered?: string;
+  public neutered?: boolean;
 
   @Field({ nullable: true })
   public pictureUrl?: string;
@@ -54,7 +54,12 @@ const mapClixrayFields = (
   pet_breed: userPetInput.breed,
   pet_dob: userPetInput.dob,
   pet_gender: userPetInput.gender,
-  pet_neutered: userPetInput.neutered,
+  pet_neutered:
+    typeof userPetInput.neutered === "undefined"
+      ? undefined
+      : userPetInput.neutered
+      ? "Y"
+      : "N",
   pet_picture: userPetInput.pictureUrl,
 });
 
