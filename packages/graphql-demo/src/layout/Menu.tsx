@@ -4,8 +4,19 @@ import React from "react";
 export const Menu = () => (
   <div>
     <div>
-      <Link to="/">Home</Link>
+      <Link to="/">Login</Link>
     </div>
+    <div>
+      <Link to="/dashboard">Dashboard</Link>
+    </div>
+
+
+
+
+
+
+
+
     <div>
       <Link to="/metadata">Metadata</Link>
     </div>

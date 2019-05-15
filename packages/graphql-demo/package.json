@@ -11,8 +11,10 @@
   "dependencies": {
     "apollo": "^2.9.0",
     "apollo-cache-inmemory": "^1.5.1",
+    "apollo-cache-persist": "^0.1.1",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.11",
+    "apollo-link-batch-http": "^1.2.11",
     "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
     "apollo-link-retry": "^2.2.13",
@@ -23,6 +25,7 @@
     "graphql-tag": "^2.10.1",
     "http-proxy-middleware": "^0.19.1",
     "isomorphic-fetch": "^2.2.1",
+    "localforage": "^1.7.3",
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
     "react-apollo-hooks": "^0.4.5",
