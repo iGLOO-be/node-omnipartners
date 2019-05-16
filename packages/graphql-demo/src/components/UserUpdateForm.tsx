@@ -3,12 +3,8 @@ import gql from "graphql-tag";
 import React from "react";
 import { useMutation, useQuery } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
-import { useUserToken } from "../lib/useUserToken";
+import { useUser } from "../lib/user/useUser";
 import { UserUpdate, UserUpdateVariables } from "./__generated__/UserUpdate";
-import {
-  UserUpdateFormRead,
-  UserUpdateFormReadVariables,
-} from "./__generated__/UserUpdateFormRead";
 import { Radio } from "./Radio";
 import { TitleRadio } from "./TitleRadio";
 
@@ -36,55 +32,22 @@ const UserUpdateMutation = gql`
   }
 `;
 
-const UserUpdateFormReadQuery = gql`
-  query UserUpdateFormRead($userToken: String!) {
-    user(token: $userToken) {
-      result {
-        owner {
-          firstName
-          lastName
-          email
-          gender
-          mobilePhone
-          title
-          dob
-          language
-        }
-      }
-      error {
-        message
-      }
-    }
-  }
-`;
-
 export const UserUpdateForm = () => {
-  const userToken = useUserToken();
-  const { data } = useQuery<UserUpdateFormRead, UserUpdateFormReadVariables>(
-    UserUpdateFormReadQuery,
-    {
-      skip: !userToken.token,
-      variables: {
-        userToken: userToken.token,
-      },
-    },
-  );
+  const { userToken, user: { user } } = useUser();
 
   const userUpdate = useMutation<UserUpdate, UserUpdateVariables>(
     UserUpdateMutation,
   );
   return (
     <div>
-      <h1>Update profile</h1>
+      <h1>Update current profile</h1>
 
-      {userToken.renderInput}
-
-      {data && data.user && data.user.result && data.user.result.owner && (
+      {user && (
         <Formik
           onSubmit={async values => {
             const { data: updatedData, errors } = await userUpdate({
               variables: {
-                token: userToken.token,
+                token: userToken,
                 userInput: values,
               },
             });
@@ -110,14 +73,14 @@ export const UserUpdateForm = () => {
             }
           }}
           initialValues={{
-            title: data.user.result.owner.title || "",
-            firstName: data.user.result.owner.firstName || "",
-            lastName: data.user.result.owner.lastName || "",
-            dob: data.user.result.owner.dob || "",
-            gender: data.user.result.owner.gender || "",
-            mobilePhone: data.user.result.owner.mobilePhone || "",
-            email: data.user.result.owner.email || "",
-            language: data.user.result.owner.language || "",
+            title: user.result.owner.title || "",
+            firstName: user.result.owner.firstName || "",
+            lastName: user.result.owner.lastName || "",
+            dob: user.result.owner.dob || "",
+            gender: user.result.owner.gender || "",
+            mobilePhone: user.result.owner.mobilePhone || "",
+            email: user.result.owner.email || "",
+            language: user.result.owner.language || "",
           }}
           render={() => (
             <Form>

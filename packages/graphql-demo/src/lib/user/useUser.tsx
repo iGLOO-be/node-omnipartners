@@ -14,6 +14,14 @@ const UseUserFetchQuery = gql`
         token
         owner {
           guid
+          dob
+          gender
+          firstName
+          lastName
+          title
+          email
+          mobilePhone
+          language
         }
       }
       error {
@@ -59,7 +67,7 @@ export const useUser = () => {
   return {
     isLoading,
     isLogged,
-    user: data,
+    user: { ...data },
     userToken,
   };
 };

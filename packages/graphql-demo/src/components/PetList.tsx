@@ -44,7 +44,7 @@ export const PetList = ({
     {
       fetchPolicy: "cache-and-network",
       variables: {
-        token: userToken || "",
+        token: userToken,
       },
     },
   );

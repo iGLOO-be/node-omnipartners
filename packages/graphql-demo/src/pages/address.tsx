@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AddressForm } from "../components/AddressForm";
 import { AddressList } from "../components/AddressList";
-import { useUserToken } from "../lib/useUserToken";
+import { UserRouteValidator } from "../lib/UserRouteValidator";
 
 const Address = () => {
   const [state, setState] = useState({
@@ -9,12 +9,9 @@ const Address = () => {
     action: "",
   });
 
-  const userToken = useUserToken();
-
   return (
-    <div>
-      <h1>address</h1>
-      <div>{userToken.renderInput}</div>
+    <UserRouteValidator>
+      <h1>Address</h1>
       <AddressList
         handleCreate={() =>
           setState({
@@ -28,16 +25,14 @@ const Address = () => {
             action: "update",
           })
         }
-        token={userToken.token}
       />
       {state.action && (
         <AddressForm
-          token={userToken.token}
           resetState={() => setState({ address: null, action: "" })}
           {...state}
         />
       )}
-    </div>
+    </UserRouteValidator>
   );
 };
 

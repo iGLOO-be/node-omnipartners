@@ -2,7 +2,9 @@ import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
 import React from "react";
 import { useMutation } from "react-apollo-hooks";
+import yn from "yn";
 import { SimpleInput } from "../layout/SimpleInput";
+import { useUser } from "../lib/user/useUser";
 import {
   UserPetCreate,
   UserPetCreateVariables,
@@ -58,14 +60,13 @@ const UserPetUpdateMutation = gql`
 export const PetForm = ({
   action,
   pet,
-  token,
   resetState,
 }: {
   action: string;
   pet: any;
   resetState: () => void;
-  token: string;
 }) => {
+  const { userToken } = useUser();
   const petCreate = useMutation<UserPetCreate, UserPetCreateVariables>(
     UserPetCreateMutation,
     {
@@ -73,7 +74,7 @@ export const PetForm = ({
         {
           query: GetUserPetsQuery,
           variables: {
-            token,
+            token: userToken,
           },
         },
       ],
@@ -87,7 +88,7 @@ export const PetForm = ({
         {
           query: GetUserPetsQuery,
           variables: {
-            token,
+            token: userToken,
           },
         },
       ],
@@ -101,9 +102,10 @@ export const PetForm = ({
           if (action === "create") {
             const { data } = await petCreate({
               variables: {
-                token,
+                token: userToken,
                 userPetInput: {
                   ...values,
+                  neutered: yn(values.neutered),
                 },
               },
             });
@@ -121,10 +123,11 @@ export const PetForm = ({
           } else if (action === "update") {
             const { data } = await petUpdate({
               variables: {
-                token,
+                token: userToken,
                 userPetInput: {
                   guid: pet.guid,
                   ...values,
+                  neutered: yn(values.neutered),
                 },
               },
             });

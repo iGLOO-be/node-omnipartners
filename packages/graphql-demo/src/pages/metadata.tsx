@@ -1,13 +1,16 @@
 import React from "react";
 import { BreedSelector } from "../components/BreedSelector";
 import { CountrySelector } from "../components/CountrySelector";
+import { UserRouteValidator } from "../lib/UserRouteValidator";
 
 const MetaData = () => (
-  <div>
-    <h1>Country list:</h1>
+  <>
+    <h1>Metadata</h1>
+    <h2>Country selector:</h2>
     <CountrySelector />
+    <h2>Breed selector:</h2>
     <BreedSelector />
-  </div>
+  </>
 );
 
 export default MetaData;

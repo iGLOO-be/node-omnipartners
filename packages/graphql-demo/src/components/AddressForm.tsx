@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import React from "react";
 import { useMutation } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
+import { useUser } from "../lib/user/useUser";
 import {
   UserAddressCreate,
   UserAddressCreateVariables,
@@ -65,14 +66,13 @@ const UserAddressUpdateMutation = gql`
 export const AddressForm = ({
   action,
   address,
-  token,
   resetState,
 }: {
   action: string;
   address: any;
   resetState: () => void;
-  token: string;
 }) => {
+  const { userToken: token } = useUser();
   const addressCreate = useMutation<
     UserAddressCreate,
     UserAddressCreateVariables

@@ -1,6 +1,8 @@
 import gql from "graphql-tag";
 import React from "react";
 import { useQuery } from "react-apollo-hooks";
+import { Loading } from "../layout/Loading";
+import { useUser } from "../lib/user/useUser";
 import {
   GetUserAddresses,
   GetUserAddressesVariables,
@@ -10,6 +12,9 @@ export const GetUserAddressesQuery = gql`
   query GetUserAddresses($token: String!) {
     user(token: $token) {
       result {
+        owner {
+          guid
+        }
         addresses {
           id
           name
@@ -30,24 +35,30 @@ export const GetUserAddressesQuery = gql`
 export const AddressList = ({
   handleCreate,
   handleUpdate,
-  token,
 }: {
   handleCreate: () => void;
   handleUpdate: (pet: any) => void;
-  token: string;
 }) => {
-  const { data } = useQuery<GetUserAddresses, GetUserAddressesVariables>(
-    GetUserAddressesQuery,
-    {
-      variables: {
-        token,
-      },
+  const { userToken } = useUser();
+  const { data, loading } = useQuery<
+    GetUserAddresses,
+    GetUserAddressesVariables
+  >(GetUserAddressesQuery, {
+    fetchPolicy: "cache-and-network",
+    variables: {
+      token: userToken,
     },
-  );
+  });
+
+  const isLoading = !data && loading;
 
   return (
     <>
-      {data && data.user && data.user.result && data.user.result.addresses && (
+      {data &&
+      data.user &&
+      data.user.result &&
+      data.user.result.addresses &&
+      !isLoading ? (
         <table>
           <thead>
             <tr>
@@ -92,6 +103,8 @@ export const AddressList = ({
             </tr>
           </tbody>
         </table>
+      ) : (
+        <Loading />
       )}
     </>
   );

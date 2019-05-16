@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { UserCreateForm } from "../components/UserCreateForm";
 import { UserUpdateForm } from "../components/UserUpdateForm";
+import { UserRouteValidator } from "../lib/UserRouteValidator";
 
-const User = () => (
-  <>
-    <UserCreateForm />
-    <UserUpdateForm />
-  </>
-);
+const User = () => {
+  return (
+    <UserRouteValidator>
+      <UserCreateForm />
+      <UserUpdateForm />
+    </UserRouteValidator>
+  );
+};
 
 export default User;

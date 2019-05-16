@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PetForm } from "../components/PetForm";
 import { PetList } from "../components/PetList";
-import { useUserToken } from "../lib/useUserToken";
+import { UserRouteValidator } from "../lib/UserRouteValidator";
 
 const Pet = () => {
   const [state, setState] = useState({
@@ -9,14 +9,11 @@ const Pet = () => {
     action: "",
   });
 
-  const userToken = useUserToken();
-
   return (
-    <div>
-      <h1>pet</h1>
-      <div>{userToken.renderInput}</div>
+    <UserRouteValidator>
+      <h1>Pet</h1>
       <PetList
-        handleCreate={() =>
+         handleCreate={() =>
           setState({
             pet: null,
             action: "create",
@@ -28,16 +25,14 @@ const Pet = () => {
             action: "update",
           })
         }
-        token={userToken.token}
       />
       {state.action && (
         <PetForm
-          token={userToken.token}
           resetState={() => setState({ pet: null, action: "" })}
           {...state}
         />
       )}
-    </div>
+    </UserRouteValidator>
   );
 };
 

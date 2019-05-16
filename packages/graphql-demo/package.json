@@ -32,7 +32,8 @@
     "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
     "type-fest": "^0.4.1",
-    "typescript": "3.4.5"
+    "typescript": "3.4.5",
+    "yn": "^3.1.0"
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
