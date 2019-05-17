@@ -1,11 +1,10 @@
 import { IUser, IUserPartnerRelation } from "omnipartners";
-import { Field, ObjectType } from "type-graphql";
+import { Ctx, Field, ObjectType, Resolver } from "type-graphql";
+import { Partner } from "../partner/Partner";
+import { Context } from "../types/Context";
 
 @ObjectType()
 class UserPartnerRelation {
-  // @Field()
-  // public partner: Partner;
-
   @Field()
   public extId: string;
 
@@ -21,14 +20,15 @@ class UserPartnerRelation {
     this.type = data.ptn_type;
     this.roles = data.partner_relationship_roles;
   }
+
+  @Field(() => Partner, { nullable: false })
+  public async partner(@Ctx() ctx: Context): Promise<Partner> {
+    const res = await ctx.omnipartners.partners.partnerDetails({
+      partner_ext_id: this.extId
+    });
+    return new Partner(res.data[0])
+  }
 }
-
-const mapFields = (userPartnerRelation: IUserPartnerRelation) => ({
-  extId: userPartnerRelation.ptn_ext_customer_id,
-  type: userPartnerRelation.ptn_type,
-  roles: userPartnerRelation.partner_relationship_roles
-})
-
 
 @ObjectType()
 export class UserPartnerRelations {
@@ -38,7 +38,7 @@ export class UserPartnerRelations {
   public clientof: UserPartnerRelation[];
 
   constructor(data: IUser["partners"]) {
-    this.partof = data.partof.map(relation => mapFields(relation));
-    this.clientof = data.clientof.map(relation => mapFields(relation));
+    this.partof = data.partof.map(relation => new UserPartnerRelation(relation));
+    this.clientof = data.clientof.map(relation => new UserPartnerRelation(relation));
   }
 }

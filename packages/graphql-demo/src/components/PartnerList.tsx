@@ -20,6 +20,16 @@ export const GetUserPartnersQuery = gql`
             extId
             type
             roles
+            partner {
+              extId
+              street1
+              streetnum
+              postalCode
+              city
+              country
+              email
+              phone
+            }
           }
         }
       }
@@ -66,6 +76,7 @@ export const PartnerList = ({
               <th>extId</th>
               <th>type</th>
               <th>roles</th>
+              <th>partner detail</th>
             </tr>
           </thead>
           <tbody>
@@ -74,6 +85,9 @@ export const PartnerList = ({
                 <td>{partner.extId}</td>
                 <td>{partner.type}</td>
                 <td>{partner.roles}</td>
+                <td>
+                  <pre>{JSON.stringify(partner.partner, null, 2)}</pre>
+                </td>
                 <td>
                   <button onClick={() => handleUpdate(partner)}>edit</button>
                 </td>

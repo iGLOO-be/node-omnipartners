@@ -1,5 +1,6 @@
 import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
+import { IPartnerDetails } from "../../types";
 
 export default class Partners extends Api {
   public defaultHost = "https://partners.clixray.io/";
@@ -118,10 +119,10 @@ export default class Partners extends Api {
   ])
   public partnerDetails(data: {
     partner_ext_id: string;
-    indexed_result: string;
-    lang: string;
-    data_options: string;
-  }) {
+    indexed_result?: string;
+    lang?: string;
+    data_options?: string;
+  }): Promise<{ data: IPartnerDetails[] }> {
     const options = {
       ...data,
       partner_ext_id: data.partner_ext_id

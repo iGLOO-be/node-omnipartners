@@ -10,6 +10,7 @@ import { DataLanguageResolver } from "./metadata/DataLanguageResolver";
 import { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
 import { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
 import { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
+import { PartnerResolver } from "./partner/PartnerResolver";
 import { DealResolver } from "./resolvers/DealResolver";
 import { ProductResolver } from "./resolvers/ProductResolver";
 import { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
@@ -42,6 +43,7 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       DataLegalFormResolver,
       DealResolver,
       ProductResolver,
+      PartnerResolver,
     ],
     ...options,
   });
