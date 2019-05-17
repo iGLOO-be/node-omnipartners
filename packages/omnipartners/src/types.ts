@@ -172,6 +172,15 @@ export type ICollectionDataOptions =
   | ICollectionDataOption[]
   | ICollectionDataOption;
 
+export interface ICreatePartnerAccountRelation {
+  user_guid: string;
+  partner_ext_id: string;
+  partner_relationship: string;
+  partner_roles?: string;
+  partner_status: string;
+  notify?: boolean;
+}
+
 export interface IUserPartial {
   statusCode: 0;
   user_guid: string;

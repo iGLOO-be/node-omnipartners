@@ -2,6 +2,7 @@ import querystring from "querystring";
 import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
+  ICreatePartnerAccountRelation,
   IPartnerDataOptions,
   IRegisterUserAddressInput,
   IRegisterUserInput,
@@ -13,6 +14,7 @@ import {
   IUserDataOptions,
   IUserOwner,
   IUserPartial,
+  IUserPartner,
   IUserPet,
   IUserPetCreateInput,
   IUserPetUpdateInput,
@@ -546,14 +548,9 @@ export default class Identity extends Api {
     "partner_status", // (Required) The status of the relationship between the partner and user. Valid status values are submitted, accepted, pending and refused.
     "notify", // Flag used to determine if the preset notification email has to be sent to the user. If the value is "1" then the email is sent.
   ])
-  public createPartnerAccountRelation(data: {
-    user_guid: string;
-    partner_ext_id: string;
-    partner_relationship: string;
-    partner_roles?: string;
-    partner_status: string;
-    notify?: boolean;
-  }) {
+  public createPartnerAccountRelation(
+    data: ICreatePartnerAccountRelation,
+  ) {
     return this.post("/service/partners/add/", data, {
       errorMap: {
         2: {

@@ -4,7 +4,10 @@ import { Field, ObjectType } from "type-graphql";
 // TODO: clean props name in UserPartner (ex: ptn_typ => type, ptn_ext_cutomer_id => extCustomerId, ...)
 // TODO: quid ptn_id, ... http://doc.omnipartners.be/index.php/Retrieve_User_Accounts
 // TODO: clean unused props
+
 // TODO: add new relation
+  // quid partof ?
+
 // TODO: edit relation
 
 @ObjectType()
