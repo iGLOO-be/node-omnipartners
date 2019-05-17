@@ -22,7 +22,10 @@ export const Menu = () => {
         <Link to="/user">User</Link>
       </li>
       <li>
-        <Link to="/address">Adress</Link>
+        <Link to="/address">Address</Link>
+      </li>
+      <li>
+        <Link to="/partner">Partner</Link>
       </li>
       <li>
         <button onClick={() => logout()}>Logout</button>

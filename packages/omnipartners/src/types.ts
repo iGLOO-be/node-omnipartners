@@ -197,7 +197,7 @@ export interface IUserPartial {
   };
 }
 
-interface IUserPartner {
+export interface IUserPartner {
   ptn_ext_customer_id: string;
   ptn_type: string;
   partner_ext_id: string;
