@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { AddressForm } from "../components/AddressForm";
+import { PartnerForm } from "../components/PartnerForm";
 import { PartnerList } from "../components/PartnerList";
 import { UserRouteValidator } from "../lib/UserRouteValidator";
 
 const Partner = () => {
   const [state, setState] = useState({
-    address: null,
+    partner: null,
     action: "",
   });
 
@@ -15,23 +15,23 @@ const Partner = () => {
       <PartnerList
         handleCreate={() =>
           setState({
-            address: null,
+            partner: null,
             action: "create",
           })
         }
-        handleUpdate={address =>
+        handleDelete={partner =>
           setState({
-            address,
-            action: "update",
+            partner,
+            action: "delete",
           })
         }
       />
-      {/* {state.action && (
+      {state.action && (
         <PartnerForm
-          resetState={() => setState({ address: null, action: "" })}
+          resetState={() => setState({ partner: null, action: "" })}
           {...state}
         />
-      )} */}
+      )}
     </UserRouteValidator>
   );
 };

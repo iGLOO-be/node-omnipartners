@@ -42,10 +42,10 @@ export const GetUserPartnersQuery = gql`
 
 export const PartnerList = ({
   handleCreate,
-  handleUpdate,
+  handleDelete,
 }: {
   handleCreate: () => void;
-  handleUpdate: (pet: any) => void;
+  handleDelete: (pet: any) => void;
 }) => {
   const { userToken } = useUser();
   const { data, loading } = useQuery<GetUserPartners, GetUserPartnersVariables>(
@@ -89,12 +89,7 @@ export const PartnerList = ({
                   <pre>{JSON.stringify(partner.partner, null, 2)}</pre>
                 </td>
                 <td>
-                  <button onClick={() => handleUpdate(partner)}>edit</button>
-                </td>
-                <td>
-                  <button onClick={() => console.log("DELETE", partner)}>
-                    delete
-                  </button>
+                  <button onClick={() => handleDelete(partner)}>delete</button>
                 </td>
               </tr>
             ))}

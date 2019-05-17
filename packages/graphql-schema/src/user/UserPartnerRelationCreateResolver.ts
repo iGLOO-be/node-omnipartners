@@ -42,7 +42,7 @@ const mapClixrayFields = (
 @Resolver(() => User)
 export class UserPartnerRelationCreateResolver {
   @Mutation(() => UserPartnerUpdateResult, { nullable: false })
-  public async userPartnerCreate(
+  public async userPartnerRelationCreate(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
     @Arg("userPartnerInput") userPartnerInput: UserPartnerRelationCreateInput,
