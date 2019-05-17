@@ -2,7 +2,7 @@ import querystring from "querystring";
 import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
-  ICreatePartnerAccountRelation,
+  ICreatePartnerAccountRelationInput,
   IPartnerDataOptions,
   IRegisterUserAddressInput,
   IRegisterUserInput,
@@ -14,7 +14,7 @@ import {
   IUserDataOptions,
   IUserOwner,
   IUserPartial,
-  IUserPartner,
+  IUserPartnerRelation,
   IUserPet,
   IUserPetCreateInput,
   IUserPetUpdateInput,
@@ -549,7 +549,7 @@ export default class Identity extends Api {
     "notify", // Flag used to determine if the preset notification email has to be sent to the user. If the value is "1" then the email is sent.
   ])
   public createPartnerAccountRelation(
-    data: ICreatePartnerAccountRelation,
+    data: ICreatePartnerAccountRelationInput,
   ) {
     return this.post("/service/partners/add/", data, {
       errorMap: {

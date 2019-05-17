@@ -3,7 +3,7 @@ import { Arg, Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
 import { sign } from "../lib/userToken";
 import { UserAddress } from "./UserAddress";
-import { UserPartners } from "./UserPartners";
+import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
 
 interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
@@ -118,11 +118,11 @@ export class User {
     return res.data;
   }
 
-  @Field(() => UserPartners, { nullable: false })
-  public async partners(@Ctx() ctx: Context): Promise<UserPartners> {
+  @Field(() => UserPartnerRelations, { nullable: false })
+  public async partners(@Ctx() ctx: Context): Promise<UserPartnerRelations> {
     const res = await ctx.omnipartners.identity.getPartnerAccountRelations({
       user_guid: this.owner.guid,
     });
-    return new UserPartners(res.data);
+    return new UserPartnerRelations(res.data);
   }
 }

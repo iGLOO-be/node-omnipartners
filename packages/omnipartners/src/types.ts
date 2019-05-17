@@ -172,7 +172,7 @@ export type ICollectionDataOptions =
   | ICollectionDataOption[]
   | ICollectionDataOption;
 
-export interface ICreatePartnerAccountRelation {
+export interface ICreatePartnerAccountRelationInput {
   user_guid: string;
   partner_ext_id: string;
   partner_relationship: string;
@@ -206,7 +206,7 @@ export interface IUserPartial {
   };
 }
 
-export interface IUserPartner {
+export interface IUserPartnerRelation {
   ptn_ext_customer_id: string;
   ptn_type: string;
   partner_ext_id: string;
@@ -431,8 +431,8 @@ export interface IUser {
   user_access_rights: [];
   cards: IUserCard[];
   partners: {
-    clientof: IUserPartner[];
-    partof: IUserPartner[];
+    clientof: IUserPartnerRelation[];
+    partof: IUserPartnerRelation[];
   };
   segments: Array<{
     id: number;

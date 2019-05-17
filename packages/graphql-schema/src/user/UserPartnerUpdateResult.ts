@@ -2,7 +2,6 @@ import { Field, ObjectType } from "type-graphql";
 import { GenericResult } from "../types/GenericResult";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
-import { UserPartners } from "./UserPartners";
 
 @ObjectType()
 class UserAndPartner {
