@@ -17,6 +17,7 @@ import { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
 import { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
 import { UserCreateResolver } from "./user/UserCreateResolver";
 import { UserPartnerRelationCreateResolver } from "./user/UserPartnerRelationCreateResolver";
+import { UserPartnerRelationDeleteResolver } from "./user/UserPartnerRelationDeleteResolver";
 import { UserPetCreateResolver } from "./user/UserPetCreateResolver";
 import { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
 import { UserResolver } from "./user/UserResolver";
@@ -33,6 +34,7 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       UserAddressCreateResolver,
       UserAddressUpdateResolver,
       UserPartnerRelationCreateResolver,
+      UserPartnerRelationDeleteResolver,
       DataCountryResolver,
       DataAnimalBreedResolver,
       DataAnimalTypeResolver,

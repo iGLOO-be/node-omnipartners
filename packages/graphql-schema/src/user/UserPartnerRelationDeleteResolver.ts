@@ -1,4 +1,4 @@
-import { IPartnerAccountRelationCreateInput } from "omnipartners";
+import { IPartnerAccountRelationDeleteInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
@@ -7,50 +7,43 @@ import { User } from "./User";
 import { UserPartnerUpdateResult } from "./UserPartnerUpdateResult";
 import { dataOptions } from "./UserResolver";
 
+
 @InputType()
-export class UserPartnerRelationCreateInput {
+export class UserPartnerRelationDeleteInput {
   @Field()
   public extId: string;
 
   @Field()
   public relationship: string;
-
-  @Field()
-  public roles?: string;
-
-  @Field()
-  public status: string;
 }
 
 const mapClixrayFields = (
-  userPartnerInput: UserPartnerRelationCreateInput,
+  userPartnerInput: UserPartnerRelationDeleteInput,
 ): Pick<
-  IPartnerAccountRelationCreateInput,
-  "partner_ext_id" | "partner_relationship" | "partner_roles" | "partner_status"
+  IPartnerAccountRelationDeleteInput,
+  | "partner_ext_id"
+  | "partner_relationship"
 > => ({
   ...userPartnerInput,
   partner_ext_id: userPartnerInput.extId,
-  partner_relationship: userPartnerInput.relationship,
-  partner_roles: userPartnerInput.roles,
-  partner_status: userPartnerInput.status,
+  partner_relationship: userPartnerInput.relationship
 });
 
 @Resolver(() => User)
-export class UserPartnerRelationCreateResolver {
+export class UserPartnerRelationDeleteResolver {
   @Mutation(() => UserPartnerUpdateResult, { nullable: false })
-  public async userPartnerRelationCreate(
+  public async userPartnerRelationDelete(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
-    @Arg("userPartnerInput") userPartnerInput: UserPartnerRelationCreateInput,
+    @Arg("userPartnerInput") userPartnerInput: UserPartnerRelationDeleteInput,
   ): Promise<UserPartnerUpdateResult> {
     const { user_guid } = parse(token);
     try {
-      const partners = (await ctx.omnipartners.identity.createPartnerAccountRelation(
-        {
-          ...mapClixrayFields(userPartnerInput),
-          user_guid,
-        },
-      )).data;
+
+      await ctx.omnipartners.identity.deletePartnerAccountRelation({
+        ...mapClixrayFields(userPartnerInput),
+        user_guid,
+      });
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: dataOptions,

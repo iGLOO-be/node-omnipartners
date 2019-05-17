@@ -172,13 +172,18 @@ export type ICollectionDataOptions =
   | ICollectionDataOption[]
   | ICollectionDataOption;
 
-export interface ICreatePartnerAccountRelationInput {
+export interface IPartnerAccountRelationCreateInput {
   user_guid: string;
   partner_ext_id: string;
   partner_relationship: string;
   partner_roles?: string;
   partner_status: string;
   notify?: boolean;
+}
+export interface IPartnerAccountRelationDeleteInput {
+  user_guid: string;
+  partner_ext_id: string;
+  partner_relationship: string;
 }
 
 export interface IPartnerDetails {
