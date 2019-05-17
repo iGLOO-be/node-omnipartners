@@ -8,6 +8,7 @@ import {
   UserPartnerRelationCreate,
   UserPartnerRelationCreateVariables,
 } from "./__generated__/UserPartnerRelationCreate";
+
 import { GetUserPartnersQuery } from "./PartnerList";
 import { Radio } from "./Radio";
 
@@ -58,7 +59,6 @@ export const PartnerForm = ({
         query: GetUserPartnersQuery,
         variables: {
           token: userToken,
-          // userPartnerRelationCreateInput ???
         },
       },
     ],
@@ -94,11 +94,9 @@ export const PartnerForm = ({
               data.userPartnerRelationCreate &&
               data.userPartnerRelationCreate.result
             ) {
-              console.log("partner created", data.userPartnerRelationCreate.result);
+              console.log("partner relation created", data.userPartnerRelationCreate.result);
               resetState();
             }
-          } else if (action === "delete") {
-            console.log("TODO");
           }
         }}
         initialValues={{

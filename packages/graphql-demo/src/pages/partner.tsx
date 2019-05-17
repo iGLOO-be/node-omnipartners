@@ -19,12 +19,7 @@ const Partner = () => {
             action: "create",
           })
         }
-        handleDelete={partner =>
-          setState({
-            partner,
-            action: "delete",
-          })
-        }
+        resetState={() => setState({ partner: null, action: "" })}
       />
       {state.action && (
         <PartnerForm

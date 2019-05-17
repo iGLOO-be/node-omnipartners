@@ -1,12 +1,16 @@
 import gql from "graphql-tag";
 import React from "react";
-import { useQuery } from "react-apollo-hooks";
+import { useMutation, useQuery } from "react-apollo-hooks";
 import { Loading } from "../layout/Loading";
 import { useUser } from "../lib/user/useUser";
 import {
   GetUserPartners,
   GetUserPartnersVariables,
 } from "./__generated__/GetUserPartners";
+import {
+  UserPartnerRelationDelete,
+  UserPartnerRelationDeleteVariables,
+} from "./__generated__/UserPartnerRelationDelete";
 
 export const GetUserPartnersQuery = gql`
   query GetUserPartners($token: String!) {
@@ -40,12 +44,40 @@ export const GetUserPartnersQuery = gql`
   }
 `;
 
+const UserPartnerRelationDeleteMutation = gql`
+  mutation UserPartnerRelationDelete(
+    $token: String!
+    $userPartnerInput: UserPartnerRelationDeleteInput!
+  ) {
+    userPartnerRelationDelete(
+      token: $token
+      userPartnerInput: $userPartnerInput
+    ) {
+      result {
+        user {
+          owner {
+            guid
+          }
+          partners {
+            clientof {
+              extId
+            }
+          }
+        }
+      }
+      error {
+        message
+      }
+    }
+  }
+`;
+
 export const PartnerList = ({
   handleCreate,
-  handleDelete,
+  resetState,
 }: {
   handleCreate: () => void;
-  handleDelete: (pet: any) => void;
+  resetState: () => void;
 }) => {
   const { userToken } = useUser();
   const { data, loading } = useQuery<GetUserPartners, GetUserPartnersVariables>(
@@ -57,6 +89,54 @@ export const PartnerList = ({
       },
     },
   );
+
+  const partnerRelationDelete = useMutation<
+    UserPartnerRelationDelete,
+    UserPartnerRelationDeleteVariables
+  >(UserPartnerRelationDeleteMutation, {
+    refetchQueries: [
+      {
+        query: GetUserPartnersQuery,
+        variables: {
+          token: userToken,
+        },
+      },
+    ],
+  });
+
+  const handleDelete = async partner => {
+    const { data: deletedData } = await partnerRelationDelete({
+      variables: {
+        token: userToken,
+        userPartnerInput: {
+          extId: partner.extId,
+          relationship: "clientof",
+        },
+      },
+    });
+
+    if (
+      deletedData &&
+      deletedData.userPartnerRelationDelete &&
+      deletedData.userPartnerRelationDelete.error
+    ) {
+      console.log(
+        "partner creation, validation error",
+        deletedData.userPartnerRelationDelete.error.message,
+      );
+    }
+    if (
+      deletedData &&
+      deletedData.userPartnerRelationDelete &&
+      deletedData.userPartnerRelationDelete.result
+    ) {
+      console.log(
+        "partner relation deleted",
+        deletedData.userPartnerRelationDelete.result,
+      );
+      resetState();
+    }
+  };
 
   const isLoading = !data && loading;
 
