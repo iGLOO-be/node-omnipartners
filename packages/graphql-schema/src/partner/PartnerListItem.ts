@@ -1,5 +1,6 @@
 import { IPartnerListItem } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
+import { PageInfo } from "../connections";
 
 @ObjectType()
 export class PartnerListItem {
@@ -38,4 +39,13 @@ export class PartnerListItem {
     this.city = data.partner_pub_city
     this.country = data.partner_pub_country
   }
+}
+
+@ObjectType(`PartnerConnection`)
+export class PartnerConnection {
+  @Field()
+  public pageInfo!: PageInfo;
+
+  @Field(() => [PartnerListItem])
+  public result!: PartnerListItem[];
 }

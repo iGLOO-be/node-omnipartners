@@ -26,7 +26,6 @@
     "@types/execa": "^0.9.0",
     "@types/fs-extra": "^5.1.0",
     "@types/graphql": "^14.2.0",
-    "@types/graphql-relay": "^0.4.9",
     "@types/jest": "^24.0.12",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/logform": "^1.2.0",
@@ -49,7 +48,6 @@
     "winston": "^3.2.1"
   },
   "dependencies": {
-    "graphql-relay": "^0.6.0",
     "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^0.17.3",

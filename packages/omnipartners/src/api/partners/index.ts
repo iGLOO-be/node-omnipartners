@@ -64,7 +64,12 @@ export default class Partners extends Api {
     page?: string;
     rows?: string;
     show_hidden?: string;
-  }): Promise<{data: IPartnerListItem[]}> {
+  }): Promise<{
+    data: IPartnerListItem[];
+    page: string;
+    total_rows: string;
+    rows: string;
+  }> {
     return this._call("get-partners", data, { retry: true });
   }
 
