@@ -1,7 +1,7 @@
 {
   "name": "@igloo-be-omnipartners/graphql-demo",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "build": "yarn gen:types && gatsby build",
     "start": "yarn gen:types && gatsby develop -H 0.0.0.0",
