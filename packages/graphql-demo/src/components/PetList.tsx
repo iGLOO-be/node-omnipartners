@@ -1,12 +1,17 @@
 import gql from "graphql-tag";
 import React from "react";
 import { useQuery } from "react-apollo-hooks";
+import { Loading } from "../layout/Loading";
+import { useUser } from "../lib/user/useUser";
 import { GetUserPets, GetUserPetsVariables } from "./__generated__/GetUserPets";
 
 export const GetUserPetsQuery = gql`
   query GetUserPets($token: String!) {
     user(token: $token) {
       result {
+        owner {
+          guid
+        }
         pets {
           guid
           name
@@ -29,24 +34,30 @@ export const GetUserPetsQuery = gql`
 export const PetList = ({
   handleCreate,
   handleUpdate,
-  token,
 }: {
   handleCreate: () => void;
   handleUpdate: (pet: any) => void;
-  token: string;
 }) => {
-  const { data } = useQuery<GetUserPets, GetUserPetsVariables>(
+  const { userToken } = useUser();
+  const { data, loading } = useQuery<GetUserPets, GetUserPetsVariables>(
     GetUserPetsQuery,
     {
+      fetchPolicy: "cache-and-network",
       variables: {
-        token,
+        token: userToken,
       },
     },
   );
 
+  const isLoading = !data && loading;
+
   return (
     <>
-      {data && data.user && data.user.result && data.user.result.pets && (
+      {data &&
+      data.user &&
+      data.user.result &&
+      data.user.result.pets &&
+      !isLoading ? (
         <table>
           <thead>
             <tr>
@@ -93,6 +104,8 @@ export const PetList = ({
             </tr>
           </tbody>
         </table>
+      ) : (
+        <Loading />
       )}
     </>
   );

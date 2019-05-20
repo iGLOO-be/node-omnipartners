@@ -10,11 +10,15 @@ import { DataLanguageResolver } from "./metadata/DataLanguageResolver";
 import { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
 import { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
 import { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
+import { PartnerListItemResolver } from "./partner/ParnerListItemResolver";
+import { PartnerResolver } from "./partner/PartnerResolver";
 import { DealResolver } from "./resolvers/DealResolver";
 import { ProductResolver } from "./resolvers/ProductResolver";
 import { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
 import { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
 import { UserCreateResolver } from "./user/UserCreateResolver";
+import { UserPartnerRelationCreateResolver } from "./user/UserPartnerRelationCreateResolver";
+import { UserPartnerRelationDeleteResolver } from "./user/UserPartnerRelationDeleteResolver";
 import { UserPetCreateResolver } from "./user/UserPetCreateResolver";
 import { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
 import { UserResolver } from "./user/UserResolver";
@@ -30,6 +34,8 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       UserPetUpdateResolver,
       UserAddressCreateResolver,
       UserAddressUpdateResolver,
+      UserPartnerRelationCreateResolver,
+      UserPartnerRelationDeleteResolver,
       DataCountryResolver,
       DataAnimalBreedResolver,
       DataAnimalTypeResolver,
@@ -40,6 +46,8 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       DataLegalFormResolver,
       DealResolver,
       ProductResolver,
+      PartnerResolver,
+      PartnerListItemResolver
     ],
     ...options,
   });

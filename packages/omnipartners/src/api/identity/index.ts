@@ -2,6 +2,8 @@ import querystring from "querystring";
 import Api from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
+  IPartnerAccountRelationCreateInput,
+  IPartnerAccountRelationDeleteInput,
   IPartnerDataOptions,
   IRegisterUserAddressInput,
   IRegisterUserInput,
@@ -13,6 +15,7 @@ import {
   IUserDataOptions,
   IUserOwner,
   IUserPartial,
+  IUserPartnerRelation,
   IUserPet,
   IUserPetCreateInput,
   IUserPetUpdateInput,
@@ -546,14 +549,9 @@ export default class Identity extends Api {
     "partner_status", // (Required) The status of the relationship between the partner and user. Valid status values are submitted, accepted, pending and refused.
     "notify", // Flag used to determine if the preset notification email has to be sent to the user. If the value is "1" then the email is sent.
   ])
-  public createPartnerAccountRelation(data: {
-    user_guid: string;
-    partner_ext_id: string;
-    partner_relationship: string;
-    partner_roles?: string;
-    partner_status: string;
-    notify?: boolean;
-  }) {
+  public createPartnerAccountRelation(
+    data: IPartnerAccountRelationCreateInput,
+  ) {
     return this.post("/service/partners/add/", data, {
       errorMap: {
         2: {
@@ -571,6 +569,36 @@ export default class Identity extends Api {
         "partner_ext_id",
         "partner_relationship",
         "partner_status",
+      ],
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Delete_a_partner_-_account_relation",
+  )
+  @filterInput([
+    "user_guid", // (Required) The GUID of the user.
+    "partner_ext_id", // (Required) The external id of the partner.
+    "partner_relationship", // (Required) The relationship between the partner and the account. Valid values are “clientof” and “partof”.
+  ])
+  public deletePartnerAccountRelation(
+    data: IPartnerAccountRelationDeleteInput,
+  ) {
+    return this.post("/service/partners/delete/", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        6: { message: "Not authorised to use this function or its disabled." },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+        19: { message: "Partner not found." },
+      },
+      hashKeys: [
+        "user_guid",
+        "partner_ext_id",
+        "partner_relationship",
       ],
     });
   }

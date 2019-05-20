@@ -1,5 +1,6 @@
 import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
+import { IPartnerDetails, IPartnerListItem } from "../../types";
 
 export default class Partners extends Api {
   public defaultHost = "https://partners.clixray.io/";
@@ -52,18 +53,23 @@ export default class Partners extends Api {
     "show_hidden", // (Optional) States whether to include the hidden partners in the result. (Valid Values: 0 OR 1) default 0
   ])
   public listPartners(data: {
-    partner_type: string;
-    partner_group_handle: string;
-    collection_ref: string;
-    stock_level: string;
-    search_term: string;
-    search_strict: string;
-    partner_status: string;
-    partner_updated_date: string;
+    partner_type?: string;
+    partner_group_handle?: string;
+    collection_ref?: string;
+    stock_level?: string;
+    search_term?: string;
+    search_strict?: string;
+    partner_status?: string;
+    partner_updated_date?: string;
+    page?: string;
+    rows?: string;
+    show_hidden?: string;
+  }): Promise<{
+    data: IPartnerListItem[];
     page: string;
+    total_rows: string;
     rows: string;
-    show_hidden: string;
-  }) {
+  }> {
     return this._call("get-partners", data, { retry: true });
   }
 
@@ -118,10 +124,10 @@ export default class Partners extends Api {
   ])
   public partnerDetails(data: {
     partner_ext_id: string;
-    indexed_result: string;
-    lang: string;
-    data_options: string;
-  }) {
+    indexed_result?: string;
+    lang?: string;
+    data_options?: string;
+  }): Promise<{ data: IPartnerDetails[] }> {
     const options = {
       ...data,
       partner_ext_id: data.partner_ext_id

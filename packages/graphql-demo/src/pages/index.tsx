@@ -1,9 +1,21 @@
+import { navigate } from "gatsby";
 import React from "react";
+import { LoginForm } from "../components/LoginForm";
+import { useUser } from "../lib/user/useUser";
 
-const Homepage = () => (
-  <div>
-    <h1>Home</h1>
-  </div>
-);
+const Login = () => {
+  const { isLogged } = useUser();
 
-export default Homepage;
+  if(isLogged) {
+    navigate("/pet")
+  }
+
+  return (
+    <div>
+      <h1>Login</h1>
+      <LoginForm onSuccess={() => navigate("/pet")} />
+    </div>
+  );
+}
+
+export default Login;
