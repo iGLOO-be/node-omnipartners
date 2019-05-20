@@ -72,7 +72,7 @@ const UserPartnerRelationDeleteMutation = gql`
   }
 `;
 
-export const PartnerList = ({
+export const PartnerRelationList = ({
   handleCreate,
   resetState,
 }: {
@@ -142,6 +142,7 @@ export const PartnerList = ({
 
   return (
     <>
+      <h2>Partner relation list</h2>
       {data &&
       data.user &&
       data.user.result &&

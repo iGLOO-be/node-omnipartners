@@ -10,7 +10,7 @@ import { DataLanguageResolver } from "./metadata/DataLanguageResolver";
 import { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
 import { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
 import { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
-import { PartnerListItemResolver } from "./partner/ParnerListItemRsolver";
+import { PartnerListItemResolver } from "./partner/ParnerListItemResolver";
 import { PartnerResolver } from "./partner/PartnerResolver";
 import { DealResolver } from "./resolvers/DealResolver";
 import { ProductResolver } from "./resolvers/ProductResolver";

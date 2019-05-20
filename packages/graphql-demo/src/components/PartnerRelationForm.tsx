@@ -9,7 +9,7 @@ import {
   UserPartnerRelationCreateVariables,
 } from "./__generated__/UserPartnerRelationCreate";
 
-import { GetUserPartnersQuery } from "./PartnerList";
+import { GetUserPartnersQuery } from "./PartnerRelationList";
 import { Radio } from "./Radio";
 
 const UserPartnerRelationCreateMutation = gql`
@@ -40,7 +40,7 @@ const UserPartnerRelationCreateMutation = gql`
   }
 `;
 
-export const PartnerForm = ({
+export const PartnerRelationForm = ({
   action,
   partner,
   resetState,

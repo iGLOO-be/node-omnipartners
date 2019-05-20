@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { PartnerForm } from "../components/PartnerForm";
-import { PartnerList } from "../components/PartnerList";
+import { PartnerRelationForm } from "../components/PartnerRelationForm";
+import { PartnerRelationList } from "../components/PartnerRelationList";
+import { PartnersList } from "../components/PartnersList";
 import { UserRouteValidator } from "../lib/UserRouteValidator";
 
 const Partner = () => {
@@ -12,7 +13,7 @@ const Partner = () => {
   return (
     <UserRouteValidator>
       <h1>Partner</h1>
-      <PartnerList
+      <PartnerRelationList
         handleCreate={() =>
           setState({
             partner: null,
@@ -22,11 +23,12 @@ const Partner = () => {
         resetState={() => setState({ partner: null, action: "" })}
       />
       {state.action && (
-        <PartnerForm
+        <PartnerRelationForm
           resetState={() => setState({ partner: null, action: "" })}
           {...state}
         />
       )}
+      <PartnersList />
     </UserRouteValidator>
   );
 };
