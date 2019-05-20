@@ -24,7 +24,7 @@ export const PartnersListForm = ({
     render={() => (
       <Form>
         <Field name="page" type="number" component={SimpleInput} />
-        <Field name="limit" type="number" component={SimpleInput} />
+        <Field name="limit" min="10" max="100" type="number" component={SimpleInput} />
         <button type="submit">Submit</button>
       </Form>
     )}
