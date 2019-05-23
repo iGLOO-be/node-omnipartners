@@ -1,6 +1,5 @@
 import { IUserPetUpdateInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
-import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
@@ -71,7 +70,7 @@ export class UserPetUpdateResolver {
     @Arg("token") token: string,
     @Arg("userPetInput") userPetInput: UserPetUpdateInput,
   ): Promise<UserPetUpdateResult> {
-    const { user_guid } = parse(token);
+    const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
       const pet = (await ctx.omnipartners.identity.getPet({
         pet_guid: userPetInput.guid,

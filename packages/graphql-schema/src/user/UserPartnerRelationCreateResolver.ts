@@ -1,6 +1,5 @@
 import { IPartnerAccountRelationCreateInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
-import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
@@ -43,7 +42,7 @@ export class UserPartnerRelationCreateResolver {
     @Arg("token") token: string,
     @Arg("userPartnerInput") userPartnerInput: UserPartnerRelationCreateInput,
   ): Promise<UserPartnerUpdateResult> {
-    const { user_guid } = parse(token);
+    const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
       const partners = (await ctx.omnipartners.identity.createPartnerAccountRelation(
         {

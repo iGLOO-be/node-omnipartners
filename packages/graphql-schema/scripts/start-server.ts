@@ -22,6 +22,10 @@ const createServer = async () => {
 
   const context = new Context({
     omnipartners: createOmnipartners(config),
+    userTokenSecret: "some-secret-please-change-me!",
+    userTokenSignOptions: {
+      expiresIn: "10 days"
+    }
   });
   const server = new ApolloServer({ schema: await buildFullSchema(), context });
   return server;

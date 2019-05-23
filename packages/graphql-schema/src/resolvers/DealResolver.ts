@@ -1,7 +1,5 @@
 import {
-  ICollectionDetail,
   IDealProduct,
-  IDealProductCollection,
   ISubscribeToDealInput,
 } from "omnipartners";
 import { Omit } from "type-fest";
@@ -14,7 +12,6 @@ import {
   ObjectType,
   Query,
 } from "type-graphql";
-import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { ProductCollection } from "../types/ProductCollection";
@@ -115,7 +112,7 @@ export class DealResolver {
     @Arg("token") token: string,
     @Arg("input") input: DealSubscribeInput,
   ): Promise<GenericValidationError | undefined> {
-    const { user_guid } = parse(token);
+    const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
       await ctx.omnipartners.deals.subscribeToDeal({
         ...input,
