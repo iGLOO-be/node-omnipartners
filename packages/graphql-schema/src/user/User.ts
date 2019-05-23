@@ -1,7 +1,6 @@
 import { IUser, IUserOwner, IUserPreferences } from "omnipartners";
 import { Arg, Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
-import { sign } from "../lib/userToken";
 import { UserAddress } from "./UserAddress";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
@@ -66,8 +65,8 @@ export class User {
   }
 
   @Field(() => String)
-  public async token(): Promise<string> {
-    return sign({
+  public async token(@Ctx() ctx: Context): Promise<string> {
+    return ctx.userTokenHelper.sign({
       user_guid: this.owner.guid,
     });
   }

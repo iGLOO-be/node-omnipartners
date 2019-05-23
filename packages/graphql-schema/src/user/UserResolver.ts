@@ -2,7 +2,6 @@ import {
   IUserConfirmLegalFormsInput,
   IUserDataOptions,
   IUserUpdateSubscriptionsInput,
-  OmnipartnersError,
 } from "omnipartners";
 import { Omit } from "type-fest";
 import {
@@ -14,7 +13,6 @@ import {
   Query,
   Resolver,
 } from "type-graphql";
-import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericError, handleGeneric } from "../types/GenericResult";
 import { GenericValidationError } from "../types/GenericValidationError";
@@ -63,7 +61,7 @@ export class UserResolver {
   ): Promise<UserResult> {
     try {
       const user = await ctx.omnipartners.identity.authenticateByGUID({
-        user_guid: parse(token).user_guid,
+        user_guid: ctx.userTokenHelper.parse(token).user_guid,
         data_options: dataOptions,
       });
 
@@ -133,7 +131,7 @@ export class UserResolver {
     @Arg("confirmLegalFormsInput")
     confirmLegalFormsInput: UserConfirmLegalFormsInput,
   ): Promise<GenericValidationError | undefined> {
-    const { user_guid } = parse(token);
+    const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
       await ctx.omnipartners.identity.confirmLegalForm({
         ...confirmLegalFormsInput,
@@ -154,7 +152,7 @@ export class UserResolver {
     @Arg("updateSubscriptionsInput")
     updateSubscriptionsInput: UserUpdateSubscriptionsInput,
   ): Promise<GenericValidationError | undefined> {
-    const { user_guid } = parse(token);
+    const { user_guid } = ctx.userTokenHelper.parse(token);
     const data: IUserUpdateSubscriptionsInput = {
       ...updateSubscriptionsInput,
       subscriptions: Array.isArray(updateSubscriptionsInput.subscriptions)

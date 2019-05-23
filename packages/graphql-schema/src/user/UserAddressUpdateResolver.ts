@@ -3,7 +3,6 @@ import {
   IUpdateUserAddressInput,
 } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
-import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
@@ -47,7 +46,7 @@ export class UserAddressUpdateResolver {
     @Arg("token") token: string,
     @Arg("userAddressInput") userAddressInput: UserAddressUpdateInput,
   ): Promise<UserAddressUpdateResult> {
-    const { user_guid } = parse(token);
+    const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
       const address = (await ctx.omnipartners.identity.updateUserAddress({
         ...mapClixrayFields(userAddressInput),

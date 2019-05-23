@@ -1,6 +1,6 @@
 import { OmnipartnersError } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
-import { AuthenticationError } from "../lib/userToken";
+import { AuthenticationError } from "../lib/UserTokenHelper";
 
 export async function handleGeneric<T>(
   ResultClass: any,

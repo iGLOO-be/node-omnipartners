@@ -1,6 +1,5 @@
 import { IUpdateUserInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
-import { parse } from "../lib/userToken";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
@@ -89,7 +88,7 @@ export class UserUpdateResolver {
     @Arg("token") token: string,
     @Arg("userInput") userInput: UserUpdateInput,
   ): Promise<UserUpdateResult> {
-    const { user_guid } = parse(token);
+    const { user_guid } = ctx.userTokenHelper.parse(token);
     const data: IUpdateUserInput = {
       ...mapClixrayFields(userInput),
       user_guid,
