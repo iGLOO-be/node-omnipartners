@@ -62,8 +62,8 @@ export class UserResolver {
     @Arg("token") token: string,
   ): Promise<UserResult> {
     try {
-      const user = await ctx.omnipartners.identity.authenticateByAccessToken({
-        access_token: parse(token).token,
+      const user = await ctx.omnipartners.identity.authenticateByGUID({
+        user_guid: parse(token).user_guid,
         data_options: dataOptions,
       });
 

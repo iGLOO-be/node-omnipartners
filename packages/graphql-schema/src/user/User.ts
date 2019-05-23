@@ -66,12 +66,8 @@ export class User {
   }
 
   @Field(() => String)
-  public async token(@Ctx() ctx: Context): Promise<string> {
+  public async token(): Promise<string> {
     return sign({
-      token: (await ctx.omnipartners.identity.getAccessToken({
-        session_token: this.data.session_token,
-        ttl: "3600",
-      })).data.token,
       user_guid: this.owner.guid,
     });
   }

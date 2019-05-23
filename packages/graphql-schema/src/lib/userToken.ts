@@ -5,7 +5,6 @@ const expiresIn = "10 days";
 
 interface IUserTokenPayload {
   user_guid: string;
-  token: string;
 }
 
 export const sign = (payload: IUserTokenPayload) =>
