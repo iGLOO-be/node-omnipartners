@@ -18,8 +18,13 @@ export class DataLanguageResolver {
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<Language[]> {
-    return (await ctx.omnipartners.metadata.getMemberLanguages({
+    const languages = (await ctx.omnipartners.metadata.getMemberLanguages({
       lang,
     })).data;
+
+    return languages.map(l => ({
+      ...l,
+      code: l.code.toLowerCase(),
+    }));
   }
 }
