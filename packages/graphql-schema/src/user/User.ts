@@ -8,20 +8,7 @@ import { UserPet } from "./UserPet";
 interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
 
 @ObjectType()
-class UserOwner
-  implements
-    Pick<
-      IUserOwner,
-      | "firstName"
-      | "lastName"
-      | "email"
-      | "guid"
-      | "title"
-      | "dob"
-      | "gender"
-      | "mobilePhone"
-      | "language"
-    > {
+class UserOwner {
   @Field()
   public guid: string;
   @Field()
@@ -40,6 +27,15 @@ class UserOwner
   public mobilePhone: string;
   @Field()
   public language: string;
+  @Field()
+  public country: string;
+  @Field()
+  public postalCode: string;
+
+  constructor(data: IUserOwner) {
+    Object.assign(this, data);
+    this.postalCode = data.zip;
+  }
 }
 
 @ObjectType()
@@ -61,7 +57,10 @@ export class User {
 
   constructor(data: ILightUser) {
     this.data = data;
-    this.owner = data.owner;
+    this.owner = {
+      ...data.owner,
+      postalCode: data.owner.zip,
+    };
   }
 
   @Field(() => String)

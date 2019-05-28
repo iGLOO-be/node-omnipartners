@@ -51,6 +51,12 @@ class UserUpdateInput {
   // The language code of the user’s language. Please refer <b><a href="/index.php/Language_list" title="Language list">Language list</a></b> for valid values.
   @Field({ nullable: true })
   public language: string;
+
+  @Field()
+  public country: string;
+
+  @Field()
+  public postalCode: string;
 }
 
 const mapClixrayFields = (
@@ -67,6 +73,8 @@ const mapClixrayFields = (
   | "user_email"
   | "user_password"
   | "user_language"
+  | "user_postal_code"
+  | "user_country"
 > => ({
   user_title: userInput.title,
   user_first_name: userInput.firstName,
@@ -78,6 +86,8 @@ const mapClixrayFields = (
   user_email: userInput.email,
   user_password: userInput.password,
   user_language: userInput.language,
+  user_postal_code: userInput.postalCode,
+  user_country: userInput.country,
 });
 
 @Resolver(() => User)
