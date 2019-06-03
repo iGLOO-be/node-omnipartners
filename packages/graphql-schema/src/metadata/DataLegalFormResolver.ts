@@ -23,9 +23,11 @@ export class DataLegalFormResolver {
   public async metadataLegalForms(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
+    @Arg("codes", { nullable: true }) codes?: string,
   ): Promise<LegalForm[]> {
     return (await ctx.omnipartners.metadata.getLegalForms({
       lang,
+      legal_form_codes: codes,
     })).data;
   }
 }

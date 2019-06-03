@@ -13,6 +13,7 @@ import {
   IUserAddress,
   IUserConfirmLegalFormsInput,
   IUserDataOptions,
+  IUserLegalFormsItems,
   IUserOwner,
   IUserPartial,
   IUserPartnerRelation,
@@ -381,7 +382,8 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Get_Confirmed_Legal_Forms")
   @filterInput(["user_guid"])
-  public getConfirmedLegalForm(data: { user_guid: string }) {
+  public getConfirmedLegalForm(data: { user_guid: string }):
+    Promise<{ data: IUserLegalFormsItems[] }> {
     return this.post("/service/legal-form/get-confirmed-legal-forms", data);
   }
 

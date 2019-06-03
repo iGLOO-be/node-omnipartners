@@ -716,6 +716,13 @@ export interface IUserPreferences {
   subscriptions: string[];
 }
 
+export interface IUserLegalFormsItems {
+  legal_form_code: string;
+  confirmed_date: string;
+  confirmed_place: string;
+  confirmed_document_link: string;
+}
+
 export interface IUserConfirmLegalFormsInput {
   legal_form_code: string;
   user_guid: string;
