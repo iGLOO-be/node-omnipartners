@@ -6,7 +6,7 @@ import { Context } from "../types/Context";
 
 @ObjectType()
 export class AnimalBreed
-  implements Partial<Omit<IMetadataAnimalBreed, "other">> {
+  implements Pick<IMetadataAnimalBreed, "id" | "name"> {
   @Field()
   public id: string;
 

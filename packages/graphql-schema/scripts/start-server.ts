@@ -1,5 +1,5 @@
 import { ApolloServer } from "apollo-server";
-import createOmnipartners, { IOmnipartnersConfig } from "omnipartners";
+import createOmnipartners, { createLogger, IOmnipartnersConfig } from "omnipartners";
 import { buildFullSchema, Context } from "../src";
 
 let config: IOmnipartnersConfig | null = null;
@@ -20,8 +20,11 @@ const createServer = async () => {
     return;
   }
 
+  const omnipartners = createOmnipartners(config)
+  omnipartners.use(createLogger())
+
   const context = new Context({
-    omnipartners: createOmnipartners(config),
+    omnipartners,
     userTokenSecret: "some-secret-please-change-me!",
     userTokenSignOptions: {
       expiresIn: "10 days"

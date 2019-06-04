@@ -1,6 +1,8 @@
 import { IUser, IUserOwner, IUserPreferences } from "omnipartners";
 import { Arg, Ctx, Field, ObjectType } from "type-graphql";
+import { Memoize } from "typescript-memoize";
 import { Context } from "..";
+import { LegalForm } from "../metadata/DataLegalFormResolver";
 import { UserAddress } from "./UserAddress";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
@@ -27,10 +29,10 @@ class UserOwner {
   public mobilePhone: string;
   @Field()
   public language: string;
-  @Field()
-  public country: string;
-  @Field()
-  public postalCode: string;
+  @Field({ nullable: true })
+  public country?: string | null;
+  @Field({ nullable: true })
+  public postalCode?: string | null;
 
   constructor(data: IUserOwner) {
     Object.assign(this, data);
@@ -46,6 +48,14 @@ class UserPreferences implements IUserPreferences {
   public interests: string[];
   @Field(() => [String])
   public subscriptions: string[];
+}
+
+@ObjectType()
+class UserLegalFormsItems {
+  @Field()
+  public legalForm: LegalForm;
+  @Field()
+  public confirmed: boolean;
 }
 
 @ObjectType()
@@ -105,11 +115,18 @@ export class User {
   }
 
   @Field(() => UserPreferences, { nullable: false })
-  public async preferences(@Ctx() ctx: Context): Promise<IUserPreferences> {
+  public async preferences(@Ctx() ctx: Context): Promise<UserPreferences> {
     const res = await ctx.omnipartners.identity.retrieveUserSubscriptions({
       user_guid: this.owner.guid,
     });
     return res.data;
+  }
+
+  @Field(() => UserLegalForms, { nullable: false })
+  public async legalForms(
+    @Arg("codes", () => [String], { nullable: true }) codes?: string[],
+  ): Promise<UserLegalForms> {
+    return new UserLegalForms(codes, this);
   }
 
   @Field(() => UserPartnerRelations, { nullable: false })
@@ -118,5 +135,50 @@ export class User {
       user_guid: this.owner.guid,
     });
     return new UserPartnerRelations(res.data);
+  }
+}
+
+@ObjectType()
+class UserLegalForms {
+  private readonly codes: string;
+  private readonly user: User;
+
+  constructor(codes: undefined | string[], user: User) {
+    this.codes = codes && codes.length ? codes.join(",") : "";
+    this.user = user;
+  }
+
+  @Field(() => Boolean)
+  public async confirmed(@Ctx() ctx: Context): Promise<boolean> {
+    const userConfirmedLegalForms = await this.getConfirmedLegalForms(ctx);
+    const legalForms = await ctx.omnipartners.metadata.getLegalForms({
+      legal_form_codes: this.codes,
+    });
+    return !legalForms.data.some(
+      legal => !userConfirmedLegalForms.includes(legal.code),
+    );
+  }
+
+  @Field(() => [UserLegalFormsItems])
+  public async items(
+    @Ctx() ctx: Context,
+    @Arg("lang", { nullable: true }) lang?: string,
+  ): Promise<UserLegalFormsItems[]> {
+    const userConfirmedLegalForms = await this.getConfirmedLegalForms(ctx);
+    const legalForms = await ctx.omnipartners.metadata.getLegalForms({
+      legal_form_codes: this.codes,
+      lang,
+    });
+    return legalForms.data.map(legalForm => ({
+      legalForm,
+      confirmed: userConfirmedLegalForms.includes(legalForm.code),
+    }));
+  }
+
+  @Memoize()
+  private async getConfirmedLegalForms(ctx: Context) {
+    return (await ctx.omnipartners.identity.getConfirmedLegalForm({
+      user_guid: this.user.data.owner.guid,
+    })).data.map(legal => legal.legal_form_code);
   }
 }

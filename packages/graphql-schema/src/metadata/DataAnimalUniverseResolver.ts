@@ -4,8 +4,8 @@ import { Arg, Ctx, Field, ObjectType, Query, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 
 @ObjectType()
-export class AnimalUniverse implements Partial<IMetadataAnimalUniverse> {
-  @Field({ nullable: true })
+export class AnimalUniverse implements Pick<IMetadataAnimalUniverse, "name"> {
+  @Field()
   public name: string;
 }
 

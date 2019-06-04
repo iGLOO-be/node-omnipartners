@@ -52,10 +52,10 @@ class UserUpdateInput {
   @Field({ nullable: true })
   public language: string;
 
-  @Field()
+  @Field({ nullable: true })
   public country: string;
 
-  @Field()
+  @Field({ nullable: true })
   public postalCode: string;
 }
 
