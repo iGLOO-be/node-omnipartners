@@ -24,3 +24,4 @@ export { UserResolver } from "./user/UserResolver";
 export { UserUpdateResolver } from "./user/UserUpdateResolver";
 
 export * from "./schema";
+export * from "./utils";
