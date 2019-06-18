@@ -110,6 +110,25 @@ export class UserResolver {
     return true;
   }
 
+  @Query(() => String)
+  public async userCreateAuthCode(
+    @Ctx() ctx: Context,
+    @Arg("type") type: "mobile" | "email",
+    @Arg("value") value: string,
+    @Arg("ttl") ttl: number,
+  ): Promise<string> {
+    try {
+      await ctx.omnipartners.identity.createAuthCode({
+        type,
+        value,
+        ttl
+      })
+    } catch (err) {
+      throw err;
+    }
+    return ""
+  }
+
   @Mutation(() => GenericError, { nullable: true })
   public async userRecoverPassword(
     @Ctx() ctx: Context,

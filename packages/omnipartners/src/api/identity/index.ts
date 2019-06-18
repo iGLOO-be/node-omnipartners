@@ -382,8 +382,9 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Get_Confirmed_Legal_Forms")
   @filterInput(["user_guid"])
-  public getConfirmedLegalForm(data: { user_guid: string }):
-    Promise<{ data: IUserLegalFormsItems[] }> {
+  public getConfirmedLegalForm(data: {
+    user_guid: string;
+  }): Promise<{ data: IUserLegalFormsItems[] }> {
     return this.post("/service/legal-form/get-confirmed-legal-forms", data);
   }
 
@@ -501,6 +502,38 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Create_Auth_Code")
+  @filterInput(["type", "value", "ttl"])
+  public createAuthCode(data: {
+    type: "email" | "mobile";
+    value: string;
+    ttl: number;
+  }) {
+    return this.post("/service/auth/get-auth-code", data, {
+      retry: true,
+      errorMap: {
+        1: {
+          message:
+            "Failed to generate the auth code. This error usually appears when system fails to generate a unique identifier because it has already generated too many and filled up the most of the possibilities.",
+        },
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: { message: "Not authorized to use this function or its disabled." },
+        8: { message: "Internal error." },
+        11: {
+          message:
+            "Too many consecutive requests for the the same account. Requests are allowed once in every 2 minutes per account.",
+        },
+        16: { message: "Invalid hash." },
+        26: { message: "User Mobile number not available in user profile." },
+        50: { message: "SMS Template not available." },
+      },
+    });
+  }
+
   /*
     Manage partners
   */
@@ -597,11 +630,7 @@ export default class Identity extends Api {
         16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
       },
-      hashKeys: [
-        "user_guid",
-        "partner_ext_id",
-        "partner_relationship",
-      ],
+      hashKeys: ["user_guid", "partner_ext_id", "partner_relationship"],
     });
   }
 
