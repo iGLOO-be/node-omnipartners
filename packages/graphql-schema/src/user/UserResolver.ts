@@ -200,4 +200,18 @@ export class UserResolver {
       return new GenericValidationError(err);
     }
   }
+
+  @Mutation(() => GenericError, { nullable: true })
+  public async userForceActivate(
+    @Ctx() ctx: Context,
+    @Arg("guid") guid: string,
+  ): Promise<GenericError | undefined> {
+    try {
+      await ctx.omnipartners.identity.forceActivate({
+        user_guid: guid,
+      });
+    } catch (err) {
+      return new GenericError(err);
+    }
+  }
 }

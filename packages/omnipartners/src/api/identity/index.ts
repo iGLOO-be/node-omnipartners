@@ -162,6 +162,27 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Force_Activate_User_Account")
+  @filterInput(["user_guid"])
+  public forceActivate(data: { user_guid: string }) {
+    return this.get("/service/account/force-activate", data, {
+      errorMap: {
+        1: { message: "Internal error." },
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: { message: "Not authorized to use this function or its disabled." },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+        19: { message: "There is no confirmed partner relationship." },
+        34: { message: "Account already active." },
+      },
+      hashKeys: ["user_guid"],
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Edit_User_Accounts")
   public update(data: IUpdateUserInput): Promise<{ data: IUserOwner }> {
     return this.get("/service/user/update", data, {
