@@ -162,6 +162,27 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Force_Activate_User_Account")
+  @filterInput(["user_guid"])
+  public forceActivate(data: { user_guid: string }) {
+    return this.get("/service/account/force-activate", data, {
+      errorMap: {
+        1: { message: "Internal error." },
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: { message: "Not authorized to use this function or its disabled." },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+        19: { message: "There is no confirmed partner relationship." },
+        34: { message: "Account already active." },
+      },
+      hashKeys: ["user_guid"],
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Edit_User_Accounts")
   public update(data: IUpdateUserInput): Promise<{ data: IUserOwner }> {
     return this.get("/service/user/update", data, {
@@ -382,8 +403,9 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Get_Confirmed_Legal_Forms")
   @filterInput(["user_guid"])
-  public getConfirmedLegalForm(data: { user_guid: string }):
-    Promise<{ data: IUserLegalFormsItems[] }> {
+  public getConfirmedLegalForm(data: {
+    user_guid: string;
+  }): Promise<{ data: IUserLegalFormsItems[] }> {
     return this.post("/service/legal-form/get-confirmed-legal-forms", data);
   }
 
@@ -501,6 +523,72 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Create_Auth_Code")
+  @filterInput(["type", "value", "ttl"])
+  public createAuthCode(data: {
+    type: "email" | "mobile";
+    value: string;
+    ttl: number;
+  }) {
+    return this.post("/service/auth/get-auth-code", data, {
+      retry: true,
+      errorMap: {
+        1: {
+          message:
+            "Failed to generate the auth code. This error usually appears when system fails to generate a unique identifier because it has already generated too many and filled up the most of the possibilities.",
+        },
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: { message: "Not authorized to use this function or its disabled." },
+        8: { message: "Internal error." },
+        11: {
+          message:
+            "Too many consecutive requests for the the same account. Requests are allowed once in every 2 minutes per account.",
+        },
+        16: { message: "Invalid hash." },
+        26: { message: "User Mobile number not available in user profile." },
+        50: { message: "SMS Template not available." },
+      },
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Auth_Code")
+  @filterInput(["auth_code"])
+  public async authenticateByCode(data: {
+    auth_code: string;
+    data_options?: IUserDataOptions;
+  }): Promise<IUser> {
+    return this.get(
+      "/service/auth/code",
+      {
+        ...data,
+        data_options: Array.isArray(data.data_options)
+          ? data.data_options.join(",")
+          : data.data_options,
+      },
+      {
+        retry: true,
+        errorMap: {
+          2: {
+            message:
+              "Invalid request in which required header or parameters are either missing or invalid.",
+          },
+          3: { message: "User not found in the system." },
+          4: { message: "User is found but not active in the system." },
+          6: {
+            message: "Not authorised to use this function or its disabled.",
+          },
+          7: { message: "Auth Code not found in the system." },
+          8: { message: "Internal error." },
+          49: { message: "User not confirmed." },
+        },
+      },
+    );
+  }
+
   /*
     Manage partners
   */
@@ -597,11 +685,7 @@ export default class Identity extends Api {
         16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
       },
-      hashKeys: [
-        "user_guid",
-        "partner_ext_id",
-        "partner_relationship",
-      ],
+      hashKeys: ["user_guid", "partner_ext_id", "partner_relationship"],
     });
   }
 

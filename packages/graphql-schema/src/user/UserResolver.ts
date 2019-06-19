@@ -110,6 +110,40 @@ export class UserResolver {
     return true;
   }
 
+  @Query(() => String)
+  public async userCreateAuthCode(
+    @Ctx() ctx: Context,
+    @Arg("type") type: "mobile" | "email",
+    @Arg("value") value: string,
+    @Arg("ttl") ttl: number,
+  ): Promise<string> {
+    try {
+      await ctx.omnipartners.identity.createAuthCode({
+        type,
+        value,
+        ttl,
+      });
+    } catch (err) {
+      throw err;
+    }
+    return "";
+  }
+
+  @Query(() => UserResult, { nullable: true })
+  public async userLoginByCode(
+    @Ctx() ctx: Context,
+    @Arg("auth_code") auth_code: string,
+  ): Promise<UserResult> {
+    return handleGeneric(
+      User,
+      UserResult,
+      ctx.omnipartners.identity.authenticateByCode({
+        auth_code,
+        data_options: dataOptions,
+      }),
+    );
+  }
+
   @Mutation(() => GenericError, { nullable: true })
   public async userRecoverPassword(
     @Ctx() ctx: Context,
@@ -164,6 +198,20 @@ export class UserResolver {
       await ctx.omnipartners.identity.updateSubscriptions(data);
     } catch (err) {
       return new GenericValidationError(err);
+    }
+  }
+
+  @Mutation(() => GenericError, { nullable: true })
+  public async userForceActivate(
+    @Ctx() ctx: Context,
+    @Arg("guid") guid: string,
+  ): Promise<GenericError | undefined> {
+    try {
+      await ctx.omnipartners.identity.forceActivate({
+        user_guid: guid,
+      });
+    } catch (err) {
+      return new GenericError(err);
     }
   }
 }

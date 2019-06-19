@@ -33,10 +33,13 @@ class UserOwner {
   public country?: string | null;
   @Field({ nullable: true })
   public postalCode?: string | null;
+  @Field()
+  public status?: string;
 
   constructor(data: IUserOwner) {
     Object.assign(this, data);
     this.postalCode = data.zip;
+    this.status = data.user_status;
   }
 }
 

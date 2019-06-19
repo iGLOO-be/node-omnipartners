@@ -523,17 +523,17 @@ export interface IUpdateUserInput extends IBaseUserInput {
 
 interface IBaseUserInput {
   // The title code of the user. Please refer <b><a href="/index.php/User_title_list" title="User title list">User title list</a></b> for valid values.
-  user_title: string;
+  user_title?: string;
   // The first name of the user.
   // 50 chars
-  user_first_name: string;
+  user_first_name?: string;
   // The last name of the user.
   // 50 chars
-  user_last_name: string;
+  user_last_name?: string;
   // The date of birth of the user.
-  user_dob: string;
+  user_dob?: string;
   // The gender of the user. Valid values are "M" for male and "F" for female.
-  user_gender: string;
+  user_gender?: string;
   // Part of the user’s address.
   // 20 chars
   user_streetnum?: string;
@@ -556,21 +556,21 @@ interface IBaseUserInput {
   // The telephone number of the user.
   user_telephone?: string;
   // The mobile phone number of the user. It needs to be between 4 and 20 chars long. There is no regex validation. Regex specified in the <b><a href="/index.php/Country_list" title="Country list">Country list</a></b> is for front end information and validation.
-  user_mobile_phone: string;
+  user_mobile_phone?: string;
   // The website of the user.
   // 255 chars
   user_website?: string;
   // The email address of the user.
   // 90 chars
-  user_email: string;
+  user_email?: string;
   // The username of the user. The username should be a unique value. If it's not supplied the value of email will be used.
   // 90 chars
   user_username?: string;
   // The password of the user. It needs to be at least 5 characters long.
   // 20 chars
-  user_password: string;
+  user_password?: string;
   // The language code of the user’s language. Please refer <b><a href="/index.php/Language_list" title="Language list">Language list</a></b> for valid values.
-  user_language: string;
+  user_language?: string;
   // The external id of the user. This should be a unique value.
   // 50 chars
   user_ext_id?: string;

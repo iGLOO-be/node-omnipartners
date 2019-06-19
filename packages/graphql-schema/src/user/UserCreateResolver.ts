@@ -9,17 +9,17 @@ import { UserUpdateResult } from "./UserUpdateResult";
 @InputType()
 class UserCreateInput {
   // The title code of the user. Please refer <b><a href="/index.php/User_title_list" title="User title list">User title list</a></b> for valid values.
-  @Field()
+  @Field({ nullable: true })
   public title: string;
 
   // The first name of the user.
   // 50 chars
-  @Field()
+  @Field({ nullable: true })
   public firstName: string;
 
   // The last name of the user.
   // 50 chars
-  @Field()
+  @Field({ nullable: true })
   public lastName: string;
 
   // The date of birth of the user.
@@ -35,21 +35,21 @@ class UserCreateInput {
   public telephone: string;
 
   // The mobile phone number of the user. It needs to be between 4 and 20 chars long. There is no regex validation. Regex specified in the <b><a href="/index.php/Country_list" title="Country list">Country list</a></b> is for front end information and validation.
-  @Field()
+  @Field({ nullable: true })
   public mobilePhone: string;
 
   // The email address of the user.
   // 90 chars
-  @Field()
+  @Field({ nullable: true })
   public email: string;
 
   // The password of the user. It needs to be at least 5 characters long.
   // 20 chars
-  @Field()
+  @Field({ nullable: true })
   public password: string;
 
   // The language code of the user’s language. Please refer <b><a href="/index.php/Language_list" title="Language list">Language list</a></b> for valid values.
-  @Field()
+  @Field({ nullable: true })
   public language: string;
 
   // Country that comes along with the address. Please refer <b><a href="/index.php/Country_list" title="Country list">Country list</a></b> for valid values.
