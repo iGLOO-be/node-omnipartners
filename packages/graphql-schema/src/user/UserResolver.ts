@@ -121,12 +121,27 @@ export class UserResolver {
       await ctx.omnipartners.identity.createAuthCode({
         type,
         value,
-        ttl
-      })
+        ttl,
+      });
     } catch (err) {
       throw err;
     }
-    return ""
+    return "";
+  }
+
+  @Query(() => UserResult, { nullable: true })
+  public async userLoginByCode(
+    @Ctx() ctx: Context,
+    @Arg("auth_code") auth_code: string,
+  ): Promise<UserResult> {
+    return handleGeneric(
+      User,
+      UserResult,
+      ctx.omnipartners.identity.authenticateByCode({
+        auth_code,
+        data_options: dataOptions,
+      }),
+    );
   }
 
   @Mutation(() => GenericError, { nullable: true })

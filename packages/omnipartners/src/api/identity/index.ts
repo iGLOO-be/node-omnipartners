@@ -534,6 +534,40 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Auth_Code")
+  @filterInput(["auth_code"])
+  public async authenticateByCode(data: {
+    auth_code: string;
+    data_options?: IUserDataOptions;
+  }): Promise<IUser> {
+    return this.get(
+      "/service/auth/code",
+      {
+        ...data,
+        data_options: Array.isArray(data.data_options)
+          ? data.data_options.join(",")
+          : data.data_options,
+      },
+      {
+        retry: true,
+        errorMap: {
+          2: {
+            message:
+              "Invalid request in which required header or parameters are either missing or invalid.",
+          },
+          3: { message: "User not found in the system." },
+          4: { message: "User is found but not active in the system." },
+          6: {
+            message: "Not authorised to use this function or its disabled.",
+          },
+          7: { message: "Auth Code not found in the system." },
+          8: { message: "Internal error." },
+          49: { message: "User not confirmed." },
+        },
+      },
+    );
+  }
+
   /*
     Manage partners
   */
