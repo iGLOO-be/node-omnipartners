@@ -110,13 +110,13 @@ export class UserResolver {
     return true;
   }
 
-  @Query(() => String)
+  @Query(() => GenericError, { nullable: true })
   public async userCreateAuthCode(
     @Ctx() ctx: Context,
     @Arg("type") type: "mobile" | "email",
     @Arg("value") value: string,
     @Arg("ttl") ttl: number,
-  ): Promise<string> {
+  ): Promise<GenericError | undefined> {
     try {
       await ctx.omnipartners.identity.createAuthCode({
         type,
@@ -124,9 +124,8 @@ export class UserResolver {
         ttl,
       });
     } catch (err) {
-      throw err;
+      return new GenericError(err);
     }
-    return "";
   }
 
   @Query(() => UserResult, { nullable: true })
