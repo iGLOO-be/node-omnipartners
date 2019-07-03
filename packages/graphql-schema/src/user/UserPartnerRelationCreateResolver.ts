@@ -34,6 +34,13 @@ const mapClixrayFields = (
   partner_status: userPartnerInput.status,
 });
 
+const fieldsMapping = {
+  partner_ext_id: "extId",
+  partner_relationship: "relationship",
+  partner_roles: "roles",
+  partner_status: "status",
+};
+
 @Resolver(() => User)
 export class UserPartnerRelationCreateResolver {
   @Mutation(() => UserPartnerUpdateResult, { nullable: false })
@@ -62,7 +69,7 @@ export class UserPartnerRelationCreateResolver {
       });
     } catch (err) {
       return new UserPartnerUpdateResult({
-        error: new GenericValidationError(err),
+        error: new GenericValidationError(err, { fieldsMapping }),
       });
     }
   }

@@ -57,6 +57,16 @@ const mapClixrayFields = (
   pet_picture: userPetInput.pictureUrl,
 });
 
+const fieldsMapping = {
+  pet_name: "name",
+  pet_type: "type",
+  pet_breed: "breed",
+  pet_dob: "dob",
+  pet_neutered: "neutered",
+  pet_gender: "gender",
+  pet_picture: "pictureUrl",
+};
+
 @Resolver(() => User)
 export class UserPetCreateResolver {
   @Mutation(() => UserPetUpdateResult, { nullable: false })
@@ -83,7 +93,7 @@ export class UserPetCreateResolver {
       });
     } catch (err) {
       return new UserPetUpdateResult({
-        error: new GenericValidationError(err),
+        error: new GenericValidationError(err, { fieldsMapping }),
       });
     }
   }

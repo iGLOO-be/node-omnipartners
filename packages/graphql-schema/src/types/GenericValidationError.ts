@@ -18,8 +18,33 @@ class FieldValidationError {
   public errors: ValidationError[];
 }
 
+interface IGenericValidationErrorOptions {
+  fieldsMapping: {
+    [k: string]: string;
+  };
+}
+
 @ObjectType()
 export class GenericValidationError extends GenericError {
+  private options: undefined | IGenericValidationErrorOptions;
+
+  constructor(error: any, options?: IGenericValidationErrorOptions) {
+    super(error);
+    this.options = options;
+  }
+
+  private getFieldName(field: string) {
+    if (
+      this.options &&
+      this.options.fieldsMapping &&
+      this.options.fieldsMapping[field]
+    ) {
+      return this.options.fieldsMapping[field];
+    } else {
+      return field;
+    }
+  }
+
   @Field(() => [FieldValidationError], { nullable: true })
   public get validationErrors(): FieldValidationError[] {
     if (!(this.error instanceof OmnipartnersError)) {
@@ -34,7 +59,7 @@ export class GenericValidationError extends GenericError {
         message: errors[field][validator],
         validator,
       })),
-      field,
+      field: this.getFieldName(field),
     }));
   }
 }
