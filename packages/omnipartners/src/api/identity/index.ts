@@ -265,7 +265,7 @@ export default class Identity extends Api {
   public retrieveUserPlacesOfPurchase(data: {
     user_guid: string;
   }): Promise<{
-    data: IUserPlaceOfPurchase[];
+    data: null | IUserPlaceOfPurchase[];
   }> {
     return this.get("service/preferences/get-places-of-purchase", data, {
       errorMap: {
