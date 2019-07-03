@@ -60,6 +60,16 @@ class UserCreateInput {
   // 50 chars
   @Field({ nullable: true })
   public originDetails: string;
+
+  // Post code that comes along with the address.
+  // 15 chars
+  @Field({ nullable: true })
+  public postalCode: string;
+
+  // City that comes along with the address.
+  // 100 chars
+  @Field({ nullable: true })
+  public city: string;
 }
 
 const userCreateInputToRegisterUserInput = (
@@ -78,6 +88,8 @@ const userCreateInputToRegisterUserInput = (
   | "user_language"
   | "user_country"
   | "user_origin_details"
+  | "user_postal_code"
+  | "user_city"
 > => ({
   user_title: userInput.title,
   user_first_name: userInput.firstName,
@@ -91,6 +103,7 @@ const userCreateInputToRegisterUserInput = (
   user_language: userInput.language,
   user_country: userInput.country,
   user_origin_details: userInput.originDetails,
+  user_city: userInput.city,
 });
 
 @Resolver(() => User)
