@@ -743,7 +743,7 @@ export interface IUserPlaceOfPurchase {
   place_rating: string;
 }
 
-export interface IUserUpdatePlacesOfPurchase {
+export interface IUserUpdatePlacesOfPurchaseInput {
   user_guid: string;
   place_id: string;
   place_rating: string;

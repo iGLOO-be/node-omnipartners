@@ -1,6 +1,7 @@
 import {
   IUserConfirmLegalFormsInput,
   IUserDataOptions,
+  IUserUpdatePlacesOfPurchaseInput,
   IUserUpdateSubscriptionsInput,
 } from "omnipartners";
 import { Omit } from "type-fest";
@@ -38,6 +39,16 @@ class UserConfirmLegalFormsInput
   public send_notification?: string;
   @Field({ nullable: true })
   public signature?: string;
+}
+
+@InputType()
+class UserUpdatePlacesOfPurchaseInput
+  implements Omit<IUserUpdatePlacesOfPurchaseInput, "user_guid"> {
+  @Field()
+  public place_id: string;
+
+  @Field({ nullable: true })
+  public place_rating: string;
 }
 
 @InputType()
@@ -196,6 +207,25 @@ export class UserResolver {
     };
     try {
       await ctx.omnipartners.identity.updateSubscriptions(data);
+    } catch (err) {
+      return new GenericValidationError(err);
+    }
+  }
+
+  @Mutation(() => GenericValidationError, { nullable: true })
+  public async userUpdatePlacesOfPurchase(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Arg("updatePlacesOfPurchaseInput")
+    updatePlacesOfPurchaseInput: UserUpdatePlacesOfPurchaseInput,
+  ): Promise<GenericValidationError | undefined> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+    const data: IUserUpdatePlacesOfPurchaseInput = {
+      ...updatePlacesOfPurchaseInput,
+      user_guid,
+    };
+    try {
+      await ctx.omnipartners.identity.updateUserPlacesOfPurchase(data);
     } catch (err) {
       return new GenericValidationError(err);
     }

@@ -1,8 +1,8 @@
 import {
   IUser,
   IUserOwner,
-  IUserPreferences,
   IUserPlaceOfPurchase,
+  IUserPreferences,
 } from "omnipartners";
 import { Arg, Ctx, Field, ObjectType } from "type-graphql";
 import { Memoize } from "typescript-memoize";

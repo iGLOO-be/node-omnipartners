@@ -21,7 +21,7 @@ import {
   IUserPetUpdateInput,
   IUserPlaceOfPurchase,
   IUserPreferences,
-  IUserUpdatePlacesOfPurchase,
+  IUserUpdatePlacesOfPurchaseInput,
   IUserUpdateSubscriptionsInput,
   IUsetPetDataOptions,
   IUsetPetWithOwner,
@@ -289,7 +289,7 @@ export default class Identity extends Api {
     "http://doc.omnipartners.be/index.php/Add_a_place_of_purchase_preference_to_the_user_account",
   )
   @filterInput(["user_guid", "place_id", "place_rating"])
-  public updateUserPlacesOfPurchase(data: IUserUpdatePlacesOfPurchase) {
+  public updateUserPlacesOfPurchase(data: IUserUpdatePlacesOfPurchaseInput) {
     return this.get("/service/preferences/add-place-of-purchase", data, {
       errorMap: {
         2: {
