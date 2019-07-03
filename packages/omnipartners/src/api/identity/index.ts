@@ -16,11 +16,12 @@ import {
   IUserLegalFormsItems,
   IUserOwner,
   IUserPartial,
-  IUserPartnerRelation,
   IUserPet,
   IUserPetCreateInput,
   IUserPetUpdateInput,
+  IUserPlaceOfPurchase,
   IUserPreferences,
+  IUserUpdatePlacesOfPurchase,
   IUserUpdateSubscriptionsInput,
   IUsetPetDataOptions,
   IUsetPetWithOwner,
@@ -254,6 +255,56 @@ export default class Identity extends Api {
         36: { message: "User in blacklist." },
       },
       hashKeys: ["user_guid"],
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Retrieve_places_of_purchase_preferences_of_a_user_account",
+  )
+  @filterInput(["user_guid"])
+  public retrieveUserPlacesOfPurchase(data: {
+    user_guid: string;
+  }): Promise<{
+    data: IUserPlaceOfPurchase[];
+  }> {
+    return this.get("service/preferences/get-places-of-purchase", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: {
+          message:
+            "Either key is invalid or the method is restricted for the key",
+        },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+      },
+      hashKeys: ["user_guid"],
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Add_a_place_of_purchase_preference_to_the_user_account",
+  )
+  @filterInput(["user_guid", "place_id", "place_rating"])
+  public updateUserPlacesOfPurchase(data: IUserUpdatePlacesOfPurchase) {
+    return this.get("/service/preferences/add-place-of-purchase", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: {
+          message:
+            "Either key is invalid or the method is restricted for the key",
+        },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+      },
+      hashKeys: ["user_guid", "place_id", "place_rating"],
     });
   }
 

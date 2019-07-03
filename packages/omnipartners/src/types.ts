@@ -738,6 +738,17 @@ export interface IUserUpdateSubscriptionsInput {
   subscriptions?: string;
 }
 
+export interface IUserPlaceOfPurchase {
+  place_id: string;
+  place_rating: string;
+}
+
+export interface IUserUpdatePlacesOfPurchase {
+  user_guid: string;
+  place_id: string;
+  place_rating: string;
+}
+
 export interface IDeal {
   id: number;
   ref: string;
