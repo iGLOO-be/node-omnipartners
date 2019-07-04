@@ -217,11 +217,12 @@ export class UserResolver {
   @Mutation(() => GenericError, { nullable: true })
   public async userConfirmAccount(
     @Ctx() ctx: Context,
-    @Arg("identifier") identifier: string,
+    @Arg("token") token: string,
   ): Promise<GenericError | undefined> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
       await ctx.omnipartners.identity.confirmUserAccount({
-        identifier,
+        identifier: user_guid,
       });
     } catch (err) {
       return new GenericError(err);
