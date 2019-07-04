@@ -34,12 +34,12 @@ class UserOwner {
   @Field({ nullable: true })
   public postalCode?: string | null;
   @Field()
-  public status?: string;
+  public confirmed?: string;
 
   constructor(data: IUserOwner) {
     Object.assign(this, data);
     this.postalCode = data.zip;
-    this.status = data.user_status;
+    this.confirmed = data.user_confirmed;
   }
 }
 
@@ -73,6 +73,7 @@ export class User {
     this.owner = {
       ...data.owner,
       postalCode: data.owner.zip,
+      confirmed: data.owner.user_confirmed,
     };
   }
 

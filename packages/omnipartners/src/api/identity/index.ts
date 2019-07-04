@@ -183,6 +183,27 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Confirm_User_Accounts")
+  @filterInput(["identifier"])
+  public confirmUserAccount(data: { identifier: string }) {
+    return this.get("/service/account/confirm", data, {
+      errorMap: {
+        1: { message: "Internal error." },
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        4: { message: "User is not active in the system" },
+        6: { message: "Not authorized to use this function or its disabled." },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+        24: { message: "Account already confirmed." },
+      },
+      hashKeys: ["identifier"],
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Edit_User_Accounts")
   public update(data: IUpdateUserInput): Promise<{ data: IUserOwner }> {
     return this.get("/service/user/update", data, {
