@@ -1,4 +1,9 @@
-import { IUser, IUserOwner, IUserPreferences } from "omnipartners";
+import {
+  IUser,
+  IUserOwner,
+  IUserPlaceOfPurchase,
+  IUserPreferences,
+} from "omnipartners";
 import { Arg, Ctx, Field, ObjectType } from "type-graphql";
 import { Memoize } from "typescript-memoize";
 import { Context } from "..";
@@ -59,6 +64,18 @@ class UserLegalFormsItems {
   public legalForm: LegalForm;
   @Field()
   public confirmed: boolean;
+}
+
+@ObjectType()
+class UserPlaceOfPurchase implements IUserPlaceOfPurchase {
+  @Field()
+  public place_id: string;
+  @Field()
+  public place_rating: string;
+
+  constructor(data: IUserPlaceOfPurchase) {
+    Object.assign(this, data);
+  }
 }
 
 @ObjectType()
@@ -139,6 +156,21 @@ export class User {
       user_guid: this.owner.guid,
     });
     return new UserPartnerRelations(res.data);
+  }
+
+  @Field(() => [UserPlaceOfPurchase], { nullable: false })
+  public async placesOfPurchase(
+    @Ctx() ctx: Context,
+  ): Promise<UserPlaceOfPurchase[]> {
+    const res = await ctx.omnipartners.identity.retrieveUserPlacesOfPurchase({
+      user_guid: this.owner.guid,
+    });
+
+    if (res.data) {
+      return res.data.map(d => new UserPlaceOfPurchase(d));
+    } else {
+      return []
+    }
   }
 }
 
