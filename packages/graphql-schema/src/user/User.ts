@@ -13,33 +13,33 @@ interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
 class UserOwner {
   @Field()
   public guid: string;
-  @Field()
+  @Field({ nullable: true })
   public firstName: string;
-  @Field()
+  @Field({ nullable: true })
   public lastName: string;
-  @Field()
+  @Field({ nullable: true })
   public email: string;
-  @Field()
+  @Field({ nullable: true })
   public title: string;
   @Field({ nullable: true })
   public dob: string;
-  @Field()
+  @Field({ nullable: true })
   public gender: string;
-  @Field()
+  @Field({ nullable: true })
   public mobilePhone: string;
-  @Field()
+  @Field({ nullable: true })
   public language: string;
   @Field({ nullable: true })
   public country?: string | null;
   @Field({ nullable: true })
   public postalCode?: string | null;
   @Field()
-  public confirmed?: string;
+  public confirmed?: boolean;
 
   constructor(data: IUserOwner) {
     Object.assign(this, data);
     this.postalCode = data.zip;
-    this.confirmed = data.user_confirmed;
+    this.confirmed = !!parseInt(data.user_confirmed, 10);
   }
 }
 
@@ -73,7 +73,7 @@ export class User {
     this.owner = {
       ...data.owner,
       postalCode: data.owner.zip,
-      confirmed: data.owner.user_confirmed,
+      confirmed: !!parseInt(data.owner.user_confirmed, 10),
     };
   }
 
