@@ -213,4 +213,18 @@ export class UserResolver {
       return new GenericError(err);
     }
   }
+
+  @Mutation(() => GenericError, { nullable: true })
+  public async userConfirmAccount(
+    @Ctx() ctx: Context,
+    @Arg("identifier") identifier: string,
+  ): Promise<GenericError | undefined> {
+    try {
+      await ctx.omnipartners.identity.confirmUserAccount({
+        identifier,
+      });
+    } catch (err) {
+      return new GenericError(err);
+    }
+  }
 }
