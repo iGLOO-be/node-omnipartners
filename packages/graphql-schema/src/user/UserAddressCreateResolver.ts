@@ -48,6 +48,15 @@ const mapClixrayFields = (
   address_country: userAddressInput.country,
 });
 
+const fieldsMapping = {
+  address_name: "name",
+  address_streetnum: "streetnum",
+  address_street1: "street1",
+  address_postal_code: "postalCode",
+  address_city: "city",
+  address_country: "country",
+};
+
 @Resolver(() => User)
 export class UserAddressCreateResolver {
   @Mutation(() => UserAddressUpdateResult, { nullable: false })
@@ -75,7 +84,7 @@ export class UserAddressCreateResolver {
       });
     } catch (err) {
       return new UserAddressUpdateResult({
-        error: new GenericValidationError(err),
+        error: new GenericValidationError(err, { fieldsMapping }),
       });
     }
   }

@@ -90,6 +90,21 @@ const mapClixrayFields = (
   user_country: userInput.country,
 });
 
+const fieldsMapping = {
+  user_title: "title",
+  user_first_name: "firstName",
+  user_last_name: "lastName",
+  user_dob: "dob",
+  user_gender: "gender",
+  user_telephone: "telephone",
+  user_mobile_phone: "mobilePhone",
+  user_email: "email",
+  user_password: "password",
+  user_language: "language",
+  user_postal_code: "postalCode",
+  user_country: "country",
+};
+
 @Resolver(() => User)
 export class UserUpdateResolver {
   @Mutation(() => UserUpdateResult, { nullable: false })
@@ -114,7 +129,7 @@ export class UserUpdateResolver {
       });
     } catch (err) {
       return new UserUpdateResult({
-        error: new GenericValidationError(err),
+        error: new GenericValidationError(err, { fieldsMapping }),
       });
     }
   }

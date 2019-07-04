@@ -6,7 +6,6 @@ import { User } from "./User";
 import { UserPartnerUpdateResult } from "./UserPartnerUpdateResult";
 import { dataOptions } from "./UserResolver";
 
-
 @InputType()
 export class UserPartnerRelationDeleteInput {
   @Field()
@@ -20,13 +19,17 @@ const mapClixrayFields = (
   userPartnerInput: UserPartnerRelationDeleteInput,
 ): Pick<
   IPartnerAccountRelationDeleteInput,
-  | "partner_ext_id"
-  | "partner_relationship"
+  "partner_ext_id" | "partner_relationship"
 > => ({
   ...userPartnerInput,
   partner_ext_id: userPartnerInput.extId,
-  partner_relationship: userPartnerInput.relationship
+  partner_relationship: userPartnerInput.relationship,
 });
+
+const fieldsMapping = {
+  partner_ext_id: "extId",
+  partner_relationship: "relationship",
+};
 
 @Resolver(() => User)
 export class UserPartnerRelationDeleteResolver {
@@ -38,7 +41,6 @@ export class UserPartnerRelationDeleteResolver {
   ): Promise<UserPartnerUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
-
       await ctx.omnipartners.identity.deletePartnerAccountRelation({
         ...mapClixrayFields(userPartnerInput),
         user_guid,
@@ -55,7 +57,7 @@ export class UserPartnerRelationDeleteResolver {
       });
     } catch (err) {
       return new UserPartnerUpdateResult({
-        error: new GenericValidationError(err),
+        error: new GenericValidationError(err, { fieldsMapping }),
       });
     }
   }

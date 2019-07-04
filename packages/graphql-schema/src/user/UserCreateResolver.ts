@@ -103,8 +103,25 @@ const userCreateInputToRegisterUserInput = (
   user_language: userInput.language,
   user_country: userInput.country,
   user_origin_details: userInput.originDetails,
+  user_postal_code: userInput.postalCode,
   user_city: userInput.city,
 });
+
+const fieldsMapping = {
+  user_title: "title",
+  user_first_name: "firstName",
+  user_last_name: "lastName",
+  user_dob: "dob",
+  user_gender: "gender",
+  user_telephone: "telephone",
+  user_mobile_phone: "mobilePhone",
+  user_email: "email",
+  user_password: "password",
+  user_language: "language",
+  user_country: "country",
+  user_origin_details: "originDetails",
+  user_postal_code: "postalCode",
+}
 
 @Resolver(() => User)
 export class UserCreateResolver {
@@ -126,7 +143,9 @@ export class UserCreateResolver {
       });
     } catch (err) {
       return new UserUpdateResult({
-        error: new GenericValidationError(err),
+        error: new GenericValidationError(err, {
+          fieldsMapping,
+        }),
       });
     }
   }
