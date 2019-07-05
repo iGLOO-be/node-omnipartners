@@ -40,11 +40,14 @@ class UserOwner {
   public postalCode?: string | null;
   @Field()
   public confirmed?: boolean;
+  @Field({ nullable: true })
+  public customerGroup?: string;
 
   constructor(data: IUserOwner) {
     Object.assign(this, data);
     this.postalCode = data.zip;
     this.confirmed = !!parseInt(data.user_confirmed, 10);
+    this.customerGroup = data.user_customer_group;
   }
 }
 
@@ -91,6 +94,7 @@ export class User {
       ...data.owner,
       postalCode: data.owner.zip,
       confirmed: !!parseInt(data.owner.user_confirmed, 10),
+      customerGroup: data.owner.user_customer_group,
     };
   }
 
