@@ -344,18 +344,20 @@ export interface IUserPet {
   pet_referrer: null;
   pet_origin: null;
   kcNumber: string;
-  breedDetails: {
-    id: string;
-    name: string;
-    type: string;
-    pet_breed_com_id: string;
-    com_id: string;
-    universe_id: string;
-    name_fr: string;
-  };
+  breedDetails: IUserPetBreedDetail;
   pet_stage: null;
   pet_feeding_stage: null;
   medicalConditions: [];
+}
+
+export interface IUserPetBreedDetail {
+  id: string;
+  name: string;
+  type: string;
+  pet_breed_com_id: string;
+  com_id: string;
+  universe_id: string;
+  name_fr: string;
 }
 
 export interface IUsetPetWithOwner extends IUserPet {

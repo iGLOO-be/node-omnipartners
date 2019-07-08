@@ -1,6 +1,12 @@
-import { IUserPet } from "omnipartners";
+import { IUserPet, IUserPetBreedDetail } from "omnipartners";
 import { Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
+
+@ObjectType()
+class UserBreedDetail implements Pick<IUserPetBreedDetail, "name"> {
+  @Field()
+  public name: string;
+}
 
 @ObjectType()
 export class UserPet
@@ -20,6 +26,8 @@ export class UserPet
   public type: string;
   @Field()
   public breed: string;
+  @Field()
+  public breedDetails: UserBreedDetail;
 
   constructor(data: IUserPet) {
     Object.assign(this, data);
