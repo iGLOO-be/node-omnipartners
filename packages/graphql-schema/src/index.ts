@@ -17,7 +17,7 @@ export { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
 export { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
 export { DealResolver } from "./resolvers/DealResolver";
 export { ProductResolver } from "./resolvers/ProductResolver";
-export { Context } from "./types/Context";
+export * from "./types/Context";
 export { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
 export { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
 export { UserCreateResolver } from "./user/UserCreateResolver";
