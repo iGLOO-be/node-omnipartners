@@ -20,6 +20,7 @@ export default class Partners extends Api {
     1008: { message: "Missing required fields" },
     1025: { message: "Internal Error" },
     1036: { message: "Service input data is Invalid." },
+    1040: { message: "Terminal id not found." },
   };
 
   public _call(action: string, data?: {}, options: IApiFetchOptions = {}) {
@@ -310,6 +311,19 @@ export default class Partners extends Api {
   }) {
     return this._call("update-partner", data, {
       hashKeys: ["action", "partner_ext_id"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Resolve_Partner_by_Terminal_Id")
+  @filterInput([
+    "terminal_id", // (Required) The terminal id associated to the partner
+  ])
+  public resolvePartnerByTerminalId(data: {
+    terminal_id: string;
+  }): Promise<{ partner_ext_id: string }> {
+    return this._call("resolve-partner-by-terminal-id", data, {
+      hashKeys: ["action", "key", "terminal_id"],
+      retry: true,
     });
   }
 }
