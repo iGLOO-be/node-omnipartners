@@ -320,7 +320,7 @@ export default class Partners extends Api {
   ])
   public resolvePartnerByTerminalId(data: {
     terminal_id: string;
-  }): Promise<{ partner_ext_id: string }> {
+  }): Promise<{ data: { partner_ext_id: string } }> {
     return this._call("resolve-partner-by-terminal-id", data, {
       hashKeys: ["action", "key", "terminal_id"],
       retry: true,
