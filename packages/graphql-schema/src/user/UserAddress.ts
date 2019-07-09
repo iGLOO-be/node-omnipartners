@@ -19,6 +19,9 @@ export class UserAddress {
   public street1: string;
 
   @Field({ nullable: true })
+  public street2: string;
+
+  @Field({ nullable: true })
   public postalCode: string;
 
   @Field({ nullable: true })
@@ -34,6 +37,7 @@ export class UserAddress {
     this.phone = data.address_phone;
     this.streetnum = data.address_streetnum;
     this.street1 = data.address_street1;
+    this.street2 = data.address_street2;
     this.postalCode = data.address_postal_code;
     this.city = data.address_city;
     this.country = data.address_country;
