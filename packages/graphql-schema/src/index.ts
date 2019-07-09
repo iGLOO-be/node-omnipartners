@@ -18,6 +18,8 @@ export { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
 export { DealResolver } from "./resolvers/DealResolver";
 export { ProductResolver } from "./resolvers/ProductResolver";
 export * from "./types/Context";
+export * from "./types/GenericResult";
+export * from "./types/GenericValidationError";
 export { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
 export { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
 export { UserCreateResolver } from "./user/UserCreateResolver";
