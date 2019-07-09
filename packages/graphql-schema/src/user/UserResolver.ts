@@ -49,6 +49,9 @@ class UserUpdatePlacesOfPurchaseInput
 
   @Field({ nullable: true })
   public place_rating: string;
+
+  @Field({ nullable: true })
+  public enabled: boolean;
 }
 
 @InputType()
@@ -219,14 +222,25 @@ export class UserResolver {
     updatePlacesOfPurchaseInput: UserUpdatePlacesOfPurchaseInput,
   ): Promise<GenericValidationError | undefined> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
-    const data: IUserUpdatePlacesOfPurchaseInput = {
-      ...updatePlacesOfPurchaseInput,
-      user_guid,
-    };
-    try {
-      await ctx.omnipartners.identity.updateUserPlacesOfPurchase(data);
-    } catch (err) {
-      return new GenericValidationError(err);
+    if (updatePlacesOfPurchaseInput.enabled === false) {
+      try {
+        await ctx.omnipartners.identity.deleteUserPlacesOfPurchase({
+          place_id: updatePlacesOfPurchaseInput.place_id,
+          user_guid,
+        });
+      } catch (err) {
+        return new GenericValidationError(err);
+      }
+    } else {
+      const data: IUserUpdatePlacesOfPurchaseInput = {
+        ...updatePlacesOfPurchaseInput,
+        user_guid,
+      };
+      try {
+        await ctx.omnipartners.identity.updateUserPlacesOfPurchase(data);
+      } catch (err) {
+        return new GenericValidationError(err);
+      }
     }
   }
 
