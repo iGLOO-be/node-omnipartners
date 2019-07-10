@@ -1,4 +1,5 @@
 import { EventEmitter } from "events";
+import FormData from "form-data";
 import reduce from "lodash/reduce";
 import fetch, { Response as FetchResponse } from "node-fetch"; // TODO: switch to fetch-retry
 import querystring from "qs";
@@ -11,6 +12,7 @@ export interface IRequestOptions {
   uri: string;
   body?: any;
   json?: boolean;
+  multipart?: boolean;
   responseAsJson?: boolean;
   qs?: any;
   headers?: { [key: string]: any };
@@ -20,6 +22,14 @@ export interface IRequestOptions {
   retryDelay?: number;
 }
 
+const encodeMultipart = (data: any) => {
+  const form = new FormData();
+  Object.keys(data).map(key => {
+    form.append(key, data[key]);
+  });
+  return form;
+};
+
 export default class Request extends EventEmitter {
   public protectedKeys = ["key", "hash"];
 
@@ -28,6 +38,7 @@ export default class Request extends EventEmitter {
   public readonly uri: string;
   public readonly body?: any;
   public readonly json?: boolean;
+  public readonly multipart?: boolean;
   public readonly responseAsJson?: boolean;
   public readonly qs: string;
   public readonly headers: { [key: string]: any };
@@ -47,6 +58,7 @@ export default class Request extends EventEmitter {
     uri,
     body,
     json,
+    multipart,
     responseAsJson,
     qs,
     headers,
@@ -62,6 +74,7 @@ export default class Request extends EventEmitter {
     this.uri = uri;
     this.body = body;
     this.json = json;
+    this.multipart = multipart;
     this.responseAsJson = responseAsJson;
     this.qs = qs;
     this.headers = {
@@ -74,6 +87,10 @@ export default class Request extends EventEmitter {
       ...(this.json &&
         this.body && {
           "Content-Type": "application/json",
+        }),
+      ...(this.multipart &&
+        this.body && {
+          "Content-Type": "multipart/form-data",
         }),
     };
     this.timeout = timeout;
@@ -96,10 +113,19 @@ export default class Request extends EventEmitter {
 
     let fetchRes: FetchResponse;
 
+    const body = this.multipart
+      ? encodeMultipart(this.body)
+      : this.json
+      ? JSON.stringify(this.body)
+      : this.body;
+
     try {
       fetchRes = await fetch(uri, {
-        body: this.json ? JSON.stringify(this.body) : this.body,
-        headers: this.headers,
+        body,
+        headers: {
+          ...this.headers,
+          ...(this.multipart ? body.getHeaders() : {}),
+        },
         method: this.method,
         timeout: this.timeout,
         // TODO:
