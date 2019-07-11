@@ -68,6 +68,7 @@ const fieldsMapping = {
   pet_type: "type",
   pet_breed: "breed",
   pet_dob: "dob",
+  pet_birthday: "dob",
   pet_gender: "gender",
   pet_neutered: "neutered",
   pet_picture: "pictureUrl",
