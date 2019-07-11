@@ -329,6 +329,16 @@ export default class Identity extends Api {
     });
   }
 
+  @doc(
+    "http://doc.omnipartners.be/index.php/Delete_a_place_of_purchase_preference_from_a_user_account",
+  )
+  @filterInput(["user_guid", "place_id"])
+  public deleteUserPlacesOfPurchase(data: { user_guid: string, place_id: string }) {
+    return this.get("/service/preferences/delete-place-of-purchase", data, {
+      hashKeys: ["user_guid", "place_id"],
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/List_User_Addresses")
   @filterInput(["user_guid"])
   public listUserAddress(data: {

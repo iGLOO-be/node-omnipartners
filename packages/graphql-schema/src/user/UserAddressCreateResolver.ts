@@ -18,6 +18,9 @@ export class UserAddressCreateInput {
   @Field({ nullable: true })
   public street1?: string;
 
+  @Field({ nullable: true })
+  public street2?: string;
+
   @Field()
   public postalCode: string;
 
