@@ -28,11 +28,14 @@ export class UserPet
   public breed: string;
   @Field()
   public breedDetails: UserBreedDetail;
+  @Field()
+  public hasPicture: boolean;
 
   constructor(data: IUserPet) {
     Object.assign(this, data);
     this.dob = data.pet_dob;
     this.type = data.petType;
+    this.hasPicture = data.has_picture === "1" ? true : false ;
   }
 
   @Field()

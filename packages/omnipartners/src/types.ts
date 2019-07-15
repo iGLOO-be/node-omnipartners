@@ -337,7 +337,7 @@ export interface IUserPet {
   vaccinationDate: null;
   type: string;
   profile_completion: string;
-  has_picture: 1;
+  has_picture: "0" | "1";
   status: string;
   pet_status: string;
   insured: string;
