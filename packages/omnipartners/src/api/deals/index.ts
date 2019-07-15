@@ -302,6 +302,21 @@ export default class Deals extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/New_secure_code")
+  @filterInput(["deal_ref"])
+  public getSecureCode(data: {
+    deal_ref?: string;
+  }): Promise<{
+    data: {
+      code: string;
+    };
+  }> {
+    return this._call("generate-secure-code", data, {
+      hashKeys: ["deal_ref"],
+      retry: true,
+    });
+  }
+
   private _call(
     action: string,
     data: IApiPostData,
