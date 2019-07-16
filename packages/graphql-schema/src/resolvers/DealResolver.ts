@@ -13,6 +13,7 @@ import {
   Query,
 } from "type-graphql";
 import { Context } from "../types/Context";
+import { GenericError } from "../types/GenericResult";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { ProductCollection } from "../types/ProductCollection";
 
@@ -103,6 +104,20 @@ export class DealResolver {
       });
     } catch (err) {
       return new GenericValidationError(err);
+    }
+  }
+
+  @Query(() => GenericValidationError, { nullable: true })
+  public async dealSecureCode(
+    @Ctx() ctx: Context,
+    @Arg("deal_ref") deal_ref: string,
+  ): Promise<GenericError | undefined> {
+    try {
+      await ctx.omnipartners.deals.getSecureCode({
+        deal_ref,
+      });
+    } catch (err) {
+      return new GenericError(err);
     }
   }
 
