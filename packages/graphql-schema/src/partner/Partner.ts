@@ -30,6 +30,12 @@ export class Partner {
   @Field({ nullable: true })
   public name: string;
 
+  @Field({ nullable: true })
+  public lat: string;
+
+  @Field({ nullable: true })
+  public lng: string;
+
   constructor(data: IPartnerDetails) {
     Object.assign(this, data);
     this.extId = data.partner_ext_id;
@@ -41,5 +47,7 @@ export class Partner {
     this.email = data.partner_email;
     this.phone = data.partner_phone;
     this.name = data.partner_pub_name;
+    this.lat = data.partner_lat;
+    this.lng = data.partner_lng;
   }
 }
