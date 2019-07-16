@@ -5,20 +5,30 @@ import { Field, ObjectType } from "type-graphql";
 export class Partner {
   @Field()
   public extId: string;
+
   @Field({ nullable: true })
   public street1: string;
+
   @Field({ nullable: true })
   public streetnum: string;
+
   @Field({ nullable: true })
   public postalCode: string;
+
   @Field({ nullable: true })
   public city: string;
+
   @Field({ nullable: true })
   public country: string;
+
   @Field({ nullable: true })
   public email: string;
+
   @Field({ nullable: true })
   public phone: string;
+
+  @Field({ nullable: true })
+  public name: string;
 
   constructor(data: IPartnerDetails) {
     Object.assign(this, data);
@@ -30,5 +40,6 @@ export class Partner {
     this.country = data.partner_inv_country;
     this.email = data.partner_email;
     this.phone = data.partner_phone;
+    this.name = data.partner_pub_name;
   }
 }
