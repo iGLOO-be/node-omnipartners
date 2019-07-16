@@ -5,19 +5,19 @@ import { Field, ObjectType } from "type-graphql";
 export class Partner {
   @Field()
   public extId: string;
-  @Field()
+  @Field({ nullable: true })
   public street1: string;
-  @Field()
+  @Field({ nullable: true })
   public streetnum: string;
-  @Field()
+  @Field({ nullable: true })
   public postalCode: string;
-  @Field()
+  @Field({ nullable: true })
   public city: string;
-  @Field()
+  @Field({ nullable: true })
   public country: string;
-  @Field()
+  @Field({ nullable: true })
   public email: string;
-  @Field()
+  @Field({ nullable: true })
   public phone: string;
 
   constructor(data: IPartnerDetails) {
