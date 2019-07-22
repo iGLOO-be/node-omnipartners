@@ -4,10 +4,9 @@ import {
   IDirectCashbackVoucherDetail,
 } from "omnipartners";
 import { Arg, Ctx, Field, InputType, ObjectType, Query } from "type-graphql";
-import { DirectCashbackDealDetail } from "../resolvers/DealResolver";
 import { Context } from "../types/Context";
-import { GenericError } from "../types/GenericResult";
 import { GenericValidationError } from "../types/GenericValidationError";
+import { DirectCashbackDealDetail } from "./DirectCashbackResolver";
 
 @ObjectType()
 class DirectCashbackVoucherDetail {

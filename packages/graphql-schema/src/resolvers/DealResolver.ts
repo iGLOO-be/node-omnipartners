@@ -1,9 +1,6 @@
 import {
   IDealProduct,
-  IDirectCashbackDealDetail,
-  IDirectCashbackRedemptionRequestInput,
   ISubscribeToDealInput,
-  ISubscribeToDirectCashbackDealInput,
 } from "omnipartners";
 import { Omit } from "type-fest";
 import {
@@ -40,71 +37,6 @@ export class DealSubscribeInput
   public referral_code?: string;
   @Field({ nullable: true })
   public delivery_address_id?: string;
-}
-
-@InputType()
-class DirectCashbackRedemptionRequestInputPayementDetail {
-  @Field({ nullable: true })
-  public iban: string;
-  @Field({ nullable: true })
-  public sort_code: string;
-  @Field({ nullable: true })
-  public account_number: string;
-}
-
-@InputType()
-export class DirectCashbackDealSubscribeInput {
-  @Field()
-  public ref: string;
-
-  @Field({ nullable: true })
-  public pet_guid?: string;
-
-  @Field({ nullable: true })
-  public child_guid: string;
-
-  public toOmnipartners(): Omit<
-    ISubscribeToDirectCashbackDealInput,
-    "user_guid"
-  > {
-    return {
-      deal_ref: this.ref,
-      pet_guid: this.pet_guid,
-      child_guid: this.child_guid,
-    };
-  }
-}
-
-@InputType()
-export class DirectCashbackRedemptionRequestInput {
-  @Field()
-  public barcode: string;
-
-  @Field()
-  public benefitId: string;
-
-  @Field()
-  public receiptDate: string;
-
-  @Field()
-  public receiptImageMimeType: string;
-
-  @Field()
-  public currency: "EUR" | "GBP";
-
-  @Field()
-  public paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail;
-
-  public toOmnipartners(): IDirectCashbackRedemptionRequestInput {
-    return {
-      barcode: this.barcode,
-      benefit_id: this.benefitId,
-      receipt_date: this.receiptDate,
-      target_currency: this.currency,
-      payment_details: JSON.stringify(this.paymentDetails),
-      receipt_image_mime_type: this.receiptImageMimeType,
-    };
-  }
 }
 
 @ObjectType()
@@ -146,48 +78,6 @@ class DealProduct implements Omit<IDealProduct, "collection"> {
   }
 }
 
-@ObjectType()
-export class DirectCashbackDealDetail {
-  @Field()
-  public id: string;
-
-  @Field()
-  public ref: string;
-
-  @Field()
-  public redeemDurationValue: number;
-
-  @Field()
-  public redeemDurationUnit: string;
-
-  @Field()
-  public isRelativeRedeemDate: boolean;
-
-  @Field()
-  public status: string;
-
-  @Field()
-  public publicName: string;
-
-  @Field()
-  public availableFrom: string;
-
-  @Field()
-  public availableTo: string;
-
-  @Field()
-  public slogan: string;
-
-  constructor(data: IDirectCashbackDealDetail) {
-    Object.assign(this, data);
-    this.redeemDurationValue = data.redeem_duration_value;
-    this.redeemDurationUnit = data.redeem_duration_unit;
-    this.isRelativeRedeemDate = data.is_relative_redeem_dates;
-    this.publicName = data.public_name;
-    this.availableFrom = data.available_from;
-    this.availableTo = data.available_from;
-  }
-}
 
 export class DealResolver {
   @Query(() => [DealProduct], { nullable: true })
@@ -217,17 +107,6 @@ export class DealResolver {
     }
   }
 
-  @Query(() => [DirectCashbackDealDetail], { nullable: true })
-  public async directCashbackDealDetail(
-    @Ctx() ctx: Context,
-    @Arg("ref") ref: string,
-  ): Promise<DirectCashbackDealDetail> {
-    const res = (await ctx.omnipartners.deals.getDirectCashbackDealDetail({
-      ref,
-    })).data;
-    return new DirectCashbackDealDetail(res);
-  }
-
   @Mutation(() => GenericValidationError, { nullable: true })
   public async dealSubscribe(
     @Ctx() ctx: Context,
@@ -239,37 +118,6 @@ export class DealResolver {
       await ctx.omnipartners.deals.subscribeToDeal({
         ...input,
         user_guid,
-      });
-    } catch (err) {
-      return new GenericValidationError(err);
-    }
-  }
-
-  @Mutation(() => GenericValidationError, { nullable: true })
-  public async directCashbackDealSubscribe(
-    @Ctx() ctx: Context,
-    @Arg("token") token: string,
-    @Arg("input") input: DirectCashbackDealSubscribeInput,
-  ): Promise<GenericValidationError | undefined> {
-    const { user_guid } = ctx.userTokenHelper.parse(token);
-    try {
-      await ctx.omnipartners.deals.subscribeToDirectCashbackDeal({
-        ...input.toOmnipartners(),
-        user_guid,
-      });
-    } catch (err) {
-      return new GenericValidationError(err);
-    }
-  }
-
-  @Mutation(() => GenericValidationError, { nullable: true })
-  public async createDirectCashbackRedemptionRequest(
-    @Ctx() ctx: Context,
-    @Arg("input") input: DirectCashbackRedemptionRequestInput,
-  ): Promise<GenericValidationError | undefined> {
-    try {
-      await ctx.omnipartners.deals.createDirectCashbackRedemptionRequest({
-        ...input.toOmnipartners(),
       });
     } catch (err) {
       return new GenericValidationError(err);
