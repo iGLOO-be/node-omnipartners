@@ -2,6 +2,7 @@ import {
   IDealProduct,
   IDirectCashbackDealDetail,
   ISubscribeToDealInput,
+  ISubscribeToDirectCashbackDealInput,
 } from "omnipartners";
 import { Omit } from "type-fest";
 import {
@@ -38,6 +39,26 @@ export class DealSubscribeInput
   public referral_code?: string;
   @Field({ nullable: true })
   public delivery_address_id?: string;
+}
+
+@InputType()
+export class DirectCashbackDealSubscribeInput {
+  @Field()
+  public ref: string;
+
+  @Field({ nullable: true })
+  public pet_guid?: string;
+
+  @Field({ nullable: true })
+  public child_guid: string;
+
+  public toOmnipartners(): Omit<ISubscribeToDirectCashbackDealInput, "user_guid"> {
+    return {
+      deal_ref: this.ref,
+      pet_guid: this.pet_guid,
+      child_guid: this.child_guid,
+    };
+  }
 }
 
 @ObjectType()
@@ -113,8 +134,8 @@ class DirectCashbackDealDetail {
 
   constructor(data: IDirectCashbackDealDetail) {
     Object.assign(this, data);
-    this.redeemDurationValue = data.redeem_duration_value
-    this.redeemDurationUnit = data.redeem_duration_unit
+    this.redeemDurationValue = data.redeem_duration_value;
+    this.redeemDurationUnit = data.redeem_duration_unit;
     this.isRelativeRedeemDate = data.is_relative_redeem_dates;
     this.publicName = data.public_name;
     this.availableFrom = data.available_from;
@@ -171,6 +192,23 @@ export class DealResolver {
     try {
       await ctx.omnipartners.deals.subscribeToDeal({
         ...input,
+        user_guid,
+      });
+    } catch (err) {
+      return new GenericValidationError(err);
+    }
+  }
+
+  @Mutation(() => GenericValidationError, { nullable: true })
+  public async directCashbackDealSubscribe(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Arg("input") input: DirectCashbackDealSubscribeInput,
+  ): Promise<GenericValidationError | undefined> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+    try {
+      await ctx.omnipartners.deals.subscribeToDirectCashbackDeal({
+        ...input.toOmnipartners(),
         user_guid,
       });
     } catch (err) {

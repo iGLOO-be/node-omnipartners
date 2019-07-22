@@ -1,6 +1,10 @@
 import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IDeal, IDirectCashbackDealDetail, IUserEligibleDirectCashbackDeal } from "../../types";
+import {
+  IDeal,
+  IDirectCashbackDealDetail,
+  IUserEligibleDirectCashbackDeal,
+} from "../../types";
 
 export interface ISubscribeToDealInput {
   user_guid: string;
@@ -13,6 +17,13 @@ export interface ISubscribeToDealInput {
   bic?: string;
   referral_code?: string;
   delivery_address_id?: string;
+}
+
+export interface ISubscribeToDirectCashbackDealInput {
+  user_guid: string;
+  deal_ref: string;
+  pet_guid?: string;
+  child_guid?: string;
 }
 
 export interface IDealProductCollection {
@@ -330,13 +341,11 @@ export default class Deals extends Api {
   }> {
     return this._call("list-direct-cashback-eligible-deals", data, {
       retry: true,
-      hashKeys: undefined
+      hashKeys: undefined,
     });
   }
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Get_direct_cashback_deal_details",
-  )
+  @doc("http://doc.omnipartners.be/index.php/Get_direct_cashback_deal_details")
   @filterInput(["ref"])
   public getDirectCashbackDealDetail(data: {
     ref: string;
@@ -345,7 +354,25 @@ export default class Deals extends Api {
   }> {
     return this._call("get-direct-cashback-deal-details", data, {
       retry: true,
-      hashKeys: undefined
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Subscribe_to_a_Direct_Cashback_Deal",
+  )
+  @filterInput([
+    "user_guid", // GUID of an active user
+    "deal_ref", // Deal reference code
+    "pet_guid", // A Pet guid of the user. If pet is not required for the deal, no pet is assigned for the subscription.
+    "child_guid", // A Child guid of the user. This is required if the deal restricted for child limitations. Otherwise it can be empty.
+  ])
+  public subscribeToDirectCashbackDeal(
+    data: ISubscribeToDirectCashbackDealInput,
+  ) {
+    return this._call("direct-cashback-subscribe", data, {
+      retry: true,
+      hashKeys: undefined,
     });
   }
 
