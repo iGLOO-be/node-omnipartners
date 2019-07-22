@@ -1,6 +1,6 @@
 import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IDeal, IUserEligibleDirectCashbackDeal } from "../../types";
+import { IDeal, IDirectCashbackDealDetail, IUserEligibleDirectCashbackDeal } from "../../types";
 
 export interface ISubscribeToDealInput {
   user_guid: string;
@@ -333,6 +333,22 @@ export default class Deals extends Api {
       hashKeys: undefined
     });
   }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Get_direct_cashback_deal_details",
+  )
+  @filterInput(["ref"])
+  public getDirectCashbackDealDetail(data: {
+    ref: string;
+  }): Promise<{
+    data: IDirectCashbackDealDetail;
+  }> {
+    return this._call("get-direct-cashback-deal-details", data, {
+      retry: true,
+      hashKeys: undefined
+    });
+  }
+
   private _call(
     action: string,
     data: IApiPostData,

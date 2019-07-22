@@ -1,5 +1,6 @@
 import {
   IDealProduct,
+  IDirectCashbackDealDetail,
   ISubscribeToDealInput,
 } from "omnipartners";
 import { Omit } from "type-fest";
@@ -78,6 +79,49 @@ class DealProduct implements Omit<IDealProduct, "collection"> {
   }
 }
 
+@ObjectType()
+class DirectCashbackDealDetail {
+  @Field()
+  public id: string;
+
+  @Field()
+  public ref: string;
+
+  @Field()
+  public redeemDurationValue: number;
+
+  @Field()
+  public redeemDurationUnit: string;
+
+  @Field()
+  public isRelativeRedeemDate: boolean;
+
+  @Field()
+  public status: string;
+
+  @Field()
+  public publicName: string;
+
+  @Field()
+  public availableFrom: string;
+
+  @Field()
+  public availableTo: string;
+
+  @Field()
+  public slogan: string;
+
+  constructor(data: IDirectCashbackDealDetail) {
+    Object.assign(this, data);
+    this.redeemDurationValue = data.redeem_duration_value
+    this.redeemDurationUnit = data.redeem_duration_unit
+    this.isRelativeRedeemDate = data.is_relative_redeem_dates;
+    this.publicName = data.public_name;
+    this.availableFrom = data.available_from;
+    this.availableTo = data.available_from;
+  }
+}
+
 export class DealResolver {
   @Query(() => [DealProduct], { nullable: true })
   public async dealProducts(
@@ -104,6 +148,17 @@ export class DealResolver {
     } catch (err) {
       return new GenericValidationError(err);
     }
+  }
+
+  @Query(() => [DirectCashbackDealDetail], { nullable: true })
+  public async directCashbackDealDetail(
+    @Ctx() ctx: Context,
+    @Arg("ref") ref: string,
+  ): Promise<DirectCashbackDealDetail> {
+    const res = (await ctx.omnipartners.deals.getDirectCashbackDealDetail({
+      ref,
+    })).data;
+    return new DirectCashbackDealDetail(res);
   }
 
   @Mutation(() => GenericValidationError, { nullable: true })
