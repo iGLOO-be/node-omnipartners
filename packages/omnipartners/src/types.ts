@@ -845,3 +845,11 @@ export interface IDeal {
   }>;
   type_details: { discount_type: string; amounts: [] };
 }
+
+export interface IUserEligibleDirectCashbackDeal {
+  id: string;
+  ref: string;
+  name: string;
+  available_from: string;
+  available_to: string;
+}

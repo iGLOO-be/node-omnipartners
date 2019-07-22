@@ -1,6 +1,6 @@
 import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IDeal } from "../../types";
+import { IDeal, IUserEligibleDirectCashbackDeal } from "../../types";
 
 export interface ISubscribeToDealInput {
   user_guid: string;
@@ -317,6 +317,22 @@ export default class Deals extends Api {
     });
   }
 
+  @doc(
+    "http://doc.omnipartners.be/index.php/Get_List_of_eligible_Direct_Cashback_Deals",
+  )
+  @filterInput(["user_guid"])
+  public getEligibleDirectCashbackDeals(data: {
+    user_guid: string;
+    pet_guid?: string;
+    child_guid?: string;
+  }): Promise<{
+    data: IUserEligibleDirectCashbackDeal[];
+  }> {
+    return this._call("list-direct-cashback-eligible-deals", data, {
+      retry: true,
+      hashKeys: undefined
+    });
+  }
   private _call(
     action: string,
     data: IApiPostData,
