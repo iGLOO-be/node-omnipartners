@@ -890,3 +890,18 @@ export interface IDirectCashbackDealDetail {
     currency: string,
   }>
 }
+
+export interface IDirectCashbackVoucherDetail {
+  id: string,
+  user_guid: string,
+  barcode: string,
+  status: string,
+  pet_guid: string,
+  ts_redeemed: string,
+  active_redemption_request_status: string,
+  ts_subscribed: string,
+  benefit: string,
+  redeem_validity_from: string,
+  redeem_validity_to: string,
+  deal: IDirectCashbackDealDetail,
+}

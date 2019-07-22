@@ -3,6 +3,7 @@ import { doc, filterInput } from "../../lib/apiDecorators";
 import {
   IDeal,
   IDirectCashbackDealDetail,
+  IDirectCashbackVoucherDetail,
   IUserEligibleDirectCashbackDeal,
 } from "../../types";
 
@@ -79,6 +80,14 @@ export interface IDirectCashbackVoucherListItem {
   benefit_product_id: string;
   redemption_request_in_progress: 0 | 1;
 }
+
+export type IDirectCashbackDealDataOptions =
+  | IDirectCashbackDealDataOption
+  | IDirectCashbackDealDataOption[];
+type IDirectCashbackDealDataOption =
+  | "basic_details"
+  | "benefits"
+  | "benefit_product_detail";
 
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
@@ -408,6 +417,22 @@ export default class Deals extends Api {
     data: IDirectCashbackVoucherList;
   }> {
     return this._call("get-direct-cashback-voucher-list", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Get_direct_cashback_voucher_details",
+  )
+  @filterInput(["barcode", "deal_data_options"])
+  public getDirectCashbackVoucherDetail(data: {
+    barcode: string;
+    deal_data_options: IDirectCashbackDealDataOptions;
+  }): Promise<{
+    data: IDirectCashbackVoucherDetail;
+  }> {
+    return this._call("get-direct-cashback-voucher-details", data, {
       retry: true,
       hashKeys: undefined,
     });

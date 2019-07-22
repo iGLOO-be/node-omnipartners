@@ -105,7 +105,7 @@ class DealProduct implements Omit<IDealProduct, "collection"> {
 }
 
 @ObjectType()
-class DirectCashbackDealDetail {
+export class DirectCashbackDealDetail {
   @Field()
   public id: string;
 
