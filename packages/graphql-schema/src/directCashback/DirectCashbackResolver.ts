@@ -1,7 +1,6 @@
 import {
   IDirectCashbackDealDetail,
   IDirectCashbackRedemptionRequestInput,
-  ISubscribeToDealInput,
   ISubscribeToDirectCashbackDealInput,
 } from "omnipartners";
 import { Omit } from "type-fest";

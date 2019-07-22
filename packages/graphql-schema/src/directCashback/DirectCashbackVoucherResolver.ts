@@ -3,7 +3,7 @@ import {
   IDirectCashbackDealDetail,
   IDirectCashbackVoucherDetail,
 } from "omnipartners";
-import { Arg, Ctx, Field, InputType, ObjectType, Query } from "type-graphql";
+import { Arg, Ctx, Field, ObjectType, Query } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { DirectCashbackDealDetail } from "./DirectCashbackResolver";
