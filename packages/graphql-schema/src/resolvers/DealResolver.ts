@@ -1,6 +1,7 @@
 import {
   IDealProduct,
   IDirectCashbackDealDetail,
+  IDirectCashbackRedemptionRequestInput,
   ISubscribeToDealInput,
   ISubscribeToDirectCashbackDealInput,
 } from "omnipartners";
@@ -42,6 +43,16 @@ export class DealSubscribeInput
 }
 
 @InputType()
+class DirectCashbackRedemptionRequestInputPayementDetail {
+  @Field({ nullable: true })
+  public iban: string;
+  @Field({ nullable: true })
+  public sort_code: string;
+  @Field({ nullable: true })
+  public account_number: string;
+}
+
+@InputType()
 export class DirectCashbackDealSubscribeInput {
   @Field()
   public ref: string;
@@ -64,6 +75,37 @@ export class DirectCashbackDealSubscribeInput {
   }
 }
 
+@InputType()
+export class DirectCashbackRedemptionRequestInput {
+  @Field()
+  public barcode: string;
+
+  @Field()
+  public benefitId: string;
+
+  @Field()
+  public receiptDate: string;
+
+  @Field()
+  public receiptImageMimeType: string;
+
+  @Field()
+  public currency: "EUR" | "GBP";
+
+  @Field()
+  public paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail;
+
+  public toOmnipartners(): IDirectCashbackRedemptionRequestInput {
+    return {
+      barcode: this.barcode,
+      benefit_id: this.benefitId,
+      receipt_date: this.receiptDate,
+      target_currency: this.currency,
+      payment_details: JSON.stringify(this.paymentDetails),
+      receipt_image_mime_type: this.receiptImageMimeType,
+    };
+  }
+}
 
 @ObjectType()
 class DealProduct implements Omit<IDealProduct, "collection"> {
@@ -214,6 +256,20 @@ export class DealResolver {
       await ctx.omnipartners.deals.subscribeToDirectCashbackDeal({
         ...input.toOmnipartners(),
         user_guid,
+      });
+    } catch (err) {
+      return new GenericValidationError(err);
+    }
+  }
+
+  @Mutation(() => GenericValidationError, { nullable: true })
+  public async createDirectCashbackRedemptionRequest(
+    @Ctx() ctx: Context,
+    @Arg("input") input: DirectCashbackRedemptionRequestInput,
+  ): Promise<GenericValidationError | undefined> {
+    try {
+      await ctx.omnipartners.deals.createDirectCashbackRedemptionRequest({
+        ...input.toOmnipartners(),
       });
     } catch (err) {
       return new GenericValidationError(err);

@@ -3,6 +3,7 @@ import { doc, filterInput } from "../../lib/apiDecorators";
 import {
   IDeal,
   IDirectCashbackDealDetail,
+  IDirectCashbackRedemptionRequestInput,
   IDirectCashbackVoucherDetail,
   IUserEligibleDirectCashbackDeal,
 } from "../../types";
@@ -451,6 +452,26 @@ export default class Deals extends Api {
     data: ISubscribeToDirectCashbackDealInput,
   ) {
     return this._call("direct-cashback-subscribe", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Create_direct_cashback_redemption_request",
+  )
+  @filterInput([
+    "barcode", // (Required) Subscription barcode without any formattings
+    "benefit_id", // (Required) The befit id of the deal
+    "receipt_date", // (Required) Date of the receipt
+    "receipt_image_mime_type", // (Required) Mime type of the receipt image.
+    "target_currency", // (Required) Target currency code Eg: EUR / GBP
+    "payment_details", // (Required) Details of the payment, It should be a json object.
+  ])
+  public createDirectCashbackRedemptionRequest(
+    data: IDirectCashbackRedemptionRequestInput,
+  ) {
+    return this._call("create-direct-cashback-redemption-request", data, {
       retry: true,
       hashKeys: undefined,
     });
