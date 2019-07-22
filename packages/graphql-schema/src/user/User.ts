@@ -182,7 +182,7 @@ export class User {
   public async eligibleDirectCashbackDeals(
     @Ctx() ctx: Context,
   ): Promise<UserEligibleDirectCashbackDeal[]> {
-    const res = await ctx.omnipartners.deals.getEligibleDirectCashbackDeals({
+    const res = await ctx.omnipartners.deals.listEligibleDirectCashbackDeals({
       user_guid: this.owner.guid,
     });
     return res.data.map(d => new UserEligibleDirectCashbackDeal(d));

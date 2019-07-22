@@ -47,6 +47,39 @@ export interface IDealEligiblePet {
   pet_name: string;
 }
 
+export interface IDirectCashbackVoucherListInput {
+  user_guid: string;
+  pet_guid?: string;
+  child_guid?: string;
+  from?: string;
+  to?: string;
+  deal_ref?: string;
+  p_length: string;
+  p_page: string;
+}
+
+export interface IDirectCashbackVoucherList {
+  records: IDirectCashbackVoucherListItem[];
+  p_total: number;
+  p_length: number;
+  p_page: number;
+}
+
+export interface IDirectCashbackVoucherListItem {
+  user_guid: string;
+  barcode: string;
+  pet_guid: string;
+  child_guid: string;
+  status: string;
+  ts_created: string;
+  benefit_id: string;
+  deal_ref: string;
+  benefit_amount: string;
+  benefit_currency: string;
+  benefit_product_id: string;
+  redemption_request_in_progress: 0 | 1;
+}
+
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
 
@@ -332,7 +365,7 @@ export default class Deals extends Api {
     "http://doc.omnipartners.be/index.php/Get_List_of_eligible_Direct_Cashback_Deals",
   )
   @filterInput(["user_guid"])
-  public getEligibleDirectCashbackDeals(data: {
+  public listEligibleDirectCashbackDeals(data: {
     user_guid: string;
     pet_guid?: string;
     child_guid?: string;
@@ -353,6 +386,28 @@ export default class Deals extends Api {
     data: IDirectCashbackDealDetail;
   }> {
     return this._call("get-direct-cashback-deal-details", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_direct_cashback_voucher_list")
+  @filterInput([
+    "user_guid", // (Required) Subscribed user's GUID
+    "pet_guid", // (optional) Pet GUID of the subscription
+    "child_guid", // (Optional) A Child guid of the user.
+    "from", // (optional) Date time value to filter on creation date/subscription date
+    "to", // (optional) Date time value to filter on creation date/subscription date
+    "deal_ref", // (optional) Deal reference. Filter on the specified deal.
+    "p_length", // (Required) Item per page
+    "p_page", // (Required) current page. start at 0
+  ])
+  public getDirectCashbackVoucherList(
+    data: IDirectCashbackVoucherListInput,
+  ): Promise<{
+    data: IDirectCashbackVoucherList;
+  }> {
+    return this._call("get-direct-cashback-voucher-list", data, {
       retry: true,
       hashKeys: undefined,
     });

@@ -52,7 +52,10 @@ export class DirectCashbackDealSubscribeInput {
   @Field({ nullable: true })
   public child_guid: string;
 
-  public toOmnipartners(): Omit<ISubscribeToDirectCashbackDealInput, "user_guid"> {
+  public toOmnipartners(): Omit<
+    ISubscribeToDirectCashbackDealInput,
+    "user_guid"
+  > {
     return {
       deal_ref: this.ref,
       pet_guid: this.pet_guid,
@@ -60,6 +63,7 @@ export class DirectCashbackDealSubscribeInput {
     };
   }
 }
+
 
 @ObjectType()
 class DealProduct implements Omit<IDealProduct, "collection"> {
