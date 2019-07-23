@@ -9,7 +9,6 @@ import { Memoize } from "typescript-memoize";
 import { Context } from "..";
 import { LegalForm } from "../metadata/DataLegalFormResolver";
 import { UserAddress } from "./UserAddress";
-import { UserEligibleDirectCashbackDeal } from "./UserEligibleDirectCashbackDeal";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
 
@@ -176,16 +175,6 @@ export class User {
     } else {
       return [];
     }
-  }
-
-  @Field(() => [UserEligibleDirectCashbackDeal], { nullable: false })
-  public async eligibleDirectCashbackDeals(
-    @Ctx() ctx: Context,
-  ): Promise<UserEligibleDirectCashbackDeal[]> {
-    const res = await ctx.omnipartners.deals.listEligibleDirectCashbackDeals({
-      user_guid: this.owner.guid,
-    });
-    return res.data.map(d => new UserEligibleDirectCashbackDeal(d));
   }
 }
 
