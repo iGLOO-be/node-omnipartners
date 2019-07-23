@@ -1,13 +1,5 @@
 import { IDirectCashbackVoucherListInput } from "omnipartners";
-import {
-  Arg,
-  Args,
-  ArgsType,
-  Ctx,
-  Field,
-  Query,
-  Resolver,
-} from "type-graphql";
+import { Arg, Args, ArgsType, Ctx, Field, Query, Resolver } from "type-graphql";
 import { ConnectionArgs } from "../connections";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
@@ -33,12 +25,6 @@ class DirectCashbackVoucherListInput {
   @Field({ nullable: true })
   public ref: string;
 
-  @Field({ nullable: true })
-  public limit: string;
-
-  @Field({ nullable: true })
-  public page: string;
-
   public toOmnipartners(): Omit<IDirectCashbackVoucherListInput, "user_guid"> {
     return {
       deal_ref: this.ref,
@@ -46,8 +32,6 @@ class DirectCashbackVoucherListInput {
       child_guid: this.child_guid,
       from: this.from,
       to: this.to,
-      p_length: this.limit,
-      p_page: this.page,
     };
   }
 }
@@ -63,20 +47,20 @@ export class DirectCashbackVoucherListItemResolver {
   ): Promise<DirectCashbackVoucherConnection | GenericValidationError> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
-      const res = await ctx.omnipartners.deals.getDirectCashbackVoucherList({
+      const data = (await ctx.omnipartners.deals.getDirectCashbackVoucherList({
         user_guid,
         ...input,
         p_page: `${args.page}`,
         p_length: `${args.limit}`,
-      });
+      })).data;
 
-      const count = res.data.records.length;
-      const limit = res.data.p_length;
-      const page = res.data.p_page;
+      const count = data.records.length;
+      const limit = data.p_length;
+      const page = data.p_page;
       const hasNextPage = page !== Math.ceil(count / limit);
 
       return {
-        result: res.data.records.map(d => new DirectCashbackVoucherListItem(d)),
+        result: data.records.map(d => new DirectCashbackVoucherListItem(d)),
         pageInfo: {
           count,
           hasNextPage,

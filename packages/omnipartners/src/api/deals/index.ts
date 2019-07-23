@@ -56,8 +56,8 @@ export interface IDirectCashbackVoucherListInput {
   from?: string;
   to?: string;
   deal_ref?: string;
-  p_length: string;
-  p_page: string;
+  p_length?: string;
+  p_page?: string;
 }
 
 export interface IDirectCashbackVoucherList {
@@ -80,6 +80,38 @@ export interface IDirectCashbackVoucherListItem {
   benefit_currency: string;
   benefit_product_id: string;
   redemption_request_in_progress: 0 | 1;
+}
+
+export interface IDirectCashbackRedemptionRequestListInput {
+  user_guid: string;
+  status?: string;
+  barcode?: string;
+  sort_field?: string;
+  sort_order?: string;
+  p_length?: string;
+  p_page?: string;
+}
+
+export interface IDirectCashbackRedemptionRequestList {
+  records: IDirectCashbackRedemptionRequestListItem[];
+  p_total: number;
+  p_length: number;
+  p_page: number;
+}
+
+export interface IDirectCashbackRedemptionRequestListItem {
+  user_guid: string;
+  image_url: string;
+  benefit_id: string;
+  barcode: string;
+  status: string;
+  iban: string;
+  bic: string;
+  created_on: string;
+  updated_on: string;
+  deal: {
+    ref: string;
+  };
 }
 
 export type IDirectCashbackDealDataOptions =
@@ -475,6 +507,33 @@ export default class Deals extends Api {
       retry: true,
       hashKeys: undefined,
     });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Get_user_direct_cashback_redemption_request_list",
+  )
+  @filterInput([
+    "user_guid", // (Required) Subscribed or invited user's GUID
+    "status", // (optional) The status of the cashback reciept. allowed values PENDING, PENDING_FILE, PENDING_PROCESSING, PROCESSING, REJECTED, PAYMENT_PENDING, PAYMENT_PROCESSING, PAYMENT_SENT, PAYMENT_REJECTED
+    "barcode", // (optional) The barcode of the direct cashback subscription.
+    "sort_field", // (optional) Field name to be apply the sorting. Allowed fields updated_on,receipt_date
+    "sort_order", // (optional) Sort order. possible values are DESC,ASC
+    "p_length", // (optional) Item per page
+    "p_page", // (optional) Current page. start at 0
+  ])
+  public getDirectCashbackRedemptionRequestList(
+    data: IDirectCashbackRedemptionRequestListInput,
+  ): Promise<{
+    data: IDirectCashbackRedemptionRequestList;
+  }> {
+    return this._call(
+      "get-user-direct-cashback-redemption-request-list",
+      data,
+      {
+        retry: true,
+        hashKeys: undefined,
+      },
+    );
   }
 
   private _call(
