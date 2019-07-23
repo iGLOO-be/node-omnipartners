@@ -26,22 +26,22 @@ class DirectCashbackVoucherDetail {
   public pet_guid: string;
 
   @Field()
-  public redemptionStatus: string;
+  public activeRedemptionRequestStatus: string;
 
   @Field()
-  public redeemFrom: string;
+  public redeemValidityFrom: string;
 
   @Field()
-  public redeemTo: string;
+  public redeemValidityTo: string;
 
   @Field(() => DirectCashbackDealDetail)
   public deal: IDirectCashbackDealDetail;
 
   constructor(data: IDirectCashbackVoucherDetail) {
     Object.assign(this, data);
-    this.redemptionStatus = data.active_redemption_request_status;
-    this.redeemFrom = data.redeem_validity_from;
-    this.redeemTo = data.redeem_validity_to;
+    this.activeRedemptionRequestStatus = data.active_redemption_request_status;
+    this.redeemValidityFrom = data.redeem_validity_from;
+    this.redeemValidityTo = data.redeem_validity_to;
   }
 }
 

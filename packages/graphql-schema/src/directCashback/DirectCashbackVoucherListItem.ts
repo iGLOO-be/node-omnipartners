@@ -20,22 +20,22 @@ export class DirectCashbackVoucherListItem {
   public status: string;
 
   @Field()
-  public benefit_id: string;
+  public benefitId: string;
 
   @Field()
   public ref: string;
 
   @Field()
-  public activeRedemption: boolean;
+  public redemptionRequestInProgress: boolean;
 
   constructor(data: IDirectCashbackVoucherListItem) {
     Object.assign(this, data);
     this.ref = data.deal_ref;
-    this.activeRedemption =
+    this.benefitId = data.benefit_id;
+    this.redemptionRequestInProgress =
       data.redemption_request_in_progress === 0 ? false : true;
   }
 }
-
 
 @ObjectType(`DirectCashbackVoucherConnection`)
 export class DirectCashbackVoucherConnection {

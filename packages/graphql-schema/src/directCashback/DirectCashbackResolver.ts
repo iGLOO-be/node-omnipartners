@@ -64,7 +64,7 @@ export class DirectCashbackRedemptionRequestInput {
   public receiptImageMimeType: string;
 
   @Field()
-  public currency: "EUR" | "GBP";
+  public targetCurrency: "EUR" | "GBP";
 
   @Field()
   public paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail;
@@ -74,7 +74,7 @@ export class DirectCashbackRedemptionRequestInput {
       barcode: this.barcode,
       benefit_id: this.benefitId,
       receipt_date: this.receiptDate,
-      target_currency: this.currency,
+      target_currency: this.targetCurrency,
       payment_details: JSON.stringify(this.paymentDetails),
       receipt_image_mime_type: this.receiptImageMimeType,
     };

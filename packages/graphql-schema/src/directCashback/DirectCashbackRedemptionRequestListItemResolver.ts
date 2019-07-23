@@ -1,13 +1,5 @@
 import { IDirectCashbackRedemptionRequestListInput } from "omnipartners";
-import {
-  Arg,
-  Args,
-  ArgsType,
-  Ctx,
-  Field,
-  Query,
-  Resolver,
-} from "type-graphql";
+import { Arg, Args, ArgsType, Ctx, Field, Query, Resolver } from "type-graphql";
 import { ConnectionArgs } from "../connections";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
@@ -30,7 +22,10 @@ class DirectCashbackRedemptionRequestListInput {
   @Field({ nullable: true })
   public sortOrder: string;
 
-  public toOmnipartners(): Omit<IDirectCashbackRedemptionRequestListInput, "user_guid"> {
+  public toOmnipartners(): Omit<
+    IDirectCashbackRedemptionRequestListInput,
+    "user_guid"
+  > {
     return {
       status: this.status,
       barcode: this.barcode,
@@ -48,15 +43,19 @@ export class DirectCashbackRedemptionRequestListItemResolver {
     @Arg("token") token: string,
     @Args() input: DirectCashbackRedemptionRequestListInput,
     @Args() args: ConnectionArgs,
-  ): Promise<DirectCashbackRedemptionRequestConnection | GenericValidationError> {
+  ): Promise<
+    DirectCashbackRedemptionRequestConnection | GenericValidationError
+  > {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
-      const data = (await ctx.omnipartners.deals.getDirectCashbackRedemptionRequestList({
-        user_guid,
-        ...input,
-        p_page: `${args.page}`,
-        p_length: `${args.limit}`,
-      })).data;
+      const data = (await ctx.omnipartners.deals.getDirectCashbackRedemptionRequestList(
+        {
+          user_guid,
+          ...input,
+          p_page: `${args.page}`,
+          p_length: args.limit && `${args.limit}`,
+        },
+      )).data;
 
       const count = data.records.length;
       const limit = data.p_length;
@@ -64,7 +63,9 @@ export class DirectCashbackRedemptionRequestListItemResolver {
       const hasNextPage = page !== Math.ceil(count / limit);
 
       return {
-        result: data.records.map(d => new DirectCashbackRedemptionRequestListItem(d)),
+        result: data.records.map(
+          d => new DirectCashbackRedemptionRequestListItem(d),
+        ),
         pageInfo: {
           count,
           hasNextPage,

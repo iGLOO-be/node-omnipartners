@@ -51,7 +51,7 @@ export class DirectCashbackVoucherListItemResolver {
         user_guid,
         ...input,
         p_page: `${args.page}`,
-        p_length: `${args.limit}`,
+        p_length: args.limit && `${args.limit}`,
       })).data;
 
       const count = data.records.length;
