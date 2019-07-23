@@ -132,7 +132,7 @@ export class DirectCashbackDealDetail {
 }
 
 export class DirectCashbackResolver {
-  @Query(() => [DirectCashbackDealDetail], { nullable: true })
+  @Query(() => DirectCashbackDealDetail, { nullable: true })
   public async directCashbackDealDetail(
     @Ctx() ctx: Context,
     @Arg("ref") ref: string,
@@ -140,6 +140,7 @@ export class DirectCashbackResolver {
     const res = (await ctx.omnipartners.deals.getDirectCashbackDealDetail({
       ref,
     })).data;
+
     return new DirectCashbackDealDetail(res);
   }
 
