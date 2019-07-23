@@ -206,6 +206,24 @@ export interface IPartnerListItem {
   partner_pub_region: string;
   partner_pub_country: string;
 }
+
+export interface IPartnerLocatorInput {
+  partner_lat: string;
+  partner_lng: string;
+  indexed_result?: 0;
+  partner_type?: string;
+  partner_group_handle?: string;
+  excl_partner_group_handle?: string;
+  collection_ref?: string;
+  stock_level?: string;
+  search_term?: string;
+  radius?: number;
+  limit?: number;
+  show_hidden?: 0;
+  add_cis_guid?: 1;
+  partner_status?: string;
+}
+
 export interface IPartnerDetails {
   partner_ext_id: string;
   partner_inv_name: string;
