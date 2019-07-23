@@ -1,6 +1,6 @@
 import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IPartnerDetails, IPartnerListItem } from "../../types";
+import { IPartnerDetails, IPartnerListItem, IPartnerLocatorInput } from "../../types";
 
 export default class Partners extends Api {
   public defaultHost = "https://partners.clixray.io/";
@@ -90,21 +90,7 @@ export default class Partners extends Api {
     "add_cis_guid",
     "partner_status",
   ])
-  public findPartners(data: {
-    partner_lat: string;
-    partner_lng: string;
-    indexed_result: string;
-    partner_type: string;
-    partner_group_handle: string;
-    collection_ref: string;
-    stock_level: string;
-    search_term: string;
-    radius: string;
-    limit: string;
-    show_hidden: string;
-    add_cis_guid: string;
-    partner_status: string;
-  }) {
+  public findPartners(data: IPartnerLocatorInput) {
     return this._call("find-partners", data, {
       errorMap: {
         1008: { message: "Missing required fields" },
