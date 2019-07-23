@@ -34,14 +34,6 @@ const mapClixrayFields = (
   limit: partnerLocatorInput.limit,
 });
 
-const fieldsMapping = {
-  partner_lat: "lat",
-  partner_lng: "lng",
-  partner_type: "type",
-  radius: "radius",
-  limit: "limit",
-};
-
 @Resolver(() => Partner)
 export class PartnerLocatorResolver {
   @Query(() => [Partner], { nullable: true })
