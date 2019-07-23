@@ -46,7 +46,7 @@ class DirectCashbackVoucherDetail {
 }
 
 export class DirectCashbackVoucherResolver {
-  @Query(() => [DirectCashbackVoucherDetail], { nullable: true })
+  @Query(() => DirectCashbackVoucherDetail, { nullable: true })
   public async directCashbackVoucherDetail(
     @Ctx() ctx: Context,
     @Arg("barcode") barcode: string,
