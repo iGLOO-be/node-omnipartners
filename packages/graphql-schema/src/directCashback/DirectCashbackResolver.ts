@@ -21,9 +21,9 @@ class DirectCashbackRedemptionRequestInputPayementDetail {
   @Field({ nullable: true })
   public iban: string;
   @Field({ nullable: true })
-  public sort_code: string;
+  public sortCode: string;
   @Field({ nullable: true })
-  public account_number: string;
+  public accountNumber: string;
 }
 
 @InputType()
@@ -75,12 +75,18 @@ export class DirectCashbackRedemptionRequestInput {
       benefit_id: this.benefitId,
       receipt_date: this.receiptDate,
       target_currency: this.targetCurrency,
-      payment_details: JSON.stringify(this.paymentDetails),
+      payment_details: JSON.stringify(
+        this.paymentDetails.iban
+          ? this.paymentDetails
+          : {
+              sort_code: this.paymentDetails.sortCode,
+              account_number: this.paymentDetails.accountNumber,
+            },
+      ),
       receipt_image_mime_type: this.receiptImageMimeType,
     };
   }
 }
-
 
 @ObjectType()
 export class DirectCashbackDealDetail {
@@ -126,7 +132,6 @@ export class DirectCashbackDealDetail {
 }
 
 export class DirectCashbackResolver {
-
   @Query(() => [DirectCashbackDealDetail], { nullable: true })
   public async directCashbackDealDetail(
     @Ctx() ctx: Context,
