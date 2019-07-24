@@ -2,7 +2,6 @@ import { IDirectCashbackVoucherListInput } from "omnipartners";
 import { Arg, Args, ArgsType, Ctx, Field, Query, Resolver } from "type-graphql";
 import { ConnectionArgs } from "../connections";
 import { Context } from "../types/Context";
-import { GenericValidationError } from "../types/GenericValidationError";
 import {
   DirectCashbackVoucherConnection,
   DirectCashbackVoucherListItem,
@@ -44,32 +43,28 @@ export class DirectCashbackVoucherListItemResolver {
     @Arg("token") token: string,
     @Args() input: DirectCashbackVoucherListInput,
     @Args() args: ConnectionArgs,
-  ): Promise<DirectCashbackVoucherConnection | GenericValidationError> {
+  ): Promise<DirectCashbackVoucherConnection> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
-    try {
-      const data = (await ctx.omnipartners.deals.getDirectCashbackVoucherList({
-        user_guid,
-        ...input,
-        p_page: `${args.page}`,
-        p_length: args.limit && `${args.limit}`,
-      })).data;
+    const data = (await ctx.omnipartners.deals.getDirectCashbackVoucherList({
+      user_guid,
+      ...input,
+      p_page: `${args.page}`,
+      p_length: args.limit && `${args.limit}`,
+    })).data;
 
-      const count = data.records.length;
-      const limit = data.p_length;
-      const page = data.p_page;
-      const hasNextPage = page !== Math.ceil(count / limit);
+    const count = data.records.length;
+    const limit = data.p_length;
+    const page = data.p_page;
+    const hasNextPage = page !== Math.ceil(count / limit);
 
-      return {
-        result: data.records.map(d => new DirectCashbackVoucherListItem(d)),
-        pageInfo: {
-          count,
-          hasNextPage,
-          limit,
-          page,
-        },
-      };
-    } catch (err) {
-      return new GenericValidationError(err);
-    }
+    return {
+      result: data.records.map(d => new DirectCashbackVoucherListItem(d)),
+      pageInfo: {
+        count,
+        hasNextPage,
+        limit,
+        page,
+      },
+    };
   }
 }

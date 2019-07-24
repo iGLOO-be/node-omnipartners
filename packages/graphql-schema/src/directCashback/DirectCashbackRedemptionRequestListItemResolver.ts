@@ -43,38 +43,32 @@ export class DirectCashbackRedemptionRequestListItemResolver {
     @Arg("token") token: string,
     @Args() input: DirectCashbackRedemptionRequestListInput,
     @Args() args: ConnectionArgs,
-  ): Promise<
-    DirectCashbackRedemptionRequestConnection | GenericValidationError
-  > {
+  ): Promise<DirectCashbackRedemptionRequestConnection> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
-    try {
-      const data = (await ctx.omnipartners.deals.getDirectCashbackRedemptionRequestList(
-        {
-          user_guid,
-          ...input,
-          p_page: `${args.page}`,
-          p_length: args.limit && `${args.limit}`,
-        },
-      )).data;
+    const data = (await ctx.omnipartners.deals.getDirectCashbackRedemptionRequestList(
+      {
+        user_guid,
+        ...input,
+        p_page: `${args.page}`,
+        p_length: args.limit && `${args.limit}`,
+      },
+    )).data;
 
-      const count = data.records.length;
-      const limit = data.p_length;
-      const page = data.p_page;
-      const hasNextPage = page !== Math.ceil(count / limit);
+    const count = data.records.length;
+    const limit = data.p_length;
+    const page = data.p_page;
+    const hasNextPage = page !== Math.ceil(count / limit);
 
-      return {
-        result: data.records.map(
-          d => new DirectCashbackRedemptionRequestListItem(d),
-        ),
-        pageInfo: {
-          count,
-          hasNextPage,
-          limit,
-          page,
-        },
-      };
-    } catch (err) {
-      return new GenericValidationError(err);
-    }
+    return {
+      result: data.records.map(
+        d => new DirectCashbackRedemptionRequestListItem(d),
+      ),
+      pageInfo: {
+        count,
+        hasNextPage,
+        limit,
+        page,
+      },
+    };
   }
 }
