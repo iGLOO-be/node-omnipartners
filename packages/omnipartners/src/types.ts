@@ -930,5 +930,9 @@ export interface IDirectCashbackRedemptionRequestInput {
   receipt_date: string;
   receipt_image_mime_type: string;
   target_currency: "EUR" | "GBP";
-  payment_details: string;
+  payment_details: {
+    iban?: string;
+    sort_code?: string;
+    account_number?: string;
+  };
 }

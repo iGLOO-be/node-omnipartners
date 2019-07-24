@@ -70,15 +70,15 @@ export interface IDirectCashbackVoucherList {
 export interface IDirectCashbackVoucherListItem {
   user_guid: string;
   barcode: string;
-  pet_guid: string;
-  child_guid: string;
+  pet_guid?: string;
+  child_guid?: string;
   status: string;
   ts_created: string;
-  benefit_id: string;
+  benefit_id?: string;
   deal_ref: string;
-  benefit_amount: string;
-  benefit_currency: string;
-  benefit_product_id: string;
+  benefit_amount?: string;
+  benefit_currency?: string;
+  benefit_product_id?: string;
   redemption_request_in_progress: 0 | 1;
 }
 
@@ -152,6 +152,7 @@ export default class Deals extends Api {
     3034: { message: "Invalid EAN code" },
     1019: { message: "Can't resolve partner." },
     3055: { message: "Subscription fail due to error in barcode generation." },
+    3027: { message: "Can't resolve user." },
     3028: { message: "Inactive deal" },
     3029: { message: "Deal already expired." },
     3045: { message: "Can't find a record for given data" },
@@ -198,6 +199,25 @@ export default class Deals extends Api {
     3112: { message: "Doesn't have any address associated with the user." },
     3113: { message: "Invalid delivery address ID." },
     5000: { message: "Internal Error." },
+
+    1023: { message: "Input barcode is not set." },
+    1025: { message: "Input barcode is not valid." },
+    1027: { message: "Maximum redemption request limit reached." },
+    1029: { message: "Benefit Id not set." },
+    1030: {
+      message: "Already redeemed voucher subscription or its in progress.",
+    },
+    1032: { message: "Benefit Id not found." },
+    1035: { message: "Receipt Storage location not configured." },
+    1036: { message: "Target currency not set." },
+    1037: { message: "Invalid Payment details sent. (eg: Invalid IBAN)" },
+    1038: { message: "Invalid currency code." },
+    1039: { message: "Invalid payment detail parameters sent." },
+    1040: { message: "Invalid customer details." },
+    1042: { message: "Voucher cannot redeem." },
+    3025: { message: "Subscription was expired, so cannot redeem it." },
+    3062: { message: "Missing required parameter." },
+    3094: { message: "Invalid receipt date." },
   };
 
   @doc("http://doc.omnipartners.be/index.php/Get_deals_details")
@@ -459,16 +479,30 @@ export default class Deals extends Api {
     "http://doc.omnipartners.be/index.php/Get_direct_cashback_voucher_details",
   )
   @filterInput(["barcode", "deal_data_options"])
-  public getDirectCashbackVoucherDetail(data: {
+  public getDirectCashbackVoucherDetail({
+    deal_data_options,
+    ...data
+  }: {
     barcode: string;
-    deal_data_options: IDirectCashbackDealDataOptions;
+    deal_data_options?: IDirectCashbackDealDataOptions;
   }): Promise<{
     data: IDirectCashbackVoucherDetail;
   }> {
-    return this._call("get-direct-cashback-voucher-details", data, {
-      retry: true,
-      hashKeys: undefined,
-    });
+    return this._call(
+      "get-direct-cashback-voucher-details",
+      {
+        ...data,
+        deal_data_options: deal_data_options
+          ? Array.isArray(deal_data_options)
+            ? deal_data_options.join(",")
+            : deal_data_options
+          : undefined,
+      },
+      {
+        retry: true,
+        hashKeys: undefined,
+      },
+    );
   }
 
   @doc(
@@ -505,7 +539,10 @@ export default class Deals extends Api {
   ) {
     return this._call("create-direct-cashback-redemption-request", data, {
       retry: true,
-      hashKeys: undefined,
+      hashKeys: (d) => [
+        "key",
+        ...Object.keys(d).filter(k => k !== "payment_details"),
+      ].sort(),
     });
   }
 

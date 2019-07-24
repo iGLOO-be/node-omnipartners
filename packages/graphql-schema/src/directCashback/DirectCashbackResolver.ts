@@ -75,14 +75,12 @@ export class DirectCashbackRedemptionRequestInput {
       benefit_id: this.benefitId,
       receipt_date: this.receiptDate,
       target_currency: this.targetCurrency,
-      payment_details: JSON.stringify(
-        this.paymentDetails.iban
-          ? this.paymentDetails
-          : {
-              sort_code: this.paymentDetails.sortCode,
-              account_number: this.paymentDetails.accountNumber,
-            },
-      ),
+      payment_details: this.paymentDetails.iban
+        ? this.paymentDetails
+        : {
+            sort_code: this.paymentDetails.sortCode,
+            account_number: this.paymentDetails.accountNumber,
+          },
       receipt_image_mime_type: this.receiptImageMimeType,
     };
   }
