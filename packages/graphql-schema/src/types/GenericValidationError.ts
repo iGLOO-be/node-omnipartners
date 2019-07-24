@@ -51,7 +51,7 @@ export class GenericValidationError extends GenericError {
       return [];
     }
     const errors = this.error.errors;
-    if (!errors) {
+    if (!errors || typeof errors === "string") {
       return [];
     }
     return Object.keys(errors).map(field => ({
