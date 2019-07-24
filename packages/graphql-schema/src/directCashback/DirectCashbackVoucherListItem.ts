@@ -10,17 +10,17 @@ export class DirectCashbackVoucherListItem {
   @Field()
   public barcode: string;
 
-  @Field()
+  @Field({ nullable: true })
   public pet_guid: string;
 
-  @Field()
+  @Field({ nullable: true })
   public child_guid: string;
 
   @Field()
   public status: string;
 
-  @Field()
-  public benefitId: string;
+  @Field({ nullable: true })
+  public benefitId?: string;
 
   @Field()
   public ref: string;
