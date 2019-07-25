@@ -361,7 +361,7 @@ export default class Products extends Api {
   public getProduct(data: {
     product_ean?: string;
     product_code?: string;
-  }): Promise<{ data: IProduct[] }> {
+  }): Promise<{ data: IProduct }> {
     return this._call("get-product", data, {
       errorMap: {
         1020: { message: "Product ean or code required." },

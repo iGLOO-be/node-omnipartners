@@ -55,7 +55,7 @@ export class DirectCashbackRedemptionRequestInput {
   public barcode: string;
 
   @Field()
-  public benefitId: string;
+  public benefitId?: string;
 
   @Field()
   public receiptDate: string;
@@ -68,6 +68,9 @@ export class DirectCashbackRedemptionRequestInput {
 
   @Field()
   public paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail;
+
+  @Field()
+  public eanBarcode?: string;
 
   public toOmnipartners(): IDirectCashbackRedemptionRequestInput {
     return {
@@ -162,9 +165,15 @@ export class DirectCashbackResolver {
   @Mutation(() => GenericValidationError, { nullable: true })
   public async directCashbackCreateRedemptionRequest(
     @Ctx() ctx: Context,
+    @Arg("token") token: string,
     @Arg("input") input: DirectCashbackRedemptionRequestInput,
   ): Promise<GenericValidationError | undefined> {
     try {
+      ctx.userTokenHelper.parse(token);
+
+      input.benefitId =
+        input.benefitId || (await this.findProductIdByEAN(ctx, input.eanBarcode));
+
       await ctx.omnipartners.deals.createDirectCashbackRedemptionRequest({
         ...input.toOmnipartners(),
       });
@@ -172,4 +181,25 @@ export class DirectCashbackResolver {
       return new GenericValidationError(err);
     }
   }
+
+  private findProductIdByEAN = async (
+    ctx: Context,
+    eanBarcode: string,
+  ) => {
+    if (eanBarcode) {
+      const {
+        data: { product_id },
+      } = await ctx.omnipartners.products.getProduct({
+        product_ean: eanBarcode,
+      });
+
+      return product_id;
+    } else {
+      throw new GenericValidationError(new Error("Missing field eanBarcode"), {
+        fieldsMapping: {
+          eanBarcode: "You must either set eanBarcode or benefitId",
+        },
+      });
+    }
+  };
 }
