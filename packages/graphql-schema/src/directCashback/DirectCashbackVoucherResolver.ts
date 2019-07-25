@@ -49,10 +49,13 @@ export class DirectCashbackVoucherResolver {
   @Query(() => DirectCashbackVoucherDetail, { nullable: true })
   public async directCashbackVoucherDetail(
     @Ctx() ctx: Context,
+    @Arg("token") token: string,
     @Arg("barcode") barcode: string,
     @Arg("deal_data_options", () => [String], { nullable: true })
-    deal_data_options: IDirectCashbackDealDataOptions,
-  ): Promise<DirectCashbackVoucherDetail | GenericValidationError> {
+    deal_data_options?: IDirectCashbackDealDataOptions,
+  ): Promise<DirectCashbackVoucherDetail> {
+    ctx.userTokenHelper.parse(token);
+
     const res = (await ctx.omnipartners.deals.getDirectCashbackVoucherDetail({
       barcode,
       deal_data_options,
