@@ -54,7 +54,7 @@ export class DirectCashbackRedemptionRequestInput {
   @Field()
   public barcode: string;
 
-  @Field()
+  @Field({ nullable: true })
   public benefitId?: string;
 
   @Field()
@@ -97,29 +97,35 @@ export class DirectCashbackDealDetail {
   @Field()
   public ref: string;
 
-  @Field()
-  public redeemDurationValue: number;
+  @Field({ nullable: true })
+  public redeemDurationValue?: number;
 
-  @Field()
-  public redeemDurationUnit: string;
+  @Field({ nullable: true })
+  public redeemDurationUnit?: string;
 
-  @Field()
-  public isRelativeRedeemDate: boolean;
+  @Field({ nullable: true })
+  public isRelativeRedeemDate?: boolean;
 
   @Field()
   public status: string;
 
-  @Field()
-  public publicName: string;
+  @Field({ nullable: true })
+  public publicName?: string;
 
-  @Field()
-  public availableFrom: string;
+  @Field({ nullable: true })
+  public availableFrom?: string;
 
-  @Field()
-  public availableTo: string;
+  @Field({ nullable: true })
+  public availableTo?: string;
 
-  @Field()
-  public slogan: string;
+  @Field({ nullable: true })
+  public slogan?: string;
+
+  @Field({ nullable: true })
+  public redeemValidityFrom?: string;
+
+  @Field({ nullable: true })
+  public redeemValidityTo?: string;
 
   constructor(data: IDirectCashbackDealDetail) {
     Object.assign(this, data);
@@ -129,6 +135,8 @@ export class DirectCashbackDealDetail {
     this.publicName = data.public_name;
     this.availableFrom = data.available_from;
     this.availableTo = data.available_from;
+    this.redeemValidityFrom = data.redeem_validity_from;
+    this.redeemValidityTo = data.redeem_validity_to;
   }
 }
 

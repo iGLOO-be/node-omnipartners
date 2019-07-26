@@ -1,12 +1,22 @@
 import {
   IDirectCashbackDealDataOptions,
-  IDirectCashbackDealDetail,
   IDirectCashbackVoucherDetail,
 } from "omnipartners";
 import { Arg, Ctx, Field, ObjectType, Query } from "type-graphql";
 import { Context } from "../types/Context";
-import { GenericValidationError } from "../types/GenericValidationError";
 import { DirectCashbackDealDetail } from "./DirectCashbackResolver";
+
+@ObjectType()
+class DirectCashbackVoucherDetailBenefit {
+  @Field({ nullable: true })
+  public productId: string;
+
+  @Field({ nullable: true })
+  public amount: string;
+
+  @Field({ nullable: true })
+  public currency: string;
+}
 
 @ObjectType()
 class DirectCashbackVoucherDetail {
@@ -22,7 +32,7 @@ class DirectCashbackVoucherDetail {
   @Field()
   public status: string;
 
-  @Field()
+  @Field({ nullable: true })
   public pet_guid: string;
 
   @Field()
@@ -34,14 +44,18 @@ class DirectCashbackVoucherDetail {
   @Field()
   public redeemValidityTo: string;
 
+  @Field({ nullable: true })
+  public benefit: DirectCashbackVoucherDetailBenefit;
+
   @Field(() => DirectCashbackDealDetail)
-  public deal: IDirectCashbackDealDetail;
+  public deal: DirectCashbackDealDetail;
 
   constructor(data: IDirectCashbackVoucherDetail) {
     Object.assign(this, data);
     this.activeRedemptionRequestStatus = data.active_redemption_request_status;
     this.redeemValidityFrom = data.redeem_validity_from;
     this.redeemValidityTo = data.redeem_validity_to;
+    this.deal = new DirectCashbackDealDetail(data.deal);
   }
 }
 

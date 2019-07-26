@@ -6,7 +6,7 @@ import { GenericError } from "./GenericResult";
 class ValidationError {
   @Field()
   public validator: string;
-  @Field()
+  @Field({ nullable: true })
   public message: string;
 }
 
