@@ -15,6 +15,7 @@ import {
 } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
+import { DirectCashbackRedemptionRequestResult } from "./DirectCashbackRedemptionRequestResult";
 
 @InputType()
 class DirectCashbackRedemptionRequestInputPayementDetail {
@@ -69,7 +70,7 @@ export class DirectCashbackRedemptionRequestInput {
   @Field()
   public paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail;
 
-  @Field()
+  @Field({ nullable: true })
   public eanBarcode?: string;
 
   public toOmnipartners(): IDirectCashbackRedemptionRequestInput {
@@ -170,44 +171,59 @@ export class DirectCashbackResolver {
     }
   }
 
-  @Mutation(() => GenericValidationError, { nullable: true })
+  @Mutation(() => DirectCashbackRedemptionRequestResult, { nullable: true })
   public async directCashbackCreateRedemptionRequest(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
     @Arg("input") input: DirectCashbackRedemptionRequestInput,
-  ): Promise<GenericValidationError | undefined> {
+  ): Promise<DirectCashbackRedemptionRequestResult> {
     try {
-      ctx.userTokenHelper.parse(token);
+      await ctx.userTokenHelper.parse(token);
 
       input.benefitId =
-        input.benefitId || (await this.findProductIdByEAN(ctx, input.eanBarcode));
+        input.benefitId ||
+        (await this.findBenefitIdByEAN(ctx, input.eanBarcode, input.barcode));
 
-      await ctx.omnipartners.deals.createDirectCashbackRedemptionRequest({
+      const {
+        data,
+      } = await ctx.omnipartners.deals.createDirectCashbackRedemptionRequest({
         ...input.toOmnipartners(),
       });
+
+      return new DirectCashbackRedemptionRequestResult({
+        result: {
+          url: data.presigned_url,
+        },
+      });
     } catch (err) {
-      return new GenericValidationError(err);
+      return new DirectCashbackRedemptionRequestResult({
+        error: new GenericValidationError(err),
+      });
     }
   }
 
-  private findProductIdByEAN = async (
+  private findBenefitIdByEAN = async (
     ctx: Context,
     eanBarcode: string,
+    subscriptionBarcode: string,
   ) => {
-    if (eanBarcode) {
-      const {
-        data: { product_id },
-      } = await ctx.omnipartners.products.getProduct({
-        product_ean: eanBarcode,
-      });
+    const {
+      data: { product_id },
+    } = await ctx.omnipartners.products.getProduct({
+      product_ean: eanBarcode,
+    });
 
-      return product_id;
-    } else {
-      throw new GenericValidationError(new Error("Missing field eanBarcode"), {
-        fieldsMapping: {
-          eanBarcode: "You must either set eanBarcode or benefitId",
-        },
-      });
-    }
+    const {
+      data: {
+        deal: { benefits },
+      },
+    } = await ctx.omnipartners.deals.getDirectCashbackVoucherDetail({
+      barcode: subscriptionBarcode,
+      deal_data_options: ["benefits"],
+    });
+
+    const benefit = benefits.find(b => b.product.id === product_id);
+
+    return benefit.id;
   };
 }

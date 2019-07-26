@@ -936,3 +936,9 @@ export interface IDirectCashbackRedemptionRequestInput {
     account_number?: string;
   };
 }
+
+export interface IDirectCashbackRedemptionRequestResultBenefit {
+  product_id?: string;
+  amount?: string;
+  currency?: string;
+}

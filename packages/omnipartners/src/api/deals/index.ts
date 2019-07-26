@@ -536,13 +536,15 @@ export default class Deals extends Api {
   ])
   public createDirectCashbackRedemptionRequest(
     data: IDirectCashbackRedemptionRequestInput,
-  ) {
+  ): Promise<{
+    data: {
+      presigned_url: string;
+    };
+  }> {
     return this._call("create-direct-cashback-redemption-request", data, {
       retry: true,
-      hashKeys: (d) => [
-        "key",
-        ...Object.keys(d).filter(k => k !== "payment_details"),
-      ].sort(),
+      hashKeys: d =>
+        ["key", ...Object.keys(d).filter(k => k !== "payment_details")].sort(),
     });
   }
 

@@ -1,5 +1,7 @@
 import {
   IDirectCashbackDealDataOptions,
+  IDirectCashbackDealDetail,
+  IDirectCashbackRedemptionRequestResultBenefit,
   IDirectCashbackVoucherDetail,
 } from "omnipartners";
 import { Arg, Ctx, Field, ObjectType, Query } from "type-graphql";
@@ -7,7 +9,10 @@ import { Context } from "../types/Context";
 import { DirectCashbackDealDetail } from "./DirectCashbackResolver";
 
 @ObjectType()
-class DirectCashbackVoucherDetailBenefit {
+class DirectCashbackRedemptionRequestResultBenefit {
+  @Field({ nullable: true })
+  public id: string;
+
   @Field({ nullable: true })
   public productId: string;
 
@@ -16,6 +21,30 @@ class DirectCashbackVoucherDetailBenefit {
 
   @Field({ nullable: true })
   public currency: string;
+
+  constructor(data: IDirectCashbackRedemptionRequestResultBenefit) {
+    Object.assign(this, data);
+    this.productId = data.product_id;
+  }
+}
+
+@ObjectType()
+class DirectCashbackVoucherDealDetail extends DirectCashbackDealDetail {
+  @Field(() => [DirectCashbackRedemptionRequestResultBenefit])
+  public benefits: DirectCashbackRedemptionRequestResultBenefit[];
+
+  constructor(data: IDirectCashbackDealDetail) {
+    super(data);
+    Object.assign(this, data);
+    this.benefits = data.benefits.map(
+      b =>
+        new DirectCashbackRedemptionRequestResultBenefit({
+          ...b,
+          amount: b.value,
+          product_id: b.product.id,
+        }),
+    );
+  }
 }
 
 @ObjectType()
@@ -44,18 +73,21 @@ class DirectCashbackVoucherDetail {
   @Field()
   public redeemValidityTo: string;
 
-  @Field({ nullable: true })
-  public benefit: DirectCashbackVoucherDetailBenefit;
+  @Field(() => DirectCashbackRedemptionRequestResultBenefit, { nullable: true })
+  public benefit: DirectCashbackRedemptionRequestResultBenefit;
 
-  @Field(() => DirectCashbackDealDetail)
-  public deal: DirectCashbackDealDetail;
+  @Field(() => DirectCashbackVoucherDealDetail)
+  public deal: DirectCashbackVoucherDealDetail;
 
   constructor(data: IDirectCashbackVoucherDetail) {
     Object.assign(this, data);
     this.activeRedemptionRequestStatus = data.active_redemption_request_status;
     this.redeemValidityFrom = data.redeem_validity_from;
     this.redeemValidityTo = data.redeem_validity_to;
-    this.deal = new DirectCashbackDealDetail(data.deal);
+    this.deal = new DirectCashbackVoucherDealDetail(data.deal);
+    this.benefit = new DirectCashbackRedemptionRequestResultBenefit(
+      data.benefit,
+    );
   }
 }
 
