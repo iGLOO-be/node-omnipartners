@@ -918,7 +918,7 @@ export interface IDirectCashbackVoucherDetail {
   ts_redeemed: string;
   active_redemption_request_status: string;
   ts_subscribed: string;
-  benefit: string;
+  benefit: IDirectCashbackVoucherBenefit;
   redeem_validity_from: string;
   redeem_validity_to: string;
   deal: IDirectCashbackDealDetail;
@@ -937,7 +937,7 @@ export interface IDirectCashbackRedemptionRequestInput {
   };
 }
 
-export interface IDirectCashbackRedemptionRequestResultBenefit {
+export interface IDirectCashbackVoucherBenefit {
   product_id?: string;
   amount?: string;
   currency?: string;

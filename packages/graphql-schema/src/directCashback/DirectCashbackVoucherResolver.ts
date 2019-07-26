@@ -1,7 +1,7 @@
 import {
   IDirectCashbackDealDataOptions,
   IDirectCashbackDealDetail,
-  IDirectCashbackRedemptionRequestResultBenefit,
+  IDirectCashbackVoucherBenefit,
   IDirectCashbackVoucherDetail,
 } from "omnipartners";
 import { Arg, Ctx, Field, ObjectType, Query } from "type-graphql";
@@ -9,7 +9,7 @@ import { Context } from "../types/Context";
 import { DirectCashbackDealDetail } from "./DirectCashbackResolver";
 
 @ObjectType()
-class DirectCashbackRedemptionRequestResultBenefit {
+class DirectCashbackVoucherBenefit {
   @Field({ nullable: true })
   public id: string;
 
@@ -22,7 +22,7 @@ class DirectCashbackRedemptionRequestResultBenefit {
   @Field({ nullable: true })
   public currency: string;
 
-  constructor(data: IDirectCashbackRedemptionRequestResultBenefit) {
+  constructor(data: IDirectCashbackVoucherBenefit) {
     Object.assign(this, data);
     this.productId = data.product_id;
   }
@@ -30,15 +30,15 @@ class DirectCashbackRedemptionRequestResultBenefit {
 
 @ObjectType()
 class DirectCashbackVoucherDealDetail extends DirectCashbackDealDetail {
-  @Field(() => [DirectCashbackRedemptionRequestResultBenefit])
-  public benefits: DirectCashbackRedemptionRequestResultBenefit[];
+  @Field(() => [DirectCashbackVoucherBenefit])
+  public benefits: DirectCashbackVoucherBenefit[];
 
   constructor(data: IDirectCashbackDealDetail) {
     super(data);
     Object.assign(this, data);
     this.benefits = data.benefits.map(
       b =>
-        new DirectCashbackRedemptionRequestResultBenefit({
+        new DirectCashbackVoucherBenefit({
           ...b,
           amount: b.value,
           product_id: b.product.id,
@@ -73,8 +73,8 @@ class DirectCashbackVoucherDetail {
   @Field()
   public redeemValidityTo: string;
 
-  @Field(() => DirectCashbackRedemptionRequestResultBenefit, { nullable: true })
-  public benefit: DirectCashbackRedemptionRequestResultBenefit;
+  @Field(() => DirectCashbackVoucherBenefit, { nullable: true })
+  public benefit: DirectCashbackVoucherBenefit;
 
   @Field(() => DirectCashbackVoucherDealDetail)
   public deal: DirectCashbackVoucherDealDetail;
@@ -85,7 +85,7 @@ class DirectCashbackVoucherDetail {
     this.redeemValidityFrom = data.redeem_validity_from;
     this.redeemValidityTo = data.redeem_validity_to;
     this.deal = new DirectCashbackVoucherDealDetail(data.deal);
-    this.benefit = new DirectCashbackRedemptionRequestResultBenefit(
+    this.benefit = new DirectCashbackVoucherBenefit(
       data.benefit,
     );
   }
