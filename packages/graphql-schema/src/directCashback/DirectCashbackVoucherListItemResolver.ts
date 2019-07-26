@@ -35,7 +35,7 @@ class DirectCashbackVoucherListInput {
   }
 }
 
-@Resolver(of => DirectCashbackVoucherListItem)
+@Resolver()
 export class DirectCashbackVoucherListItemResolver {
   @Query(() => DirectCashbackVoucherConnection, { nullable: true })
   public async directCashbackVoucherList(

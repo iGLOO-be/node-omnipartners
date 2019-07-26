@@ -4,7 +4,7 @@ import {
   IDirectCashbackVoucherBenefit,
   IDirectCashbackVoucherDetail,
 } from "omnipartners";
-import { Arg, Ctx, Field, ObjectType, Query } from "type-graphql";
+import { Arg, Ctx, Field, ObjectType, Query, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 import { DirectCashbackDealDetail } from "./DirectCashbackResolver";
 
@@ -91,6 +91,7 @@ class DirectCashbackVoucherDetail {
   }
 }
 
+@Resolver()
 export class DirectCashbackVoucherResolver {
   @Query(() => DirectCashbackVoucherDetail, { nullable: true })
   public async directCashbackVoucherDetail(
