@@ -64,7 +64,7 @@ class DirectCashbackVoucherDetail {
   @Field({ nullable: true })
   public pet_guid: string;
 
-  @Field()
+  @Field({ nullable: true })
   public activeRedemptionRequestStatus: string;
 
   @Field()
@@ -85,9 +85,8 @@ class DirectCashbackVoucherDetail {
     this.redeemValidityFrom = data.redeem_validity_from;
     this.redeemValidityTo = data.redeem_validity_to;
     this.deal = new DirectCashbackVoucherDealDetail(data.deal);
-    this.benefit = new DirectCashbackVoucherBenefit(
-      data.benefit,
-    );
+    this.benefit =
+      data.benefit && new DirectCashbackVoucherBenefit(data.benefit);
   }
 }
 
