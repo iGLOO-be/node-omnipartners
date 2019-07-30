@@ -47,8 +47,8 @@ export class GenericError {
     }
 
     this.error = error;
-    this.message = error.message;
-    this.code = error.code || "UNKNOWN_ERROR";
+    this.message = error ? error.message : "Unknown error";
+    this.code = error ? error.code : "UNKNOWN_ERROR";
   }
 }
 

@@ -78,6 +78,7 @@ class DealProduct implements Omit<IDealProduct, "collection"> {
   }
 }
 
+
 export class DealResolver {
   @Query(() => [DealProduct], { nullable: true })
   public async dealProducts(

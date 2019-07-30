@@ -863,3 +863,82 @@ export interface IDeal {
   }>;
   type_details: { discount_type: string; amounts: [] };
 }
+
+export interface IUserEligibleDirectCashbackDeal {
+  id: string;
+  ref: string;
+  name: string;
+  available_from: string;
+  available_to: string;
+}
+
+export interface IDirectCashbackDealDetail {
+  id: string;
+  ref: string;
+  name: string;
+  redeem_duration_value: number;
+  redeem_duration_unit: string;
+  is_relative_redeem_dates: boolean;
+  status: string;
+  pet_required: string;
+  pet_type_included: string;
+  pet_universe_included: string;
+  pet_type_excluded: number[];
+  pet_universe_excluded: number[];
+  pet_breeds_included: number[];
+  pet_breeds_excluded: number[];
+  available_from: string;
+  available_to: string;
+  redeem_validity_from: string;
+  redeem_validity_to: string;
+  confirmation_text: string;
+  redemption_confirmation_text: string;
+  slogan: string;
+  public_name: string;
+  langs: string[];
+  benefits: Array<{
+    id: string;
+    product: {
+      ean: string;
+      id: string;
+      label: string;
+      friendly_name: string;
+    };
+    value: string;
+    currency: string;
+  }>;
+}
+
+export interface IDirectCashbackVoucherDetail {
+  id: string;
+  user_guid: string;
+  barcode: string;
+  status: string;
+  pet_guid: string;
+  ts_redeemed: string;
+  active_redemption_request_status: string;
+  ts_subscribed: string;
+  benefit: IDirectCashbackVoucherBenefit;
+  redeem_validity_from: string;
+  redeem_validity_to: string;
+  deal: IDirectCashbackDealDetail;
+}
+
+export interface IDirectCashbackRedemptionRequestInput {
+  barcode: string;
+  benefit_id: string;
+  receipt_date: string;
+  receipt_image_mime_type: string;
+  target_currency: "EUR" | "GBP";
+  payment_details: {
+    iban?: string;
+    sort_code?: string;
+    account_number?: string;
+  };
+}
+
+export interface IDirectCashbackVoucherBenefit {
+  product_id?: string;
+  amount?: string;
+  currency?: string;
+}

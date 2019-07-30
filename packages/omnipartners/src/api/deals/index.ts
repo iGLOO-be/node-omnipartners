@@ -1,6 +1,12 @@
 import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IDeal } from "../../types";
+import {
+  IDeal,
+  IDirectCashbackDealDetail,
+  IDirectCashbackRedemptionRequestInput,
+  IDirectCashbackVoucherDetail,
+  IUserEligibleDirectCashbackDeal,
+} from "../../types";
 
 export interface ISubscribeToDealInput {
   user_guid: string;
@@ -13,6 +19,13 @@ export interface ISubscribeToDealInput {
   bic?: string;
   referral_code?: string;
   delivery_address_id?: string;
+}
+
+export interface ISubscribeToDirectCashbackDealInput {
+  user_guid: string;
+  deal_ref: string;
+  pet_guid?: string;
+  child_guid?: string;
 }
 
 export interface IDealProductCollection {
@@ -35,6 +48,79 @@ export interface IDealEligiblePet {
   pet_guid: string;
   pet_name: string;
 }
+
+export interface IDirectCashbackVoucherListInput {
+  user_guid: string;
+  pet_guid?: string;
+  child_guid?: string;
+  from?: string;
+  to?: string;
+  deal_ref?: string;
+  p_length?: string;
+  p_page?: string;
+}
+
+export interface IDirectCashbackVoucherList {
+  records: IDirectCashbackVoucherListItem[];
+  p_total: number;
+  p_length: number;
+  p_page: number;
+}
+
+export interface IDirectCashbackVoucherListItem {
+  user_guid: string;
+  barcode: string;
+  pet_guid?: string;
+  child_guid?: string;
+  status: string;
+  ts_created: string;
+  benefit_id?: string;
+  deal_ref: string;
+  benefit_amount?: string;
+  benefit_currency?: string;
+  benefit_product_id?: string;
+  redemption_request_in_progress: 0 | 1;
+}
+
+export interface IDirectCashbackRedemptionRequestListInput {
+  user_guid: string;
+  status?: string;
+  barcode?: string;
+  sort_field?: string;
+  sort_order?: string;
+  p_length?: string;
+  p_page?: string;
+}
+
+export interface IDirectCashbackRedemptionRequestList {
+  records: IDirectCashbackRedemptionRequestListItem[];
+  p_total: number;
+  p_length: number;
+  p_page: number;
+}
+
+export interface IDirectCashbackRedemptionRequestListItem {
+  user_guid: string;
+  image_url: string;
+  benefit_id: string;
+  barcode: string;
+  status: string;
+  iban: string;
+  bic: string;
+  created_on: string;
+  updated_on: string;
+  deal: {
+    ref: string;
+  };
+}
+
+export type IDirectCashbackDealDataOptions =
+  | IDirectCashbackDealDataOption
+  | IDirectCashbackDealDataOption[];
+type IDirectCashbackDealDataOption =
+  | "basic_details"
+  | "benefits"
+  | "benefit_product_detail";
 
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
@@ -66,6 +152,7 @@ export default class Deals extends Api {
     3034: { message: "Invalid EAN code" },
     1019: { message: "Can't resolve partner." },
     3055: { message: "Subscription fail due to error in barcode generation." },
+    3027: { message: "Can't resolve user." },
     3028: { message: "Inactive deal" },
     3029: { message: "Deal already expired." },
     3045: { message: "Can't find a record for given data" },
@@ -112,6 +199,25 @@ export default class Deals extends Api {
     3112: { message: "Doesn't have any address associated with the user." },
     3113: { message: "Invalid delivery address ID." },
     5000: { message: "Internal Error." },
+
+    1023: { message: "Input barcode is not set." },
+    1025: { message: "Input barcode is not valid." },
+    1027: { message: "Maximum redemption request limit reached." },
+    1029: { message: "Benefit Id not set." },
+    1030: {
+      message: "Already redeemed voucher subscription or its in progress.",
+    },
+    1032: { message: "Benefit Id not found." },
+    1035: { message: "Receipt Storage location not configured." },
+    1036: { message: "Target currency not set." },
+    1037: { message: "Invalid Payment details sent. (eg: Invalid IBAN)" },
+    1038: { message: "Invalid currency code." },
+    1039: { message: "Invalid payment detail parameters sent." },
+    1040: { message: "Invalid customer details." },
+    1042: { message: "Voucher cannot redeem." },
+    3025: { message: "Subscription was expired, so cannot redeem it." },
+    3062: { message: "Missing required parameter." },
+    3094: { message: "Invalid receipt date." },
   };
 
   @doc("http://doc.omnipartners.be/index.php/Get_deals_details")
@@ -315,6 +421,158 @@ export default class Deals extends Api {
       hashKeys: ["deal_ref"],
       retry: true,
     });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Get_List_of_eligible_Direct_Cashback_Deals",
+  )
+  @filterInput(["user_guid"])
+  public listEligibleDirectCashbackDeals(data: {
+    user_guid: string;
+    pet_guid?: string;
+    child_guid?: string;
+  }): Promise<{
+    data: IUserEligibleDirectCashbackDeal[];
+  }> {
+    return this._call("list-direct-cashback-eligible-deals", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_direct_cashback_deal_details")
+  @filterInput(["ref"])
+  public getDirectCashbackDealDetail(data: {
+    ref: string;
+  }): Promise<{
+    data: IDirectCashbackDealDetail;
+  }> {
+    return this._call("get-direct-cashback-deal-details", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_direct_cashback_voucher_list")
+  @filterInput([
+    "user_guid", // (Required) Subscribed user's GUID
+    "pet_guid", // (optional) Pet GUID of the subscription
+    "child_guid", // (Optional) A Child guid of the user.
+    "from", // (optional) Date time value to filter on creation date/subscription date
+    "to", // (optional) Date time value to filter on creation date/subscription date
+    "deal_ref", // (optional) Deal reference. Filter on the specified deal.
+    "p_length", // (Required) Item per page
+    "p_page", // (Required) current page. start at 0
+  ])
+  public getDirectCashbackVoucherList(
+    data: IDirectCashbackVoucherListInput,
+  ): Promise<{
+    data: IDirectCashbackVoucherList;
+  }> {
+    return this._call("get-direct-cashback-voucher-list", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Get_direct_cashback_voucher_details",
+  )
+  @filterInput(["barcode", "deal_data_options"])
+  public getDirectCashbackVoucherDetail({
+    deal_data_options,
+    ...data
+  }: {
+    barcode: string;
+    deal_data_options?: IDirectCashbackDealDataOptions;
+  }): Promise<{
+    data: IDirectCashbackVoucherDetail;
+  }> {
+    return this._call(
+      "get-direct-cashback-voucher-details",
+      {
+        ...data,
+        deal_data_options: deal_data_options
+          ? Array.isArray(deal_data_options)
+            ? deal_data_options.join(",")
+            : deal_data_options
+          : undefined,
+      },
+      {
+        retry: true,
+        hashKeys: undefined,
+      },
+    );
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Subscribe_to_a_Direct_Cashback_Deal",
+  )
+  @filterInput([
+    "user_guid", // GUID of an active user
+    "deal_ref", // Deal reference code
+    "pet_guid", // A Pet guid of the user. If pet is not required for the deal, no pet is assigned for the subscription.
+    "child_guid", // A Child guid of the user. This is required if the deal restricted for child limitations. Otherwise it can be empty.
+  ])
+  public subscribeToDirectCashbackDeal(
+    data: ISubscribeToDirectCashbackDealInput,
+  ) {
+    return this._call("direct-cashback-subscribe", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Create_direct_cashback_redemption_request",
+  )
+  @filterInput([
+    "barcode", // (Required) Subscription barcode without any formattings
+    "benefit_id", // (Required) The befit id of the deal
+    "receipt_date", // (Required) Date of the receipt
+    "receipt_image_mime_type", // (Required) Mime type of the receipt image.
+    "target_currency", // (Required) Target currency code Eg: EUR / GBP
+    "payment_details", // (Required) Details of the payment, It should be a json object.
+  ])
+  public createDirectCashbackRedemptionRequest(
+    data: IDirectCashbackRedemptionRequestInput,
+  ): Promise<{
+    data: {
+      presigned_url: string;
+    };
+  }> {
+    return this._call("create-direct-cashback-redemption-request", data, {
+      retry: true,
+      hashKeys: d =>
+        ["key", ...Object.keys(d).filter(k => k !== "payment_details")].sort(),
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Get_user_direct_cashback_redemption_request_list",
+  )
+  @filterInput([
+    "user_guid", // (Required) Subscribed or invited user's GUID
+    "status", // (optional) The status of the cashback reciept. allowed values PENDING, PENDING_FILE, PENDING_PROCESSING, PROCESSING, REJECTED, PAYMENT_PENDING, PAYMENT_PROCESSING, PAYMENT_SENT, PAYMENT_REJECTED
+    "barcode", // (optional) The barcode of the direct cashback subscription.
+    "sort_field", // (optional) Field name to be apply the sorting. Allowed fields updated_on,receipt_date
+    "sort_order", // (optional) Sort order. possible values are DESC,ASC
+    "p_length", // (optional) Item per page
+    "p_page", // (optional) Current page. start at 0
+  ])
+  public getDirectCashbackRedemptionRequestList(
+    data: IDirectCashbackRedemptionRequestListInput,
+  ): Promise<{
+    data: IDirectCashbackRedemptionRequestList;
+  }> {
+    return this._call(
+      "get-user-direct-cashback-redemption-request-list",
+      data,
+      {
+        retry: true,
+        hashKeys: undefined,
+      },
+    );
   }
 
   private _call(

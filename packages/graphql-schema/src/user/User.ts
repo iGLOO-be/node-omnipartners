@@ -173,7 +173,7 @@ export class User {
     if (res.data) {
       return res.data.map(d => new UserPlaceOfPurchase(d));
     } else {
-      return []
+      return [];
     }
   }
 }
