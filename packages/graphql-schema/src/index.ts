@@ -31,3 +31,4 @@ export { PartnerLocatorResolver } from "./partner/PartnerLocatorResolver";
 
 export * from "./schema";
 export * from "./utils";
+export * from "./connections";

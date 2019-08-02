@@ -102,6 +102,7 @@ const fieldsMapping = {
   user_password: "password",
   user_language: "language",
   user_postal_code: "postalCode",
+  address_postal_code: "postalCode", // Yes, seems strange but Clixray may results errors for this field.
   user_country: "country",
 };
 
