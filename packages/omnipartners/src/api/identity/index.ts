@@ -16,6 +16,7 @@ import {
   IUserLegalFormsItems,
   IUserOwner,
   IUserPartial,
+  IUserPartnerRelation,
   IUserPet,
   IUserPetCreateInput,
   IUserPetUpdateInput,
@@ -693,7 +694,12 @@ export default class Identity extends Api {
     data_options?: IPartnerDataOptions;
     page?: string | number;
     records_per_page?: string | number;
-  }) {
+  }): Promise<{
+    data: {
+      clientof: IUserPartnerRelation[],
+      partof: IUserPartnerRelation[]
+    }
+  }> {
     return this.post("/service/user/get-partners/", data, {
       errorMap: {
         2: {
@@ -725,6 +731,41 @@ export default class Identity extends Api {
     data: IPartnerAccountRelationCreateInput,
   ) {
     return this.post("/service/partners/add/", data, {
+      errorMap: {
+        2: {
+          message:
+            "Invalid request in which required header or parameters are either missing or invalid.",
+        },
+        3: { message: "User not found in the system." },
+        6: { message: "Not authorised to use this function or its disabled." },
+        8: { message: "Internal error." },
+        16: { message: "Invalid hash." },
+        19: { message: "Partner not found." },
+      },
+      hashKeys: [
+        "user_guid",
+        "partner_ext_id",
+        "partner_relationship",
+        "partner_status",
+      ],
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Update_partner_-_account_relation_status",
+  )
+  @filterInput([
+    "user_guid", // (Required) The GUID of the user.
+    "partner_ext_id", // (Required) The external id of the partner.
+    "partner_relationship", // (Required) The relationship between the partner and the account. Valid values are “clientof” and “partof”.
+    "partner_roles", // (Optional) The roles assigned to this relationship. If empty the default roles configured for this instance of CIS will be automatically assigned.
+    "partner_status", // (Required) The status of the relationship between the partner and user. Valid status values are submitted, accepted, pending and refused.
+    "notify", // Flag used to determine if the preset notification email has to be sent to the user. If the value is "1" then the email is sent.
+  ])
+  public updatePartnerAccountRelation(
+    data: IPartnerAccountRelationCreateInput,
+  ) {
+    return this.post("/service/partners/update/", data, {
       errorMap: {
         2: {
           message:
