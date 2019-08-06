@@ -16,6 +16,7 @@ import {
   IUserLegalFormsItems,
   IUserOwner,
   IUserPartial,
+  IUserPartnerRelation,
   IUserPet,
   IUserPetCreateInput,
   IUserPetUpdateInput,
@@ -693,7 +694,12 @@ export default class Identity extends Api {
     data_options?: IPartnerDataOptions;
     page?: string | number;
     records_per_page?: string | number;
-  }) {
+  }): Promise<{
+    data: {
+      clientof: IUserPartnerRelation[],
+      partof: IUserPartnerRelation[]
+    }
+  }> {
     return this.post("/service/user/get-partners/", data, {
       errorMap: {
         2: {
