@@ -135,7 +135,7 @@ export class DirectCashbackDealDetail {
     this.isRelativeRedeemDate = data.is_relative_redeem_dates;
     this.publicName = data.public_name;
     this.availableFrom = data.available_from;
-    this.availableTo = data.available_from;
+    this.availableTo = data.available_to;
     this.redeemValidityFrom = data.redeem_validity_from;
     this.redeemValidityTo = data.redeem_validity_to;
   }

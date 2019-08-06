@@ -70,7 +70,7 @@ class DirectCashbackVoucherDetail {
   @Field()
   public redeemValidityFrom: string;
 
-  @Field()
+  @Field({ nullable: true })
   public redeemValidityTo: string;
 
   @Field(() => DirectCashbackVoucherBenefit, { nullable: true })

@@ -2,7 +2,6 @@ import { IDirectCashbackRedemptionRequestListItem } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
 import { PageInfo } from "../connections";
 
-
 @ObjectType()
 export class DirectCashbackRedemptionRequestListItem {
   @Field()
@@ -23,7 +22,7 @@ export class DirectCashbackRedemptionRequestListItem {
   @Field()
   public iban: string;
 
-  @Field()
+  @Field({ nullable: true })
   public bic: string;
 
   @Field()
