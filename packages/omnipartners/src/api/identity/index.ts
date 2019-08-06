@@ -28,6 +28,11 @@ import {
   IUsetPetWithOwner,
 } from "../../types";
 
+export interface IUserGetPartnerAccountRelationsResult {
+  clientof: IUserPartnerRelationFromGet[];
+  partof: IUserPartnerRelationFromGet[];
+}
+
 export default class Identity extends Api {
   @doc("http://doc.omnipartners.be/index.php/Delete_User_Accounts")
   @filterInput(["owner_guid"])
@@ -698,10 +703,7 @@ export default class Identity extends Api {
     page?: string | number;
     records_per_page?: string | number;
   }): Promise<{
-    data: {
-      clientof: IUserPartnerRelationFromGet[];
-      partof: IUserPartnerRelationFromGet[];
-    };
+    data: IUserGetPartnerAccountRelationsResult;
   }> {
     return this.post("/service/user/get-partners/", data, {
       errorMap: {

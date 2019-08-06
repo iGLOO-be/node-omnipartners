@@ -1,5 +1,6 @@
-import { IUser, IUserPartnerRelation } from "omnipartners";
-import { Ctx, Field, ObjectType, Resolver } from "type-graphql";
+import { IUserPartnerRelationFromGet } from "omnipartners";
+import { IUserGetPartnerAccountRelationsResult } from "omnipartners/lib/api/identity";
+import { Ctx, Field, ObjectType } from "type-graphql";
 import { Partner } from "../partner/Partner";
 import { Context } from "../types/Context";
 
@@ -14,7 +15,7 @@ class UserPartnerRelation {
   @Field(() => [String])
   public roles: string[];
 
-  constructor(data: IUserPartnerRelation) {
+  constructor(data: IUserPartnerRelationFromGet) {
     Object.assign(this, data);
     this.extId = data.ptn_ext_customer_id;
     this.type = data.ptn_type;
@@ -37,7 +38,7 @@ export class UserPartnerRelations {
   @Field(() => [UserPartnerRelation])
   public clientof: UserPartnerRelation[];
 
-  constructor(data: IUser["partners"]) {
+  constructor(data: IUserGetPartnerAccountRelationsResult) {
     this.partof = data.partof.map(
       relation => new UserPartnerRelation(relation),
     );
