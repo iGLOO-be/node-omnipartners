@@ -36,7 +36,7 @@ const createServer = async () => {
   const server = new ApolloServer({
     schema: await buildFullSchema(),
     context,
-    formatError
+    formatError,
   });
   return server;
 };

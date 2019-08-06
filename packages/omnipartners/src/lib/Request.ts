@@ -118,7 +118,7 @@ export default class Request extends EventEmitter {
     }
 
     this.meta.finish = new Date();
-    this.meta.time = this.meta.finish.getTime() - this.meta.start.getTime()
+    this.meta.time = this.meta.finish.getTime() - this.meta.start.getTime();
     this.response = new Response(this, fetchRes);
     this.response.checkRequestStatus();
 

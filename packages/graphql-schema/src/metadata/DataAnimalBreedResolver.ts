@@ -5,8 +5,7 @@ import yn from "yn";
 import { Context } from "../types/Context";
 
 @ObjectType()
-export class AnimalBreed
-  implements Pick<IMetadataAnimalBreed, "id" | "name"> {
+export class AnimalBreed implements Pick<IMetadataAnimalBreed, "id" | "name"> {
   @Field()
   public id: string;
 

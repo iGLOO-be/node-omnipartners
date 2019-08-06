@@ -1,6 +1,10 @@
 import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { IPartnerDetails, IPartnerListItem, IPartnerLocatorInput } from "../../types";
+import {
+  IPartnerDetails,
+  IPartnerListItem,
+  IPartnerLocatorInput,
+} from "../../types";
 
 export default class Partners extends Api {
   public defaultHost = "https://partners.clixray.io/";

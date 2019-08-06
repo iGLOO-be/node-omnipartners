@@ -24,9 +24,9 @@ class UserPartnerRelation {
   @Field(() => Partner, { nullable: false })
   public async partner(@Ctx() ctx: Context): Promise<Partner> {
     const res = await ctx.omnipartners.partners.partnerDetails({
-      partner_ext_id: this.extId
+      partner_ext_id: this.extId,
     });
-    return new Partner(res.data[0])
+    return new Partner(res.data[0]);
   }
 }
 
@@ -38,7 +38,11 @@ export class UserPartnerRelations {
   public clientof: UserPartnerRelation[];
 
   constructor(data: IUser["partners"]) {
-    this.partof = data.partof.map(relation => new UserPartnerRelation(relation));
-    this.clientof = data.clientof.map(relation => new UserPartnerRelation(relation));
+    this.partof = data.partof.map(
+      relation => new UserPartnerRelation(relation),
+    );
+    this.clientof = data.clientof.map(
+      relation => new UserPartnerRelation(relation),
+    );
   }
 }

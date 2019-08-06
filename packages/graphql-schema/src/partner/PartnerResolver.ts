@@ -1,8 +1,4 @@
-import {
-  Arg,
-  Ctx,
-  Query,
-} from "type-graphql";
+import { Arg, Ctx, Query } from "type-graphql";
 import { Context } from "../types/Context";
 import { Partner } from "./Partner";
 

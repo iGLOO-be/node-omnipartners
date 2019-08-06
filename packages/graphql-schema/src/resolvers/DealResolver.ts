@@ -1,7 +1,4 @@
-import {
-  IDealProduct,
-  ISubscribeToDealInput,
-} from "omnipartners";
+import { IDealProduct, ISubscribeToDealInput } from "omnipartners";
 import { Omit } from "type-fest";
 import {
   Arg,
@@ -77,7 +74,6 @@ class DealProduct implements Omit<IDealProduct, "collection"> {
     })).data;
   }
 }
-
 
 export class DealResolver {
   @Query(() => [DealProduct], { nullable: true })

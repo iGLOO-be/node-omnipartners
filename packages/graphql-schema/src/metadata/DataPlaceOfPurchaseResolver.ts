@@ -5,7 +5,7 @@ import { Context } from "../types/Context";
 
 @ObjectType()
 export class PlaceOfPurchase
-  implements Pick<IMetadataPlaceOfPurchase, "name" | "code" > {
+  implements Pick<IMetadataPlaceOfPurchase, "name" | "code"> {
   @Field()
   public name: string;
   @Field()

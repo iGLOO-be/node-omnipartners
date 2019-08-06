@@ -35,7 +35,7 @@ export class UserPet
     Object.assign(this, data);
     this.dob = data.pet_dob;
     this.type = data.petType;
-    this.hasPicture = data.has_picture === "1" ? true : false ;
+    this.hasPicture = data.has_picture === "1" ? true : false;
   }
 
   @Field()

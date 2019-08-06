@@ -121,7 +121,7 @@ const fieldsMapping = {
   user_country: "country",
   user_origin_details: "originDetails",
   user_postal_code: "postalCode",
-}
+};
 
 @Resolver(() => User)
 export class UserCreateResolver {

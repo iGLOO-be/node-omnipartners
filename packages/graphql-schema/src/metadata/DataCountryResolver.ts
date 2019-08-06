@@ -4,7 +4,8 @@ import { Arg, Ctx, Field, ObjectType, Query, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 
 @ObjectType()
-export class Country implements Pick<IMetadataMemberCountry, "name" | "code" | "order"> {
+export class Country
+  implements Pick<IMetadataMemberCountry, "name" | "code" | "order"> {
   @Field()
   public name: string;
   @Field()
