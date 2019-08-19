@@ -92,6 +92,28 @@ export interface IDirectCashbackRedemptionRequestListInput {
   p_page?: string;
 }
 
+export interface IDirectCashbackRedemptionRequestDetailInput {
+  receipt_id?: string;
+}
+
+export interface IDirectCashbackRedemptionRequestDetail {
+  id: string;
+  image_url: string;
+  barcode: string;
+  payment_type: string;
+  status: string;
+  benefit: IDirectCashbackRedemptionRequestDetailBenefit;
+  iban: string;
+  bic: string;
+  created_on: string;
+  updated_on: string;
+}
+
+export interface IDirectCashbackRedemptionRequestDetailBenefit {
+  amount: string;
+  currency: string;
+}
+
 export interface IDirectCashbackRedemptionRequestList {
   records: IDirectCashbackRedemptionRequestListItem[];
   p_total: number;
@@ -567,6 +589,27 @@ export default class Deals extends Api {
   }> {
     return this._call(
       "get-user-direct-cashback-redemption-request-list",
+      data,
+      {
+        retry: true,
+        hashKeys: undefined,
+      },
+    );
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Get_user_direct_cashback_redemption_request",
+  )
+  @filterInput([
+    "receipt_id", // (optional) Id of the purchase receipt. (see http://doc.omnipartners.be/index.php/Get_user_direct_cashback_purchase_receipt_list).
+  ])
+  public getDirectCashbackRedemptionRequestDetail(
+    data: IDirectCashbackRedemptionRequestDetailInput,
+  ): Promise<{
+    data: IDirectCashbackRedemptionRequestDetail;
+  }> {
+    return this._call(
+      "get-user-direct-cashback-redemption-request",
       data,
       {
         retry: true,
