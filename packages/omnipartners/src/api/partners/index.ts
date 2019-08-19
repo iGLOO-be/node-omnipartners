@@ -23,6 +23,7 @@ export default class Partners extends Api {
     },
     1008: { message: "Missing required fields" },
     1025: { message: "Internal Error" },
+    1032: { message: "Partner_ext_id not found." },
     1036: { message: "Service input data is Invalid." },
     1040: { message: "Terminal id not found." },
   };
