@@ -5,6 +5,9 @@ import { PageInfo } from "../connections";
 @ObjectType()
 export class DirectCashbackRedemptionRequestListItem {
   @Field()
+  public id: string;
+
+  @Field()
   public user_guid: string;
 
   @Field()
