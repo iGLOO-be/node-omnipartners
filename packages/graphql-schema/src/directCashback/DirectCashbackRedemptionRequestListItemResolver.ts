@@ -2,7 +2,6 @@ import { IDirectCashbackRedemptionRequestListInput } from "omnipartners";
 import { Arg, Args, ArgsType, Ctx, Field, Query, Resolver } from "type-graphql";
 import { ConnectionArgs } from "../connections";
 import { Context } from "../types/Context";
-import { GenericValidationError } from "../types/GenericValidationError";
 import {
   DirectCashbackRedemptionRequestConnection,
   DirectCashbackRedemptionRequestListItem,
