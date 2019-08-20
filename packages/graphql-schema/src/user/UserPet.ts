@@ -30,18 +30,21 @@ export class UserPet
   public breedDetails: UserBreedDetail;
   @Field()
   public hasPicture: boolean;
+  @Field()
+  public lastUpdated: Date;
 
   constructor(data: IUserPet) {
     Object.assign(this, data);
     this.dob = data.pet_dob;
     this.type = data.petType;
     this.hasPicture = data.has_picture === "1" ? true : false;
+    this.lastUpdated = new Date(data.lastUpdated)
   }
 
   @Field()
   public pictureUrl(@Ctx() ctx: Context): string {
     return ctx.omnipartners.identity.getPetPictureUrl({
       pet_guid: this.guid,
-    });
+    }) + `&_cachebuster_=${this.lastUpdated.getTime()}`;
   }
 }

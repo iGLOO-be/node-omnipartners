@@ -59,7 +59,12 @@ const mapClixrayFields = (
       : userPetInput.neutered
       ? "Y"
       : "N",
-  pet_picture: userPetInput.pictureUrl,
+  pet_picture: {
+    value: Buffer.from(userPetInput.pictureUrl, "base64"),
+    options: {
+      filename: "foo",
+    },
+  },
 });
 
 const fieldsMapping = {
