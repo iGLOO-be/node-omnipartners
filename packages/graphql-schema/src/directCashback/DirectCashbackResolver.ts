@@ -15,7 +15,7 @@ import {
 } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { DirectCashbackRedemptionRequestResult } from "./DirectCashbackRedemptionRequestResult";
+import { DirectCashbackRedemptionRequestCreateResult } from "./DirectCashbackRedemptionRequestResult";
 
 @InputType()
 class DirectCashbackRedemptionRequestInputPayementDetail {
@@ -192,12 +192,12 @@ export class DirectCashbackResolver {
     }
   }
 
-  @Mutation(() => DirectCashbackRedemptionRequestResult, { nullable: true })
+  @Mutation(() => DirectCashbackRedemptionRequestCreateResult, { nullable: true })
   public async directCashbackCreateRedemptionRequest(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
     @Arg("input") input: DirectCashbackRedemptionRequestInput,
-  ): Promise<DirectCashbackRedemptionRequestResult> {
+  ): Promise<DirectCashbackRedemptionRequestCreateResult> {
     try {
       await ctx.userTokenHelper.parse(token);
 
@@ -211,13 +211,13 @@ export class DirectCashbackResolver {
         ...input.toOmnipartners(),
       });
 
-      return new DirectCashbackRedemptionRequestResult({
+      return new DirectCashbackRedemptionRequestCreateResult({
         result: {
           url: data.presigned_url,
         },
       });
     } catch (err) {
-      return new DirectCashbackRedemptionRequestResult({
+      return new DirectCashbackRedemptionRequestCreateResult({
         error: new GenericValidationError(err),
       });
     }

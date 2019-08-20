@@ -4,12 +4,14 @@ import { GenericValidationError } from "../types/GenericValidationError";
 
 @ObjectType()
 class DirectCashbackRedemptionRequestURL {
-  @Field()
+  @Field({
+    description: "URL to upload the ticket image"
+  })
   public url: string;
 }
 
 @ObjectType()
-export class DirectCashbackRedemptionRequestResult extends GenericResult<
+export class DirectCashbackRedemptionRequestCreateResult extends GenericResult<
   DirectCashbackRedemptionRequestURL
 > {
   @Field(() => GenericValidationError, { nullable: true })
