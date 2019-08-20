@@ -5,7 +5,6 @@ import {
 import { DirectCashbackDealEligibleListResolver } from "./directCashback/DirectCashbackDealEligibleListResolver";
 import { DirectCashbackRedemptionRequestListItemResolver } from "./directCashback/DirectCashbackRedemptionRequestListItemResolver";
 import { DirectCashbackResolver } from "./directCashback/DirectCashbackResolver";
-import { DirectCashbackVoucherListItemResolver } from "./directCashback/DirectCashbackVoucherListItemResolver";
 import { DirectCashbackVoucherResolver } from "./directCashback/DirectCashbackVoucherResolver";
 import { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
 import { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
@@ -57,7 +56,6 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       PartnerLocatorResolver,
       PartnerResolver,
       PartnerListItemResolver,
-      DirectCashbackVoucherListItemResolver,
       DirectCashbackVoucherResolver,
       DirectCashbackResolver,
       DirectCashbackRedemptionRequestListItemResolver,
