@@ -14,7 +14,7 @@ import {
 } from "type-graphql";
 import { ConnectionArgs, PageInfo } from "../connections";
 import { Context } from "../types/Context";
-import { DirectCashbackVoucherDetail } from "./VoucherDetail";
+import { DirectCashbackVoucherDetail } from "./DirectCashbackVoucherDetail";
 
 @ArgsType()
 class DirectCashbackVoucherListInput {

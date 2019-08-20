@@ -2,7 +2,7 @@ import { IDirectCashbackRedemptionRequestListItem } from "omnipartners";
 import { Ctx, Field, ObjectType } from "type-graphql";
 import { PageInfo } from "../connections";
 import { Context } from "../types/Context";
-import { DirectCashbackVoucherDetail } from "./VoucherDetail";
+import { DirectCashbackVoucherDetail } from "./DirectCashbackVoucherDetail";
 
 @ObjectType()
 export class DirectCashbackRedemptionRequest {
