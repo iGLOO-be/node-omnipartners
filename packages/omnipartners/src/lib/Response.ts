@@ -1,5 +1,4 @@
-import reduce from "lodash/reduce";
-import { Response as FetchResponse } from "node-fetch"; // TODO: switch to fetch-retry
+import { IncomingHttpHeaders } from "http";
 import {
   InvalidJSONReponseError,
   InvalidReponseError,
@@ -10,16 +9,26 @@ import {
 import { findOpStatus, getOpErrorFromStatus, IErrorMap } from "./opStatusError";
 import Request from "./Request";
 
+export interface IFetchResponse {
+  status: number;
+  text: () => Promise<string>;
+  headers: IncomingHttpHeaders;
+  ok: boolean;
+  size: number;
+  statusText: string;
+  timeout: number;
+}
+
 export default class Response {
   public readonly request: Request;
 
-  private readonly res: FetchResponse;
+  private readonly res: IFetchResponse;
 
   private textPromise?: Promise<string>;
   private bodyText?: string;
   private bodyJson?: Promise<any>;
 
-  constructor(request: Request, res: FetchResponse) {
+  constructor(request: Request, res: IFetchResponse) {
     this.request = request;
     this.res = res;
   }
@@ -98,27 +107,9 @@ export default class Response {
   }
 
   public toJSON() {
-    const headers = this.res.headers;
-    const rawHeaders =
-      typeof headers.values === "function"
-        ? headers.values()
-        : typeof headers.raw === "function"
-        ? headers.raw()
-        : {};
-
-    const flatHeaders = reduce(
-      rawHeaders,
-      (res, value, name) => ({
-        ...res,
-        [name]:
-          Array.isArray(value) && value.length === 1 ? value.join("") : value,
-      }),
-      {},
-    );
-
     return {
       body: this.bodyJson || this.bodyText,
-      headers: flatHeaders,
+      headers: this.res.headers,
       ok: this.res.ok,
       size: this.res.size,
       status: this.res.status,

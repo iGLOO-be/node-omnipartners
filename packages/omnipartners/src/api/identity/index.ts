@@ -963,7 +963,7 @@ export default class Identity extends Api {
     "pet_guid",
     "pet_picture"
   ])
-  public updatePetPicture(data: { pet_guid: string; pet_picture: any }): Promise<{ statusCode: number }> {
+  public updatePetPicture(data: { pet_guid: string; pet_picture: IUserPetUpdateInput["pet_picture"] }): Promise<{ statusCode: number }> {
     return this.post("/service/pets/update-picture", data, {
       multipart: true,
       hashKeys: ["pet_guid"],

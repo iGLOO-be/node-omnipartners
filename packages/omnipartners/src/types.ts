@@ -1,3 +1,5 @@
+import { Readable } from "stream";
+
 type IUserDataOption =
   | "owner_details"
   | "pet_details"
@@ -543,7 +545,15 @@ export interface IUserPetUpdateInput {
   // The Kennel Club number of the pet.
   kc_number?: string;
   // The petpicture. The request should be a “POST” request if picture is specified.
-  pet_picture?: string;
+  pet_picture?:
+    | string
+    | Readable
+    | {
+        value: Buffer;
+        options: {
+          filename: string;
+        };
+      };
   // The external id of the pet. This should be a unique value.
   pet_ext_id?: string;
 }
