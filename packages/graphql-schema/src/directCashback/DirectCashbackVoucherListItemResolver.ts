@@ -57,8 +57,24 @@ export class DirectCashbackVoucherListItemResolver {
     const page = data.p_page;
     const hasNextPage = page !== Math.ceil(count / limit);
 
+    const result = await Promise.all(
+      data.records.map(async d => {
+        const res = (await ctx.omnipartners.deals.getDirectCashbackVoucherDetail(
+          {
+            barcode: d.barcode,
+            deal_data_options: ["benefits"],
+          },
+        )).data;
+        return new DirectCashbackVoucherListItem({
+          redeemValidityFrom: new Date(res.redeem_validity_from),
+          redeemValidityTo: new Date(res.redeem_validity_to),
+          publicName: res.deal.public_name,
+          ...d,
+        });
+      }),
+    );
     return {
-      result: data.records.map(d => new DirectCashbackVoucherListItem(d)),
+      result,
       pageInfo: {
         count,
         hasNextPage,

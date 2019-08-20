@@ -2,6 +2,13 @@ import { IDirectCashbackVoucherListItem } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
 import { PageInfo } from "../connections";
 
+interface IExtendedDirectCashbackVoucherListItem
+  extends IDirectCashbackVoucherListItem {
+  redeemValidityFrom: Date;
+  redeemValidityTo: Date;
+  publicName: string;
+}
+
 @ObjectType()
 export class DirectCashbackVoucherListItem {
   @Field()
@@ -28,7 +35,16 @@ export class DirectCashbackVoucherListItem {
   @Field()
   public redemptionRequestInProgress: boolean;
 
-  constructor(data: IDirectCashbackVoucherListItem) {
+  @Field()
+  public redeemValidityFrom: Date;
+
+  @Field()
+  public redeemValidityTo: Date;
+
+  @Field()
+  public publicName: string;
+
+  constructor(data: IExtendedDirectCashbackVoucherListItem) {
     Object.assign(this, data);
     this.ref = data.deal_ref;
     this.benefitId = data.benefit_id;
