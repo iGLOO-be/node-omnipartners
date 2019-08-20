@@ -929,7 +929,8 @@ export default class Identity extends Api {
     "pet_ext_id",
   ])
   public updatePet(data: IUserPetUpdateInput): Promise<{ data: IUserPet }> {
-    return this.get("/service/pets/update", data, {
+    return this.post("/service/pets/update", data, {
+      multipart: true,
       errorMap: {
         2: {
           message:
@@ -955,5 +956,21 @@ export default class Identity extends Api {
       hashKeys: ["w", "h"],
     });
     return `${uri}?${querystring.stringify(qs)}`;
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Update_pet_picture")
+  @filterInput([
+    "pet_guid",
+    "pet_picture"
+  ])
+  public updatePetPicture(data: { pet_guid: string; pet_picture: IUserPetUpdateInput["pet_picture"] }): Promise<{ statusCode: number }> {
+    return this.post("/service/pets/update-picture", data, {
+      multipart: true,
+      hashKeys: ["pet_guid"],
+      errorMap: {
+        9: { message: "Pet not found in the system." },
+        10: { message: "File upload error." }
+      }
+    });
   }
 }

@@ -1,16 +1,19 @@
 import { EventEmitter } from "events";
 import reduce from "lodash/reduce";
-import fetch, { Response as FetchResponse } from "node-fetch"; // TODO: switch to fetch-retry
+import fetch from "node-fetch"; // TODO: switch to fetch-retry
 import querystring from "qs";
+import { Response as RequestResponse } from "request";
+import request from "request-promise-native";
 import uuid from "uuid/v4";
 import { RequestError, RequestTimeoutError } from "./errors";
-import Response from "./Response";
+import Response, { IFetchResponse } from "./Response";
 
 export interface IRequestOptions {
   method?: string;
   uri: string;
   body?: any;
   json?: boolean;
+  multipart?: boolean;
   responseAsJson?: boolean;
   qs?: any;
   headers?: { [key: string]: any };
@@ -28,6 +31,7 @@ export default class Request extends EventEmitter {
   public readonly uri: string;
   public readonly body?: any;
   public readonly json?: boolean;
+  public readonly multipart?: boolean;
   public readonly responseAsJson?: boolean;
   public readonly qs: string;
   public readonly headers: { [key: string]: any };
@@ -47,6 +51,7 @@ export default class Request extends EventEmitter {
     uri,
     body,
     json,
+    multipart,
     responseAsJson,
     qs,
     headers,
@@ -62,6 +67,7 @@ export default class Request extends EventEmitter {
     this.uri = uri;
     this.body = body;
     this.json = json;
+    this.multipart = multipart;
     this.responseAsJson = responseAsJson;
     this.qs = qs;
     this.headers = {
@@ -74,6 +80,10 @@ export default class Request extends EventEmitter {
       ...(this.json &&
         this.body && {
           "Content-Type": "application/json",
+        }),
+      ...(this.multipart &&
+        this.body && {
+          "Content-Type": "multipart/form-data",
         }),
     };
     this.timeout = timeout;
@@ -94,18 +104,66 @@ export default class Request extends EventEmitter {
         (uri.indexOf("?") >= 0 ? "&" : "?") + querystring.stringify(this.qs);
     }
 
-    let fetchRes: FetchResponse;
+    let fetchRes: IFetchResponse;
 
     try {
-      fetchRes = await fetch(uri, {
-        body: this.json ? JSON.stringify(this.body) : this.body,
-        headers: this.headers,
-        method: this.method,
-        timeout: this.timeout,
-        // TODO:
-        // retries: this.retries,
-        // retryDelay: this.retryDelay
-      });
+      if (this.multipart) {
+        const requestRes = (await request(uri, {
+          headers: this.headers,
+          formData: this.body,
+          method: this.method,
+          timeout: this.timeout,
+          resolveWithFullResponse: true,
+        })) as RequestResponse;
+
+        fetchRes = {
+          status: requestRes.statusCode,
+          text: async () => requestRes.body,
+          headers: requestRes.headers,
+          ok: true,
+          size: 0,
+          statusText: requestRes.statusMessage,
+          timeout: this.timeout || 0,
+        };
+      } else {
+        const tempRes = await fetch(uri, {
+          body: this.json ? JSON.stringify(this.body) : this.body,
+          headers: this.headers,
+          method: this.method,
+          timeout: this.timeout,
+          // TODO:
+          // retries: this.retries,
+          // retryDelay: this.retryDelay
+        });
+
+        const rawHeaders =
+          typeof tempRes.headers.values === "function"
+            ? tempRes.headers.values()
+            : typeof tempRes.headers.raw === "function"
+            ? tempRes.headers.raw()
+            : {};
+        const flatHeaders = reduce(
+          rawHeaders,
+          (res, value, name) => ({
+            ...res,
+            [name]:
+              Array.isArray(value) && value.length === 1
+                ? value.join("")
+                : value,
+          }),
+          {},
+        );
+
+        fetchRes = {
+          status: tempRes.status,
+          text: () => tempRes.text(),
+          headers: flatHeaders,
+          ok: tempRes.ok,
+          size: tempRes.size,
+          statusText: tempRes.statusText,
+          timeout: tempRes.timeout,
+        };
+      }
     } catch (e) {
       this.emit("fetchError", e);
       if (e.type === "request-timeout") {

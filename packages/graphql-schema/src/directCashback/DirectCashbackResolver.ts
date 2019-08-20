@@ -114,19 +114,19 @@ export class DirectCashbackDealDetail {
   public publicName?: string;
 
   @Field({ nullable: true })
-  public availableFrom?: string;
+  public availableFrom?: Date;
 
   @Field({ nullable: true })
-  public availableTo?: string;
+  public availableTo?: Date;
 
   @Field({ nullable: true })
   public slogan?: string;
 
   @Field({ nullable: true })
-  public redeemValidityFrom?: string;
+  public redeemValidityFrom?: Date;
 
   @Field({ nullable: true })
-  public redeemValidityTo?: string;
+  public redeemValidityTo?: Date;
 
   constructor(data: IDirectCashbackDealDetail) {
     Object.assign(this, data);
@@ -134,10 +134,10 @@ export class DirectCashbackDealDetail {
     this.redeemDurationUnit = data.redeem_duration_unit;
     this.isRelativeRedeemDate = data.is_relative_redeem_dates;
     this.publicName = data.public_name;
-    this.availableFrom = data.available_from;
-    this.availableTo = data.available_to;
-    this.redeemValidityFrom = data.redeem_validity_from;
-    this.redeemValidityTo = data.redeem_validity_to;
+    this.availableFrom = new Date(data.available_from);
+    this.availableTo = new Date(data.available_to);
+    this.redeemValidityFrom = new Date(data.redeem_validity_from);
+    this.redeemValidityTo = new Date(data.redeem_validity_to);
   }
 }
 

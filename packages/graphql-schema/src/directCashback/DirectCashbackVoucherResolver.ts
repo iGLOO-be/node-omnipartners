@@ -68,10 +68,10 @@ class DirectCashbackVoucherDetail {
   public activeRedemptionRequestStatus: string;
 
   @Field()
-  public redeemValidityFrom: string;
+  public redeemValidityFrom: Date;
 
   @Field({ nullable: true })
-  public redeemValidityTo: string;
+  public redeemValidityTo: Date;
 
   @Field(() => DirectCashbackVoucherBenefit, { nullable: true })
   public benefit: DirectCashbackVoucherBenefit;
@@ -82,8 +82,8 @@ class DirectCashbackVoucherDetail {
   constructor(data: IDirectCashbackVoucherDetail) {
     Object.assign(this, data);
     this.activeRedemptionRequestStatus = data.active_redemption_request_status;
-    this.redeemValidityFrom = data.redeem_validity_from;
-    this.redeemValidityTo = data.redeem_validity_to;
+    this.redeemValidityFrom = new Date(data.redeem_validity_from);
+    this.redeemValidityTo = new Date(data.redeem_validity_to);
     this.deal = new DirectCashbackVoucherDealDetail(data.deal);
     this.benefit =
       data.benefit && new DirectCashbackVoucherBenefit(data.benefit);
