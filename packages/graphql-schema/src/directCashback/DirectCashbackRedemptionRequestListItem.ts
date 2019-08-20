@@ -1,12 +1,8 @@
 import { IDirectCashbackRedemptionRequestListItem } from "omnipartners";
-import { Field, ObjectType } from "type-graphql";
+import { Ctx, Field, ObjectType } from "type-graphql";
 import { PageInfo } from "../connections";
-
-interface IExtendedDirectCashbackRedemptionRequestListItem
-  extends IDirectCashbackRedemptionRequestListItem {
-  publicName: string;
-  slogan: string;
-}
+import { Context } from "../types/Context";
+import { DirectCashbackVoucherDetail } from "./VoucherDetail";
 
 @ObjectType()
 export class DirectCashbackRedemptionRequestListItem {
@@ -49,13 +45,24 @@ export class DirectCashbackRedemptionRequestListItem {
   @Field()
   public slogan: string;
 
-  constructor(data: IExtendedDirectCashbackRedemptionRequestListItem) {
+  constructor(data: IDirectCashbackRedemptionRequestListItem) {
     Object.assign(this, data);
     this.imageUrl = data.image_url;
     this.benefitId = data.benefit_id;
     this.createdOn = new Date(data.created_on);
     this.updatedOn = new Date(data.updated_on);
     this.deal_ref = data.deal.ref;
+  }
+
+  @Field(() => DirectCashbackVoucherDetail)
+  public async voucher (@Ctx() ctx: Context) {
+    const res = (await ctx.omnipartners.deals.getDirectCashbackVoucherDetail(
+      {
+        barcode: this.barcode,
+        deal_data_options: ["benefits"],
+      },
+    )).data;
+    return new DirectCashbackVoucherDetail(res)
   }
 }
 
