@@ -7,6 +7,7 @@ interface IExtendedDirectCashbackVoucherListItem
   redeemValidityFrom: Date;
   redeemValidityTo: Date;
   publicName: string;
+  slogan: string;
 }
 
 @ObjectType()
@@ -43,6 +44,9 @@ export class DirectCashbackVoucherListItem {
 
   @Field()
   public publicName: string;
+
+  @Field()
+  public slogan: string;
 
   constructor(data: IExtendedDirectCashbackVoucherListItem) {
     Object.assign(this, data);

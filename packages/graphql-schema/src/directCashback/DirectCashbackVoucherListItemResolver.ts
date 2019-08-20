@@ -69,6 +69,7 @@ export class DirectCashbackVoucherListItemResolver {
           redeemValidityFrom: new Date(res.redeem_validity_from),
           redeemValidityTo: new Date(res.redeem_validity_to),
           publicName: res.deal.public_name,
+          slogan: res.deal.slogan,
           ...d,
         });
       }),
