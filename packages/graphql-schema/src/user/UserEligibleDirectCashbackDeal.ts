@@ -13,14 +13,14 @@ export class UserEligibleDirectCashbackDeal {
   public name: string;
 
   @Field()
-  public availableFrom: string;
+  public availableFrom: Date;
 
   @Field({ nullable: true })
-  public availableTo: string;
+  public availableTo: Date;
 
   constructor(data: IUserEligibleDirectCashbackDeal) {
     Object.assign(this, data);
-    this.availableFrom = data.available_from;
-    this.availableTo = data.available_to;
+    this.availableFrom = new Date(data.available_from);
+    this.availableTo = new Date(data.available_to);
   }
 }

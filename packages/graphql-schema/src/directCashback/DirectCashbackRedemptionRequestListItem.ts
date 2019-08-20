@@ -29,10 +29,10 @@ export class DirectCashbackRedemptionRequestListItem {
   public bic: string;
 
   @Field()
-  public createdOn: string;
+  public createdOn: Date;
 
   @Field()
-  public updatedOn: string;
+  public updatedOn: Date;
 
   @Field()
   public deal_ref: string;
@@ -41,8 +41,8 @@ export class DirectCashbackRedemptionRequestListItem {
     Object.assign(this, data);
     this.imageUrl = data.image_url;
     this.benefitId = data.benefit_id;
-    this.createdOn = data.created_on;
-    this.updatedOn = data.updated_on;
+    this.createdOn = new Date(data.created_on);
+    this.updatedOn = new Date(data.updated_on);
     this.deal_ref = data.deal.ref;
   }
 }
