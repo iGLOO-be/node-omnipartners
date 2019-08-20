@@ -12,6 +12,18 @@ export class DirectCashbackDealEligibleListResolver {
     const res = await ctx.omnipartners.deals.listEligibleDirectCashbackDeals({
       user_guid,
     });
-    return res.data.map(d => new UserEligibleDirectCashbackDeal(d));
+    return Promise.all(
+      res.data.map(async d => {
+        const r = await ctx.omnipartners.deals.getDirectCashbackDealDetail({
+          ref: d.ref,
+        });
+
+        return new UserEligibleDirectCashbackDeal({
+          slogan: r.data.slogan,
+          publicName: r.data.public_name,
+          ...d,
+        });
+      }),
+    );
   }
 }
