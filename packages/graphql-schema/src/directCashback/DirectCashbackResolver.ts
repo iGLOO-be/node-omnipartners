@@ -105,7 +105,7 @@ export class DirectCashbackResolver {
   }
 
   @Query(() => [DirectCashbackDealDetail], { nullable: false })
-  public async listEligibleDirectCashbackDeals(
+  public async directCashbackDealListEligible(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
   ): Promise<DirectCashbackDealDetail[]> {

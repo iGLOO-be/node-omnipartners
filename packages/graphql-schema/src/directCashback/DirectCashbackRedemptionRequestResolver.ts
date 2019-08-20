@@ -75,7 +75,7 @@ export class DirectCashbackRedemptionRequestListItemResolver {
   @Mutation(() => DirectCashbackRedemptionRequestCreateResult, {
     nullable: true,
   })
-  public async directCashbackCreateRedemptionRequest(
+  public async directCashbackRedemptionRequestCreate(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
     @Arg("input") input: DirectCashbackRedemptionRequestInput,
