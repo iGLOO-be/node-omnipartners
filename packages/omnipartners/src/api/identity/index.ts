@@ -887,7 +887,8 @@ export default class Identity extends Api {
     "pet_ext_id", // (Optional) The external id of the pet. This should be a unique value.
   ])
   public createPet(data: IUserPetCreateInput): Promise<{ data: IUserPet }> {
-    return this.get("/service/pets/add", data, {
+    return this.post("/service/pets/add", data, {
+      multipart: true,
       errorMap: {
         2: {
           message:

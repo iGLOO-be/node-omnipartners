@@ -498,7 +498,15 @@ export interface IUserPetCreateInput {
   pet_declarative_product?: string;
   tattoo_number?: string;
   chip_number?: string;
-  pet_picture?: string;
+  pet_picture?:
+    | string
+    | Readable
+    | {
+        value: Buffer;
+        options: {
+          filename: string;
+        };
+      };
   kc_number?: string;
   pet_ext_id?: string;
 }
