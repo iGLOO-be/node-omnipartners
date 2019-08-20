@@ -5,7 +5,7 @@ import { Context } from "../types/Context";
 import { DirectCashbackVoucherDetail } from "./VoucherDetail";
 
 @ObjectType()
-export class DirectCashbackRedemptionRequestListItem {
+export class DirectCashbackRedemptionRequest {
   @Field()
   public id: string;
 
@@ -71,6 +71,6 @@ export class DirectCashbackRedemptionRequestConnection {
   @Field()
   public pageInfo!: PageInfo;
 
-  @Field(() => [DirectCashbackRedemptionRequestListItem])
-  public result!: DirectCashbackRedemptionRequestListItem[];
+  @Field(() => [DirectCashbackRedemptionRequest])
+  public result!: DirectCashbackRedemptionRequest[];
 }

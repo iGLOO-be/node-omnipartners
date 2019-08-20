@@ -3,7 +3,7 @@ import {
   BuildSchemaOptions,
 } from "type-graphql";
 import { DirectCashbackDealEligibleListResolver } from "./directCashback/DirectCashbackDealEligibleListResolver";
-import { DirectCashbackRedemptionRequestListItemResolver } from "./directCashback/DirectCashbackRedemptionRequestListItemResolver";
+import { DirectCashbackRedemptionRequestListItemResolver } from "./directCashback/DirectCashbackRedemptionRequestResolver";
 import { DirectCashbackResolver } from "./directCashback/DirectCashbackResolver";
 import { DirectCashbackVoucherResolver } from "./directCashback/DirectCashbackVoucherResolver";
 import { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";

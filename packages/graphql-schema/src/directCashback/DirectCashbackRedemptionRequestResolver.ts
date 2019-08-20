@@ -3,9 +3,9 @@ import { Arg, Args, ArgsType, Ctx, Field, Query, Resolver } from "type-graphql";
 import { ConnectionArgs } from "../connections";
 import { Context } from "../types/Context";
 import {
+  DirectCashbackRedemptionRequest,
   DirectCashbackRedemptionRequestConnection,
-  DirectCashbackRedemptionRequestListItem,
-} from "./DirectCashbackRedemptionRequestListItem";
+} from "./DirectCashbackRedemptionRequest";
 
 @ArgsType()
 class DirectCashbackRedemptionRequestListInput {
@@ -34,7 +34,7 @@ class DirectCashbackRedemptionRequestListInput {
   }
 }
 
-@Resolver(of => DirectCashbackRedemptionRequestListItem)
+@Resolver(of => DirectCashbackRedemptionRequest)
 export class DirectCashbackRedemptionRequestListItemResolver {
   @Query(() => DirectCashbackRedemptionRequestConnection, { nullable: true })
   public async directCashbackRedemptionRequestList(
@@ -59,9 +59,7 @@ export class DirectCashbackRedemptionRequestListItemResolver {
     const hasNextPage = page !== Math.ceil(count / limit);
 
     return {
-      result: data.records.map(
-        d => new DirectCashbackRedemptionRequestListItem(d),
-      ),
+      result: data.records.map(d => new DirectCashbackRedemptionRequest(d)),
       pageInfo: {
         count,
         hasNextPage,
