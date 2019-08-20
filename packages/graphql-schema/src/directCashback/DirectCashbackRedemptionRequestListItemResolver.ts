@@ -58,10 +58,24 @@ export class DirectCashbackRedemptionRequestListItemResolver {
     const page = data.p_page;
     const hasNextPage = page !== Math.ceil(count / limit);
 
+    const result = await Promise.all(
+      data.records.map(async d => {
+        const res = (await ctx.omnipartners.deals.getDirectCashbackVoucherDetail(
+          {
+            barcode: d.barcode,
+            deal_data_options: ["benefits"],
+          },
+        )).data;
+        return new DirectCashbackRedemptionRequestListItem({
+          slogan: res.deal.slogan,
+          publicName: res.deal.public_name,
+          ...d,
+        });
+      }),
+    );
+
     return {
-      result: data.records.map(
-        d => new DirectCashbackRedemptionRequestListItem(d),
-      ),
+      result,
       pageInfo: {
         count,
         hasNextPage,

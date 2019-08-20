@@ -2,6 +2,12 @@ import { IDirectCashbackRedemptionRequestListItem } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
 import { PageInfo } from "../connections";
 
+interface IExtendedDirectCashbackRedemptionRequestListItem
+  extends IDirectCashbackRedemptionRequestListItem {
+  publicName: string;
+  slogan: string;
+}
+
 @ObjectType()
 export class DirectCashbackRedemptionRequestListItem {
   @Field()
@@ -37,7 +43,13 @@ export class DirectCashbackRedemptionRequestListItem {
   @Field()
   public deal_ref: string;
 
-  constructor(data: IDirectCashbackRedemptionRequestListItem) {
+  @Field()
+  public publicName: string;
+
+  @Field()
+  public slogan: string;
+
+  constructor(data: IExtendedDirectCashbackRedemptionRequestListItem) {
     Object.assign(this, data);
     this.imageUrl = data.image_url;
     this.benefitId = data.benefit_id;
