@@ -136,6 +136,44 @@ export interface IDirectCashbackRedemptionRequestListItem {
   };
 }
 
+interface IDirectCashbackVoucherApprovalHistorySubscriptionHistory {
+  status: string;
+  changed_on: string;
+}
+
+interface IDirectCashbackVoucherApprovalHistoryRedemptionRequestHistory {
+  id: string;
+  created_on: string;
+  updated_on: string;
+  transaction_id: string;
+  external_payment_ref: string;
+  payment_ref: {
+    iban: string;
+  };
+  payment_id: string;
+  estimated_delivery_date: string;
+  status: string;
+  image_url: string;
+  history: Array<{
+    changed_on: string;
+    old_status: string;
+    new_status: string;
+    message: string;
+    error?: string;
+    description?: string;
+  }>;
+}
+
+export interface IDirectCashbackVoucherApprovalHistory {
+  sub_id: string;
+  sub_barcode: string;
+  sub_current_status: string;
+  sub_created: string;
+  sub_updated: string;
+  sub_history: IDirectCashbackVoucherApprovalHistorySubscriptionHistory[];
+  sub_redemption_requests: IDirectCashbackVoucherApprovalHistoryRedemptionRequestHistory[];
+}
+
 export type IDirectCashbackDealDataOptions =
   | IDirectCashbackDealDataOption
   | IDirectCashbackDealDataOption[];
@@ -608,14 +646,33 @@ export default class Deals extends Api {
   ): Promise<{
     data: IDirectCashbackRedemptionRequestDetail;
   }> {
-    return this._call(
-      "get-user-direct-cashback-redemption-request",
-      data,
-      {
-        retry: true,
-        hashKeys: undefined,
-      },
-    );
+    return this._call("get-user-direct-cashback-redemption-request", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Get_direct_cashback_voucher_approval_history",
+  )
+  @filterInput([
+    "barcode", // (Required)	Barcode of the cashback subscription.
+    "lang", // (optional)	Language ID will use to filter the collection name. (see http://doc.omnipartners.be/index.php/Language_list)
+    "sort_field", // (optional)	Field name to be apply the sorting. Allowed fields subscription_changed_on,redeem_history_changed_on
+    "sort_order", // (optional)	Sort order. possible values are DESC,ASC
+  ])
+  public getDirectCashbackVoucherApprovalHistory(data: {
+    barcode: string;
+    lang?: string;
+    sort_field?: string;
+    sort_order?: "DESC" | "ASC";
+  }): Promise<{
+    data: IDirectCashbackVoucherApprovalHistory;
+  }> {
+    return this._call("get-direct-cashback-voucher-approval-history", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
   }
 
   private _call(
