@@ -57,7 +57,7 @@ export class DirectCashbackRedemptionRequest {
     return new DirectCashbackVoucherDetail(res);
   }
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   public async statusMessage(
     @Ctx() ctx: Context,
     @Arg("lang") lang: string,
@@ -70,11 +70,10 @@ export class DirectCashbackRedemptionRequest {
     )).data;
 
     return (
-      (history.sub_redemption_requests &&
-        history.sub_redemption_requests
-          .find(redemption => redemption.id === this.id)
-          .history.reverse()[0].description) ||
-      ""
+      history.sub_redemption_requests &&
+      history.sub_redemption_requests
+        .find(redemption => redemption.id === this.id)
+        .history.reverse()[0].description
     );
   }
 }
