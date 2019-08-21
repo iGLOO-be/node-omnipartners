@@ -1,5 +1,5 @@
 import { IDirectCashbackRedemptionRequestListItem } from "omnipartners";
-import { Ctx, Field, ObjectType } from "type-graphql";
+import { Arg, Ctx, Field, ObjectType } from "type-graphql";
 import { PageInfo } from "../connections";
 import { Context } from "../types/Context";
 import { DirectCashbackVoucherDetail } from "./DirectCashbackVoucherDetail";
@@ -39,12 +39,6 @@ export class DirectCashbackRedemptionRequest {
   @Field()
   public deal_ref: string;
 
-  @Field()
-  public publicName: string;
-
-  @Field()
-  public slogan: string;
-
   constructor(data: IDirectCashbackRedemptionRequestListItem) {
     Object.assign(this, data);
     this.imageUrl = data.image_url;
@@ -55,14 +49,33 @@ export class DirectCashbackRedemptionRequest {
   }
 
   @Field(() => DirectCashbackVoucherDetail)
-  public async voucher (@Ctx() ctx: Context) {
-    const res = (await ctx.omnipartners.deals.getDirectCashbackVoucherDetail(
+  public async voucher(@Ctx() ctx: Context) {
+    const res = (await ctx.omnipartners.deals.getDirectCashbackVoucherDetail({
+      barcode: this.barcode,
+      deal_data_options: ["benefits"],
+    })).data;
+    return new DirectCashbackVoucherDetail(res);
+  }
+
+  @Field(() => String)
+  public async statusMessage(
+    @Ctx() ctx: Context,
+    @Arg("lang") lang: string,
+  ): Promise<string> {
+    const history = (await ctx.omnipartners.deals.getDirectCashbackVoucherApprovalHistory(
       {
         barcode: this.barcode,
-        deal_data_options: ["benefits"],
+        lang,
       },
     )).data;
-    return new DirectCashbackVoucherDetail(res)
+
+    return (
+      (history.sub_redemption_requests &&
+        history.sub_redemption_requests
+          .find(redemption => redemption.id === this.id)
+          .history.reverse()[0].description) ||
+      ""
+    );
   }
 }
 
