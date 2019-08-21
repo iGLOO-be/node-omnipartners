@@ -53,7 +53,7 @@ export class DirectCashbackVoucherDetail {
   @Field()
   public user_guid: string;
 
-  @Field()
+  @Field({ nullable: true })
   public barcode: string;
 
   @Field()
