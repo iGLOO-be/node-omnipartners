@@ -1,6 +1,5 @@
 import {
   IDirectCashbackDealDetail,
-  IDirectCashbackRedemptionRequestInput,
   ISubscribeToDirectCashbackDealInput,
 } from "omnipartners";
 import { Omit } from "type-fest";
@@ -15,17 +14,6 @@ import {
 } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { DirectCashbackRedemptionRequestResult } from "./DirectCashbackRedemptionRequestResult";
-
-@InputType()
-class DirectCashbackRedemptionRequestInputPayementDetail {
-  @Field({ nullable: true })
-  public iban: string;
-  @Field({ nullable: true })
-  public sortCode: string;
-  @Field({ nullable: true })
-  public accountNumber: string;
-}
 
 @InputType()
 export class DirectCashbackDealSubscribeInput {
@@ -46,46 +34,6 @@ export class DirectCashbackDealSubscribeInput {
       deal_ref: this.ref,
       pet_guid: this.pet_guid,
       child_guid: this.child_guid,
-    };
-  }
-}
-
-@InputType()
-export class DirectCashbackRedemptionRequestInput {
-  @Field()
-  public barcode: string;
-
-  @Field({ nullable: true })
-  public benefitId?: string;
-
-  @Field()
-  public receiptDate: string;
-
-  @Field()
-  public receiptImageMimeType: string;
-
-  @Field()
-  public targetCurrency: "EUR" | "GBP";
-
-  @Field()
-  public paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail;
-
-  @Field({ nullable: true })
-  public eanBarcode?: string;
-
-  public toOmnipartners(): IDirectCashbackRedemptionRequestInput {
-    return {
-      barcode: this.barcode,
-      benefit_id: this.benefitId,
-      receipt_date: this.receiptDate,
-      target_currency: this.targetCurrency,
-      payment_details: this.paymentDetails.iban
-        ? this.paymentDetails
-        : {
-            sort_code: this.paymentDetails.sortCode,
-            account_number: this.paymentDetails.accountNumber,
-          },
-      receipt_image_mime_type: this.receiptImageMimeType,
     };
   }
 }
@@ -154,6 +102,27 @@ export class DirectCashbackResolver {
     return new DirectCashbackDealDetail(res);
   }
 
+  @Query(() => [DirectCashbackDealDetail], { nullable: false })
+  public async directCashbackDealListEligible(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+  ): Promise<DirectCashbackDealDetail[]> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+    const res = await ctx.omnipartners.deals.listEligibleDirectCashbackDeals({
+      user_guid,
+    });
+    return Promise.all(
+      res.data.map(
+        async ({ ref }) =>
+          new DirectCashbackDealDetail(
+            (await ctx.omnipartners.deals.getDirectCashbackDealDetail({
+              ref,
+            })).data,
+          ),
+      ),
+    );
+  }
+
   @Mutation(() => GenericValidationError, { nullable: true })
   public async directCashbackDealSubscribe(
     @Ctx() ctx: Context,
@@ -170,60 +139,4 @@ export class DirectCashbackResolver {
       return new GenericValidationError(err);
     }
   }
-
-  @Mutation(() => DirectCashbackRedemptionRequestResult, { nullable: true })
-  public async directCashbackCreateRedemptionRequest(
-    @Ctx() ctx: Context,
-    @Arg("token") token: string,
-    @Arg("input") input: DirectCashbackRedemptionRequestInput,
-  ): Promise<DirectCashbackRedemptionRequestResult> {
-    try {
-      await ctx.userTokenHelper.parse(token);
-
-      input.benefitId =
-        input.benefitId ||
-        (await this.findBenefitIdByEAN(ctx, input.eanBarcode, input.barcode));
-
-      const {
-        data,
-      } = await ctx.omnipartners.deals.createDirectCashbackRedemptionRequest({
-        ...input.toOmnipartners(),
-      });
-
-      return new DirectCashbackRedemptionRequestResult({
-        result: {
-          url: data.presigned_url,
-        },
-      });
-    } catch (err) {
-      return new DirectCashbackRedemptionRequestResult({
-        error: new GenericValidationError(err),
-      });
-    }
-  }
-
-  private findBenefitIdByEAN = async (
-    ctx: Context,
-    eanBarcode: string,
-    subscriptionBarcode: string,
-  ) => {
-    const {
-      data: { product_id },
-    } = await ctx.omnipartners.products.getProduct({
-      product_ean: eanBarcode,
-    });
-
-    const {
-      data: {
-        deal: { benefits },
-      },
-    } = await ctx.omnipartners.deals.getDirectCashbackVoucherDetail({
-      barcode: subscriptionBarcode,
-      deal_data_options: ["benefits"],
-    });
-
-    const benefit = benefits.find(b => b.product.id === product_id);
-
-    return benefit.id;
-  };
 }

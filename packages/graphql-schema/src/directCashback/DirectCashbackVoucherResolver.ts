@@ -1,97 +1,102 @@
 import {
   IDirectCashbackDealDataOptions,
-  IDirectCashbackDealDetail,
-  IDirectCashbackVoucherBenefit,
-  IDirectCashbackVoucherDetail,
+  IDirectCashbackVoucherListInput,
 } from "omnipartners";
-import { Arg, Ctx, Field, ObjectType, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Args,
+  ArgsType,
+  Ctx,
+  Field,
+  ObjectType,
+  Query,
+  Resolver,
+} from "type-graphql";
+import { ConnectionArgs, PageInfo } from "../connections";
 import { Context } from "../types/Context";
-import { DirectCashbackDealDetail } from "./DirectCashbackResolver";
+import { DirectCashbackVoucherDetail } from "./DirectCashbackVoucherDetail";
 
-@ObjectType()
-class DirectCashbackVoucherBenefit {
+@ArgsType()
+class DirectCashbackVoucherListInput {
   @Field({ nullable: true })
-  public id: string;
-
-  @Field({ nullable: true })
-  public productId: string;
+  public pet_guid?: string;
 
   @Field({ nullable: true })
-  public amount: string;
+  public child_guid: string;
 
   @Field({ nullable: true })
-  public currency: string;
+  public from: string;
 
-  constructor(data: IDirectCashbackVoucherBenefit) {
-    Object.assign(this, data);
-    this.productId = data.product_id;
+  @Field({ nullable: true })
+  public to: string;
+
+  @Field({ nullable: true })
+  public ref: string;
+
+  public toOmnipartners(): Omit<IDirectCashbackVoucherListInput, "user_guid"> {
+    return {
+      deal_ref: this.ref,
+      pet_guid: this.pet_guid,
+      child_guid: this.child_guid,
+      from: this.from,
+      to: this.to,
+    };
   }
 }
 
-@ObjectType()
-class DirectCashbackVoucherDealDetail extends DirectCashbackDealDetail {
-  @Field(() => [DirectCashbackVoucherBenefit])
-  public benefits: DirectCashbackVoucherBenefit[];
-
-  constructor(data: IDirectCashbackDealDetail) {
-    super(data);
-    Object.assign(this, data);
-    this.benefits = data.benefits.map(
-      b =>
-        new DirectCashbackVoucherBenefit({
-          ...b,
-          amount: b.value,
-          product_id: b.product.id,
-        }),
-    );
-  }
-}
-
-@ObjectType()
-class DirectCashbackVoucherDetail {
+@ObjectType(`DirectCashbackVoucherConnection`)
+export class DirectCashbackVoucherConnection {
   @Field()
-  public id: string;
+  public pageInfo!: PageInfo;
 
-  @Field()
-  public user_guid: string;
-
-  @Field()
-  public barcode: string;
-
-  @Field()
-  public status: string;
-
-  @Field({ nullable: true })
-  public pet_guid: string;
-
-  @Field({ nullable: true })
-  public activeRedemptionRequestStatus: string;
-
-  @Field()
-  public redeemValidityFrom: Date;
-
-  @Field({ nullable: true })
-  public redeemValidityTo: Date;
-
-  @Field(() => DirectCashbackVoucherBenefit, { nullable: true })
-  public benefit: DirectCashbackVoucherBenefit;
-
-  @Field(() => DirectCashbackVoucherDealDetail)
-  public deal: DirectCashbackVoucherDealDetail;
-
-  constructor(data: IDirectCashbackVoucherDetail) {
-    Object.assign(this, data);
-    this.activeRedemptionRequestStatus = data.active_redemption_request_status;
-    this.redeemValidityFrom = new Date(data.redeem_validity_from);
-    this.redeemValidityTo = new Date(data.redeem_validity_to);
-    this.deal = new DirectCashbackVoucherDealDetail(data.deal);
-    this.benefit =
-      data.benefit && new DirectCashbackVoucherBenefit(data.benefit);
-  }
+  @Field(() => [DirectCashbackVoucherDetail])
+  public result!: DirectCashbackVoucherDetail[];
 }
 
 @Resolver()
 export class DirectCashbackVoucherResolver {
+  @Query(() => DirectCashbackVoucherConnection, { nullable: true })
+  public async directCashbackVoucherList(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Args() input: DirectCashbackVoucherListInput,
+    @Args() args: ConnectionArgs,
+  ): Promise<DirectCashbackVoucherConnection> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+    const data = (await ctx.omnipartners.deals.getDirectCashbackVoucherList({
+      user_guid,
+      ...input,
+      p_page: `${args.page}`,
+      p_length: args.limit && `${args.limit}`,
+    })).data;
+
+    const count = data.records.length;
+    const limit = data.p_length;
+    const page = data.p_page;
+    const hasNextPage = page !== Math.ceil(count / limit);
+
+    const result = await Promise.all(
+      data.records.map(
+        async ({ barcode }) =>
+          new DirectCashbackVoucherDetail(
+            (await ctx.omnipartners.deals.getDirectCashbackVoucherDetail({
+              barcode,
+              deal_data_options: ["benefits"],
+            })).data,
+          ),
+      ),
+    );
+    return {
+      result,
+      pageInfo: {
+        count,
+        hasNextPage,
+        limit,
+        page,
+      },
+    };
+  }
+
   @Query(() => DirectCashbackVoucherDetail, { nullable: true })
   public async directCashbackVoucherDetail(
     @Ctx() ctx: Context,
@@ -101,7 +106,6 @@ export class DirectCashbackVoucherResolver {
     deal_data_options?: IDirectCashbackDealDataOptions,
   ): Promise<DirectCashbackVoucherDetail> {
     ctx.userTokenHelper.parse(token);
-
     const res = (await ctx.omnipartners.deals.getDirectCashbackVoucherDetail({
       barcode,
       deal_data_options,

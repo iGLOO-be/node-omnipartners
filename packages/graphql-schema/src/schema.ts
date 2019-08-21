@@ -2,10 +2,8 @@ import {
   buildSchema as typeGraphqlBuildschema,
   BuildSchemaOptions,
 } from "type-graphql";
-import { DirectCashbackDealEligibleListResolver } from "./directCashback/DirectCashbackDealEligibleListResolver";
-import { DirectCashbackRedemptionRequestListItemResolver } from "./directCashback/DirectCashbackRedemptionRequestListItemResolver";
+import { DirectCashbackRedemptionRequestResolver } from "./directCashback/DirectCashbackRedemptionRequestResolver";
 import { DirectCashbackResolver } from "./directCashback/DirectCashbackResolver";
-import { DirectCashbackVoucherListItemResolver } from "./directCashback/DirectCashbackVoucherListItemResolver";
 import { DirectCashbackVoucherResolver } from "./directCashback/DirectCashbackVoucherResolver";
 import { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
 import { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
@@ -57,11 +55,9 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       PartnerLocatorResolver,
       PartnerResolver,
       PartnerListItemResolver,
-      DirectCashbackVoucherListItemResolver,
       DirectCashbackVoucherResolver,
       DirectCashbackResolver,
-      DirectCashbackRedemptionRequestListItemResolver,
-      DirectCashbackDealEligibleListResolver,
+      DirectCashbackRedemptionRequestResolver,
     ],
     ...options,
   });
