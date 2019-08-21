@@ -14,8 +14,6 @@ import {
 } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { DirectCashbackRedemptionRequestInput } from "./DirectCashbackRedemptionRequestInput";
-import { DirectCashbackRedemptionRequestCreateResult } from "./DirectCashbackRedemptionRequestResult";
 
 @InputType()
 export class DirectCashbackDealSubscribeInput {
