@@ -38,7 +38,7 @@ class DirectCashbackRedemptionRequestListInput {
 }
 
 @Resolver()
-export class DirectCashbackRedemptionRequestListItemResolver {
+export class DirectCashbackRedemptionRequestResolver {
   @Query(() => DirectCashbackRedemptionRequestConnection, { nullable: true })
   public async directCashbackRedemptionRequestList(
     @Ctx() ctx: Context,

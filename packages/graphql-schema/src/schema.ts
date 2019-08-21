@@ -3,7 +3,7 @@ import {
   BuildSchemaOptions,
 } from "type-graphql";
 import { DirectCashbackDealEligibleListResolver } from "./directCashback/DirectCashbackDealEligibleListResolver";
-import { DirectCashbackRedemptionRequestListItemResolver } from "./directCashback/DirectCashbackRedemptionRequestResolver";
+import { DirectCashbackRedemptionRequestResolver } from "./directCashback/DirectCashbackRedemptionRequestResolver";
 import { DirectCashbackResolver } from "./directCashback/DirectCashbackResolver";
 import { DirectCashbackVoucherResolver } from "./directCashback/DirectCashbackVoucherResolver";
 import { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
@@ -58,8 +58,8 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       PartnerListItemResolver,
       DirectCashbackVoucherResolver,
       DirectCashbackResolver,
-      DirectCashbackRedemptionRequestListItemResolver,
       DirectCashbackDealEligibleListResolver,
+      DirectCashbackRedemptionRequestResolver,
     ],
     ...options,
   });
