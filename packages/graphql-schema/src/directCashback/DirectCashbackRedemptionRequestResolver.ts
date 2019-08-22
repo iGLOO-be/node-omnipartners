@@ -1,5 +1,14 @@
 import { IDirectCashbackRedemptionRequestListInput } from "omnipartners";
-import { Arg, Args, ArgsType, Ctx, Field, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Args,
+  ArgsType,
+  Ctx,
+  Field,
+  Mutation,
+  Query,
+  Resolver,
+} from "type-graphql";
 import { ConnectionArgs } from "../connections";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
@@ -51,15 +60,15 @@ export class DirectCashbackRedemptionRequestResolver {
       {
         user_guid,
         ...input,
-        p_page: `${args.page}`,
+        p_page: !args.page ? "0" : `${args.page - 1}`,
         p_length: args.limit && `${args.limit}`,
       },
     )).data;
 
-    const count = data.records.length;
+    const count = data.p_total;
     const limit = data.p_length;
-    const page = data.p_page;
-    const hasNextPage = count > 0;
+    const page = data.p_page + 1;
+    const hasNextPage = limit * page < count;
 
     return {
       result: data.records.map(d => new DirectCashbackRedemptionRequest(d)),
