@@ -8,15 +8,17 @@ export const doc = (url: string) => (target: any, property: string) => {
   setPropertyOnMethod(target[property], "documentationUrl", url);
 };
 
-export const filterInput = (allowKeys: string[]) => (
-  target: any,
-  property: string,
-) => {
-  const fn = target[property];
-  target[property] = (data: any) => {
-    return fn.apply(target, pick(data, allowKeys));
-  };
-  target[property]._originalFn = fn;
-
-  setPropertyOnMethod(target[property], "filterInput", allowKeys);
+export function filterInput (allowKeys: string[]) {
+  return (
+    target: any,
+    property: string,
+    descriptor: TypedPropertyDescriptor<(data: any) => any>
+  ) => {
+    const fn = descriptor.value;
+    if (fn) {
+      descriptor.value = function (data: {}) {
+        return fn.call(this, pick(data, allowKeys));
+      };
+    }
+  }
 };
