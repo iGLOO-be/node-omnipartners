@@ -66,14 +66,14 @@ export class DirectCashbackVoucherResolver {
     const data = (await ctx.omnipartners.deals.getDirectCashbackVoucherList({
       user_guid,
       ...input,
-      p_page: `${args.page}`,
+      p_page: args.page && `${args.page}`,
       p_length: args.limit && `${args.limit}`,
     })).data;
 
     const count = data.records.length;
     const limit = data.p_length;
     const page = data.p_page;
-    const hasNextPage = page !== Math.ceil(count / limit);
+    const hasNextPage = count > 0;
 
     const result = await Promise.all(
       data.records.map(

@@ -39,7 +39,7 @@ class DirectCashbackRedemptionRequestListInput {
 
 @Resolver()
 export class DirectCashbackRedemptionRequestResolver {
-  @Query(() => DirectCashbackRedemptionRequestConnection, { nullable: true })
+  @Query(() => DirectCashbackRedemptionRequestConnection)
   public async directCashbackRedemptionRequestList(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
@@ -59,7 +59,7 @@ export class DirectCashbackRedemptionRequestResolver {
     const count = data.records.length;
     const limit = data.p_length;
     const page = data.p_page;
-    const hasNextPage = page !== Math.ceil(count / limit);
+    const hasNextPage = count > 0;
 
     return {
       result: data.records.map(d => new DirectCashbackRedemptionRequest(d)),
