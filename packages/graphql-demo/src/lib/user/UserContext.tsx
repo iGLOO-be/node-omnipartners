@@ -1,13 +1,12 @@
 import { merge } from "lodash";
 import React, { useContext } from "react";
-import { Omit } from "type-fest";
 
 const SESSION_STORAGE_KEY = "rcfr.rc-et-moi";
 
 type IContextUpdater = (newState: Partial<IUserStore>) => void;
 
 interface IUserStore {
-  userToken: string | null;
+  userToken?: string | null;
 }
 
 export interface IUserContext extends IUserStore {
@@ -39,7 +38,7 @@ export type IUserContextProviderProps = Omit<
   "value"
 >;
 export const UserContextProvider = (props: IUserContextProviderProps) => {
-  const [state, setState] = React.useState(defaultState || {});
+  const [state, setState] = React.useState<IUserStore>(defaultState || {});
 
   React.useEffect(() => {
     storageWrite(state);

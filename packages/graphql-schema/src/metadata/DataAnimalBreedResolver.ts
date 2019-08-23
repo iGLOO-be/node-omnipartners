@@ -1,5 +1,4 @@
 import { IMetadataAnimalBreed } from "omnipartners";
-import { Omit } from "type-fest";
 import { Arg, Ctx, Field, ObjectType, Query, Resolver } from "type-graphql";
 import yn from "yn";
 import { Context } from "../types/Context";

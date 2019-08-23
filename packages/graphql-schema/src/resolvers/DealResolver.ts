@@ -1,5 +1,4 @@
 import { IDealProduct, ISubscribeToDealInput } from "omnipartners";
-import { Omit } from "type-fest";
 import {
   Arg,
   Ctx,

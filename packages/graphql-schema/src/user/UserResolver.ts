@@ -4,7 +4,6 @@ import {
   IUserUpdatePlacesOfPurchaseInput,
   IUserUpdateSubscriptionsInput,
 } from "omnipartners";
-import { Omit } from "type-fest";
 import {
   Arg,
   Ctx,
