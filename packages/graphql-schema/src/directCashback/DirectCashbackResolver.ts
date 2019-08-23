@@ -2,7 +2,6 @@ import {
   IDirectCashbackDealDetail,
   ISubscribeToDirectCashbackDealInput,
 } from "omnipartners";
-import { Omit } from "type-fest";
 import {
   Arg,
   Ctx,

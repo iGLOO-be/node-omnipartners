@@ -1,5 +1,4 @@
 import { ICollectionDetail } from "omnipartners";
-import { Omit } from "type-fest";
 import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
