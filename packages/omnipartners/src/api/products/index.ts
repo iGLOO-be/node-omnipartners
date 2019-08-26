@@ -490,4 +490,27 @@ export default class Products extends Api {
       retry: true,
     });
   }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/List_Collection_by_Pet_GUID",
+  )
+  @filterInput([
+    "pet_guid",
+    "user_guid",
+    "language",
+    "data_options",
+  ])
+  public getCollectionsByPetGUID(
+    data: {
+      pet_guid?: string;
+      user_guid?: string;
+      language?: string;
+      data_options?: string[];
+    },
+  ): Promise<{ data: IGetCollectionsByTargetingInfoCollection[] }> {
+    return this._call("get-collections-by-pet-guid", data, {
+      errorMap: {},
+      retry: true,
+    });
+  }
 }
