@@ -10,7 +10,7 @@ import { Arg, Ctx, Field, InputType, ObjectType, Query } from "type-graphql";
 import { Context } from "../types/Context";
 
 @InputType()
-class ProductCollectionByPetGUIDInput implements IGetCollectionByPetGUIDInput {
+class ProductCollectionsByPetGUIDInput implements IGetCollectionByPetGUIDInput {
   @Field()
   public pet_guid: string;
 
@@ -245,7 +245,7 @@ class ProductCollectionsByTargetingInfoCollection
 }
 
 @ObjectType()
-class GetCollectionByPetGUID {
+class ProductCollectionsByPetGUID {
   @Field({ nullable: true })
   public reference: string;
 
@@ -295,14 +295,14 @@ export class ProductResolver {
     )).data;
   }
 
-  @Query(() => [GetCollectionByPetGUID], {
+  @Query(() => [ProductCollectionsByPetGUID], {
     nullable: true,
   })
-  public async productCollectionByPetGUID(
+  public async productCollectionsByPetGUID(
     @Ctx() ctx: Context,
-    @Arg("input") input: ProductCollectionByPetGUIDInput,
+    @Arg("input") input: ProductCollectionsByPetGUIDInput,
     @Arg("token") token: string,
-  ): Promise<GetCollectionByPetGUID[]> {
+  ): Promise<ProductCollectionsByPetGUID[]> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
 
     const res = (await ctx.omnipartners.products.getCollectionsByPetGUID({
@@ -310,6 +310,6 @@ export class ProductResolver {
       user_guid,
     })).data;
 
-    return res.map(d => new GetCollectionByPetGUID(d));
+    return res.map(d => new ProductCollectionsByPetGUID(d));
   }
 }
