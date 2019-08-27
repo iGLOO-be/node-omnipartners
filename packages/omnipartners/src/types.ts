@@ -909,9 +909,11 @@ export interface IDeal {
   pet_type: string;
   pet_universe: string | null;
   pet_breed: [];
-  pet_age_limit_value: "1" | "0";
-  pet_age_limit_unit: string;
-  pet_age_limit_operator: string;
+  pet_age_limit_value: string | null;
+  pet_age_limit_unit: "DAY" | "WEEK" | "MONTH" | "YEAR" | null;
+  pet_age_limit_operator: "LOWER" | "EQUAL" | "HIGHER" | "BTW" | "";
+  pet_age_limit_to_value: string | null;
+  pet_age_limit_to_unit: string | null;
   send_voucher_email: boolean;
   send_voucher_sms: boolean;
   need_to_scan: number;
