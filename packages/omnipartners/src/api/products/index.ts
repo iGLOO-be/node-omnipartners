@@ -278,6 +278,49 @@ export interface IGetCollectionsByTargetingInfoCollection {
   }>;
 }
 
+export interface IGetCollectionByPetGUIDInput {
+  pet_guid: string;
+  user_guid?: string;
+  partner_id?: string;
+  partner_id_type?: string;
+  partner_group_handle?: string;
+  language?: string;
+  add_clientof_partner_groups?: string;
+  use_https_urls?: string;
+  apply_range_exlusions?: string;
+  data_options?: string[];
+  is_gestation?: string;
+  sort_order?: string;
+  component_sort_order?: string;
+  ignore_old_format?: string;
+}
+
+export interface IGetCollectionByPetGUID {
+  reference: string;
+  generic_name: string;
+  name: string;
+  energy_level: number;
+  has_image: 1 | 0;
+  excluded_pathologies: string;
+  description: string;
+  tag_line: string;
+  introduction: string;
+  range_reference: string;
+  family_reference: string;
+  stage: [{ code: "ADULT"; name: "ADULT" }, { code: "MATURE"; name: "MATURE" }];
+  image: string;
+  image_small: string;
+  image_medium: string;
+  image_large: string;
+  criteria_match: string;
+  criteria_requested: string;
+  criteria_defined: string;
+  criteria_source: string;
+  secondary_sorting_weight: string;
+  pf_tracking_reference: string;
+  criteria_source_reference: string;
+}
+
 export interface IGetCollectionDetailsInput {
   // (Required) This will hold the Reference of the collection. (http://doc.omnipartners.be/index.php/List_Collection_References)
   collection_reference: string;
@@ -487,6 +530,32 @@ export default class Products extends Api {
         1059: { message: "Invalid Value for Filter type Pet's weight." },
         1060: { message: "Invalid Value for Filter type Pet's BCS." },
       },
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/List_Collection_by_Pet_GUID")
+  @filterInput([
+    "pet_guid", // (Required) Pet's GUID
+    "user_guid", // (Optional) Users's GUID
+    "partner_id", // (Optional) Partner Id. Two types of IDs are acceptable here which are terminal Id (http://doc.omnipartners.be/index.php/List_Partners_with_Terminals) and Partner Ext Id (http://doc.omnipartners.be/index.php/List_Partners). Moreover the parameter has a single input. partner_id has first priority than partner_group_handle.
+    "partner_id_type", // (Optional) Partner Id Type. The Value can be 'terminal' or 'extid'. This parameter represents the type of partner_id defined.
+    "partner_group_handle", // (Optional) Partner Group Handle. (http://doc.omnipartners.be/index.php/List_Partners_Group). If Partner Ext Id is not available and Partner Group Handle is available then the Partner Group Handle will use to filter the collections
+    "language", // (Optional) Language ID will use to filter the collection name. you can find this by using the following service. Please refer here.
+    "add_clientof_partner_groups", // (Optional) If enabled the groups of the partners belonging to the 'clienof' relationships of the pet owner are considered when listing the collections. Valid values are '0' OR '1' . Default value is '0'
+    "use_https_urls", // (Optional) States whether returned URLs should be secured or not. Valid values are 0 and 1. Default value is 0.
+    "apply_range_exlusions", // (Optional) If collection's range property, "hide products from other ranges" is true and "apply_range_exlusions" parameter is set to 1 or it is not set, products with other collection ranges are excluded from the result. Valid values are 0 and 1. Default value is 1.
+    "data_options", // (Optional) This defines information that is returned in the profile object. For more information please refer Data Options.Please note that the excessive usage of data options will result performance issues and In worst case API timeouts.
+    "is_gestation", // (Optional) This defines gestation of the pet and it can contain values Y/N. Y is for YES and N is for NO.
+    "sort_order", // (Optional) This defines how the resulting collection are sorted. Valid values are "collection_name" and "sorting_weight". By default the result is ordered only by the "sorting weight" defined in the collection. But if you specify one of the sorting values the sort behavior changes as follows. When sort_order is,  collection_name - the resulting collections will be sorted by the translated name sorting_weight - the resulting collections will be sorted by the "sorting weight" defined in the collection and then by translated name
+    "component_sort_order", // (Optional) Valid value is "component_name". If this is provided and not empty, then the collection components in the response will order according to the alphabetical order of components name. Otherwise it'll get ordered from the order defined in the collection level components.
+    "ignore_old_format", // (Optional) Ignore the old format of the response.Valid values are 0 and 1. Default value is 0.
+  ])
+  public getCollectionsByPetGUID(
+    data: IGetCollectionByPetGUIDInput,
+  ): Promise<{ data: IGetCollectionByPetGUID[] }> {
+    return this._call("get-collections-by-pet-guid", data, {
+      errorMap: {},
       retry: true,
     });
   }
