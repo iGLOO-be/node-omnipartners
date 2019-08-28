@@ -913,7 +913,7 @@ export interface IDeal {
   pet_age_limit_unit: "DAY" | "WEEK" | "MONTH" | "YEAR" | null;
   pet_age_limit_operator: "LOWER" | "EQUAL" | "HIGHER" | "BTW" | "";
   pet_age_limit_to_value: string | null;
-  pet_age_limit_to_unit: string | null;
+  pet_age_limit_to_unit: "DAY" | "WEEK" | "MONTH" | "YEAR" | null;
   send_voucher_email: boolean;
   send_voucher_sms: boolean;
   need_to_scan: number;
