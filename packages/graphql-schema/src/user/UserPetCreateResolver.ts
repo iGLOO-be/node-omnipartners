@@ -31,38 +31,39 @@ class UserPetCreateInput {
   public pictureUrl?: string;
 }
 
-const mapClixrayFields = (
-  userPetInput: UserPetCreateInput,
-): Pick<
-  IUserPetCreateInput,
-  | "pet_name"
-  | "pet_type"
-  | "pet_breed"
-  | "pet_dob"
-  | "pet_neutered"
-  | "pet_gender"
-  | "pet_picture"
-> => ({
-  pet_name: userPetInput.name,
-  pet_type: userPetInput.type,
-  pet_breed: userPetInput.breed,
-  pet_dob: userPetInput.dob,
-  pet_neutered:
-    typeof userPetInput.neutered === "undefined"
-      ? undefined
-      : userPetInput.neutered
-      ? "Y"
-      : "N",
-  pet_gender: userPetInput.gender,
-  pet_picture: userPetInput.pictureUrl
-    ? {
-        value: Buffer.from(userPetInput.pictureUrl, "base64"),
-        options: {
-          filename: "foo",
-        },
-      }
-    : undefined,
-});
+const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
+  const result: Pick<
+    IUserPetCreateInput,
+    | "pet_name"
+    | "pet_type"
+    | "pet_breed"
+    | "pet_dob"
+    | "pet_neutered"
+    | "pet_gender"
+    | "pet_picture"
+  > = {
+    pet_name: userPetInput.name,
+    pet_type: userPetInput.type,
+    pet_breed: userPetInput.breed,
+    pet_dob: userPetInput.dob,
+    pet_gender: userPetInput.gender,
+  };
+
+  if (typeof userPetInput.neutered !== "undefined") {
+    result.pet_neutered = userPetInput.neutered ? "Y" : "N";
+  }
+
+  if (userPetInput.pictureUrl) {
+    result.pet_picture = {
+      value: Buffer.from(userPetInput.pictureUrl, "base64"),
+      options: {
+        filename: "foo",
+      },
+    };
+  }
+
+  return result;
+};
 
 const fieldsMapping = {
   pet_name: "name",
