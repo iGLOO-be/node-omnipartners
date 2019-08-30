@@ -1,3 +1,4 @@
+import { pickBy } from "lodash";
 import { IPartnerLocatorInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Query, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
@@ -29,9 +30,11 @@ const mapClixrayFields = (
 > => ({
   partner_lat: partnerLocatorInput.lat,
   partner_lng: partnerLocatorInput.lng,
-  partner_type: partnerLocatorInput.type,
-  radius: partnerLocatorInput.radius,
-  limit: partnerLocatorInput.limit,
+  ...pickBy({
+    partner_type: partnerLocatorInput.type,
+    radius: partnerLocatorInput.radius,
+    limit: partnerLocatorInput.limit,
+  }),
 });
 
 @Resolver(() => Partner)
