@@ -138,4 +138,34 @@ export class DirectCashbackResolver {
       return new GenericValidationError(err);
     }
   }
+
+  @Mutation(() => Boolean)
+  public async directCashbackPaymentAccept(
+    @Ctx() ctx: Context,
+    @Arg("barcode") barcode: string,
+  ) {
+    try {
+      await ctx.omnipartners.deals.directCashbackPaymentAccept({
+        barcode,
+      });
+      return true;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  @Mutation(() => Boolean)
+  public async directCashbackPaymentReject(
+    @Ctx() ctx: Context,
+    @Arg("barcode") barcode: string,
+  ) {
+    try {
+      await ctx.omnipartners.deals.directCashbackPaymentReject({
+        barcode,
+      });
+      return true;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
