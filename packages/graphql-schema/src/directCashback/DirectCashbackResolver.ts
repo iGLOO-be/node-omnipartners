@@ -75,8 +75,12 @@ export class DirectCashbackDealDetail {
   @Field({ nullable: true })
   public redeemValidityTo?: Date;
 
+  @Field({ nullable: true })
+  public siteFooter: string;
+
   constructor(data: IDirectCashbackDealDetail) {
     Object.assign(this, data);
+    this.siteFooter = data.site_footer;
     this.redeemDurationValue = data.redeem_duration_value;
     this.redeemDurationUnit = data.redeem_duration_unit;
     this.isRelativeRedeemDate = data.is_relative_redeem_dates;

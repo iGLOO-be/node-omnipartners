@@ -1007,6 +1007,7 @@ export interface IDirectCashbackDealDetail {
   redeem_validity_to: string;
   confirmation_text: string;
   redemption_confirmation_text: string;
+  site_footer: string;
   slogan: string;
   public_name: string;
   langs: string[];
