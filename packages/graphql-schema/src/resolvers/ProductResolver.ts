@@ -245,6 +245,18 @@ class ProductCollectionsByTargetingInfoCollection
 }
 
 @ObjectType()
+class ProductCollectionLinks {
+  @Field()
+  public type: string;
+
+  @Field()
+  public reference: string;
+
+  @Field()
+  public link: string;
+}
+
+@ObjectType()
 class ProductCollectionsByPetGUID {
   @Field({ nullable: true })
   public reference: string;
@@ -272,6 +284,10 @@ class ProductCollectionsByPetGUID {
 
   @Field({ nullable: true })
   public imageLarge: string;
+
+  // input: data_options === "links" && language is set
+  @Field(() => [ProductCollectionLinks], { nullable: true })
+  public links: ProductCollectionLinks[];
 
   constructor(data: IGetCollectionByPetGUID) {
     Object.assign(this, data);
