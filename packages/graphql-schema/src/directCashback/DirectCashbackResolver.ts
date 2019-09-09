@@ -38,6 +38,24 @@ export class DirectCashbackDealSubscribeInput {
 }
 
 @ObjectType()
+class LanguageObject {
+  @Field({ nullable: true })
+  public FR: string;
+
+  @Field({ nullable: true })
+  public NL: string;
+}
+
+@ObjectType()
+class DirectCashbackDealDetailImages {
+  @Field()
+  public small: LanguageObject;
+
+  @Field()
+  public large: LanguageObject;
+}
+
+@ObjectType()
 export class DirectCashbackDealDetail {
   @Field()
   public id: string;
@@ -78,9 +96,13 @@ export class DirectCashbackDealDetail {
   @Field({ nullable: true })
   public siteFooter: string;
 
+  @Field({ nullable: true })
+  public presentationImages: DirectCashbackDealDetailImages;
+
   constructor(data: IDirectCashbackDealDetail) {
     Object.assign(this, data);
     this.siteFooter = data.site_footer;
+    this.presentationImages = data.presentation_images;
     this.redeemDurationValue = data.redeem_duration_value;
     this.redeemDurationUnit = data.redeem_duration_unit;
     this.isRelativeRedeemDate = data.is_relative_redeem_dates;

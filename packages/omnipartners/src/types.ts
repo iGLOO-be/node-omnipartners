@@ -1008,6 +1008,10 @@ export interface IDirectCashbackDealDetail {
   confirmation_text: string;
   redemption_confirmation_text: string;
   site_footer: string;
+  presentation_images: {
+    small: { NL: string | null; FR: null };
+    large: { NL: string | null; FR: null };
+  };
   slogan: string;
   public_name: string;
   langs: string[];
