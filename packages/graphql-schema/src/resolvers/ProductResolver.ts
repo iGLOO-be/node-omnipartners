@@ -246,13 +246,13 @@ class ProductCollectionsByTargetingInfoCollection
 
 @ObjectType()
 class ProductCollectionLinks {
-  @Field()
+  @Field({ nullable: true })
   public type: string;
 
-  @Field()
+  @Field({ nullable: true })
   public reference: string;
 
-  @Field()
+  @Field({ nullable: true })
   public link: string;
 }
 
