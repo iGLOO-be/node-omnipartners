@@ -29,7 +29,8 @@ export class UserTokenHelper {
     } catch (err) {
       if (
         err.name !== "JsonWebTokenError" &&
-        err.name !== "TokenExpiredError"
+        err.name !== "TokenExpiredError" &&
+        err.name !== "SyntaxError"
       ) {
         throw err;
       }
