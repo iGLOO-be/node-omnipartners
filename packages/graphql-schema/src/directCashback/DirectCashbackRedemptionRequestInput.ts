@@ -34,6 +34,9 @@ export class DirectCashbackRedemptionRequestInput {
   @Field({ nullable: true })
   public eanBarcode?: string;
 
+  @Field({ nullable: true })
+  public partnerExtId?: string;
+
   public toOmnipartners(): IDirectCashbackRedemptionRequestInput {
     return {
       barcode: this.barcode,
@@ -47,6 +50,7 @@ export class DirectCashbackRedemptionRequestInput {
             account_number: this.paymentDetails.accountNumber,
           },
       receipt_image_mime_type: this.receiptImageMimeType,
+      partner_ext_id: this.partnerExtId,
     };
   }
 }

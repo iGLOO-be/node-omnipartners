@@ -278,6 +278,27 @@ export default class Deals extends Api {
     3025: { message: "Subscription was expired, so cannot redeem it." },
     3062: { message: "Missing required parameter." },
     3094: { message: "Invalid receipt date." },
+    3096: { message: "Invalid image mime type." },
+    3115: { message: "Subscription failure due to user status." },
+    3119: { message: "Fail due to pet inclusion/exclusion restrictions" },
+    3118: { message: "Parameter 'pet_guid' not available in the request" },
+    3120: { message: "Fail due to pet stage inclusion/exclusion restrictions" },
+    3121: {
+      message: "Fail due to purchase place inclusion/exclusion restrictions",
+    },
+    3122: {
+      message:
+        "Fail due to concurrent subscription is not allowed for the deal",
+    },
+    3127: { message: "User doesn't have a pet in allowed date pool limit." },
+    3128: { message: "User doesn't have a pet in allowed neutered state." },
+    3131: {
+      message: "Required parameter 'child_guid' not available in the request",
+    },
+    3132: { message: "Invalid 'child_guid'." },
+    3133: { message: "Subscription failure due to child gender." },
+    3134: { message: "Subscription failure due to child age." },
+    3135: { message: "Subscription failure due to child count." },
   };
 
   @doc("http://doc.omnipartners.be/index.php/Get_deals_details")

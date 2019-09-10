@@ -1054,6 +1054,7 @@ export interface IDirectCashbackRedemptionRequestInput {
     sort_code?: string;
     account_number?: string;
   };
+  partner_ext_id?: string;
 }
 
 export interface IDirectCashbackVoucherBenefit {
