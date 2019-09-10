@@ -28,6 +28,7 @@ export { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
 export { UserResolver } from "./user/UserResolver";
 export { UserUpdateResolver } from "./user/UserUpdateResolver";
 export { PartnerLocatorResolver } from "./partner/PartnerLocatorResolver";
+export { AuthenticationError } from "./lib/UserTokenHelper";
 
 export * from "./schema";
 export * from "./utils";
