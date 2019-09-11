@@ -19,6 +19,8 @@ import {
   IUserPartnerRelationFromGet,
   IUserPet,
   IUserPetCreateInput,
+  IUserPetPlaceOfPurchaseDeleteInput,
+  IUserPetPlaceOfPurchaseUpdateInput,
   IUserPetUpdateInput,
   IUserPlaceOfPurchase,
   IUserPreferences,
@@ -960,18 +962,68 @@ export default class Identity extends Api {
   }
 
   @doc("http://doc.omnipartners.be/index.php/Update_pet_picture")
-  @filterInput([
-    "pet_guid",
-    "pet_picture"
-  ])
-  public updatePetPicture(data: { pet_guid: string; pet_picture: IUserPetUpdateInput["pet_picture"] }): Promise<{ statusCode: number }> {
+  @filterInput(["pet_guid", "pet_picture"])
+  public updatePetPicture(data: {
+    pet_guid: string;
+    pet_picture: IUserPetUpdateInput["pet_picture"];
+  }): Promise<{ statusCode: number }> {
     return this.post("/service/pets/update-picture", data, {
       multipart: true,
       hashKeys: ["pet_guid"],
       errorMap: {
         9: { message: "Pet not found in the system." },
-        10: { message: "File upload error." }
-      }
+        10: { message: "File upload error." },
+      },
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Add_a_place_of_purchase_preference_to_the_pet_account",
+  )
+  @filterInput([
+    "pet_guid", // (Required)	The GUID of the pet.
+    "place_id", // (Required)	Identification code of the place of purchase. Valid codes can be listed from http://doc.omnipartners.be/index.php/Get_Place_of_Purchase.
+    "place_rating", // (Required)	Rating of the place of purchase. The scale is 1 to 5.
+    "replace_existing_preferences", // (Optional)	If this is set to yes/1, then the preferences of the pet are replaced by this single new entry. Applicable values are 'yes' or '1' / 'no' or '0'. Default value for this is 'yes'.
+  ])
+  public updatePetPlaceOfPurchase(
+    data: IUserPetPlaceOfPurchaseUpdateInput,
+  ): Promise<{ statusCode: number }> {
+    return this.post("/service/pet-purchase-place/add-place/", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Retrieve_places_of_purchase_preferences_of_a_pet_account",
+  )
+  @filterInput([
+    "pet_guid", // (Required)	The GUID of the pet.
+  ])
+  public retrievePetPlaceOfPurchase(data: {
+    pet_guid: string;
+  }): Promise<
+    [{ place_id: string; place_rating: string; place_rated_on: string }]
+  > {
+    return this.post("service/pet-purchase-place/get-places/", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Delete_a_place_of_purchase_preference_from_a_pet_account",
+  )
+  @filterInput([
+    "pet_guid", // (Required)	The GUID of the pet.
+    "place_id", // (Required)	Identification code of the place of purchase. Valid codes can be listed from http://doc.omnipartners.be/index.php/Get_Place_of_Purchase.
+    "place_rating", // (Required)	Rating of the place of purchase. The scale is 1 to 5.
+    "replace_existing_preferences", // (Optional)	If this is set to yes/1, then the preferences of the pet are replaced by this single new entry. Applicable values are 'yes' or '1' / 'no' or '0'. Default value for this is 'yes'.
+  ])
+  public deletePetPlaceOfPurchase(
+    data: IUserPetPlaceOfPurchaseDeleteInput,
+  ): Promise<{ statusCode: number; data: any }> {
+    return this.post("/service/pet-purchase-place/delete-place/", data, {
+      hashKeys: undefined,
     });
   }
 }
