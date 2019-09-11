@@ -573,6 +573,12 @@ export interface IUserPetPlaceOfPurchaseUpdateInput {
   replace_existing_preferences?: string;
 }
 
+export interface IUserPetPlaceOfPurchase {
+  place_id: string;
+  place_rating: string;
+  place_rated_on?: string;
+}
+
 export interface IUserPetPlaceOfPurchaseDeleteInput {
   pet_guid: string;
   place_id: string;

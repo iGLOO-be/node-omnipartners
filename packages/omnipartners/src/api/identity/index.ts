@@ -19,6 +19,7 @@ import {
   IUserPartnerRelationFromGet,
   IUserPet,
   IUserPetCreateInput,
+  IUserPetPlaceOfPurchase,
   IUserPetPlaceOfPurchaseDeleteInput,
   IUserPetPlaceOfPurchaseUpdateInput,
   IUserPetUpdateInput,
@@ -1002,9 +1003,7 @@ export default class Identity extends Api {
   ])
   public retrievePetPlaceOfPurchase(data: {
     pet_guid: string;
-  }): Promise<
-    [{ place_id: string; place_rating: string; place_rated_on: string }]
-  > {
+  }): Promise<{ data: IUserPetPlaceOfPurchase[] | null }> {
     return this.post("service/pet-purchase-place/get-places/", data, {
       hashKeys: undefined,
     });

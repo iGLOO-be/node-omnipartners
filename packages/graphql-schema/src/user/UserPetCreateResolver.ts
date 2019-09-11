@@ -1,5 +1,6 @@
 import { IUserPetCreateInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
+import { PlaceOfPurchase } from "../metadata/DataPlaceOfPurchaseResolver";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
@@ -82,6 +83,7 @@ export class UserPetCreateResolver {
     @Ctx() ctx: Context,
     @Arg("token") token: string,
     @Arg("userPetInput") userPetInput: UserPetCreateInput,
+    @Arg("placeOfPurchase", { nullable: true }) placeOfPurchase: string,
   ): Promise<UserPetUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
@@ -93,6 +95,14 @@ export class UserPetCreateResolver {
         data_options: dataOptions,
         user_guid,
       });
+      if (placeOfPurchase) {
+        await ctx.omnipartners.identity.updatePetPlaceOfPurchase({
+          pet_guid: pet.guid,
+          place_id: placeOfPurchase,
+          place_rating: "5"
+        })
+      }
+
       return new UserPetUpdateResult({
         result: {
           pet: new UserPet(pet),

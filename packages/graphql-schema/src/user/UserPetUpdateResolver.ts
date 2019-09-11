@@ -12,8 +12,8 @@ class UserPetUpdateInput {
   @Field()
   public guid: string;
 
-  @Field({ nullable: true })
-  public name?: string;
+  @Field()
+  public name: string;
 
   @Field({ nullable: true })
   public type?: string;
@@ -89,6 +89,7 @@ export class UserPetUpdateResolver {
     @Ctx() ctx: Context,
     @Arg("token") token: string,
     @Arg("userPetInput") userPetInput: UserPetUpdateInput,
+    @Arg("placeOfPurchase", { nullable: true }) placeOfPurchase: string,
   ): Promise<UserPetUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
@@ -104,6 +105,15 @@ export class UserPetUpdateResolver {
       const updatedPet = (await ctx.omnipartners.identity.updatePet(
         mapClixrayFields(userPetInput),
       )).data;
+
+      if (placeOfPurchase) {
+        await ctx.omnipartners.identity.updatePetPlaceOfPurchase({
+          pet_guid: pet.guid,
+          place_id: placeOfPurchase,
+          place_rating: "5",
+        });
+      }
+
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: dataOptions,
         user_guid,
