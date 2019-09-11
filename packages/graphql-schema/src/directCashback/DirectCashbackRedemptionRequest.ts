@@ -43,8 +43,8 @@ export class DirectCashbackRedemptionRequest {
     Object.assign(this, data);
     this.imageUrl = data.image_url;
     this.benefitId = data.benefit_id;
-    this.createdOn = new Date(data.created_on);
-    this.updatedOn = new Date(data.updated_on);
+    this.createdOn = data.created_on && new Date(data.created_on);
+    this.updatedOn = data.updated_on && new Date(data.updated_on);
     this.deal_ref = data.deal.ref;
   }
 

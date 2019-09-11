@@ -24,7 +24,7 @@ class UserPetPlaceOfPurchase {
   constructor(data: IUserPetPlaceOfPurchase) {
     this.placeId = data.place_id;
     this.placeRating = data.place_rating;
-    this.placeRatedOn = new Date(data.place_rated_on);
+    this.placeRatedOn = data.place_rated_on && new Date(data.place_rated_on);
   }
 }
 @ObjectType()
@@ -66,7 +66,7 @@ export class UserPet
     this.dob = data.pet_dob;
     this.type = data.petType;
     this.hasPicture = data.has_picture === "1" ? true : false;
-    this.lastUpdated = new Date(data.lastUpdated);
+    this.lastUpdated = data.lastUpdated && new Date(data.lastUpdated);
   }
 
   @Field()
