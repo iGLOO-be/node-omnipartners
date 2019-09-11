@@ -32,6 +32,9 @@ class UserPetUpdateInput {
 
   @Field({ nullable: true })
   public pictureUrl?: string;
+
+  @Field({ nullable: true })
+  public placeOfPurchase: string;
 }
 
 const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
@@ -89,7 +92,6 @@ export class UserPetUpdateResolver {
     @Ctx() ctx: Context,
     @Arg("token") token: string,
     @Arg("userPetInput") userPetInput: UserPetUpdateInput,
-    @Arg("placeOfPurchase", { nullable: true }) placeOfPurchase: string,
   ): Promise<UserPetUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
@@ -106,10 +108,10 @@ export class UserPetUpdateResolver {
         mapClixrayFields(userPetInput),
       )).data;
 
-      if (placeOfPurchase) {
+      if (userPetInput.placeOfPurchase) {
         await ctx.omnipartners.identity.updatePetPlaceOfPurchase({
           pet_guid: pet.guid,
-          place_id: placeOfPurchase,
+          place_id: userPetInput.placeOfPurchase,
           place_rating: "5",
         });
       }
