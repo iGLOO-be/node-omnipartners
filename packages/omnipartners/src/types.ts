@@ -566,6 +566,24 @@ export interface IUserPetUpdateInput {
   pet_ext_id?: string;
 }
 
+export interface IUserPetPlaceOfPurchaseUpdateInput {
+  pet_guid: string;
+  place_id: string;
+  place_rating: string;
+  replace_existing_preferences?: string;
+}
+
+export interface IUserPetPlaceOfPurchase {
+  place_id: string;
+  place_rating: string;
+  place_rated_on?: string;
+}
+
+export interface IUserPetPlaceOfPurchaseDeleteInput {
+  pet_guid: string;
+  place_id: string;
+}
+
 export interface IUserOwner {
   id: string;
   _id: string;

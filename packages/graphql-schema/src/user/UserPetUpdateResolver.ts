@@ -12,8 +12,8 @@ class UserPetUpdateInput {
   @Field()
   public guid: string;
 
-  @Field({ nullable: true })
-  public name?: string;
+  @Field()
+  public name: string;
 
   @Field({ nullable: true })
   public type?: string;
@@ -32,6 +32,9 @@ class UserPetUpdateInput {
 
   @Field({ nullable: true })
   public pictureUrl?: string;
+
+  @Field({ nullable: true })
+  public placeOfPurchase: string;
 }
 
 const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
@@ -104,6 +107,15 @@ export class UserPetUpdateResolver {
       const updatedPet = (await ctx.omnipartners.identity.updatePet(
         mapClixrayFields(userPetInput),
       )).data;
+
+      if (userPetInput.placeOfPurchase) {
+        await ctx.omnipartners.identity.updatePetPlaceOfPurchase({
+          pet_guid: pet.guid,
+          place_id: userPetInput.placeOfPurchase,
+          place_rating: "5",
+        });
+      }
+
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: dataOptions,
         user_guid,
