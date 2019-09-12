@@ -20,14 +20,23 @@ class PartnerLocatorInput {
 
   @Field({ nullable: true })
   public limit?: number;
+
+  @Field({ nullable: true })
+  public collectionRef: string;
 }
 
 const mapClixrayFields = (
   partnerLocatorInput: PartnerLocatorInput,
 ): Pick<
   IPartnerLocatorInput,
-  "partner_lat" | "partner_lng" | "partner_type" | "radius" | "limit"
+  | "partner_lat"
+  | "partner_lng"
+  | "partner_type"
+  | "radius"
+  | "limit"
+  | "collection_ref"
 > => ({
+  collection_ref: partnerLocatorInput.collectionRef,
   partner_lat: partnerLocatorInput.lat,
   partner_lng: partnerLocatorInput.lng,
   ...pickBy({
