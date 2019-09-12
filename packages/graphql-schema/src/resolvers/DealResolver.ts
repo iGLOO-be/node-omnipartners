@@ -17,8 +17,8 @@ export class DealSubscribeInput
   implements Omit<ISubscribeToDealInput, "user_guid"> {
   @Field()
   public ref: string;
-  @Field()
-  public partner_extid: string;
+  @Field({ nullable: true })
+  public partner_extid?: string;
   @Field({ nullable: true })
   public ean_code?: string;
   @Field({ nullable: true })

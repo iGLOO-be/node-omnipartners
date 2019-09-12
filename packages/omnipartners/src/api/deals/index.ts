@@ -11,7 +11,7 @@ import {
 export interface ISubscribeToDealInput {
   user_guid: string;
   ref: string;
-  partner_extid: string;
+  partner_extid?: string;
   ean_code?: string;
   secure_code?: string;
   pet_guid?: string;
@@ -19,6 +19,60 @@ export interface ISubscribeToDealInput {
   bic?: string;
   referral_code?: string;
   delivery_address_id?: string;
+}
+
+interface ISubscribeToDealReturnPartner {
+  name: string;
+  street1: string;
+  street2: string;
+  streetnum: string;
+  postal_code: string;
+  city: string;
+  region: string;
+  country: string;
+  id: string;
+  extid: string;
+  type: string;
+  lat: string;
+  lng: string;
+  pub_name: string;
+  pub_street1: string;
+  pub_street2: string;
+  pub_streetnum: string;
+  pub_postal_code: string;
+  pub_city: string;
+  pub_region: string;
+  pub_country: string;
+  distance: string;
+  ptn_status: string;
+}
+
+export interface ISubscribeToDealReturn {
+  id: number;
+  user_guid: string;
+  external_tracking_reference: string;
+  ts_created: string;
+  barcode: string;
+  secure_code: string;
+  subs_partner_id: number;
+  coupon_id: number;
+  status: string;
+  pet_guid: string;
+  pet_status: string;
+  ts_redeemed: string;
+  barcode_url: string;
+  ts_subscribe: string;
+  product_id: string;
+  product: string;
+  saving_end_date: string;
+  redeem_validity_from: string;
+  redeem_validity_to: string;
+  redirect_url: string;
+  referral_partner: string[];
+  delivery_address: string[];
+
+  partner: ISubscribeToDealReturnPartner;
+  deal: IDeal;
 }
 
 export interface ISubscribeToDirectCashbackDealInput {
@@ -400,7 +454,9 @@ export default class Deals extends Api {
     "referral_code", // (Optional) Referral code of the referring partner
     "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
   ])
-  public subscribeToDeal(data: ISubscribeToDealInput) {
+  public subscribeToDeal(
+    data: ISubscribeToDealInput,
+  ): Promise<ISubscribeToDealReturn> {
     return this._call("deal-subscribe", data, {
       hashKeys: ["ref"],
       retry: true,
@@ -597,7 +653,10 @@ export default class Deals extends Api {
   ])
   public subscribeToDirectCashbackDeal(
     data: ISubscribeToDirectCashbackDealInput,
-  ) {
+  ): Promise<{
+    barcode: string;
+    status: number;
+  }> {
     return this._call("direct-cashback-subscribe", data, {
       retry: true,
       hashKeys: undefined,
