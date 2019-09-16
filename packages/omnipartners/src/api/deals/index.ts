@@ -456,7 +456,7 @@ export default class Deals extends Api {
   ])
   public subscribeToDeal(
     data: ISubscribeToDealInput,
-  ): Promise<ISubscribeToDealReturn> {
+  ): Promise<{ data: ISubscribeToDealReturn }> {
     return this._call("deal-subscribe", data, {
       hashKeys: ["ref"],
       retry: true,
