@@ -19,32 +19,32 @@
     "start:server": "nodemon -r ts-node/register scripts/start-server.ts"
   },
   "peerDependencies": {
-    "graphql": "^14.5.0",
-    "omnipartners": "^2.2.14"
+    "graphql": "^14",
+    "omnipartners": "^2.3.7"
   },
   "devDependencies": {
     "@types/execa": "^2.0.0",
     "@types/fs-extra": "^8.0.0",
-    "@types/graphql": "^14.2.3",
+    "@types/graphql": "^14.5.0",
     "@types/jest": "^24.0.18",
     "@types/jsonwebtoken": "^8.3.3",
     "@types/logform": "^1.2.0",
     "@types/node-fetch": "^2.5.0",
     "@types/tempy": "^0.3.0",
-    "apollo-server": "^2.8.2",
+    "apollo-server": "^2.9.3",
     "chokidar": "^3.0.2",
     "concurrently": "^4.1.2",
     "execa": "^2.0.4",
     "fs-extra": "^8.1.0",
-    "graphql": "^14.5.0",
+    "graphql": "^14.5.6",
     "jest": "^24.9.0",
     "omnipartners": "^2.3.7",
     "p-debounce": "^2.1.0",
     "tempy": "^0.3.0",
-    "ts-jest": "^24.0.2",
-    "ts-node": "^8.3.0",
-    "type-fest": "^0.7.1",
-    "typescript": "3.5.3",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
+    "type-fest": "^0.8.0",
+    "typescript": "3.6.3",
     "winston": "^3.2.1"
   },
   "dependencies": {
