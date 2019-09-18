@@ -22,7 +22,22 @@ class PartnerLocatorInput {
   public limit?: number;
 
   @Field({ nullable: true })
-  public collectionRef: string;
+  public collectionRef?: string;
+
+  @Field(() => [String], { nullable: true })
+  public partner_group_handle?: string[];
+
+  @Field(() => [String], { nullable: true })
+  public excl_partner_group_handle?: string[];
+
+  @Field({ nullable: true })
+  public stock_level?: number;
+
+  @Field({ nullable: true })
+  public search_term?: string;
+
+  @Field({ nullable: true })
+  public partner_status?: string;
 }
 
 const mapClixrayFields = (
@@ -35,6 +50,11 @@ const mapClixrayFields = (
   | "radius"
   | "limit"
   | "collection_ref"
+  | "partner_group_handle"
+  | "excl_partner_group_handle"
+  | "stock_level"
+  | "search_term"
+  | "partner_status"
 > => ({
   collection_ref: partnerLocatorInput.collectionRef,
   partner_lat: partnerLocatorInput.lat,
@@ -43,6 +63,13 @@ const mapClixrayFields = (
     partner_type: partnerLocatorInput.type,
     radius: partnerLocatorInput.radius,
     limit: partnerLocatorInput.limit,
+    partner_group_handle: partnerLocatorInput.partner_group_handle.join(","),
+    excl_partner_group_handle: partnerLocatorInput.excl_partner_group_handle.join(
+      ",",
+    ),
+    stock_level: partnerLocatorInput.stock_level,
+    search_term: partnerLocatorInput.search_term,
+    partner_status: partnerLocatorInput.partner_status,
   }),
 });
 
