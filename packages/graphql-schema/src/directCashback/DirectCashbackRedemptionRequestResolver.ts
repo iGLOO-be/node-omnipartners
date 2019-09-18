@@ -118,7 +118,7 @@ export class DirectCashbackRedemptionRequestResolver {
     ctx: Context,
     eanBarcode: string,
     subscriptionBarcode: string,
-  ) => {
+  ): Promise<string | undefined> => {
     const {
       data: { product_id },
     } = await ctx.omnipartners.products.getProduct({
@@ -136,6 +136,6 @@ export class DirectCashbackRedemptionRequestResolver {
 
     const benefit = benefits.find(b => b.product.id === product_id);
 
-    return benefit.id;
+    return benefit && benefit.id;
   };
 }
