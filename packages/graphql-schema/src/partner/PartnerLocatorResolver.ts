@@ -63,10 +63,12 @@ const mapClixrayFields = (
     partner_type: partnerLocatorInput.type,
     radius: partnerLocatorInput.radius,
     limit: partnerLocatorInput.limit,
-    partner_group_handle: partnerLocatorInput.partner_group_handle.join(","),
-    excl_partner_group_handle: partnerLocatorInput.excl_partner_group_handle.join(
-      ",",
-    ),
+    partner_group_handle:
+      partnerLocatorInput.partner_group_handle &&
+      partnerLocatorInput.partner_group_handle.join(","),
+    excl_partner_group_handle:
+      partnerLocatorInput.excl_partner_group_handle &&
+      partnerLocatorInput.excl_partner_group_handle.join(","),
     stock_level: partnerLocatorInput.stock_level,
     search_term: partnerLocatorInput.search_term,
     partner_status: partnerLocatorInput.partner_status,
