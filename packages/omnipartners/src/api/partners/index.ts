@@ -86,6 +86,7 @@ export default class Partners extends Api {
     "indexed_result",
     "partner_type",
     "partner_group_handle",
+    "excl_partner_group_handle",
     "collection_ref",
     "stock_level",
     "search_term",

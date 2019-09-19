@@ -56,10 +56,10 @@ const mapClixrayFields = (
   | "search_term"
   | "partner_status"
 > => ({
-  collection_ref: partnerLocatorInput.collectionRef,
   partner_lat: partnerLocatorInput.lat,
   partner_lng: partnerLocatorInput.lng,
   ...pickBy({
+    collection_ref: partnerLocatorInput.collectionRef,
     partner_type: partnerLocatorInput.type,
     radius: partnerLocatorInput.radius,
     limit: partnerLocatorInput.limit,
