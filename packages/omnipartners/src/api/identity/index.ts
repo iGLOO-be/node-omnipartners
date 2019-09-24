@@ -11,6 +11,9 @@ import {
   IUpdateUserInput,
   IUser,
   IUserAddress,
+  IUserChild,
+  IUserChildCreateInput,
+  IUserChildUpdateInput,
   IUserConfirmLegalFormsInput,
   IUserDataOptions,
   IUserLegalFormsItems,
@@ -1022,6 +1025,54 @@ export default class Identity extends Api {
     data: IUserPetPlaceOfPurchaseDeleteInput,
   ): Promise<{ statusCode: number; data: any }> {
     return this.post("/service/pet-purchase-place/delete-place/", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  /*
+    Manage children
+  */
+
+  @doc("http://doc.omnipartners.be/index.php/Add_new_child")
+  @filterInput([
+    "user_guid", // (Required)	The GUID of the parent account.
+    "child_first_name", // (Required)	The name of the child.
+    "child_birthday", // (Required)	The birthday of the child in the format YYYY-MM-DD.
+    "child_gender", // (Optional)	The gender of the child. Valid values are “M”, “F” and “U” (for unknown).
+    "child_ext_id", // (Optional)	The external id of the child. This should be a unique value.
+  ])
+  public createChild(
+    data: IUserChildCreateInput,
+  ): Promise<{ data: IUserChild }> {
+    return this.post("/service/children/add", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Retrieve_child_information")
+  @filterInput([
+    "user_guid", // (Required)	The GUID of the parent account.
+  ])
+  public getChildren(data: {
+    user_guid: string;
+  }): Promise<{ data: IUserChild[] }> {
+    return this.post("/service/children/get", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Update_child_information")
+  @filterInput([
+    "child_guid", // (Required)	The GUID of the child.
+    "child_first_name", // (Optional)	The first name of the child.
+    "child_birthday", // (Optional)	The date of birth of the child in the format YYYY-MM-DD.
+    "child_gender", // (Optional)	The gender of the gender. Valid values are “M”, “F” and “U” (for unknown).
+    "child_ext_id", // (Optional)	The external id of the child. This should be a unique value.
+  ])
+  public updateChild(
+    data: IUserChildUpdateInput,
+  ): Promise<{ data: IUserChild }> {
+    return this.post("/service/children/update", data, {
       hashKeys: undefined,
     });
   }

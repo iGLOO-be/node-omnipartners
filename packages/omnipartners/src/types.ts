@@ -584,6 +584,31 @@ export interface IUserPetPlaceOfPurchaseDeleteInput {
   place_id: string;
 }
 
+export interface IUserChild {
+  child_birthday: string;
+  child_added_on: string;
+  child_updated_on: string;
+  child_gender: string;
+  child_guid: string;
+  child_first_name: string;
+  child_parent: string;
+  child_status: string;
+  child_ext_id: string;
+}
+
+export interface IUserChildCreateInput {
+  user_guid: string;
+  child_first_name: string;
+  child_birthday: string;
+  child_gender: string;
+  child_ext_id?: string;
+}
+
+export interface IUserChildUpdateInput
+  extends Omit<Partial<IUserChildCreateInput>, "user_guid"> {
+  child_guid: string;
+}
+
 export interface IUserOwner {
   id: string;
   _id: string;
