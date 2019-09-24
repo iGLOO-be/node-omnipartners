@@ -9,6 +9,7 @@ import { Memoize } from "typescript-memoize";
 import { Context } from "..";
 import { LegalForm } from "../metadata/DataLegalFormResolver";
 import { UserAddress } from "./UserAddress";
+import { UserChild } from "./UserChild";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
 
@@ -175,6 +176,15 @@ export class User {
     } else {
       return [];
     }
+  }
+
+  @Field(() => [UserChild], { nullable: false })
+  public async children(@Ctx() ctx: Context): Promise<UserChild[]> {
+    const res = (await ctx.omnipartners.identity.getChildren({
+      user_guid: this.owner.guid,
+    })).data;
+
+    return res.map(d => new UserChild(d));
   }
 }
 

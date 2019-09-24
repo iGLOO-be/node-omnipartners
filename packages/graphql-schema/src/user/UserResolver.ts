@@ -24,6 +24,7 @@ export const dataOptions: IUserDataOptions = [
   "-preferences",
   "-loyalty_cards",
   "-access_rights",
+  "children",
 ];
 
 @InputType()

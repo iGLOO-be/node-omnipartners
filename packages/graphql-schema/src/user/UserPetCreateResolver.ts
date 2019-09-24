@@ -1,6 +1,5 @@
 import { IUserPetCreateInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
-import { PlaceOfPurchase } from "../metadata/DataPlaceOfPurchaseResolver";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
