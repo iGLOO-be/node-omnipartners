@@ -99,6 +99,9 @@ export class DirectCashbackDealDetail {
   @Field({ nullable: true })
   public presentationImages: DirectCashbackDealDetailImages;
 
+  @Field()
+  public petRequired: boolean;
+
   constructor(data: IDirectCashbackDealDetail) {
     Object.assign(this, data);
     this.siteFooter = data.site_footer;
@@ -109,8 +112,11 @@ export class DirectCashbackDealDetail {
     this.publicName = data.public_name;
     this.availableFrom = new Date(data.available_from);
     this.availableTo = new Date(data.available_to);
-    this.redeemValidityFrom = data.redeem_validity_from && new Date(data.redeem_validity_from);
-    this.redeemValidityTo = data.redeem_validity_from && new Date(data.redeem_validity_to);
+    this.redeemValidityFrom =
+      data.redeem_validity_from && new Date(data.redeem_validity_from);
+    this.redeemValidityTo =
+      data.redeem_validity_from && new Date(data.redeem_validity_to);
+    this.petRequired = data.pet_required === "1";
   }
 }
 

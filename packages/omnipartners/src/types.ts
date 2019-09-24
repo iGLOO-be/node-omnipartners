@@ -1012,7 +1012,7 @@ export interface IDirectCashbackDealDetail {
   redeem_duration_unit: string;
   is_relative_redeem_dates: boolean;
   status: string;
-  pet_required: string;
+  pet_required: "1" | "0";
   pet_type_included: string;
   pet_universe_included: string;
   pet_type_excluded: number[];
