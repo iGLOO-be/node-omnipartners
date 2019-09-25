@@ -691,7 +691,7 @@ export interface IUser {
   stamps_count: number | null;
 }
 
-export interface IUpdateUserInput extends IBaseUserInput {
+export interface IUserUpdateInput extends IBaseUserInput {
   // The GUID of the user.
   user_guid: string;
 }

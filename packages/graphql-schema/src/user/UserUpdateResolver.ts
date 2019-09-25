@@ -1,4 +1,4 @@
-import { IUpdateUserInput } from "omnipartners";
+import { IUserUpdateInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
@@ -57,12 +57,21 @@ class UserUpdateInput {
 
   @Field({ nullable: true })
   public postalCode: string;
+
+  @Field({ nullable: true })
+  public city: string;
+
+  @Field({ nullable: true })
+  public street1: string;
+
+  @Field({ nullable: true })
+  public streetnum: string;
 }
 
 const mapClixrayFields = (
   userInput: UserUpdateInput,
 ): Pick<
-  IUpdateUserInput,
+  IUserUpdateInput,
   | "user_title"
   | "user_first_name"
   | "user_last_name"
@@ -75,6 +84,9 @@ const mapClixrayFields = (
   | "user_language"
   | "user_postal_code"
   | "user_country"
+  | "user_city"
+  | "user_street1"
+  | "user_streetnum"
 > => ({
   user_title: userInput.title,
   user_first_name: userInput.firstName,
@@ -88,6 +100,9 @@ const mapClixrayFields = (
   user_language: userInput.language,
   user_postal_code: userInput.postalCode,
   user_country: userInput.country,
+  user_city: userInput.city,
+  user_street1: userInput.street1,
+  user_streetnum: userInput.streetnum
 });
 
 const fieldsMapping = {
@@ -104,6 +119,9 @@ const fieldsMapping = {
   user_postal_code: "postalCode",
   address_postal_code: "postalCode", // Yes, seems strange but Clixray may results errors for this field.
   user_country: "country",
+  user_city: "city",
+  user_street1: "street1",
+  user_streetnum: "streetnum",
 };
 
 @Resolver(() => User)
@@ -115,7 +133,7 @@ export class UserUpdateResolver {
     @Arg("userInput") userInput: UserUpdateInput,
   ): Promise<UserUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
-    const data: IUpdateUserInput = {
+    const data: IUserUpdateInput = {
       ...mapClixrayFields(userInput),
       user_guid,
     };

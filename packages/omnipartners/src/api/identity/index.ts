@@ -8,7 +8,6 @@ import {
   IRegisterUserAddressInput,
   IRegisterUserInput,
   IUpdateUserAddressInput,
-  IUpdateUserInput,
   IUser,
   IUserAddress,
   IUserChild,
@@ -28,6 +27,7 @@ import {
   IUserPetUpdateInput,
   IUserPlaceOfPurchase,
   IUserPreferences,
+  IUserUpdateInput,
   IUserUpdatePlacesOfPurchaseInput,
   IUserUpdateSubscriptionsInput,
   IUsetPetDataOptions,
@@ -218,7 +218,7 @@ export default class Identity extends Api {
   }
 
   @doc("http://doc.omnipartners.be/index.php/Edit_User_Accounts")
-  public update(data: IUpdateUserInput): Promise<{ data: IUserOwner }> {
+  public update(data: IUserUpdateInput): Promise<{ data: IUserOwner }> {
     return this.get("/service/user/update", data, {
       hashKeys: ["user_email", "user_guid"],
     });
