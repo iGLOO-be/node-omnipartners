@@ -35,13 +35,13 @@ type IMapClixrayFieldsResult = Pick<
   | "child_ext_id"
 >;
 
-const mapClixrayFields = (userChildInput: UserChildUpdateInput) => {
+const mapClixrayFields = (userChildUpdateInput: UserChildUpdateInput) => {
   const result = pickBy<IMapClixrayFieldsResult>({
-    child_guid: userChildInput.guid,
-    child_first_name: userChildInput.firstName,
-    child_birthday: userChildInput.birthday,
-    child_gender: userChildInput.gender,
-    child_ext_id: userChildInput.extId,
+    child_guid: userChildUpdateInput.guid,
+    child_first_name: userChildUpdateInput.firstName,
+    child_birthday: userChildUpdateInput.birthday,
+    child_gender: userChildUpdateInput.gender,
+    child_ext_id: userChildUpdateInput.extId,
   });
 
   return result as IMapClixrayFieldsResult;
@@ -61,13 +61,13 @@ export class UserChildUpdateResolver {
   public async userChildUpdate(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
-    @Arg("userChildInput") userChildInput: UserChildUpdateInput,
+    @Arg("userChildUpdateInput") userChildUpdateInput: UserChildUpdateInput,
   ): Promise<UserChildResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
       const child = (await ctx.omnipartners.identity.getChildren({
         user_guid,
-      })).data.find(c => c.child_guid === userChildInput.guid);
+      })).data.find(c => c.child_guid === userChildUpdateInput.guid);
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: dataOptions,
@@ -80,7 +80,7 @@ export class UserChildUpdateResolver {
       }
 
       const updatedChild = (await ctx.omnipartners.identity.updateChild(
-        mapClixrayFields(userChildInput),
+        mapClixrayFields(userChildUpdateInput),
       )).data;
 
       return new UserChildResult({
