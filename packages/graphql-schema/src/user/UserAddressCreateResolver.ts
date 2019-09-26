@@ -39,6 +39,7 @@ const mapClixrayFields = (
   | "address_company"
   | "address_streetnum"
   | "address_street1"
+  | "address_street2"
   | "address_postal_code"
   | "address_city"
   | "address_country"
@@ -46,6 +47,7 @@ const mapClixrayFields = (
   address_name: userAddressInput.name,
   address_streetnum: userAddressInput.streetnum,
   address_street1: userAddressInput.street1,
+  address_street2: userAddressInput.street2,
   address_postal_code: userAddressInput.postalCode,
   address_city: userAddressInput.city,
   address_country: userAddressInput.country,
@@ -55,6 +57,7 @@ const fieldsMapping = {
   address_name: "name",
   address_streetnum: "streetnum",
   address_street1: "street1",
+  address_street2: "street2",
   address_postal_code: "postalCode",
   address_city: "city",
   address_country: "country",
