@@ -110,12 +110,12 @@ export class DirectCashbackDealDetail {
     this.redeemDurationUnit = data.redeem_duration_unit;
     this.isRelativeRedeemDate = data.is_relative_redeem_dates;
     this.publicName = data.public_name;
-    this.availableFrom = new Date(data.available_from);
-    this.availableTo = new Date(data.available_to);
+    this.availableFrom = data.available_from && new Date(data.available_from);
+    this.availableTo = data.available_to && new Date(data.available_to);
     this.redeemValidityFrom =
       data.redeem_validity_from && new Date(data.redeem_validity_from);
     this.redeemValidityTo =
-      data.redeem_validity_from && new Date(data.redeem_validity_to);
+      data.redeem_validity_to && new Date(data.redeem_validity_to);
     this.petRequired = data.pet_required === "1";
   }
 }
