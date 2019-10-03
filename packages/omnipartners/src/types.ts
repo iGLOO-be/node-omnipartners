@@ -274,6 +274,28 @@ export interface IPartnerDetails {
   partner_self_prefix: string;
   partner_deals_redirection_url: string;
   partner_referral_code: string;
+  partner_snap: string;
+  partner_instagram: string;
+  partner_pinterest: string;
+  partner_linkedin: string;
+  partner_googleplus: string;
+  partner_viadeo: string;
+  partner_whatsapp: string;
+  partner_youtube: string;
+  partner_groups: string[];
+  partner_user_guid: string;
+  partner_logo: string;
+  partner_logo_small: string;
+  partner_logo_medium: string;
+  partner_logo_large: string;
+  links: [];
+  partner_custom_conv: string;
+  partner_custom_discountcode: string;
+  partner_custom_edicode: string;
+  partner_custom_matrix: string;
+  partner_custom_salesmanemail: string;
+  partner_custom_species: string;
+  partner_short_description_generic: string;
 }
 
 export interface IUserPartial {
@@ -584,6 +606,31 @@ export interface IUserPetPlaceOfPurchaseDeleteInput {
   place_id: string;
 }
 
+export interface IUserChild {
+  child_birthday: string;
+  child_added_on: string;
+  child_updated_on: string;
+  child_gender: string;
+  child_guid: string;
+  child_first_name: string;
+  child_parent: string;
+  child_status: string;
+  child_ext_id: string;
+}
+
+export interface IUserChildCreateInput {
+  user_guid: string;
+  child_first_name: string;
+  child_birthday: string;
+  child_gender: string;
+  child_ext_id?: string;
+}
+
+export interface IUserChildUpdateInput
+  extends Omit<Partial<IUserChildCreateInput>, "user_guid"> {
+  child_guid: string;
+}
+
 export interface IUserOwner {
   id: string;
   _id: string;
@@ -666,7 +713,7 @@ export interface IUser {
   stamps_count: number | null;
 }
 
-export interface IUpdateUserInput extends IBaseUserInput {
+export interface IUserUpdateInput extends IBaseUserInput {
   // The GUID of the user.
   user_guid: string;
 }

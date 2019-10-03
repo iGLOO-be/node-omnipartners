@@ -21,6 +21,8 @@ import { DealResolver } from "./resolvers/DealResolver";
 import { ProductResolver } from "./resolvers/ProductResolver";
 import { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
 import { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
+import { UserChildCreateResolver } from "./user/UserChildCreateResolver";
+import { UserChildUpdateResolver } from "./user/UserChildUpdateResolver";
 import { UserCreateResolver } from "./user/UserCreateResolver";
 import { UserPartnerRelationCreateResolver } from "./user/UserPartnerRelationCreateResolver";
 import { UserPartnerRelationDeleteResolver } from "./user/UserPartnerRelationDeleteResolver";
@@ -58,6 +60,8 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       DirectCashbackVoucherResolver,
       DirectCashbackResolver,
       DirectCashbackRedemptionRequestResolver,
+      UserChildUpdateResolver,
+      UserChildCreateResolver,
     ],
     ...options,
   });
