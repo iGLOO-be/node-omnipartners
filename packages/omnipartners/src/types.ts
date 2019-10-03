@@ -274,6 +274,28 @@ export interface IPartnerDetails {
   partner_self_prefix: string;
   partner_deals_redirection_url: string;
   partner_referral_code: string;
+  partner_snap: string;
+  partner_instagram: string;
+  partner_pinterest: string;
+  partner_linkedin: string;
+  partner_googleplus: string;
+  partner_viadeo: string;
+  partner_whatsapp: string;
+  partner_youtube: string;
+  partner_groups: string[];
+  partner_user_guid: string;
+  partner_logo: string;
+  partner_logo_small: string;
+  partner_logo_medium: string;
+  partner_logo_large: string;
+  links: [];
+  partner_custom_conv: string;
+  partner_custom_discountcode: string;
+  partner_custom_edicode: string;
+  partner_custom_matrix: string;
+  partner_custom_salesmanemail: string;
+  partner_custom_species: string;
+  partner_short_description_generic: string;
 }
 
 export interface IUserPartial {

@@ -96,7 +96,9 @@ export default class Partners extends Api {
     "add_cis_guid",
     "partner_status",
   ])
-  public findPartners(data: IPartnerLocatorInput) {
+  public findPartners(
+    data: IPartnerLocatorInput,
+  ): Promise<{ data: IPartnerDetails[] }> {
     return this._call("find-partners", data, {
       errorMap: {
         1008: { message: "Missing required fields" },
