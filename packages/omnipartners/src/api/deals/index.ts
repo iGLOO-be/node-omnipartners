@@ -237,6 +237,69 @@ type IDirectCashbackDealDataOption =
   | "benefits"
   | "benefit_product_detail";
 
+interface IVoucherListInput {
+  user_guid?: string;
+  show?: string;
+  from?: string;
+  to?: string;
+  redeemed_from?: string;
+  redeemed_to?: string;
+  barcode?: string;
+  partner_extid?: string;
+  deal_ref?: string;
+  status?: string;
+  inv_resend_count?: string;
+  sort_field?: string;
+  sort_order?: string;
+  q?: string;
+  p_length?: number;
+  p_page: number;
+}
+
+interface IVoucher {
+  user_guid: string;
+  ts_created: string;
+  external_tracking_reference: string;
+  barcode: string;
+  subs_partner_id: number;
+  coupon_id: number;
+  status: string;
+  deal_ref: string;
+  ts_redeemed: string;
+  restriction_code: string;
+  redeem_validity_from: string;
+  redeem_validity_to: string;
+  partner: {
+    name: string;
+    street1: string;
+    street2: string;
+    streetnum: string;
+    postal_code: string;
+    city: string;
+    region: string;
+    country: string;
+    id: string;
+    extid: string;
+    type: string;
+    lat: string;
+    lng: string;
+    pub_name: string;
+    pub_street1: string;
+    pub_street2: string;
+    pub_streetnum: string;
+    pub_postal_code: string;
+    pub_city: string;
+    pub_region: string;
+    pub_country: string;
+    distance: string;
+    ptn_status: string;
+  };
+  product: string;
+  num_invi_resend: number;
+  ts_last_send: string;
+  invt_link: string;
+}
+
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
 
@@ -483,24 +546,7 @@ export default class Deals extends Api {
     "p_length", // Item per page
     "p_page", // current page. start at 0
   ])
-  public listVouchers(data: {
-    user_guid: string;
-    show: string;
-    from: string;
-    to: string;
-    redeemed_from: string;
-    redeemed_to: string;
-    barcode: string;
-    partner_extid: string;
-    deal_ref: string;
-    status: string;
-    inv_resend_count: string;
-    sort_field: string;
-    sort_order: string;
-    q: string;
-    p_length: number;
-    p_page: number;
-  }) {
+  public listVouchers(data: IVoucherListInput): Promise<{ data: IVoucher[] }> {
     return this._call("listoffers", data, {
       retry: true,
     });
