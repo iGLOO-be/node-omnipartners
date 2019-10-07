@@ -17,22 +17,33 @@ export class DealSubscribeInput
   implements Omit<ISubscribeToDealInput, "user_guid"> {
   @Field()
   public ref: string;
+
   @Field({ nullable: true })
   public partner_extid?: string;
+
   @Field({ nullable: true })
   public ean_code?: string;
+
   @Field({ nullable: true })
   public secure_code?: string;
+
   @Field({ nullable: true })
   public pet_guid?: string;
+
   @Field({ nullable: true })
   public iban?: string;
+
   @Field({ nullable: true })
   public bic?: string;
+
   @Field({ nullable: true })
   public referral_code?: string;
+
   @Field({ nullable: true })
   public delivery_address_id?: string;
+
+  @Field({ nullable: true })
+  public child_guid?: string;
 }
 
 @ObjectType()

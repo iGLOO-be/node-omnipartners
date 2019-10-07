@@ -19,6 +19,7 @@ export interface ISubscribeToDealInput {
   bic?: string;
   referral_code?: string;
   delivery_address_id?: string;
+  child_guid?: string;
 }
 
 interface ISubscribeToDealReturnPartner {
