@@ -88,7 +88,7 @@ export class UserResolver {
     }
   }
 
-  @Query(() => UserResult, { nullable: true })
+  @Query(() => UserResult)
   public async userLogin(
     @Ctx() ctx: Context,
     @Arg("identifier") identifier: string,
