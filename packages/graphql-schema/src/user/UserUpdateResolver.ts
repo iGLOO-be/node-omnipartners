@@ -3,7 +3,7 @@ import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
-import { dataOptions } from "./UserResolver";
+import { userDataOptions } from "./UserResolver";
 import { UserUpdateResult } from "./UserUpdateResult";
 
 @InputType()
@@ -140,7 +140,7 @@ export class UserUpdateResolver {
     try {
       await ctx.omnipartners.identity.update(data);
       const user = await ctx.omnipartners.identity.authenticateByGUID({
-        data_options: dataOptions,
+        data_options: userDataOptions,
         user_guid,
       });
       return new UserUpdateResult({

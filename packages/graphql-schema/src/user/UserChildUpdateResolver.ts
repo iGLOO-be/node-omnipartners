@@ -6,7 +6,7 @@ import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserChild } from "./UserChild";
 import { UserChildResult } from "./UserChildResult";
-import { dataOptions } from "./UserResolver";
+import { userDataOptions } from "./UserResolver";
 
 @InputType()
 class UserChildUpdateInput {
@@ -70,7 +70,7 @@ export class UserChildUpdateResolver {
       })).data.find(c => c.child_guid === userChildUpdateInput.guid);
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
-        data_options: dataOptions,
+        data_options: userDataOptions,
         user_guid,
       });
 

@@ -6,7 +6,7 @@ import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserChild } from "./UserChild";
 import { UserChildResult } from "./UserChildResult";
-import { dataOptions } from "./UserResolver";
+import { userDataOptions } from "./UserResolver";
 
 @InputType()
 export class UserChildCreateInput {
@@ -59,7 +59,7 @@ export class UserChildCreateResolver {
         ...mapClixrayFields(userChildCreateInput),
       })).data;
       const user = await ctx.omnipartners.identity.authenticateByGUID({
-        data_options: dataOptions,
+        data_options: userDataOptions,
         user_guid,
       });
 

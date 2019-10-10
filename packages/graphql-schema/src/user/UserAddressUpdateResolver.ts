@@ -9,7 +9,7 @@ import { User } from "./User";
 import { UserAddress } from "./UserAddress";
 import { UserAddressCreateInput } from "./UserAddressCreateResolver";
 import { UserAddressUpdateResult } from "./UserAddressUpdateResult";
-import { dataOptions } from "./UserResolver";
+import { userDataOptions } from "./UserResolver";
 
 @InputType()
 class UserAddressUpdateInput extends UserAddressCreateInput {
@@ -67,7 +67,7 @@ export class UserAddressUpdateResolver {
       })).data;
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
-        data_options: dataOptions,
+        data_options: userDataOptions,
         user_guid,
       });
       return new UserAddressUpdateResult({

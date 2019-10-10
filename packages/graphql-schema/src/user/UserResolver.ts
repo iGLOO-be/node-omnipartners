@@ -19,7 +19,7 @@ import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserResult } from "./UserResult";
 
-export const dataOptions: IUserDataOptions = [
+export const userDataOptions: IUserDataOptions = [
   "-pet_details",
   "-preferences",
   "-loyalty_cards",
