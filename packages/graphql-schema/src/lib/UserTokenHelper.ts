@@ -1,6 +1,7 @@
 import jsonwebtoken, { SignOptions } from "jsonwebtoken";
+import { AuthenticationError } from "./AuthenticationError";
 
-interface IUserTokenPayload {
+export interface IUserTokenPayload {
   user_guid: string;
 }
 
@@ -37,9 +38,4 @@ export class UserTokenHelper<AdditionnalPayload> {
       throw new AuthenticationError();
     }
   }
-}
-
-export class AuthenticationError extends Error {
-  public message = "Not logged!";
-  public code = "E_NOT_LOGGED";
 }
