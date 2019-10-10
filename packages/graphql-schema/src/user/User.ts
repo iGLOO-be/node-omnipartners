@@ -7,13 +7,14 @@ import {
 import { Arg, Ctx, Field, ObjectType } from "type-graphql";
 import { Memoize } from "typescript-memoize";
 import { Context } from "..";
+import { IUserTokenPayload } from "../lib/UserTokenHelper";
 import { LegalForm } from "../metadata/DataLegalFormResolver";
 import { UserAddress } from "./UserAddress";
 import { UserChild } from "./UserChild";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
 
-interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
+export interface ILightUser extends Pick<IUser, "owner" | "session_token"> { }
 
 @ObjectType()
 class UserOwner {
@@ -82,14 +83,19 @@ class UserPlaceOfPurchase implements IUserPlaceOfPurchase {
   }
 }
 
+export interface IUserOptions<T = {}> {
+  userTokenPayload?: Omit<IUserTokenPayload, "user_guid"> & T;
+}
+
 @ObjectType()
-export class User {
+export class User<T = {}> {
   @Field(() => UserOwner)
   public owner: UserOwner;
 
   public readonly data: ILightUser;
+  private readonly userTokenPayload: IUserOptions<T>["userTokenPayload"];
 
-  constructor(data: ILightUser) {
+  constructor(data: ILightUser, { userTokenPayload }: IUserOptions<T> = {}) {
     this.data = data;
     this.owner = {
       ...data.owner,
@@ -97,12 +103,14 @@ export class User {
       confirmed: !!parseInt(data.owner.user_confirmed, 10),
       customerGroup: data.owner.user_customer_group,
     };
+    this.userTokenPayload = userTokenPayload
   }
 
   @Field(() => String)
   public async token(@Ctx() ctx: Context): Promise<string> {
     return ctx.userTokenHelper.sign({
       user_guid: this.owner.guid,
+      ...this.userTokenPayload
     });
   }
 
@@ -116,10 +124,10 @@ export class User {
         user_guid: this.owner.guid,
       }),
       dealRef &&
-        ctx.omnipartners.deals.listEligiblePets({
-          deal_ref: dealRef,
-          user_guid: this.owner.guid,
-        }),
+      ctx.omnipartners.deals.listEligiblePets({
+        deal_ref: dealRef,
+        user_guid: this.owner.guid,
+      }),
     ]);
 
     if (!dealRef) {
