@@ -269,6 +269,13 @@ interface IVoucher {
   restriction_code: string;
   redeem_validity_from: string;
   redeem_validity_to: string;
+
+  product: string;
+  num_invi_resend: number;
+  ts_last_send: string;
+  invt_link: string;
+
+  // show: "extended"
   partner: {
     name: string;
     street1: string;
@@ -294,10 +301,17 @@ interface IVoucher {
     distance: string;
     ptn_status: string;
   };
-  product: string;
-  num_invi_resend: number;
-  ts_last_send: string;
-  invt_link: string;
+  child: {
+    child_birthday: string;
+    child_added_on: string;
+    child_updated_on: string;
+    child_gender: string;
+    child_guid: string;
+    child_first_name: string;
+    child_parent: string;
+    child_status: string;
+    child_ext_id: string;
+  };
 }
 
 export default class Deals extends Api {
@@ -517,6 +531,7 @@ export default class Deals extends Api {
     "bic", // (Optional) BIC number. This needs to be maximum 12 alphanumeric characters long.
     "referral_code", // (Optional) Referral code of the referring partner
     "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
+    "child_guid", // A Child guid of the user. This is required if the deal restricted for child limitations. Otherwise it can be empty.
   ])
   public subscribeToDeal(
     data: ISubscribeToDealInput,
