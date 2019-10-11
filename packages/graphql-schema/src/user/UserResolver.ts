@@ -29,7 +29,7 @@ export const userDataOptions: IUserDataOptions = [
 @InputType()
 class UserConfirmLegalFormsInput
   implements
-  Omit<IUserConfirmLegalFormsInput, "user_guid" | "legal_form_code"> {
+    Omit<IUserConfirmLegalFormsInput, "user_guid" | "legal_form_code"> {
   @Field(() => [String])
   public legal_form_code: string | string[];
   @Field()
@@ -56,7 +56,7 @@ class UserUpdatePlacesOfPurchaseInput
 @InputType()
 class UserUpdateSubscriptionsInput
   implements
-  Omit<IUserUpdateSubscriptionsInput, "user_guid" | "subscriptions"> {
+    Omit<IUserUpdateSubscriptionsInput, "user_guid" | "subscriptions"> {
   @Field({ nullable: true })
   public com_prefs?: string;
   @Field({ nullable: true })

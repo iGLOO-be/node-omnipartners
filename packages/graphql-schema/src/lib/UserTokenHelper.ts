@@ -26,7 +26,8 @@ export class UserTokenHelper<AdditionnalPayload> {
 
   public parse(token: string): IUserTokenPayload & AdditionnalPayload {
     try {
-      return jsonwebtoken.verify(token, this.secret) as IUserTokenPayload & AdditionnalPayload;
+      return jsonwebtoken.verify(token, this.secret) as IUserTokenPayload &
+        AdditionnalPayload;
     } catch (err) {
       if (
         err.name !== "JsonWebTokenError" &&

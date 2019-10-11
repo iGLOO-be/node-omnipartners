@@ -1,7 +1,7 @@
 import { ILightUser, IUserOptions, User } from "../user/User";
 
 export interface IUserHelperOptions<T = {}> {
-  validateUser?: (user: ILightUser) => Promise<IUserOptions<T>>
+  validateUser?: (user: ILightUser) => Promise<IUserOptions<T>>;
 }
 
 export class UserHelper {
@@ -13,9 +13,9 @@ export class UserHelper {
 
   public async createUser(user: ILightUser) {
     const options = {
-      ...this.options.validateUser && await this.options.validateUser(user)
-    }
+      ...(this.options.validateUser && (await this.options.validateUser(user))),
+    };
 
-    return new User(user, options)
+    return new User(user, options);
   }
 }

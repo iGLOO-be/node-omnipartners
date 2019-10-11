@@ -5,7 +5,7 @@ import { GenericValidationError } from "../types/GenericValidationError";
 @ObjectType()
 class DirectCashbackRedemptionRequestURL {
   @Field({
-    description: "URL to upload the ticket image"
+    description: "URL to upload the ticket image",
   })
   public url: string;
 }

@@ -102,7 +102,7 @@ const mapClixrayFields = (
   user_country: userInput.country,
   user_city: userInput.city,
   user_street1: userInput.street1,
-  user_streetnum: userInput.streetnum
+  user_streetnum: userInput.streetnum,
 });
 
 const fieldsMapping = {

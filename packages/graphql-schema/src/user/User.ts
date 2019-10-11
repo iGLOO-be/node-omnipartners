@@ -14,7 +14,7 @@ import { UserChild } from "./UserChild";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
 
-export interface ILightUser extends Pick<IUser, "owner" | "session_token"> { }
+export interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
 
 @ObjectType()
 class UserOwner {
@@ -103,14 +103,14 @@ export class User<T = {}> {
       confirmed: !!parseInt(data.owner.user_confirmed, 10),
       customerGroup: data.owner.user_customer_group,
     };
-    this.userTokenPayload = userTokenPayload
+    this.userTokenPayload = userTokenPayload;
   }
 
   @Field(() => String)
   public async token(@Ctx() ctx: Context): Promise<string> {
     return ctx.userTokenHelper.sign({
       user_guid: this.owner.guid,
-      ...this.userTokenPayload
+      ...this.userTokenPayload,
     });
   }
 
@@ -124,10 +124,10 @@ export class User<T = {}> {
         user_guid: this.owner.guid,
       }),
       dealRef &&
-      ctx.omnipartners.deals.listEligiblePets({
-        deal_ref: dealRef,
-        user_guid: this.owner.guid,
-      }),
+        ctx.omnipartners.deals.listEligiblePets({
+          deal_ref: dealRef,
+          user_guid: this.owner.guid,
+        }),
     ]);
 
     if (!dealRef) {

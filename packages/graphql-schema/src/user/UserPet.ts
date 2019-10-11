@@ -82,9 +82,10 @@ export class UserPet
   public async placeOfPurchase(
     @Ctx() ctx: Context,
   ): Promise<UserPetPlaceOfPurchase[]> {
-    const res = ((await ctx.omnipartners.identity.retrievePetPlaceOfPurchase({
-      pet_guid: this.guid,
-    })).data) || [];
+    const res =
+      (await ctx.omnipartners.identity.retrievePetPlaceOfPurchase({
+        pet_guid: this.guid,
+      })).data || [];
 
     return res.map(d => new UserPetPlaceOfPurchase(d));
   }

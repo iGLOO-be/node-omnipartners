@@ -8,17 +8,17 @@ export const doc = (url: string) => (target: any, property: string) => {
   setPropertyOnMethod(target[property], "documentationUrl", url);
 };
 
-export function filterInput (allowKeys: string[]) {
+export function filterInput(allowKeys: string[]) {
   return (
     target: any,
     property: string,
-    descriptor: TypedPropertyDescriptor<(data: any) => any>
+    descriptor: TypedPropertyDescriptor<(data: any) => any>,
   ) => {
     const fn = descriptor.value;
     if (fn) {
-      descriptor.value = function (data: {}) {
+      descriptor.value = function(data: {}) {
         return fn.call(this, pick(data, allowKeys));
       };
     }
-  }
-};
+  };
+}

@@ -79,7 +79,6 @@ const fieldsMapping = {
   pet_picture: "pictureUrl",
 };
 
-
 @Resolver(() => User)
 export class UserPetCreateResolver {
   @Mutation(() => UserPetUpdateResult, { nullable: false })
@@ -102,8 +101,8 @@ export class UserPetCreateResolver {
         await ctx.omnipartners.identity.updatePetPlaceOfPurchase({
           pet_guid: pet.guid,
           place_id: userPetInput.placeOfPurchase,
-          place_rating: "5"
-        })
+          place_rating: "5",
+        });
       }
 
       return new UserPetUpdateResult({
