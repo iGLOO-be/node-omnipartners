@@ -4,7 +4,7 @@ import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserPartnerUpdateResult } from "./UserPartnerUpdateResult";
-import { dataOptions } from "./UserResolver";
+import { userDataOptions } from "./UserResolver";
 
 @InputType()
 export class UserPartnerRelationCreateInput {
@@ -59,7 +59,7 @@ export class UserPartnerRelationCreateResolver {
       )).data;
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
-        data_options: dataOptions,
+        data_options: userDataOptions,
         user_guid,
       });
       return new UserPartnerUpdateResult({

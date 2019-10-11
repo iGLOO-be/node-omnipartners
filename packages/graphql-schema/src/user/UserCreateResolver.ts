@@ -3,7 +3,7 @@ import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
-import { dataOptions } from "./UserResolver";
+import { userDataOptions } from "./UserResolver";
 import { UserUpdateResult } from "./UserUpdateResult";
 
 @InputType()
@@ -133,7 +133,7 @@ export class UserCreateResolver {
     // Fix clixray boolean parsing
     const data: IRegisterUserInput = {
       ...userCreateInputToRegisterUserInput(userInput),
-      data_options: dataOptions,
+      data_options: userDataOptions,
       noPets: "1",
     };
     try {

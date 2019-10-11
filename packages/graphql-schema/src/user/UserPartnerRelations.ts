@@ -5,7 +5,7 @@ import { Partner } from "../partner/Partner";
 import { Context } from "../types/Context";
 
 @ObjectType()
-class UserPartnerRelation {
+export class UserPartnerRelation {
   @Field()
   public extId: string;
 

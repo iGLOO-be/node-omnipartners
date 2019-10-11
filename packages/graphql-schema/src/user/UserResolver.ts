@@ -19,7 +19,7 @@ import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserResult } from "./UserResult";
 
-export const dataOptions: IUserDataOptions = [
+export const userDataOptions: IUserDataOptions = [
   "-pet_details",
   "-preferences",
   "-loyalty_cards",
@@ -29,7 +29,7 @@ export const dataOptions: IUserDataOptions = [
 @InputType()
 class UserConfirmLegalFormsInput
   implements
-    Omit<IUserConfirmLegalFormsInput, "user_guid" | "legal_form_code"> {
+  Omit<IUserConfirmLegalFormsInput, "user_guid" | "legal_form_code"> {
   @Field(() => [String])
   public legal_form_code: string | string[];
   @Field()
@@ -56,7 +56,7 @@ class UserUpdatePlacesOfPurchaseInput
 @InputType()
 class UserUpdateSubscriptionsInput
   implements
-    Omit<IUserUpdateSubscriptionsInput, "user_guid" | "subscriptions"> {
+  Omit<IUserUpdateSubscriptionsInput, "user_guid" | "subscriptions"> {
   @Field({ nullable: true })
   public com_prefs?: string;
   @Field({ nullable: true })
@@ -75,11 +75,11 @@ export class UserResolver {
     try {
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         user_guid: ctx.userTokenHelper.parse(token).user_guid,
-        data_options: dataOptions,
+        data_options: userDataOptions,
       });
 
       return new UserResult({
-        result: new User(user),
+        result: await ctx.userHelper.createUser(user),
       });
     } catch (err) {
       return new UserResult({
@@ -94,15 +94,21 @@ export class UserResolver {
     @Arg("identifier") identifier: string,
     @Arg("password") password: string,
   ): Promise<UserResult> {
-    return handleGeneric(
-      User,
-      UserResult,
-      ctx.omnipartners.identity.authenticate({
-        data_options: dataOptions,
+    try {
+      const user = await ctx.omnipartners.identity.authenticate({
+        data_options: userDataOptions,
         identifier,
         password,
-      }),
-    );
+      });
+
+      return new UserResult({
+        result: await ctx.userHelper.createUser(user),
+      });
+    } catch (err) {
+      return new UserResult({
+        error: new GenericError(err),
+      });
+    }
   }
 
   @Query(() => Boolean, { nullable: false })
@@ -146,14 +152,20 @@ export class UserResolver {
     @Ctx() ctx: Context,
     @Arg("auth_code") auth_code: string,
   ): Promise<UserResult> {
-    return handleGeneric(
-      User,
-      UserResult,
-      ctx.omnipartners.identity.authenticateByCode({
+    try {
+      const user = await ctx.omnipartners.identity.authenticateByCode({
         auth_code,
-        data_options: dataOptions,
-      }),
-    );
+        data_options: userDataOptions,
+      });
+
+      return new UserResult({
+        result: await ctx.userHelper.createUser(user),
+      });
+    } catch (err) {
+      return new UserResult({
+        error: new GenericError(err),
+      });
+    }
   }
 
   @Mutation(() => GenericError, { nullable: true })

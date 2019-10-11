@@ -5,7 +5,7 @@ import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserPet } from "./UserPet";
 import { UserPetUpdateResult } from "./UserPetUpdateResult";
-import { dataOptions } from "./UserResolver";
+import { userDataOptions } from "./UserResolver";
 
 @InputType()
 class UserPetUpdateInput {
@@ -117,7 +117,7 @@ export class UserPetUpdateResolver {
       }
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
-        data_options: dataOptions,
+        data_options: userDataOptions,
         user_guid,
       });
       return new UserPetUpdateResult({

@@ -1,6 +1,7 @@
 import jsonwebtoken, { SignOptions } from "jsonwebtoken";
+import { AuthenticationError } from "./AuthenticationError";
 
-interface IUserTokenPayload {
+export interface IUserTokenPayload {
   user_guid: string;
 }
 
@@ -10,7 +11,7 @@ const defaultSignOptions: UserTokenSignOptions = {
   expiresIn: "10 days",
 };
 
-export class UserTokenHelper {
+export class UserTokenHelper<AdditionnalPayload> {
   private secret: string;
   private signOptions: UserTokenSignOptions;
 
@@ -19,13 +20,13 @@ export class UserTokenHelper {
     this.signOptions = signOptions || defaultSignOptions;
   }
 
-  public sign(payload: IUserTokenPayload) {
+  public sign(payload: IUserTokenPayload & AdditionnalPayload) {
     return jsonwebtoken.sign(payload, this.secret, this.signOptions);
   }
 
-  public parse(token: string): IUserTokenPayload {
+  public parse(token: string): IUserTokenPayload & AdditionnalPayload {
     try {
-      return jsonwebtoken.verify(token, this.secret) as IUserTokenPayload;
+      return jsonwebtoken.verify(token, this.secret) as IUserTokenPayload & AdditionnalPayload;
     } catch (err) {
       if (
         err.name !== "JsonWebTokenError" &&
@@ -37,9 +38,4 @@ export class UserTokenHelper {
       throw new AuthenticationError();
     }
   }
-}
-
-export class AuthenticationError extends Error {
-  public message = "Not logged!";
-  public code = "E_NOT_LOGGED";
 }

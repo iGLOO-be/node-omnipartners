@@ -5,7 +5,7 @@ import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserAddress } from "./UserAddress";
 import { UserAddressUpdateResult } from "./UserAddressUpdateResult";
-import { dataOptions } from "./UserResolver";
+import { userDataOptions } from "./UserResolver";
 
 @InputType()
 export class UserAddressCreateInput {
@@ -79,7 +79,7 @@ export class UserAddressCreateResolver {
       })).data;
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
-        data_options: dataOptions,
+        data_options: userDataOptions,
         user_guid,
       });
       return new UserAddressUpdateResult({
