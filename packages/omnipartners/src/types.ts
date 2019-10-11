@@ -970,6 +970,13 @@ export interface IDeal {
   google_tracking_id: string | null;
   status: string;
   referrer_required: number;
+  child_required: "1" | "0";
+  child_gnder: string;
+  child_age_limit_value: string;
+  child_age_limit_unit: string;
+  child_age_limit_operator: string;
+  child_age_limit_to_value: string;
+  child_age_limit_to_unit: string;
   pet_required: "1" | "0";
   pet_type: string;
   pet_universe: string | null;
