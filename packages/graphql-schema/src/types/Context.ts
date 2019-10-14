@@ -25,6 +25,6 @@ export class Context<T = {}> {
       userTokenSecret,
       userTokenSignOptions,
     );
-    this.userHelper = new UserHelper(userHelperOptions);
+    this.userHelper = new UserHelper(userHelperOptions || {});
   }
 }
