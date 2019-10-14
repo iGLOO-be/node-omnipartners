@@ -18,9 +18,9 @@ const write = async () => {
 const watch = async () => {
   const debouncedWrite = pDebounce(() => {
     const [command, ...args] = process.argv;
-    execa(command, args.filter(arg => arg !== "--watch")).stdout.pipe(
-      process.stdout,
-    );
+    execa(command, args.filter(arg => arg !== "--watch"), {
+      stdout: "inherit",
+    });
   }, 500);
   chokidar
     .watch("**/**.ts", {
