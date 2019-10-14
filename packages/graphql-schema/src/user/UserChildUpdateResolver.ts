@@ -74,7 +74,7 @@ export class UserChildUpdateResolver {
         user_guid,
       });
 
-      if (child.child_parent !== user.owner.id) {
+      if (child && child.child_parent !== user.owner.id) {
         // TODO: better error
         throw new Error("Not your child!");
       }
