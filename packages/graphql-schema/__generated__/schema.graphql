@@ -71,8 +71,8 @@ type DirectCashbackDealDetail {
 }
 
 type DirectCashbackDealDetailImages {
-  small: LanguageObject!
-  large: LanguageObject!
+  small: LanguageObject
+  large: LanguageObject
 }
 
 input DirectCashbackDealSubscribeInput {
@@ -130,7 +130,7 @@ type DirectCashbackRedemptionRequestURL {
 }
 
 type DirectCashbackVoucherBenefit {
-  id: String
+  id: String!
   productId: String
   amount: String
   currency: String
@@ -167,7 +167,7 @@ type DirectCashbackVoucherDetail {
   status: String!
   pet_guid: String
   activeRedemptionRequestStatus: String
-  redeemValidityFrom: DateTime!
+  redeemValidityFrom: DateTime
   redeemValidityTo: DateTime
   benefit: DirectCashbackVoucherBenefit
   deal: DirectCashbackVoucherDealDetail!
@@ -361,7 +361,7 @@ type ProductCollectionsByTargetingInfoCollection {
   range_priority_order: String!
   max_score: Float!
   pf_tracking_reference: String!
-  criteria_source_reference: String!
+  criteria_source_reference: String
   images: ProductCollectionsByTargetingInfoCollectionImages
 }
 
@@ -569,7 +569,7 @@ type UserBreedDetail {
 }
 
 type UserChild {
-  birthday: DateTime!
+  birthday: DateTime
   gender: String!
   guid: String!
   firstName: String!
@@ -684,7 +684,7 @@ type UserPet {
   breed: String!
   breedDetails: UserBreedDetail!
   hasPicture: Boolean!
-  lastUpdated: DateTime!
+  lastUpdated: DateTime
   pictureUrl: String!
   placeOfPurchase: [UserPetPlaceOfPurchase!]!
 }
@@ -703,7 +703,7 @@ input UserPetCreateInput {
 type UserPetPlaceOfPurchase {
   placeId: String!
   placeRating: String!
-  placeRatedOn: DateTime!
+  placeRatedOn: DateTime
 }
 
 input UserPetUpdateInput {
