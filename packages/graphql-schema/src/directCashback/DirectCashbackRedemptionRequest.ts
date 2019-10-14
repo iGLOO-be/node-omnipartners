@@ -75,9 +75,7 @@ export class DirectCashbackRedemptionRequest {
         )
       : undefined;
 
-    return subRequest
-      ? subRequest.history.reverse()[0].description
-      : undefined;
+    return subRequest ? subRequest.history.reverse()[0].description : undefined;
   }
 }
 

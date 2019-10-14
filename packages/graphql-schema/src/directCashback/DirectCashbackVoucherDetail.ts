@@ -80,10 +80,12 @@ export class DirectCashbackVoucherDetail {
   constructor(data: IDirectCashbackVoucherDetail) {
     Object.assign(this, data);
     this.activeRedemptionRequestStatus = data.active_redemption_request_status;
-    this.redeemValidityFrom =
-      data.redeem_validity_from ? new Date(data.redeem_validity_from) : undefined;
-    this.redeemValidityTo =
-      data.redeem_validity_to ? new Date(data.redeem_validity_to) : undefined;
+    this.redeemValidityFrom = data.redeem_validity_from
+      ? new Date(data.redeem_validity_from)
+      : undefined;
+    this.redeemValidityTo = data.redeem_validity_to
+      ? new Date(data.redeem_validity_to)
+      : undefined;
     this.deal = new DirectCashbackVoucherDealDetail(data.deal);
     this.benefit =
       data.benefit && new DirectCashbackVoucherBenefit(data.benefit);
