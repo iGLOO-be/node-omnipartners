@@ -18,13 +18,15 @@ class UserPetPlaceOfPurchase {
   public placeId: string;
   @Field()
   public placeRating: string;
-  @Field()
-  public placeRatedOn: Date;
+  @Field({ nullable: true })
+  public placeRatedOn?: Date;
 
   constructor(data: IUserPetPlaceOfPurchase) {
     this.placeId = data.place_id;
     this.placeRating = data.place_rating;
-    this.placeRatedOn = data.place_rated_on && new Date(data.place_rated_on);
+    this.placeRatedOn = data.place_rated_on
+      ? new Date(data.place_rated_on)
+      : undefined;
   }
 }
 @ObjectType()
@@ -58,15 +60,17 @@ export class UserPet
   @Field()
   public hasPicture: boolean;
 
-  @Field()
-  public lastUpdated: Date;
+  @Field({ nullable: true })
+  public lastUpdated?: Date;
 
   constructor(data: IUserPet) {
     Object.assign(this, data);
     this.dob = data.pet_dob;
     this.type = data.petType;
     this.hasPicture = data.has_picture === "1" ? true : false;
-    this.lastUpdated = data.lastUpdated && new Date(data.lastUpdated);
+    this.lastUpdated = data.lastUpdated
+      ? new Date(data.lastUpdated)
+      : undefined;
   }
 
   @Field()
@@ -74,7 +78,8 @@ export class UserPet
     return (
       ctx.omnipartners.identity.getPetPictureUrl({
         pet_guid: this.guid,
-      }) + `&_cachebuster_=${this.lastUpdated.getTime()}`
+      }) +
+      `&_cachebuster_=${this.lastUpdated ? this.lastUpdated.getTime() : ""}`
     );
   }
 
