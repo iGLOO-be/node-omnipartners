@@ -9,11 +9,11 @@ export class LegalForm implements IMetadataLegalForm {
   public code!: string;
   @Field()
   public name!: string;
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   public description?: string | null;
   @Field()
   public forget_on_revoke!: boolean;
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   public url?: string | null;
 }
 

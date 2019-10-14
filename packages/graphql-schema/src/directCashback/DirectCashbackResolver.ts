@@ -39,10 +39,10 @@ export class DirectCashbackDealSubscribeInput {
 
 @ObjectType()
 class LanguageObject {
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   public FR?: string | null;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   public NL?: string | null;
 }
 

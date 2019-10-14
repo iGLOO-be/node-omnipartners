@@ -236,7 +236,7 @@ class ProductCollectionsByTargetingInfoCollection
   public max_score!: number;
   @Field()
   public pf_tracking_reference!: string;
-  @Field()
+  @Field(() => String, { nullable: true })
   public criteria_source_reference!: string | null;
   @Field(() => ProductCollectionsByTargetingInfoCollectionImages, {
     nullable: true,

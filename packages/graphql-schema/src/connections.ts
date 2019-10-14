@@ -16,6 +16,6 @@ export class PageInfo {
 export class ConnectionArgs {
   @Field({ nullable: true, description: "Paginate limit" })
   public limit?: number;
-  @Field({ nullable: true })
+  @Field(() => Number, { nullable: true })
   public page?: number | null;
 }

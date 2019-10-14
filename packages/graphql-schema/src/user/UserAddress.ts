@@ -9,7 +9,7 @@ export class UserAddress {
   @Field({ nullable: true })
   public name?: string;
 
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   public phone: string | null;
 
   @Field({ nullable: true })

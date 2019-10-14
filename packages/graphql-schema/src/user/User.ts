@@ -36,9 +36,9 @@ class UserOwner {
   public mobilePhone!: string;
   @Field({ nullable: true })
   public language!: string;
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   public country?: string | null;
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   public postalCode?: string | null;
   @Field()
   public confirmed?: boolean;
