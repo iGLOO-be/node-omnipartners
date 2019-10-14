@@ -14,7 +14,7 @@ afterEach(() => {
 });
 
 export function withArguments(data: any, { shouldThrow = false } = {}) {
-  return (target: any, property: string, descriptor: any) => {
+  return (_: any, _2: string, descriptor: any) => {
     const fn = descriptor.value;
     descriptor.value = async function() {
       const api = new this.Api(this.apiConfig);
@@ -52,7 +52,7 @@ export function withMock({
   reply?: any;
   delay?: { head?: number };
 }) {
-  return (target: any, property: string, descriptor: any) => {
+  return (_: any, _2: string, descriptor: any) => {
     const fn = descriptor.value;
     descriptor.value = async function(...args: any[]) {
       const {

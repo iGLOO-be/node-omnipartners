@@ -108,6 +108,7 @@ export class DealResolver {
         code,
         deal_ref,
       });
+      return;
     } catch (err) {
       return new GenericValidationError(err);
     }
@@ -125,6 +126,7 @@ export class DealResolver {
         ...input,
         user_guid,
       });
+      return;
     } catch (err) {
       return new GenericValidationError(err);
     }

@@ -1,7 +1,4 @@
-import {
-  IRegisterUserAddressInput,
-  IUpdateUserAddressInput,
-} from "omnipartners";
+import { IUpdateUserAddressInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";

@@ -10,8 +10,8 @@ export const doc = (url: string) => (target: any, property: string) => {
 
 export function filterInput(allowKeys: string[]) {
   return (
-    target: any,
-    property: string,
+    _: any,
+    _2: string,
     descriptor: TypedPropertyDescriptor<(data: any) => any>,
   ) => {
     const fn = descriptor.value;

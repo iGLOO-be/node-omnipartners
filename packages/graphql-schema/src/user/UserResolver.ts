@@ -14,7 +14,7 @@ import {
   Resolver,
 } from "type-graphql";
 import { Context } from "../types/Context";
-import { GenericError, handleGeneric } from "../types/GenericResult";
+import { GenericError } from "../types/GenericResult";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserResult } from "./UserResult";
@@ -142,6 +142,7 @@ export class UserResolver {
         value,
         ttl,
       });
+      return;
     } catch (err) {
       return new GenericError(err);
     }
@@ -177,6 +178,7 @@ export class UserResolver {
       await ctx.omnipartners.identity.recoverPassword({
         uid: email,
       });
+      return;
     } catch (err) {
       return new GenericError(err);
     }
@@ -198,6 +200,7 @@ export class UserResolver {
           : confirmLegalFormsInput.legal_form_code,
         user_guid,
       });
+      return;
     } catch (err) {
       return new GenericValidationError(err);
     }
@@ -220,6 +223,7 @@ export class UserResolver {
     };
     try {
       await ctx.omnipartners.identity.updateSubscriptions(data);
+      return;
     } catch (err) {
       return new GenericValidationError(err);
     }
@@ -239,6 +243,7 @@ export class UserResolver {
           place_id: updatePlacesOfPurchaseInput.place_id,
           user_guid,
         });
+        return;
       } catch (err) {
         return new GenericValidationError(err);
       }
@@ -249,6 +254,7 @@ export class UserResolver {
       };
       try {
         await ctx.omnipartners.identity.updateUserPlacesOfPurchase(data);
+        return;
       } catch (err) {
         return new GenericValidationError(err);
       }
@@ -264,6 +270,7 @@ export class UserResolver {
       await ctx.omnipartners.identity.forceActivate({
         user_guid: guid,
       });
+      return;
     } catch (err) {
       return new GenericError(err);
     }
@@ -279,6 +286,7 @@ export class UserResolver {
       await ctx.omnipartners.identity.confirmUserAccount({
         identifier: user_guid,
       });
+      return;
     } catch (err) {
       return new GenericError(err);
     }

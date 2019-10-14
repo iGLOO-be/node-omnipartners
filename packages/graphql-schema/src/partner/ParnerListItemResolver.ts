@@ -3,7 +3,7 @@ import { ConnectionArgs } from "../connections";
 import { Context } from "../types/Context";
 import { PartnerConnection, PartnerListItem } from "./PartnerListItem";
 
-@Resolver(of => PartnerListItem)
+@Resolver(() => PartnerListItem)
 export class PartnerListItemResolver {
   @Query(() => PartnerConnection, { nullable: true })
   public async partnerList(

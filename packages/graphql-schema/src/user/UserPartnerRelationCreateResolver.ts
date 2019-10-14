@@ -51,12 +51,10 @@ export class UserPartnerRelationCreateResolver {
   ): Promise<UserPartnerUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
-      const partners = (await ctx.omnipartners.identity.createPartnerAccountRelation(
-        {
-          ...mapClixrayFields(userPartnerInput),
-          user_guid,
-        },
-      )).data;
+      await ctx.omnipartners.identity.createPartnerAccountRelation({
+        ...mapClixrayFields(userPartnerInput),
+        user_guid,
+      });
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: userDataOptions,

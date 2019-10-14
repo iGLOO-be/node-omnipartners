@@ -172,6 +172,7 @@ export class DirectCashbackResolver {
         ...input.toOmnipartners(),
         user_guid,
       });
+      return;
     } catch (err) {
       return new GenericValidationError(err);
     }
