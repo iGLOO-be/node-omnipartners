@@ -7,11 +7,11 @@ import { Context } from "../types/Context";
 export class Country
   implements Pick<IMetadataMemberCountry, "name" | "code" | "order"> {
   @Field()
-  public name: string;
+  public name!: string;
   @Field()
-  public code: string;
+  public code!: string;
   @Field({ nullable: true })
-  public order: string;
+  public order?: string;
 }
 
 @Resolver(() => Country)

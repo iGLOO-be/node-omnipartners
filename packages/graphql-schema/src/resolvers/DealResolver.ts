@@ -16,7 +16,7 @@ import { ProductCollection } from "../types/ProductCollection";
 export class DealSubscribeInput
   implements Omit<ISubscribeToDealInput, "user_guid"> {
   @Field()
-  public ref: string;
+  public ref!: string;
 
   @Field({ nullable: true })
   public partner_extid?: string;
@@ -59,7 +59,7 @@ class DealProduct implements Omit<IDealProduct, "collection"> {
   @Field()
   public min_qty: number;
   @Field({ nullable: true })
-  public collectionReference: string;
+  public collectionReference?: string;
 
   constructor(data: IDealProduct) {
     this.ean = data.ean;
@@ -74,7 +74,7 @@ class DealProduct implements Omit<IDealProduct, "collection"> {
   public async collection(
     @Ctx() ctx: Context,
     @Arg("lang") lang: string,
-  ): Promise<ProductCollection> {
+  ): Promise<ProductCollection | undefined> {
     if (!this.collectionReference) {
       return;
     }

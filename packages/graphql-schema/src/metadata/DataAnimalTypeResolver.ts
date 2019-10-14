@@ -6,9 +6,9 @@ import { Context } from "../types/Context";
 @ObjectType()
 export class AnimalType implements IMetadataAnimalType {
   @Field()
-  public code: string;
+  public code!: string;
   @Field({ nullable: true })
-  public name: string;
+  public name?: string;
 }
 
 @Resolver(() => AnimalType)

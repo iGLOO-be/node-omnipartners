@@ -9,7 +9,7 @@ import { Context } from "..";
 @ObjectType()
 class UserBreedDetail implements Pick<IUserPetBreedDetail, "name"> {
   @Field()
-  public name: string;
+  public name!: string;
 }
 
 @ObjectType()
@@ -34,10 +34,10 @@ export class UserPet
   implements
     Pick<Partial<IUserPet>, "name" | "guid" | "gender" | "neutered" | "breed"> {
   @Field()
-  public name: string;
+  public name!: string;
 
   @Field()
-  public guid: string;
+  public guid!: string;
 
   @Field({ nullable: true })
   public dob?: string;
@@ -46,16 +46,16 @@ export class UserPet
   public gender?: string;
 
   @Field()
-  public neutered: boolean;
+  public neutered!: boolean;
 
   @Field()
   public type: string;
 
   @Field()
-  public breed: string;
+  public breed!: string;
 
   @Field()
-  public breedDetails: UserBreedDetail;
+  public breedDetails!: UserBreedDetail;
 
   @Field()
   public hasPicture: boolean;

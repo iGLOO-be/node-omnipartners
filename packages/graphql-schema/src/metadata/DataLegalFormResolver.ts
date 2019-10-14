@@ -6,15 +6,15 @@ import { Context } from "../types/Context";
 @ObjectType()
 export class LegalForm implements IMetadataLegalForm {
   @Field()
-  public code: string;
+  public code!: string;
   @Field()
-  public name: string;
+  public name!: string;
   @Field({ nullable: true })
-  public description?: string;
+  public description?: string | null;
   @Field()
-  public forget_on_revoke: boolean;
+  public forget_on_revoke!: boolean;
   @Field({ nullable: true })
-  public url?: string;
+  public url?: string | null;
 }
 
 @Resolver(() => LegalForm)

@@ -36,7 +36,7 @@ export interface IMetadataAddressType {
 export interface IMetadataMemberCountry {
   code: string;
   name: string;
-  order: string;
+  order?: string;
   has_post_code: string;
   mobile_validation_rule: string | null;
   phone_prefix: string;
@@ -62,7 +62,7 @@ export interface IMetadataUserTitle {
 
 export interface IMetadataMemberLanguage {
   code: string;
-  name: string;
+  name?: string;
 }
 
 export interface IMetadataSubscription {
@@ -84,7 +84,7 @@ export interface IMetadataCustomerGroup {
 
 export interface IMetadataAnimalType {
   code: string;
-  name: string;
+  name?: string;
 }
 
 export interface IMetadataAnimalBreed {

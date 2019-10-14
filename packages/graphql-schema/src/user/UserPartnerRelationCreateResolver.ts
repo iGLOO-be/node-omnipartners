@@ -9,16 +9,16 @@ import { userDataOptions } from "./UserResolver";
 @InputType()
 export class UserPartnerRelationCreateInput {
   @Field()
-  public extId: string;
+  public extId!: string;
 
   @Field()
-  public relationship: string;
+  public relationship!: string;
 
   @Field()
   public roles?: string;
 
   @Field()
-  public status: string;
+  public status!: string;
 }
 
 const mapClixrayFields = (

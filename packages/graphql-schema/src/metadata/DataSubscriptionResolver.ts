@@ -6,11 +6,11 @@ import { Context } from "../types/Context";
 @ObjectType()
 export class Subscription implements IMetadataSubscription {
   @Field()
-  public code: string;
+  public code!: string;
   @Field()
-  public name: string;
+  public name!: string;
   @Field()
-  public type: string;
+  public type!: string;
 }
 
 @Resolver(() => Subscription)

@@ -7,9 +7,9 @@ import { UserPet } from "./UserPet";
 @ObjectType()
 class UserAndPet {
   @Field(() => User)
-  public user: User;
+  public user!: User;
   @Field(() => UserPet)
-  public pet: UserPet;
+  public pet!: UserPet;
 }
 
 @ObjectType()

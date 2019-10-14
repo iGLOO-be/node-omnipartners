@@ -641,7 +641,7 @@ export interface IUserOwner {
   user_facebook_id: null;
   user_force_password_reset: 1;
   user_blacklisted: 0;
-  user_customer_group: null;
+  user_customer_group: string | null;
   user_origin: string;
   user_origin_details: null;
   user_creation_origin: null;
@@ -1007,8 +1007,8 @@ export interface IDeal {
   css_file_url: string | null;
   internal_barcode: string | null;
   presentation_images: {
-    small: { NL: string | null; FR: null };
-    large: { NL: string | null; FR: null };
+    small: { NL: string | null; FR: string | null };
+    large: { NL: string | null; FR: string | null };
   };
   subscription_count: {
     REDEEMED: number;
@@ -1081,8 +1081,8 @@ export interface IDirectCashbackDealDetail {
   redemption_confirmation_text: string;
   site_footer: string;
   presentation_images: {
-    small: { NL: string | null; FR: null };
-    large: { NL: string | null; FR: null };
+    small: { NL: string | null; FR: string | null };
+    large: { NL: string | null; FR: string | null };
   };
   slogan: string;
   public_name: string;

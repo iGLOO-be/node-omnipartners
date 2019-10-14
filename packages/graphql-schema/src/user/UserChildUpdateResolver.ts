@@ -11,7 +11,7 @@ import { userDataOptions } from "./UserResolver";
 @InputType()
 class UserChildUpdateInput {
   @Field()
-  public guid: string;
+  public guid!: string;
 
   @Field({ nullable: true })
   public firstName?: string;

@@ -22,16 +22,16 @@ class DirectCashbackVoucherListInput {
   public pet_guid?: string;
 
   @Field({ nullable: true })
-  public child_guid: string;
+  public child_guid?: string;
 
   @Field({ nullable: true })
-  public from: string;
+  public from?: string;
 
   @Field({ nullable: true })
-  public to: string;
+  public to?: string;
 
   @Field({ nullable: true })
-  public ref: string;
+  public ref?: string;
 
   public toOmnipartners(): Omit<IDirectCashbackVoucherListInput, "user_guid"> {
     return {
@@ -67,7 +67,7 @@ export class DirectCashbackVoucherResolver {
       user_guid,
       ...input,
       p_page: !args.page ? "0" : `${args.page - 1}`,
-      p_length: args.limit && `${args.limit}`,
+      p_length: args.limit ? `${args.limit}` : "10",
     })).data;
 
     const count = data.p_total;

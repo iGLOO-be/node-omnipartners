@@ -17,13 +17,13 @@ import { GenericValidationError } from "../types/GenericValidationError";
 @InputType()
 export class DirectCashbackDealSubscribeInput {
   @Field()
-  public ref: string;
+  public ref!: string;
 
   @Field({ nullable: true })
   public pet_guid?: string;
 
   @Field({ nullable: true })
-  public child_guid: string;
+  public child_guid?: string;
 
   public toOmnipartners(): Omit<
     ISubscribeToDirectCashbackDealInput,
@@ -40,28 +40,28 @@ export class DirectCashbackDealSubscribeInput {
 @ObjectType()
 class LanguageObject {
   @Field({ nullable: true })
-  public FR: string;
+  public FR?: string | null;
 
   @Field({ nullable: true })
-  public NL: string;
+  public NL?: string | null;
 }
 
 @ObjectType()
 class DirectCashbackDealDetailImages {
-  @Field()
-  public small: LanguageObject;
+  @Field({ nullable: true })
+  public small?: LanguageObject;
 
-  @Field()
-  public large: LanguageObject;
+  @Field({ nullable: true })
+  public large?: LanguageObject;
 }
 
 @ObjectType()
 export class DirectCashbackDealDetail {
   @Field()
-  public id: string;
+  public id!: string;
 
   @Field()
-  public ref: string;
+  public ref!: string;
 
   @Field({ nullable: true })
   public redeemDurationValue?: number;
@@ -73,7 +73,7 @@ export class DirectCashbackDealDetail {
   public isRelativeRedeemDate?: boolean;
 
   @Field()
-  public status: string;
+  public status!: string;
 
   @Field({ nullable: true })
   public publicName?: string;
@@ -94,13 +94,13 @@ export class DirectCashbackDealDetail {
   public redeemValidityTo?: Date;
 
   @Field({ nullable: true })
-  public siteFooter: string;
+  public siteFooter?: string;
 
   @Field({ nullable: true })
-  public presentationImages: DirectCashbackDealDetailImages;
+  public presentationImages?: DirectCashbackDealDetailImages;
 
   @Field()
-  public petRequired: boolean;
+  public petRequired!: boolean;
 
   constructor(data: IDirectCashbackDealDetail) {
     Object.assign(this, data);
@@ -110,12 +110,18 @@ export class DirectCashbackDealDetail {
     this.redeemDurationUnit = data.redeem_duration_unit;
     this.isRelativeRedeemDate = data.is_relative_redeem_dates;
     this.publicName = data.public_name;
-    this.availableFrom = data.available_from && new Date(data.available_from);
-    this.availableTo = data.available_to && new Date(data.available_to);
-    this.redeemValidityFrom =
-      data.redeem_validity_from && new Date(data.redeem_validity_from);
-    this.redeemValidityTo =
-      data.redeem_validity_to && new Date(data.redeem_validity_to);
+    this.availableFrom = data.available_from
+      ? new Date(data.available_from)
+      : undefined;
+    this.availableTo = data.available_to
+      ? new Date(data.available_to)
+      : undefined;
+    this.redeemValidityFrom = data.redeem_validity_from
+      ? new Date(data.redeem_validity_from)
+      : undefined;
+    this.redeemValidityTo = data.redeem_validity_to
+      ? new Date(data.redeem_validity_to)
+      : undefined;
     this.petRequired = data.pet_required === "1";
   }
 }

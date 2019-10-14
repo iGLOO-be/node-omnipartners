@@ -6,11 +6,11 @@ import { Context } from "../types/Context";
 @ObjectType()
 export class UserTitle implements IMetadataUserTitle {
   @Field()
-  public code: string;
+  public code!: string;
   @Field()
-  public name: string;
+  public name!: string;
   @Field()
-  public gender: string;
+  public gender!: string;
 }
 
 @Resolver(() => UserTitle)

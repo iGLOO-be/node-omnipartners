@@ -7,9 +7,9 @@ import { UserChild } from "./UserChild";
 @ObjectType()
 class UserAndChild {
   @Field(() => User)
-  public user: User;
+  public user!: User;
   @Field(() => UserChild)
-  public child: UserChild;
+  public child!: UserChild;
 }
 
 @ObjectType()

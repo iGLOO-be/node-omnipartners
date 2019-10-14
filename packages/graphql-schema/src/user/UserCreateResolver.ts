@@ -10,66 +10,66 @@ import { UserUpdateResult } from "./UserUpdateResult";
 class UserCreateInput {
   // The title code of the user. Please refer <b><a href="/index.php/User_title_list" title="User title list">User title list</a></b> for valid values.
   @Field({ nullable: true })
-  public title: string;
+  public title!: string;
 
   // The first name of the user.
   // 50 chars
   @Field({ nullable: true })
-  public firstName: string;
+  public firstName!: string;
 
   // The last name of the user.
   // 50 chars
   @Field({ nullable: true })
-  public lastName: string;
+  public lastName!: string;
 
   // The date of birth of the user.
   @Field({ nullable: true })
-  public dob: string;
+  public dob!: string;
 
   // The gender of the user. Valid values are "M" for male and "F" for female.
   @Field({ nullable: true })
-  public gender: string;
+  public gender!: string;
 
   // The telephone number of the user.
   @Field({ nullable: true })
-  public telephone: string;
+  public telephone!: string;
 
   // The mobile phone number of the user. It needs to be between 4 and 20 chars long. There is no regex validation. Regex specified in the <b><a href="/index.php/Country_list" title="Country list">Country list</a></b> is for front end information and validation.
   @Field({ nullable: true })
-  public mobilePhone: string;
+  public mobilePhone!: string;
 
   // The email address of the user.
   // 90 chars
   @Field({ nullable: true })
-  public email: string;
+  public email!: string;
 
   // The password of the user. It needs to be at least 5 characters long.
   // 20 chars
   @Field({ nullable: true })
-  public password: string;
+  public password!: string;
 
   // The language code of the user’s language. Please refer <b><a href="/index.php/Language_list" title="Language list">Language list</a></b> for valid values.
   @Field({ nullable: true })
-  public language: string;
+  public language!: string;
 
   // Country that comes along with the address. Please refer <b><a href="/index.php/Country_list" title="Country list">Country list</a></b> for valid values.
   @Field({ nullable: true })
-  public country: string;
+  public country!: string;
 
   // Stores reference information on the origin of the user. This is used to give more context to the source of the registration. The source is taken automatically from the api key reference.
   // 50 chars
   @Field({ nullable: true })
-  public originDetails: string;
+  public originDetails!: string;
 
   // Post code that comes along with the address.
   // 15 chars
   @Field({ nullable: true })
-  public postalCode: string;
+  public postalCode!: string;
 
   // City that comes along with the address.
   // 100 chars
   @Field({ nullable: true })
-  public city: string;
+  public city!: string;
 }
 
 const userCreateInputToRegisterUserInput = (

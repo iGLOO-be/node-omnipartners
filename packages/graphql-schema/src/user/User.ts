@@ -19,23 +19,23 @@ export interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
 @ObjectType()
 class UserOwner {
   @Field()
-  public guid: string;
+  public guid!: string;
   @Field({ nullable: true })
-  public firstName: string;
+  public firstName!: string;
   @Field({ nullable: true })
-  public lastName: string;
+  public lastName!: string;
   @Field({ nullable: true })
-  public email: string;
+  public email!: string;
   @Field({ nullable: true })
-  public title: string;
+  public title!: string;
   @Field({ nullable: true })
-  public dob: string;
+  public dob!: string;
   @Field({ nullable: true })
-  public gender: string;
+  public gender!: string;
   @Field({ nullable: true })
-  public mobilePhone: string;
+  public mobilePhone!: string;
   @Field({ nullable: true })
-  public language: string;
+  public language!: string;
   @Field({ nullable: true })
   public country?: string | null;
   @Field({ nullable: true })
@@ -49,34 +49,34 @@ class UserOwner {
     Object.assign(this, data);
     this.postalCode = data.zip;
     this.confirmed = !!parseInt(data.user_confirmed, 10);
-    this.customerGroup = data.user_customer_group;
+    this.customerGroup = data.user_customer_group || undefined;
   }
 }
 
 @ObjectType()
 class UserPreferences implements IUserPreferences {
   @Field(() => [String])
-  public communicationPreferences: string[];
+  public communicationPreferences!: string[];
   @Field(() => [String])
-  public interests: string[];
+  public interests!: string[];
   @Field(() => [String])
-  public subscriptions: string[];
+  public subscriptions!: string[];
 }
 
 @ObjectType()
 class UserLegalFormsItems {
   @Field()
-  public legalForm: LegalForm;
+  public legalForm!: LegalForm;
   @Field()
-  public confirmed: boolean;
+  public confirmed!: boolean;
 }
 
 @ObjectType()
 class UserPlaceOfPurchase implements IUserPlaceOfPurchase {
   @Field()
-  public place_id: string;
+  public place_id!: string;
   @Field()
-  public place_rating: string;
+  public place_rating!: string;
 
   constructor(data: IUserPlaceOfPurchase) {
     Object.assign(this, data);
@@ -101,7 +101,7 @@ export class User<T = {}> {
       ...data.owner,
       postalCode: data.owner.zip,
       confirmed: !!parseInt(data.owner.user_confirmed, 10),
-      customerGroup: data.owner.user_customer_group,
+      customerGroup: data.owner.user_customer_group || undefined,
     };
     this.userTokenPayload = userTokenPayload;
   }
@@ -123,20 +123,21 @@ export class User<T = {}> {
       ctx.omnipartners.identity.getPets({
         user_guid: this.owner.guid,
       }),
-      dealRef &&
-        ctx.omnipartners.deals.listEligiblePets({
-          deal_ref: dealRef,
-          user_guid: this.owner.guid,
-        }),
+      dealRef
+        ? ctx.omnipartners.deals.listEligiblePets({
+            deal_ref: dealRef,
+            user_guid: this.owner.guid,
+          })
+        : Promise.resolve(undefined),
     ]);
 
-    if (!dealRef) {
+    if (!dealPetsResult) {
       return petsResult.data.map(d => new UserPet(d));
     }
 
     return dealPetsResult.data
       .map(pet => petsResult.data.find(p => p.guid === pet.pet_guid))
-      .filter(Boolean)
+      .filter(<Z>(n?: Z): n is Z => Boolean(n))
       .map(pet => new UserPet(pet));
   }
 

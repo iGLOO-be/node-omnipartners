@@ -14,7 +14,7 @@ import { userDataOptions } from "./UserResolver";
 @InputType()
 class UserAddressUpdateInput extends UserAddressCreateInput {
   @Field()
-  public id: string;
+  public id!: string;
 }
 
 const mapClixrayFields = (

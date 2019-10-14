@@ -9,10 +9,10 @@ import { userDataOptions } from "./UserResolver";
 @InputType()
 export class UserPartnerRelationDeleteInput {
   @Field()
-  public extId: string;
+  public extId!: string;
 
   @Field()
-  public relationship: string;
+  public relationship!: string;
 }
 
 const mapClixrayFields = (

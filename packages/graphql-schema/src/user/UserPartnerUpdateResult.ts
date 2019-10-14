@@ -6,7 +6,7 @@ import { User } from "./User";
 @ObjectType()
 class UserAndPartner {
   @Field(() => User)
-  public user: User;
+  public user!: User;
 }
 
 @ObjectType()

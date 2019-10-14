@@ -5,17 +5,17 @@ import { GenericError } from "./GenericResult";
 @ObjectType()
 class ValidationError {
   @Field()
-  public validator: string;
+  public validator!: string;
   @Field()
-  public message: string;
+  public message!: string;
 }
 
 @ObjectType()
 class FieldValidationError {
   @Field()
-  public field: string;
+  public field!: string;
   @Field(() => [ValidationError])
-  public errors: ValidationError[];
+  public errors!: ValidationError[];
 }
 
 interface IGenericValidationErrorOptions {

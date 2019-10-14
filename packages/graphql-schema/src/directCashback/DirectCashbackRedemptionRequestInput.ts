@@ -1,35 +1,36 @@
 import { IDirectCashbackRedemptionRequestInput } from "omnipartners";
+import { SetOptional } from "type-fest";
 import { Field, InputType } from "type-graphql";
 
 @InputType()
 class DirectCashbackRedemptionRequestInputPayementDetail {
   @Field({ nullable: true })
-  public iban: string;
+  public iban?: string;
   @Field({ nullable: true })
-  public sortCode: string;
+  public sortCode?: string;
   @Field({ nullable: true })
-  public accountNumber: string;
+  public accountNumber?: string;
 }
 
 @InputType()
 export class DirectCashbackRedemptionRequestInput {
   @Field()
-  public barcode: string;
+  public barcode!: string;
 
   @Field({ nullable: true })
   public benefitId?: string;
 
   @Field()
-  public receiptDate: string;
+  public receiptDate!: string;
 
   @Field()
-  public receiptImageMimeType: string;
+  public receiptImageMimeType!: string;
 
   @Field()
-  public targetCurrency: "EUR" | "GBP";
+  public targetCurrency!: "EUR" | "GBP";
 
   @Field()
-  public paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail;
+  public paymentDetails!: DirectCashbackRedemptionRequestInputPayementDetail;
 
   @Field({ nullable: true })
   public eanBarcode?: string;
@@ -37,7 +38,10 @@ export class DirectCashbackRedemptionRequestInput {
   @Field({ nullable: true })
   public partnerExtId?: string;
 
-  public toOmnipartners(): IDirectCashbackRedemptionRequestInput {
+  public toOmnipartners(): SetOptional<
+    IDirectCashbackRedemptionRequestInput,
+    "benefit_id"
+  > {
     return {
       barcode: this.barcode,
       benefit_id: this.benefitId,

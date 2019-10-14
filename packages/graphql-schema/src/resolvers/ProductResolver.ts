@@ -12,52 +12,52 @@ import { Context } from "../types/Context";
 @InputType()
 class ProductCollectionsByPetGUIDInput implements IGetCollectionByPetGUIDInput {
   @Field()
-  public pet_guid: string;
+  public pet_guid!: string;
 
   @Field({ nullable: true })
-  public user_guid: string;
+  public user_guid?: string;
 
   @Field({ nullable: true })
-  public partner_id: string;
+  public partner_id?: string;
 
   @Field({ nullable: true })
-  public partner_id_type: string;
+  public partner_id_type?: string;
 
   @Field({ nullable: true })
-  public partner_group_handle: string;
+  public partner_group_handle?: string;
 
   @Field({ nullable: true })
-  public language: string;
+  public language?: string;
 
   @Field({ nullable: true })
-  public add_clientof_partner_groups: string;
+  public add_clientof_partner_groups?: string;
 
   @Field({ nullable: true })
-  public use_https_urls: string;
+  public use_https_urls?: string;
 
   @Field({ nullable: true })
-  public apply_range_exlusions: string;
+  public apply_range_exlusions?: string;
 
   @Field(() => [String], { nullable: true })
-  public data_options: string[];
+  public data_options?: string[];
 
   @Field({ nullable: true })
-  public is_gestation: string;
+  public is_gestation?: string;
 
   @Field({ nullable: true })
-  public sort_order: string;
+  public sort_order?: string;
 
   @Field({ nullable: true })
-  public component_sort_order: string;
+  public component_sort_order?: string;
 
   @Field({ nullable: true })
-  public ignore_old_format: string;
+  public ignore_old_format?: string;
 }
 @InputType()
 class ProductCollectionsByTargetingInfoFilterByAllInput
   implements IGetCollectionsByTargetingInfoInputFilterByAllSimple {
   @Field()
-  public filter_type:
+  public filter_type!:
     | "SPECIES"
     | "NEUTERED"
     | "GENDER"
@@ -196,48 +196,48 @@ class ProductCollectionsByTargetingInfoInput
 @ObjectType()
 class ProductCollectionsByTargetingInfoCollectionImages {
   @Field()
-  public image: string;
+  public image!: string;
   @Field()
-  public image_small: string;
+  public image_small!: string;
   @Field()
-  public image_medium: string;
+  public image_medium!: string;
   @Field()
-  public image_large: string;
+  public image_large!: string;
 }
 
 @ObjectType()
 class ProductCollectionsByTargetingInfoCollection
   implements Partial<IGetCollectionsByTargetingInfoCollection> {
   @Field()
-  public reference: string;
+  public reference!: string;
   @Field()
-  public generic_name: string;
+  public generic_name!: string;
   @Field()
-  public name: string;
+  public name!: string;
   @Field()
-  public energy_level: number;
+  public energy_level!: number;
   @Field()
-  public has_image: boolean;
+  public has_image!: boolean;
   @Field()
-  public description: string;
+  public description!: string;
   @Field()
-  public tag_line: string;
+  public tag_line!: string;
   @Field()
-  public introduction: string;
+  public introduction!: string;
   @Field()
-  public id: string;
+  public id!: string;
   @Field()
-  public score: number;
+  public score!: number;
   @Field()
-  public secondary_sorting_weight: string;
+  public secondary_sorting_weight!: string;
   @Field()
-  public range_priority_order: string;
+  public range_priority_order!: string;
   @Field()
-  public max_score: number;
+  public max_score!: number;
   @Field()
-  public pf_tracking_reference: string;
+  public pf_tracking_reference!: string;
   @Field()
-  public criteria_source_reference: string | null;
+  public criteria_source_reference!: string | null;
   @Field(() => ProductCollectionsByTargetingInfoCollectionImages, {
     nullable: true,
   })
@@ -247,34 +247,34 @@ class ProductCollectionsByTargetingInfoCollection
 @ObjectType()
 class ProductCollectionLinks {
   @Field({ nullable: true })
-  public type: string;
+  public type?: string;
 
   @Field({ nullable: true })
-  public reference: string;
+  public reference?: string;
 
   @Field({ nullable: true })
-  public link: string;
+  public link?: string;
 }
 
 @ObjectType()
 class ProductCollectionsByPetGUID {
   @Field({ nullable: true })
-  public reference: string;
+  public reference?: string;
 
   @Field({ nullable: true })
-  public name: string;
+  public name?: string;
 
   @Field({ nullable: true })
-  public description: string;
+  public description?: string;
 
   @Field({ nullable: true })
-  public tagLine: string;
+  public tagLine?: string;
 
   @Field({ nullable: true })
-  public introduction: string;
+  public introduction?: string;
 
   @Field({ nullable: true })
-  public image: string;
+  public image?: string;
 
   @Field({ nullable: true })
   public imageSmall: string;
@@ -287,7 +287,7 @@ class ProductCollectionsByPetGUID {
 
   // input: data_options === "links" && language is set
   @Field(() => [ProductCollectionLinks], { nullable: true })
-  public links: ProductCollectionLinks[];
+  public links?: ProductCollectionLinks[];
 
   constructor(data: IGetCollectionByPetGUID) {
     Object.assign(this, data);

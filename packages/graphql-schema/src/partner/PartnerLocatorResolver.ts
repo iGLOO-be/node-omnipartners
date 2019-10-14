@@ -7,10 +7,10 @@ import { Partner } from "./Partner";
 @InputType()
 class PartnerLocatorInput {
   @Field()
-  public lat: string;
+  public lat!: string;
 
   @Field()
-  public lng: string;
+  public lng!: string;
 
   @Field({ nullable: true })
   public type?: string;

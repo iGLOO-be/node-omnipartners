@@ -31,9 +31,9 @@ class UserConfirmLegalFormsInput
   implements
     Omit<IUserConfirmLegalFormsInput, "user_guid" | "legal_form_code"> {
   @Field(() => [String])
-  public legal_form_code: string | string[];
+  public legal_form_code!: string | string[];
   @Field()
-  public confirmed_place: string;
+  public confirmed_place!: string;
   @Field({ nullable: true })
   public send_notification?: string;
   @Field({ nullable: true })
@@ -44,13 +44,13 @@ class UserConfirmLegalFormsInput
 class UserUpdatePlacesOfPurchaseInput
   implements Omit<IUserUpdatePlacesOfPurchaseInput, "user_guid"> {
   @Field()
-  public place_id: string;
+  public place_id!: string;
 
   @Field({ nullable: true })
-  public place_rating: string;
+  public place_rating!: string;
 
   @Field({ nullable: true })
-  public enabled: boolean;
+  public enabled!: boolean;
 }
 
 @InputType()

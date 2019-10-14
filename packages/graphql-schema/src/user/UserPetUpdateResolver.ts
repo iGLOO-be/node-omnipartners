@@ -10,10 +10,10 @@ import { userDataOptions } from "./UserResolver";
 @InputType()
 class UserPetUpdateInput {
   @Field()
-  public guid: string;
+  public guid!: string;
 
   @Field()
-  public name: string;
+  public name!: string;
 
   @Field({ nullable: true })
   public type?: string;
@@ -34,7 +34,7 @@ class UserPetUpdateInput {
   public pictureUrl?: string;
 
   @Field({ nullable: true })
-  public placeOfPurchase: string;
+  public placeOfPurchase!: string;
 }
 
 const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {

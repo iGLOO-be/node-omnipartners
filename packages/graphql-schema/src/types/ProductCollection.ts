@@ -13,15 +13,15 @@ export class ProductCollection
       | "collection_caloric_table"
     > {
   @Field()
-  public reference: string;
+  public reference!: string;
   @Field()
-  public generic_name: string;
+  public generic_name!: string;
   @Field()
-  public name: string;
+  public name!: string;
   @Field()
-  public energy_level: number;
+  public energy_level!: number;
   @Field()
-  public has_image: boolean;
+  public has_image!: boolean;
   // @Field()
   // public contains: [];
   // @Field()
@@ -31,23 +31,23 @@ export class ProductCollection
   @Field()
   // public benefits: ICollectionDetailBenefit[];
   @Field()
-  public collection_reference: string;
+  public collection_reference!: string;
   @Field()
-  public collection_generic_name: string;
+  public collection_generic_name!: string;
   @Field()
-  public collection_name: string;
+  public collection_name!: string;
   @Field()
-  public collection_description: string;
+  public collection_description!: string;
   @Field()
-  public collection_tag_line: string;
+  public collection_tag_line!: string;
   @Field()
-  public collection_introduction: string;
+  public collection_introduction!: string;
   @Field()
-  public collection_range_reference: string;
+  public collection_range_reference!: string;
   @Field()
-  public collection_range_family_reference: string;
+  public collection_range_family_reference!: string;
   @Field()
-  public collection_energy_level: number;
+  public collection_energy_level!: number;
   @Field({ nullable: true })
   public collection_image?: string;
   @Field({ nullable: true })

@@ -8,17 +8,17 @@ import { DirectCashbackDealDetail } from "./DirectCashbackResolver";
 
 @ObjectType()
 class DirectCashbackVoucherBenefit {
-  @Field({ nullable: true })
-  public id: string;
+  @Field()
+  public id!: string;
 
   @Field({ nullable: true })
-  public productId: string;
+  public productId?: string;
 
   @Field({ nullable: true })
-  public amount: string;
+  public amount?: string;
 
   @Field({ nullable: true })
-  public currency: string;
+  public currency?: string;
 
   constructor(data: IDirectCashbackVoucherBenefit) {
     Object.assign(this, data);
@@ -48,28 +48,28 @@ class DirectCashbackVoucherDealDetail extends DirectCashbackDealDetail {
 @ObjectType()
 export class DirectCashbackVoucherDetail {
   @Field()
-  public id: string;
+  public id!: string;
 
   @Field()
-  public user_guid: string;
+  public user_guid!: string;
 
   @Field({ nullable: true })
-  public barcode: string;
+  public barcode?: string;
 
   @Field()
-  public status: string;
+  public status!: string;
 
   @Field({ nullable: true })
-  public pet_guid: string;
+  public pet_guid?: string;
 
   @Field({ nullable: true })
   public activeRedemptionRequestStatus: string;
 
-  @Field()
-  public redeemValidityFrom: Date;
+  @Field({ nullable: true })
+  public redeemValidityFrom?: Date;
 
   @Field({ nullable: true })
-  public redeemValidityTo: Date;
+  public redeemValidityTo?: Date;
 
   @Field(() => DirectCashbackVoucherBenefit, { nullable: true })
   public benefit: DirectCashbackVoucherBenefit;
@@ -81,9 +81,9 @@ export class DirectCashbackVoucherDetail {
     Object.assign(this, data);
     this.activeRedemptionRequestStatus = data.active_redemption_request_status;
     this.redeemValidityFrom =
-      data.redeem_validity_from && new Date(data.redeem_validity_from);
+      data.redeem_validity_from ? new Date(data.redeem_validity_from) : undefined;
     this.redeemValidityTo =
-      data.redeem_validity_to && new Date(data.redeem_validity_to);
+      data.redeem_validity_to ? new Date(data.redeem_validity_to) : undefined;
     this.deal = new DirectCashbackVoucherDealDetail(data.deal);
     this.benefit =
       data.benefit && new DirectCashbackVoucherBenefit(data.benefit);

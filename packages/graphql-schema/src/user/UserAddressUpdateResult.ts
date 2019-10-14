@@ -7,9 +7,9 @@ import { UserAddress } from "./UserAddress";
 @ObjectType()
 class UserAndAddress {
   @Field(() => User)
-  public user: User;
+  public user!: User;
   @Field(() => UserAddress)
-  public address: UserAddress;
+  public address!: UserAddress;
 }
 
 @ObjectType()

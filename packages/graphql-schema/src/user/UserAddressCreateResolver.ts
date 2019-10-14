@@ -22,10 +22,10 @@ export class UserAddressCreateInput {
   public street2?: string;
 
   @Field()
-  public postalCode: string;
+  public postalCode!: string;
 
   @Field()
-  public city: string;
+  public city!: string;
 
   @Field({ nullable: true })
   public country?: string;

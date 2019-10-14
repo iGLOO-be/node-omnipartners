@@ -11,13 +11,13 @@ import { userDataOptions } from "./UserResolver";
 @InputType()
 export class UserChildCreateInput {
   @Field()
-  public firstName: string;
+  public firstName!: string;
 
   @Field()
-  public birthday: string;
+  public birthday!: string;
 
   @Field()
-  public gender: string;
+  public gender!: string;
 
   @Field({ nullable: true })
   public extId?: string;

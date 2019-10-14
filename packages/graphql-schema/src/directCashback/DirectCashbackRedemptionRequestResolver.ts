@@ -25,13 +25,13 @@ class DirectCashbackRedemptionRequestListInput {
   public status?: string;
 
   @Field({ nullable: true })
-  public barcode: string;
+  public barcode?: string;
 
   @Field({ nullable: true })
-  public sortField: string;
+  public sortField?: string;
 
   @Field({ nullable: true })
-  public sortOrder: string;
+  public sortOrder?: string;
 
   public toOmnipartners(): Omit<
     IDirectCashbackRedemptionRequestListInput,
@@ -61,7 +61,7 @@ export class DirectCashbackRedemptionRequestResolver {
         user_guid,
         ...input,
         p_page: !args.page ? "0" : `${args.page - 1}`,
-        p_length: args.limit && `${args.limit}`,
+        p_length: args.limit ? `${args.limit}` : "10",
       },
     )).data;
 
@@ -94,12 +94,22 @@ export class DirectCashbackRedemptionRequestResolver {
 
       input.benefitId =
         input.benefitId ||
-        (await this.findBenefitIdByEAN(ctx, input.eanBarcode, input.barcode));
+        (input.eanBarcode &&
+          (await this.findBenefitIdByEAN(
+            ctx,
+            input.eanBarcode,
+            input.barcode,
+          )));
+
+      if (!input.benefitId) {
+        throw new Error();
+      }
 
       const {
         data,
       } = await ctx.omnipartners.deals.createDirectCashbackRedemptionRequest({
         ...input.toOmnipartners(),
+        benefit_id: input.benefitId,
       });
 
       return new DirectCashbackRedemptionRequestCreateResult({

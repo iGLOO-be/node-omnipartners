@@ -7,9 +7,9 @@ import { Context } from "../types/Context";
 export class PlaceOfPurchase
   implements Pick<IMetadataPlaceOfPurchase, "name" | "code"> {
   @Field()
-  public name: string;
+  public name!: string;
   @Field()
-  public code: string;
+  public code!: string;
 }
 
 @Resolver(() => PlaceOfPurchase)

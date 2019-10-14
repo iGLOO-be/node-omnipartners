@@ -7,7 +7,7 @@ class DirectCashbackRedemptionRequestURL {
   @Field({
     description: "URL to upload the ticket image",
   })
-  public url: string;
+  public url!: string;
 }
 
 @ObjectType()

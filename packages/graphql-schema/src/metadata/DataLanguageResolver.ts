@@ -6,9 +6,9 @@ import { Context } from "../types/Context";
 @ObjectType()
 export class Language implements IMetadataMemberLanguage {
   @Field({ nullable: true })
-  public name: string;
+  public name?: string;
   @Field()
-  public code: string;
+  public code!: string;
 }
 
 @Resolver(() => Language)
