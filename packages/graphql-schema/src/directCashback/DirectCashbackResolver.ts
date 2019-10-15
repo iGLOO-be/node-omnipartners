@@ -1,6 +1,7 @@
 import {
   IDirectCashbackDealDetail,
   ISubscribeToDirectCashbackDealInput,
+  IUserDirectCashbackDealEligiblePet,
 } from "omnipartners";
 import {
   Arg,
@@ -126,6 +127,20 @@ export class DirectCashbackDealDetail {
   }
 }
 
+@ObjectType()
+class UserDirectCashbackDealEligiblePet {
+  @Field()
+  public pet_guid: string;
+  @Field()
+  public name: string;
+
+  constructor(data: IUserDirectCashbackDealEligiblePet) {
+    Object.assign(this, data);
+    this.pet_guid = data.pet_guid;
+    this.name = data.pet_name;
+  }
+}
+
 export class DirectCashbackResolver {
   @Query(() => DirectCashbackDealDetail, { nullable: true })
   public async directCashbackDealDetail(
@@ -158,6 +173,21 @@ export class DirectCashbackResolver {
           ),
       ),
     );
+  }
+
+  @Query(() => [DirectCashbackDealDetail], { nullable: false })
+  public async directCashbackDealListEligiblePets(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Arg("deal_ref") deal_ref: string,
+  ): Promise<UserDirectCashbackDealEligiblePet[]> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+    const res = (await ctx.omnipartners.deals.listDirectCashbackEligiblePets({
+      user_guid,
+      deal_ref,
+    })).data;
+
+    return res.map(d => new UserDirectCashbackDealEligiblePet(d));
   }
 
   @Mutation(() => GenericValidationError, { nullable: true })
