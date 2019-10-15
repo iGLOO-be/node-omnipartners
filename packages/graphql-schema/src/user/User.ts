@@ -180,11 +180,9 @@ export class User<T = {}> {
     } else {
       const partners: IUserGetPartnerAccountRelationsResult = {
         clientof: res.data.clientof
-          .map(relation => relation.ptn_status === "A" && relation)
-          .filter(Boolean),
+          .filter(relation => relation.ptn_status === "A"),
         partof: res.data.partof
-          .map(relation => relation.ptn_status === "A" && relation)
-          .filter(Boolean),
+          .filter(relation => relation.ptn_status === "A"),
       };
 
       return new UserPartnerRelations(partners);
