@@ -1058,6 +1058,11 @@ export interface IUserEligibleDirectCashbackDeal {
   available_to: string;
 }
 
+export interface IUserDirectCashbackDealEligiblePet {
+  pet_guid: string;
+  pet_name: string;
+}
+
 export interface IDirectCashbackDealDetail {
   id: string;
   ref: string;

@@ -5,6 +5,7 @@ import {
   IDirectCashbackDealDetail,
   IDirectCashbackRedemptionRequestInput,
   IDirectCashbackVoucherDetail,
+  IUserDirectCashbackDealEligiblePet,
   IUserEligibleDirectCashbackDeal,
 } from "../../types";
 
@@ -634,6 +635,22 @@ export default class Deals extends Api {
     data: IUserEligibleDirectCashbackDeal[];
   }> {
     return this._call("list-direct-cashback-eligible-deals", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/List_Direct_Cashback_Eligible_Pets",
+  )
+  @filterInput(["user_guid", "deal_ref"])
+  public listDirectCashbackEligiblePets(data: {
+    deal_ref: string;
+    user_guid: string;
+  }): Promise<{
+    data: IUserDirectCashbackDealEligiblePet[];
+  }> {
+    return this._call("list-direct-cashback-eligible-pets", data, {
       retry: true,
       hashKeys: undefined,
     });
