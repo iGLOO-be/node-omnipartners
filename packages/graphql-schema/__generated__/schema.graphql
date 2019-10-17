@@ -452,6 +452,7 @@ type Query {
   productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
   user(token: String!): UserResult
   userLogin(password: String!, identifier: String!): UserResult!
+  userLoginByAccessToken(access_token: String!): UserResult!
   userEmailExists(email: String!): Boolean!
   userCreateAuthCode(ttl: Float!, value: String!, type: String!): GenericError
   userLoginByCode(auth_code: String!): UserResult
