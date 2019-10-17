@@ -40,6 +40,9 @@ export class DealSubscribeInput
   public referral_code?: string;
 
   @Field({ nullable: true })
+  public referral_code_type?: string;
+
+  @Field({ nullable: true })
   public delivery_address_id?: string;
 
   @Field({ nullable: true })

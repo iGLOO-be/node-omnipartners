@@ -48,6 +48,7 @@ input DealSubscribeInput {
   iban: String
   bic: String
   referral_code: String
+  referral_code_type: String
   delivery_address_id: String
   child_guid: String
 }
