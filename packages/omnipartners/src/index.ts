@@ -6,6 +6,7 @@ import Data from "./api/data";
 import Deals from "./api/deals";
 import EventLogger from "./api/eventLogger";
 import Identity from "./api/identity";
+import Loyalty from "./api/loyalty";
 import Metadata from "./api/metadata";
 import Partners from "./api/partners";
 import Products from "./api/products";
@@ -26,6 +27,7 @@ export interface IOmnipartnersConfig {
   cis?: IApiOptions;
   partners?: IApiOptions;
   products?: IApiOptions;
+  loyalty?: IApiOptions;
   deals?: IApiOptions;
   metadata?: IApiOptions;
   eventLogger?: IApiOptions;
@@ -35,6 +37,7 @@ export class Omnipartners {
   public identify: Identity;
   public identity: Identity;
   public partners: Partners;
+  public loyalty: Loyalty;
   public data: Data;
   public products: Products;
   public deals: Deals;
@@ -46,6 +49,7 @@ export class Omnipartners {
     this.identity = new Identity(config.cis);
     this.identify = new Identity(config.cis);
     this.partners = new Partners(config.partners);
+    this.loyalty = new Loyalty(config.loyalty);
     this.data = new Data(config.cis);
     this.products = new Products(config.products);
     this.deals = new Deals(config.deals);
