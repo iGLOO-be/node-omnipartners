@@ -1139,3 +1139,43 @@ export interface IDirectCashbackVoucherBenefit {
   amount?: string;
   currency?: string;
 }
+
+export interface ILoyaltyUserProfile {
+  user_status: "A" | "T";
+  has_email: "Y" | "N";
+  has_mobile_phone: "Y" | "N";
+}
+
+export interface ILoyaltyTransactionProductCodes {
+  [key: string]: number;
+}
+
+export interface ILoyaltyTransactionTransactionMessage {
+  [key: string]: string;
+}
+
+export interface ILoyaltyBalance {
+  user_total_points: string;
+  user_guid: string;
+  user_hold_points: string;
+  status: string;
+  user_profile: ILoyaltyUserProfile
+}
+
+export interface ILoyaltyTransactionHistory {
+  transaction_id: string;
+  log_id: string;
+  action: string;
+  program_id: string;
+  total_points: string;
+  shop_id: string;
+  partner_ext_id: string;
+  is_synced: string;
+  transaction_date: string;
+  user_id: string;
+  user_type: string;
+  product_codes: ILoyaltyTransactionProductCodes;
+  transaction_ext_id: string;
+  transaction_ext_origin: string;
+  transaction_message: ILoyaltyTransactionTransactionMessage
+}
