@@ -8,6 +8,7 @@ export interface IDataHashOptions {
   hashNoKey?: boolean;
   hash?: boolean;
   hashKeys?: string[] | ((data: IData) => string[]);
+  hashKey?: string;
 }
 
 export default function dataHashAppend(
@@ -19,6 +20,10 @@ export default function dataHashAppend(
   const allData = { ...data };
   if (!options.hashNoKey) {
     allData.key = key;
+  }
+
+  if (!options.hashKey) {
+    options.hashKey = "hash";
   }
 
   if (options.hash === false) {
@@ -46,7 +51,7 @@ export default function dataHashAppend(
 
   const signedBody: IData = {
     ...allData,
-    hash: crypto
+    [options.hashKey]: crypto
       .createHash("sha1")
       .update(hash)
       .digest("hex"),
