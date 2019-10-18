@@ -20,7 +20,8 @@ export interface ILoyaltyRetrieveTransactionHistoryInput {
   record_count?: string,
   starting_date?: string,
   ending_date?: string,
-  filter_null_transactions?: "1"
+  filter_null_transactions?: "1",
+  sort: "transaction_date ASC" | "transaction_date DESC" | "transaction_id ASC" | "transaction_date DESC"
 }
 
 
@@ -92,7 +93,8 @@ export default class Loyalty extends Api {
     "record_count",
     "starting_date",
     "ending_date",
-    "filter_null_transactions"
+    "filter_null_transactions",
+    "sort",
   ])
   public retrieveTransactionHistory(
     data: ILoyaltyRetrieveTransactionHistoryInput
