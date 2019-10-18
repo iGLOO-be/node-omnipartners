@@ -433,6 +433,14 @@ export default class Deals extends Api {
     3133: { message: "Subscription failure due to child gender." },
     3134: { message: "Subscription failure due to child age." },
     3135: { message: "Subscription failure due to child count." },
+    3116: {
+      message:
+        "Subscription failure due to invalid external tracking reference format.",
+    },
+    3123: {
+      message:
+        "Invalid Referral code type. Valid values are 'referral_code' or 'ext_id'",
+    },
   };
 
   @doc("http://doc.omnipartners.be/index.php/Get_deals_details")
