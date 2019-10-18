@@ -19,6 +19,7 @@ export interface ISubscribeToDealInput {
   iban?: string;
   bic?: string;
   referral_code?: string;
+  referral_code_type?: string;
   delivery_address_id?: string;
   child_guid?: string;
 }
@@ -432,6 +433,14 @@ export default class Deals extends Api {
     3133: { message: "Subscription failure due to child gender." },
     3134: { message: "Subscription failure due to child age." },
     3135: { message: "Subscription failure due to child count." },
+    3116: {
+      message:
+        "Subscription failure due to invalid external tracking reference format.",
+    },
+    3123: {
+      message:
+        "Invalid Referral code type. Valid values are 'referral_code' or 'ext_id'",
+    },
   };
 
   @doc("http://doc.omnipartners.be/index.php/Get_deals_details")
@@ -531,6 +540,7 @@ export default class Deals extends Api {
     "iban", // (Required for "CASHBACK" deals) International Bank Account Number for cashback deal. IBAN needs to be between 15 and 34 alphanumeric characters long.
     "bic", // (Optional) BIC number. This needs to be maximum 12 alphanumeric characters long.
     "referral_code", // (Optional) Referral code of the referring partner
+    "referral_code_type", // Referral code type of the referring partner. Valid values are 'referral_code' or 'ext_id'. Default value is 'referral_code'.
     "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
     "child_guid", // A Child guid of the user. This is required if the deal restricted for child limitations. Otherwise it can be empty.
   ])
