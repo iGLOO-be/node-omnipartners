@@ -73,6 +73,7 @@ export default class Loyalty extends Api {
         1027: { message: "Invalid Secret Key" },
         1064: { message: "Partner extension id records retrieve error" },
       },
+      hashKey: "sigid",
       hashKeys: [
         "action",
         "program_id",
@@ -104,7 +105,6 @@ export default class Loyalty extends Api {
         1065: { message: "Key /Action authorization records retrieve error" },
         1067: { message: "Key not found" },
       },
-      hashKey: "sigid",
       hashKeys: [
         "action",
         "program_id",
