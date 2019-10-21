@@ -2,29 +2,6 @@ import { OmnipartnersError } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
 import { AuthenticationError } from "../lib/AuthenticationError";
 
-export async function handleGeneric<T>(
-  ResultClass: any,
-  GenericResultClass: any,
-  promise: Promise<any>,
-  GenericErrorClass: any = GenericError,
-): Promise<T> {
-  let result: any;
-  let error: any;
-  try {
-    result = new ResultClass(await promise);
-  } catch (err) {
-    error = err;
-  }
-  if (error && !(error instanceof OmnipartnersError)) {
-    throw error;
-  }
-
-  return new GenericResultClass({
-    error: error && new GenericErrorClass(error),
-    result,
-  });
-}
-
 function isInternalError(error: Error) {
   return (
     !(error instanceof OmnipartnersError) &&

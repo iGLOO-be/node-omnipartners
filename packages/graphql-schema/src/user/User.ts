@@ -4,6 +4,7 @@ import {
   IUserPlaceOfPurchase,
   IUserPreferences,
 } from "omnipartners";
+import { IUserGetPartnerAccountRelationsResult } from "omnipartners/lib/api/identity";
 import { Arg, Ctx, Field, ObjectType } from "type-graphql";
 import { Memoize } from "typescript-memoize";
 import { Context } from "..";
@@ -165,11 +166,27 @@ export class User<T = {}> {
   }
 
   @Field(() => UserPartnerRelations, { nullable: false })
-  public async partners(@Ctx() ctx: Context): Promise<UserPartnerRelations> {
+  public async partners(
+    @Ctx() ctx: Context,
+    @Arg("showInactivePartners", { nullable: true })
+    showInactivePartners: boolean,
+  ): Promise<UserPartnerRelations> {
     const res = await ctx.omnipartners.identity.getPartnerAccountRelations({
       user_guid: this.owner.guid,
     });
-    return new UserPartnerRelations(res.data);
+
+    if (showInactivePartners) {
+      return new UserPartnerRelations(res.data);
+    } else {
+      const partners: IUserGetPartnerAccountRelationsResult = {
+        clientof: res.data.clientof
+          .filter(relation => relation.ptn_status === "A"),
+        partof: res.data.partof
+          .filter(relation => relation.ptn_status === "A"),
+      };
+
+      return new UserPartnerRelations(partners);
+    }
   }
 
   @Field(() => [UserPlaceOfPurchase], { nullable: false })

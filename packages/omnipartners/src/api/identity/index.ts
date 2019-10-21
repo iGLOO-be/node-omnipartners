@@ -711,7 +711,12 @@ export default class Identity extends Api {
   }): Promise<{
     data: IUserGetPartnerAccountRelationsResult;
   }> {
-    return this.post("/service/user/get-partners/", data, {
+    return this.post("/service/user/get-partners/", {
+      ...data,
+      data_options: Array.isArray(data.data_options)
+        ? data.data_options.join(",")
+        : data.data_options,
+    }, {
       errorMap: {
         2: {
           message:
