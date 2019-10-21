@@ -175,7 +175,7 @@ export class DirectCashbackResolver {
     );
   }
 
-  @Query(() => [DirectCashbackDealDetail], { nullable: false })
+  @Query(() => [UserDirectCashbackDealEligiblePet], { nullable: false })
   public async directCashbackDealListEligiblePets(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
