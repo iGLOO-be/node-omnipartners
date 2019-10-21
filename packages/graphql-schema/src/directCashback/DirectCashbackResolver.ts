@@ -1,7 +1,6 @@
 import {
   IDirectCashbackDealDetail,
   ISubscribeToDirectCashbackDealInput,
-  IUserDirectCashbackDealEligiblePet,
 } from "omnipartners";
 import {
   Arg,
@@ -14,6 +13,7 @@ import {
 } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
+import { UserPet } from "../user/UserPet";
 
 @InputType()
 export class DirectCashbackDealSubscribeInput {
@@ -127,20 +127,6 @@ export class DirectCashbackDealDetail {
   }
 }
 
-@ObjectType()
-class UserDirectCashbackDealEligiblePet {
-  @Field()
-  public pet_guid: string;
-  @Field()
-  public name: string;
-
-  constructor(data: IUserDirectCashbackDealEligiblePet) {
-    Object.assign(this, data);
-    this.pet_guid = data.pet_guid;
-    this.name = data.pet_name;
-  }
-}
-
 export class DirectCashbackResolver {
   @Query(() => DirectCashbackDealDetail, { nullable: true })
   public async directCashbackDealDetail(
@@ -175,19 +161,25 @@ export class DirectCashbackResolver {
     );
   }
 
-  @Query(() => [UserDirectCashbackDealEligiblePet], { nullable: false })
+  @Query(() => [UserPet], { nullable: false })
   public async directCashbackDealListEligiblePets(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
     @Arg("deal_ref") deal_ref: string,
-  ): Promise<UserDirectCashbackDealEligiblePet[]> {
+  ): Promise<UserPet[]> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     const res = (await ctx.omnipartners.deals.listDirectCashbackEligiblePets({
       user_guid,
       deal_ref,
     })).data;
 
-    return res.map(d => new UserDirectCashbackDealEligiblePet(d));
+    const s = await Promise.all(
+      res.map(({ pet_guid }) => {
+        return ctx.omnipartners.identity.getPet({ pet_guid });
+      }),
+    );
+
+    return s.map(d => new UserPet(d.data));
   }
 
   @Mutation(() => GenericValidationError, { nullable: true })
