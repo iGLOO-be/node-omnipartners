@@ -1179,3 +1179,10 @@ export interface ILoyaltyTransactionHistory {
   transaction_ext_origin: string;
   transaction_message: ILoyaltyTransactionTransactionMessage
 }
+
+export interface ILoyaltyPointsExpirationDate {
+  status: string;
+  user_guid: string;
+  expiration_date: string;
+  expiration_points: string;
+}
