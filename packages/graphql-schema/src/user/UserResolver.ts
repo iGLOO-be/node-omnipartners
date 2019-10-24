@@ -117,6 +117,7 @@ export class UserResolver {
   public async userLoginByAccessToken(
     @Ctx() ctx: Context,
     @Arg("access_token") access_token: string,
+    @Arg("userContextData", () => GraphQLJSON, { nullable: true }) userContextData?: any,
   ): Promise<UserResult> {
     try {
       const user = await ctx.omnipartners.identity.authenticateByAccessToken({
@@ -125,7 +126,7 @@ export class UserResolver {
       });
 
       return new UserResult({
-        result: await ctx.userHelper.createUser(user),
+        result: await ctx.userHelper.createUser(user, userContextData),
       });
     } catch (err) {
       return new UserResult({
