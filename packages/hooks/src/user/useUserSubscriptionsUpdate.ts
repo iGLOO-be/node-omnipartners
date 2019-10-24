@@ -1,0 +1,60 @@
+import { useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+import {
+  UserSubscriptionsUpdate,
+  UserSubscriptionsUpdateVariables,
+} from "./__generated__/UserSubscriptionsUpdate";
+import { useUserToken } from "./useUser";
+import { UserSubscriptionsQuery } from "./useUserSubscriptions";
+
+const UserSubscriptionsUpdateMutation = gql`
+  mutation UserSubscriptionsUpdate(
+    $updateSubscriptionsInput: UserUpdateSubscriptionsInput!
+    $token: String!
+  ) {
+    userUpdateSubscriptions(
+      updateSubscriptionsInput: $updateSubscriptionsInput
+      token: $token
+    ) {
+      message
+      code
+      validationErrors {
+        field
+        errors {
+          validator
+          message
+        }
+      }
+    }
+  }
+`;
+
+export const useUserSubscriptionsUpdate = () => {
+  const token = useUserToken();
+  const [updateSubscriptions, mutationResult] = useMutation<
+    UserSubscriptionsUpdate,
+    UserSubscriptionsUpdateVariables
+  >(UserSubscriptionsUpdateMutation);
+
+  return {
+    ...mutationResult,
+    userUpdateSubscriptions: async (subscriptions: string[]) =>
+      updateSubscriptions({
+        refetchQueries: [
+          {
+            query: UserSubscriptionsQuery,
+            variables: {
+              token,
+            },
+          },
+        ],
+        awaitRefetchQueries: true,
+        variables: {
+          token,
+          updateSubscriptionsInput: {
+            subscriptions,
+          },
+        },
+      }),
+  };
+};
