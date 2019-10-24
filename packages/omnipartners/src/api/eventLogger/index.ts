@@ -57,13 +57,13 @@ export default class EventLogger extends Api {
     event_name: string;
     event_ts: string;
     clixray_instance_id: string;
-    partner_ext_id: string;
-    partner_type: string;
-    event_category: string;
-    event_lon: number;
-    event_lat: number;
-    ip: string;
-    custom_fields: any;
+    partner_ext_id?: string;
+    partner_type?: string;
+    event_category?: string;
+    event_lon?: number;
+    event_lat?: number;
+    ip?: string;
+    custom_fields?: any;
   }) {
     return this.post(
       "/tracker",

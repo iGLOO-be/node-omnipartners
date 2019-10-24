@@ -465,7 +465,7 @@ type Query {
   findPartners(partnerLocatorInput: PartnerLocatorInput!): [Partner!]
   directCashbackDealDetail(ref: String!): DirectCashbackDealDetail
   directCashbackDealListEligible(token: String!): [DirectCashbackDealDetail!]!
-  directCashbackDealListEligiblePets(deal_ref: String!, token: String!): [DirectCashbackDealDetail!]!
+  directCashbackDealListEligiblePets(deal_ref: String!, token: String!): [UserPet!]!
   directCashbackRedemptionRequestList(
     """Paginate limit"""
     limit: Float
@@ -625,11 +625,6 @@ input UserCreateInput {
   originDetails: String
   postalCode: String
   city: String
-}
-
-type UserDirectCashbackDealEligiblePet {
-  pet_guid: String!
-  name: String!
 }
 
 type UserLegalForms {
