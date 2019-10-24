@@ -146,9 +146,9 @@ export default class Loyalty extends Api {
       },
       hashKeys: [
         "action",
-        "program_id",
-        "shop_id",
-        "user_id"
+        "program_reference",
+        "user_id",
+        "user_id_type"
       ],
       retry: true
     })
