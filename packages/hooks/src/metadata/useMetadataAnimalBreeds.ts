@@ -28,8 +28,8 @@ export const useMetadataAnimalBreeds = (lang: string) => {
     (res.data &&
       res.data.metadataAnimalBreeds &&
       res.data.metadataAnimalBreeds.map(d => ({
-        label: d.id,
-        value: d.name,
+        label: d.name,
+        value: d.id,
       }))) ||
     [];
 
