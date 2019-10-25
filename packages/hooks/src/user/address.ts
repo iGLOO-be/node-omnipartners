@@ -69,11 +69,12 @@ export const useUserAddress = () => {
   return {
     ...res,
     addresses:
-      res.data &&
-      res.data.user &&
-      res.data.user.result &&
-      res.data.user.result.addresses &&
-      res.data.user.result.addresses || [],
+      (res.data &&
+        res.data.user &&
+        res.data.user.result &&
+        res.data.user.result.addresses &&
+        res.data.user.result.addresses) ||
+      [],
   };
 };
 
