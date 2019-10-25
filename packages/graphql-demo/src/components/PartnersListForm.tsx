@@ -5,16 +5,18 @@ import { SimpleInput } from "../layout/SimpleInput";
 export const PartnersListForm = ({
   setConnectionArgs,
 }: {
-  setConnectionArgs: React.Dispatch<React.SetStateAction<{
-    page: number;
-    limit: number;
-}>>
+  setConnectionArgs: React.Dispatch<
+    React.SetStateAction<{
+      page: number;
+      limit: number;
+    }>
+  >;
 }) => (
   <Formik
     onSubmit={(values, { setSubmitting }) => {
       setConnectionArgs({
-          ...values,
-        });
+        ...values,
+      });
       setSubmitting(false);
     }}
     initialValues={{
@@ -24,7 +26,13 @@ export const PartnersListForm = ({
     render={() => (
       <Form>
         <Field name="page" type="number" component={SimpleInput} />
-        <Field name="limit" min="10" max="100" type="number" component={SimpleInput} />
+        <Field
+          name="limit"
+          min="10"
+          max="100"
+          type="number"
+          component={SimpleInput}
+        />
         <button type="submit">Submit</button>
       </Form>
     )}

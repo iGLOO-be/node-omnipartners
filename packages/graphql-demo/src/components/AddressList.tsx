@@ -9,7 +9,7 @@ export const AddressList = ({
   handleCreate: () => void;
   handleUpdate: (pet: any) => void;
 }) => {
-  const { loading, addresses } = useUserAddress()
+  const { loading, addresses } = useUserAddress();
 
   return (
     <>

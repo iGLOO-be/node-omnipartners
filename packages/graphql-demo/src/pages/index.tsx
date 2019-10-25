@@ -6,8 +6,8 @@ import { useUser } from "../lib/user/useUser";
 const Login = () => {
   const { isLogged } = useUser();
 
-  if(isLogged) {
-    navigate("/pet")
+  if (isLogged) {
+    navigate("/pet");
   }
 
   return (
@@ -16,6 +16,6 @@ const Login = () => {
       <LoginForm onSuccess={() => navigate("/pet")} />
     </div>
   );
-}
+};
 
 export default Login;

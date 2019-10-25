@@ -103,9 +103,5 @@ export const GraphQLProvider = ({
     return null;
   }
 
-  return (
-    <ApolloProvider client={client}>
-      {children}
-    </ApolloProvider>
-  );
+  return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };

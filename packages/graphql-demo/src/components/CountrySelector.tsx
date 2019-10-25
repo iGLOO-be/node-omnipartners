@@ -1,4 +1,3 @@
-
 import { useMetadataCountries } from "@igloo-be-omnipartners/hooks";
 import { FieldProps } from "formik";
 import React from "react";
@@ -12,9 +11,10 @@ export const CountrySelector = ({ field }: Partial<FieldProps>) => {
       </label>
       <select {...field}>
         {items.map(item => (
-          <option key={item.value} id={item.value}>{`${item.value} - ${
-            item.label
-          }`}</option>
+          <option
+            key={item.value}
+            id={item.value}
+          >{`${item.value} - ${item.label}`}</option>
         ))}
       </select>
     </div>

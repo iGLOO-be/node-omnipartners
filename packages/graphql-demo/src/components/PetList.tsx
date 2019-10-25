@@ -1,4 +1,4 @@
-import { useUserPets } from "@igloo-be-omnipartners/hooks"
+import { useUserPets } from "@igloo-be-omnipartners/hooks";
 import gql from "graphql-tag";
 import React from "react";
 import { Loading } from "../layout/Loading";

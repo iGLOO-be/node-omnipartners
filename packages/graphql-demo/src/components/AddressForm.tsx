@@ -1,4 +1,7 @@
-import { useUserAddressCreate, useUserAddressUpdate } from "@igloo-be-omnipartners/hooks";
+import {
+  useUserAddressCreate,
+  useUserAddressUpdate,
+} from "@igloo-be-omnipartners/hooks";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { SimpleInput } from "../layout/SimpleInput";
@@ -13,8 +16,8 @@ export const AddressForm = ({
   address: any;
   resetState: () => void;
 }) => {
-  const { userAddressCreate } =  useUserAddressCreate();
-  const { userAddressUpdate } =  useUserAddressUpdate();
+  const { userAddressCreate } = useUserAddressCreate();
+  const { userAddressUpdate } = useUserAddressUpdate();
 
   return (
     <div>
@@ -25,10 +28,7 @@ export const AddressForm = ({
             const { result, error } = await userAddressCreate(values);
 
             if (error) {
-              console.log(
-                "address creation, validation error",
-                error.message,
-              );
+              console.log("address creation, validation error", error.message);
             }
             if (result) {
               console.log("address created", result);
@@ -41,10 +41,7 @@ export const AddressForm = ({
             });
 
             if (error) {
-              console.log(
-                "address update, validation error",
-                error.message,
-              );
+              console.log("address update, validation error", error.message);
             }
             if (result) {
               console.log("address updated", result);

@@ -79,7 +79,7 @@ export const PartnerRelationList = ({
   handleCreate: () => void;
   resetState: () => void;
 }) => {
-  const userToken = useUserToken()
+  const userToken = useUserToken();
   const { data, loading } = useQuery<GetUserPartners, GetUserPartnersVariables>(
     GetUserPartnersQuery,
     {

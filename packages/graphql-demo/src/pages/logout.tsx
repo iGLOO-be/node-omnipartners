@@ -3,15 +3,15 @@ import { useLogout, useUser } from "../lib/user/useUser";
 
 const Logout = () => {
   const { isLogged } = useUser();
-  const { logout} = useLogout()
+  const { logout } = useLogout();
 
   if (!isLogged) {
-    return navigate("/")
+    return navigate("/");
   }
 
-  logout()
+  logout();
 
   return null;
-}
+};
 
 export default Logout;

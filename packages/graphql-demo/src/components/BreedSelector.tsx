@@ -3,7 +3,7 @@ import { FieldProps } from "formik";
 import React from "react";
 
 export const BreedSelector = ({ field }: Partial<FieldProps>) => {
-  const { items } = useMetadataAnimalBreeds("fr")
+  const { items } = useMetadataAnimalBreeds("fr");
 
   return (
     <>

@@ -94,7 +94,10 @@ export const PartnerRelationForm = ({
               data.userPartnerRelationCreate &&
               data.userPartnerRelationCreate.result
             ) {
-              console.log("partner relation created", data.userPartnerRelationCreate.result);
+              console.log(
+                "partner relation created",
+                data.userPartnerRelationCreate.result,
+              );
               resetState();
             }
           }
@@ -103,7 +106,7 @@ export const PartnerRelationForm = ({
           extId: "",
           relationship: "clientof",
           roles: "",
-          status: "submitted"
+          status: "submitted",
         }}
         render={() => (
           <Form>

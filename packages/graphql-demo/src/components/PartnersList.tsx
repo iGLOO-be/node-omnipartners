@@ -30,17 +30,17 @@ const GetPartnersQuery = gql`
 export const PartnersList = () => {
   const [connectionArgs, setConnectionArgs] = useState({
     page: 1,
-    limit: 10
-  })
-  const { data, loading } = useQuery<
-    GetPartners,
-    GetPartnersVariables
-  >(GetPartnersQuery, {
-    fetchPolicy: "cache-and-network",
-    variables: {
-      ...connectionArgs,
-    },
+    limit: 10,
   });
+  const { data, loading } = useQuery<GetPartners, GetPartnersVariables>(
+    GetPartnersQuery,
+    {
+      fetchPolicy: "cache-and-network",
+      variables: {
+        ...connectionArgs,
+      },
+    },
+  );
 
   const isLoading = !data && loading;
 

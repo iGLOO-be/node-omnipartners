@@ -6,7 +6,7 @@ import { Radio } from "./Radio";
 import { TitleRadio } from "./TitleRadio";
 
 export const UserCreateForm = () => {
-  const { userCreate } = useUserCreate()
+  const { userCreate } = useUserCreate();
 
   return (
     <div>

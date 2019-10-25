@@ -1,4 +1,7 @@
-import { useUserPetsCreate, useUserPetsUpdate } from "@igloo-be-omnipartners/hooks";
+import {
+  useUserPetsCreate,
+  useUserPetsUpdate,
+} from "@igloo-be-omnipartners/hooks";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import yn from "yn";
@@ -30,10 +33,7 @@ export const PetForm = ({
             });
 
             if (error) {
-              console.log(
-                "pet creation, validation error",
-                error.message,
-              );
+              console.log("pet creation, validation error", error.message);
             }
             if (result) {
               console.log("pet created", result);
@@ -46,10 +46,7 @@ export const PetForm = ({
               neutered: yn(values.neutered),
             });
             if (error) {
-              console.log(
-                "pet update, validation error",
-                error.message,
-              );
+              console.log("pet update, validation error", error.message);
             }
             if (result) {
               console.log("pet updated", result);

@@ -13,7 +13,7 @@ const Pet = () => {
     <UserRouteValidator>
       <h1>Pet</h1>
       <PetList
-         handleCreate={() =>
+        handleCreate={() =>
           setState({
             pet: null,
             action: "create",
