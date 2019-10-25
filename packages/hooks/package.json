@@ -1,8 +1,9 @@
 {
   "name": "@igloo-be-omnipartners/hooks",
   "version": "0.0.2",
-  "main": "lib/src/index.js",
-  "typings": "lib/src/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/change-url.esm.js",
+  "typings": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "start": "tsdx watch",
