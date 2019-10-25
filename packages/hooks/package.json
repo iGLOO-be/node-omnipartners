@@ -5,10 +5,10 @@
   "typings": "lib/src/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "start": "tsc -w",
+    "start": "tsdx watch",
     "gen:types": "apollo client:codegen --target typescript --includes \"src/**/*.{ts,tsx}\"",
-    "build": "yarn gen:types && tsc",
-    "test": "tsc --noEmit",
+    "build": "yarn gen:types && tsdx build",
+    "test": "tsdx lint .",
     "prepare": "yarn build"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "apollo": "^2.21.0",
     "react": "^16.11.0",
     "react-apollo": "^3.1.3",
+    "tsdx": "^0.10.5",
     "typescript": "^3.6.4"
   }
 }
