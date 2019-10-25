@@ -18,6 +18,7 @@ const UserQuery = gql`
           country
           dob
           gender
+          language
         }
       }
       error {
