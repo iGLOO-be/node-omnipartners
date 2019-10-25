@@ -174,6 +174,11 @@ export const useUserAddressCreate = ({
     },
   };
 };
+
+// ------------
+// UPDATE
+// ------------
+
 const UserAddressUpdateMutation = gql`
   mutation UserAddressUpdate(
     $token: String!
@@ -201,10 +206,6 @@ const UserAddressUpdateMutation = gql`
 
   ${UserAddressFragment}
 `;
-
-// ------------
-// UPDATE
-// ------------
 
 export const useUserAddressUpdate = () => {
   const token = useUserToken();
