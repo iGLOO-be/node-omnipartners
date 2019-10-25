@@ -8,7 +8,7 @@
     "start": "tsdx watch",
     "gen:types": "apollo client:codegen --target typescript --includes \"src/**/*.{ts,tsx}\"",
     "build": "yarn gen:types && tsdx build",
-    "test": "tsdx lint .",
+    "test": "tsdx lint ./src",
     "prepare": "yarn build"
   },
   "dependencies": {

@@ -1,10 +1,22 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { UserAddressCreateInput, UserAddressUpdateInput } from "../../__generated__/globalTypes";
+import {
+  UserAddressCreateInput,
+  UserAddressUpdateInput,
+} from "../../__generated__/globalTypes";
 import { decodeToken } from "../lib/tokenStorage";
-import { UserDefaultAddress, UserDefaultAddressVariables } from "./__generated__/UserDefaultAddress";
-import { UserDefaultAddressCreate, UserDefaultAddressCreateVariables } from "./__generated__/UserDefaultAddressCreate";
-import { UserDefaultAddressUpdate, UserDefaultAddressUpdateVariables } from "./__generated__/UserDefaultAddressUpdate";
+import {
+  UserDefaultAddress,
+  UserDefaultAddressVariables,
+} from "./__generated__/UserDefaultAddress";
+import {
+  UserDefaultAddressCreate,
+  UserDefaultAddressCreateVariables,
+} from "./__generated__/UserDefaultAddressCreate";
+import {
+  UserDefaultAddressUpdate,
+  UserDefaultAddressUpdateVariables,
+} from "./__generated__/UserDefaultAddressUpdate";
 import { useUserToken } from "./useUser";
 
 export const UserDefaultAddressFragment = gql`
@@ -47,15 +59,17 @@ export const UserDefaultAddressQuery = gql`
   ${UserDefaultAddressFragment}
 `;
 
-
 export const useUserDefaultAddress = () => {
   const token = useUserToken();
-  const res = useQuery<UserDefaultAddress, UserDefaultAddressVariables>(UserDefaultAddressQuery, {
-    skip: !token,
-    variables: {
-      token,
+  const res = useQuery<UserDefaultAddress, UserDefaultAddressVariables>(
+    UserDefaultAddressQuery,
+    {
+      skip: !token,
+      variables: {
+        token,
+      },
     },
-  });
+  );
 
   return {
     ...res,
@@ -199,7 +213,9 @@ export const useUserDefaultAddressUpdate = () => {
 
   return {
     ...mutationResult,
-    userDefaultAddressUpdate: async (userAddressInput: UserAddressUpdateInput) => {
+    userDefaultAddressUpdate: async (
+      userAddressInput: UserAddressUpdateInput,
+    ) => {
       const { data } = await userDefaultAddressUpdate({
         variables: {
           token,
@@ -211,4 +227,3 @@ export const useUserDefaultAddressUpdate = () => {
     },
   };
 };
-

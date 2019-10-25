@@ -16,7 +16,9 @@ const UserTokenQuery = gql`
   }
 `;
 
-export const useUserUpdateToken = (refreshTokenAfter: IUserProviderOptions["refreshTokenAfter"]) => {
+export const useUserUpdateToken = (
+  refreshTokenAfter: IUserProviderOptions["refreshTokenAfter"],
+) => {
   const { token, setToken } = useUserContext();
   const tokenNearExpired = isUserTokenNearExpired(token, refreshTokenAfter);
   const { data } = useQuery<UserToken, UserTokenVariables>(UserTokenQuery, {
@@ -32,10 +34,13 @@ export const useUserUpdateToken = (refreshTokenAfter: IUserProviderOptions["refr
     if (newToken) {
       setToken(newToken);
     }
-  }, [newToken]);
+  }, [newToken, setToken]);
 };
 
-const isUserTokenNearExpired = (token: string, refreshTokenAfter: IUserProviderOptions["refreshTokenAfter"]) => {
+const isUserTokenNearExpired = (
+  token: string,
+  refreshTokenAfter: IUserProviderOptions["refreshTokenAfter"],
+) => {
   if (!refreshTokenAfter) {
     return false;
   }

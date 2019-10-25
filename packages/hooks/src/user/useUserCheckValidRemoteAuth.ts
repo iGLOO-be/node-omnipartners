@@ -25,13 +25,7 @@ export const useUserCheckValidRemoteAuth = ({
         onError(error);
       }
     }
-  }, [
-    ready,
-    isNotLoggedError,
-    isOtherError,
-    error && error.code,
-    error && error.message,
-  ]);
+  }, [ready, isNotLoggedError, isOtherError, error, onNotLogged, onError]);
 
   return {
     ready: !loading,
