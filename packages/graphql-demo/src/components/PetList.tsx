@@ -1,33 +1,6 @@
 import { useUserPets } from "@igloo-be-omnipartners/hooks";
-import gql from "graphql-tag";
 import React from "react";
 import { Loading } from "../layout/Loading";
-
-export const GetUserPetsQuery = gql`
-  query GetUserPets($token: String!) {
-    user(token: $token) {
-      result {
-        owner {
-          guid
-        }
-        pets {
-          guid
-          name
-          gender
-          dob
-          neutered
-          type
-          breed
-          pictureUrl
-        }
-      }
-      error {
-        message
-        code
-      }
-    }
-  }
-`;
 
 export const PetList = ({
   handleCreate,
