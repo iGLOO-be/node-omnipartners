@@ -1,43 +1,14 @@
-import { useMutation } from "@apollo/react-hooks";
+import { useUser, useUserUpdate } from "@igloo-be-omnipartners/hooks";
 import { Field, Form, Formik } from "formik";
-import gql from "graphql-tag";
 import React from "react";
 import { SimpleInput } from "../layout/SimpleInput";
-import { useUser } from "../lib/user/useUser";
-import { UserUpdate, UserUpdateVariables } from "./__generated__/UserUpdate";
 import { Radio } from "./Radio";
 import { TitleRadio } from "./TitleRadio";
 
-const UserUpdateMutation = gql`
-  mutation UserUpdate($token: String!, $userInput: UserUpdateInput!) {
-    userUpdate(token: $token, userInput: $userInput) {
-      result {
-        owner {
-          guid
-          firstName
-          lastName
-          email
-          gender
-          mobilePhone
-          title
-          dob
-          language
-        }
-      }
-      error {
-        message
-        code
-      }
-    }
-  }
-`;
-
 export const UserUpdateForm = () => {
-  const { userToken, user: { user } } = useUser();
+  const { user } = useUser();
+  const { userUpdate } = useUserUpdate();
 
-  const [userUpdate] = useMutation<UserUpdate, UserUpdateVariables>(
-    UserUpdateMutation,
-  );
   return (
     <div>
       <h1>Update current profile</h1>
@@ -45,31 +16,12 @@ export const UserUpdateForm = () => {
       {user && (
         <Formik
           onSubmit={async values => {
-            const { data: updatedData, errors } = await userUpdate({
-              variables: {
-                token: userToken,
-                userInput: values,
-              },
-            });
-
-            if (
-              updatedData &&
-              updatedData.userUpdate &&
-              updatedData.userUpdate.result
-            ) {
-              console.log(updatedData.userUpdate.result.owner);
+            const { result, error } = await userUpdate(values);
+            if (result) {
+              console.log(result.owner);
             }
-
-            if (errors) {
-              console.error(errors);
-            }
-
-            if (
-              updatedData &&
-              updatedData.userUpdate &&
-              updatedData.userUpdate.error
-            ) {
-              console.log(updatedData.userUpdate.error);
+            if (error) {
+              console.log(error);
             }
           }}
           initialValues={{

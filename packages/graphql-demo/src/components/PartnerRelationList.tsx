@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useUserToken } from "@igloo-be-omnipartners/hooks";
 import gql from "graphql-tag";
 import React from "react";
 import { Loading } from "../layout/Loading";
-import { useUser } from "../lib/user/useUser";
 import {
   GetUserPartners,
   GetUserPartnersVariables,
@@ -79,7 +79,7 @@ export const PartnerRelationList = ({
   handleCreate: () => void;
   resetState: () => void;
 }) => {
-  const { userToken } = useUser();
+  const userToken = useUserToken()
   const { data, loading } = useQuery<GetUserPartners, GetUserPartnersVariables>(
     GetUserPartnersQuery,
     {

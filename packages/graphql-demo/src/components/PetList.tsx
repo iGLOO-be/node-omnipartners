@@ -1,9 +1,7 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useUserPets } from "@igloo-be-omnipartners/hooks"
 import gql from "graphql-tag";
 import React from "react";
 import { Loading } from "../layout/Loading";
-import { useUser } from "../lib/user/useUser";
-import { GetUserPets, GetUserPetsVariables } from "./__generated__/GetUserPets";
 
 export const GetUserPetsQuery = gql`
   query GetUserPets($token: String!) {
@@ -38,26 +36,11 @@ export const PetList = ({
   handleCreate: () => void;
   handleUpdate: (pet: any) => void;
 }) => {
-  const { userToken } = useUser();
-  const { data, loading } = useQuery<GetUserPets, GetUserPetsVariables>(
-    GetUserPetsQuery,
-    {
-      fetchPolicy: "cache-and-network",
-      variables: {
-        token: userToken,
-      },
-    },
-  );
-
-  const isLoading = !data && loading;
+  const { pets, loading } = useUserPets();
 
   return (
     <>
-      {data &&
-      data.user &&
-      data.user.result &&
-      data.user.result.pets &&
-      !isLoading ? (
+      {loading ? (
         <table>
           <thead>
             <tr>
@@ -71,7 +54,7 @@ export const PetList = ({
             </tr>
           </thead>
           <tbody>
-            {data.user.result.pets.map(pet => (
+            {pets.map(pet => (
               <tr key={pet.guid}>
                 <td>{pet.name}</td>
                 <td>{pet.type}</td>

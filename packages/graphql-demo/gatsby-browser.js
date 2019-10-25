@@ -1,7 +1,7 @@
 import React from "react";
 import { GraphQLProvider } from "./src/lib/GraphQLProvider";
-import { UserProvider } from "./src/lib/user";
 import { Menu } from "./src/layout/Menu";
+import { UserProvider } from "@igloo-be-omnipartners/hooks";
 
 export const wrapRootElement = ({ element }) => {
   return (

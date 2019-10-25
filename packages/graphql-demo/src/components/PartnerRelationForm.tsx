@@ -3,12 +3,12 @@ import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
 import React from "react";
 import { SimpleInput } from "../layout/SimpleInput";
-import { useUser } from "../lib/user/useUser";
 import {
   UserPartnerRelationCreate,
   UserPartnerRelationCreateVariables,
 } from "./__generated__/UserPartnerRelationCreate";
 
+import { useUserToken } from "@igloo-be-omnipartners/hooks";
 import { GetUserPartnersQuery } from "./PartnerRelationList";
 import { Radio } from "./Radio";
 
@@ -49,7 +49,7 @@ export const PartnerRelationForm = ({
   partner: any;
   resetState: () => void;
 }) => {
-  const { userToken } = useUser();
+  const userToken = useUserToken();
   const [partnerRelationCreate] = useMutation<
     UserPartnerRelationCreate,
     UserPartnerRelationCreateVariables
