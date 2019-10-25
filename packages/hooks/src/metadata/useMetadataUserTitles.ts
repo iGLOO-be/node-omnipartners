@@ -15,14 +15,14 @@ const MetadataUserTitlesQuery = gql`
 `;
 
 export const useMetadataUserTitles = (lang: string) => {
-  const res = useQuery<
-    MetadataUserTitles,
-    MetadataUserTitlesVariables
-  >(MetadataUserTitlesQuery, {
-    variables: {
-      lang,
+  const res = useQuery<MetadataUserTitles, MetadataUserTitlesVariables>(
+    MetadataUserTitlesQuery,
+    {
+      variables: {
+        lang,
+      },
     },
-  });
+  );
 
   const items =
     (res.data &&

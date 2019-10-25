@@ -5,10 +5,7 @@ import {
   UserAddressUpdateInput,
 } from "../../__generated__/globalTypes";
 import { decodeToken } from "../lib/tokenStorage";
-import {
-  UserAddress,
-  UserAddressVariables,
-} from "./__generated__/UserAddress";
+import { UserAddress, UserAddressVariables } from "./__generated__/UserAddress";
 import {
   UserAddressCreate,
   UserAddressCreateVariables,
@@ -62,15 +59,12 @@ export const UserAddressQuery = gql`
 
 export const useUserAddress = () => {
   const token = useUserToken();
-  const res = useQuery<UserAddress, UserAddressVariables>(
-    UserAddressQuery,
-    {
-      skip: !token,
-      variables: {
-        token,
-      },
+  const res = useQuery<UserAddress, UserAddressVariables>(UserAddressQuery, {
+    skip: !token,
+    variables: {
+      token,
     },
-  );
+  });
 
   return {
     ...res,
@@ -215,9 +209,7 @@ export const useUserAddressUpdate = () => {
 
   return {
     ...mutationResult,
-    userAddressUpdate: async (
-      userAddressInput: UserAddressUpdateInput,
-    ) => {
+    userAddressUpdate: async (userAddressInput: UserAddressUpdateInput) => {
       const { data } = await userAddressUpdate({
         variables: {
           token,

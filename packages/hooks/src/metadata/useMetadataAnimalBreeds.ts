@@ -15,14 +15,14 @@ const MetadataAnimalBreedsQuery = gql`
 `;
 
 export const useMetadataAnimalBreeds = (lang: string) => {
-  const res = useQuery<
-    MetadataAnimalBreeds,
-    MetadataAnimalBreedsVariables
-  >(MetadataAnimalBreedsQuery, {
-    variables: {
-      lang,
+  const res = useQuery<MetadataAnimalBreeds, MetadataAnimalBreedsVariables>(
+    MetadataAnimalBreedsQuery,
+    {
+      variables: {
+        lang,
+      },
     },
-  });
+  );
 
   const items =
     (res.data &&

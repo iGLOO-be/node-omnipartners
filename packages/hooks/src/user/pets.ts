@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { UserPetCreateInput, UserPetUpdateInput } from "../../__generated__/globalTypes";
 import {
-  UserPets,
-  UserPetsVariables,
-} from "./__generated__/UserPets";
+  UserPetCreateInput,
+  UserPetUpdateInput,
+} from "../../__generated__/globalTypes";
+import { UserPets, UserPetsVariables } from "./__generated__/UserPets";
 import {
   UserPetsCreate,
   UserPetsCreateVariables,
@@ -58,15 +58,12 @@ export const UserPetsQuery = gql`
 
 export const useUserPets = () => {
   const token = useUserToken();
-  const res = useQuery<UserPets, UserPetsVariables>(
-    UserPetsQuery,
-    {
-      skip: !token,
-      variables: {
-        token,
-      },
+  const res = useQuery<UserPets, UserPetsVariables>(UserPetsQuery, {
+    skip: !token,
+    variables: {
+      token,
     },
-  );
+  });
 
   return {
     ...res,
@@ -83,10 +80,7 @@ export const useUserPets = () => {
 // ------------
 
 const UserPetsCreateMutation = gql`
-  mutation UserPetsCreate(
-    $userPetInput: UserPetCreateInput!
-    $token: String!
-  ) {
+  mutation UserPetsCreate($userPetInput: UserPetCreateInput!, $token: String!) {
     userPetCreate(userPetInput: $userPetInput, token: $token) {
       result {
         user {
@@ -119,9 +113,7 @@ export const useUserPetsCreate = () => {
 
   return {
     ...mutationResult,
-    userPetsCreate: async (
-      userPetCreateInput: UserPetCreateInput,
-    ) => {
+    userPetsCreate: async (userPetCreateInput: UserPetCreateInput) => {
       const { data } = await createPet({
         variables: {
           userPetInput: userPetCreateInput,
@@ -134,10 +126,7 @@ export const useUserPetsCreate = () => {
   };
 };
 const UserPetsUpdateMutation = gql`
-  mutation UserPetsUpdate(
-    $token: String!
-    $userPetInput: UserPetUpdateInput!
-  ) {
+  mutation UserPetsUpdate($token: String!, $userPetInput: UserPetUpdateInput!) {
     userPetUpdate(token: $token, userPetInput: $userPetInput) {
       result {
         user {
@@ -174,9 +163,7 @@ export const useUserPetsUpdate = () => {
 
   return {
     ...mutationResult,
-    userPetsUpdate: async (
-      userPetInput: UserPetUpdateInput,
-    ) => {
+    userPetsUpdate: async (userPetInput: UserPetUpdateInput) => {
       const { data } = await userPetsUpdate({
         variables: {
           token,
