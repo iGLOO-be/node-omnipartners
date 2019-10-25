@@ -711,25 +711,31 @@ export default class Identity extends Api {
   }): Promise<{
     data: IUserGetPartnerAccountRelationsResult;
   }> {
-    return this.post("/service/user/get-partners/", {
-      ...data,
-      data_options: Array.isArray(data.data_options)
-        ? data.data_options.join(",")
-        : data.data_options,
-    }, {
-      errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
-        3: { message: "User not found in the system." },
-        4: { message: "User not active in the system." },
-        6: { message: "Not authorized to use this function or its disabled." },
-        8: { message: "Internal error." },
-        16: { message: "Invalid hash." },
+    return this.post(
+      "/service/user/get-partners/",
+      {
+        ...data,
+        data_options: Array.isArray(data.data_options)
+          ? data.data_options.join(",")
+          : data.data_options,
       },
-      retry: true,
-    });
+      {
+        errorMap: {
+          2: {
+            message:
+              "Invalid request in which required header or parameters are either missing or invalid.",
+          },
+          3: { message: "User not found in the system." },
+          4: { message: "User not active in the system." },
+          6: {
+            message: "Not authorized to use this function or its disabled.",
+          },
+          8: { message: "Internal error." },
+          16: { message: "Invalid hash." },
+        },
+        retry: true,
+      },
+    );
   }
 
   @doc(

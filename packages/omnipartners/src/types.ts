@@ -1159,7 +1159,7 @@ export interface ILoyaltyBalance {
   user_guid: string;
   user_hold_points: string;
   status: string;
-  user_profile: ILoyaltyUserProfile
+  user_profile: ILoyaltyUserProfile;
 }
 
 export interface ILoyaltyTransactionHistory {
@@ -1177,7 +1177,7 @@ export interface ILoyaltyTransactionHistory {
   product_codes: ILoyaltyTransactionProductCodes;
   transaction_ext_id: string;
   transaction_ext_origin: string;
-  transaction_message: ILoyaltyTransactionTransactionMessage
+  transaction_message: ILoyaltyTransactionTransactionMessage;
 }
 
 export interface ILoyaltyPointsExpirationDate {
