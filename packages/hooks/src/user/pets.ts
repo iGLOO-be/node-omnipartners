@@ -71,7 +71,7 @@ export const useUserPets = () => {
       res.data &&
       res.data.user &&
       res.data.user.result &&
-      res.data.user.result.pets,
+      res.data.user.result.pets || [],
   };
 };
 
