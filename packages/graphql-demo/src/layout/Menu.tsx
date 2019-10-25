@@ -1,9 +1,9 @@
+import { useUserLogout } from "@igloo-be-omnipartners/hooks"
 import { Link } from "gatsby";
 import React from "react";
-import { useLogout } from "../lib/user/useUser";
 
 export const Menu = () => {
-  const { logout } = useLogout();
+  const logout = useUserLogout
   return (
     <ul>
       <li>

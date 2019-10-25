@@ -1,10 +1,10 @@
+import { useUserIsLogged } from "@igloo-be-omnipartners/hooks";
 import { navigate } from "gatsby";
 import React from "react";
 import { LoginForm } from "../components/LoginForm";
-import { useUser } from "../lib/user/useUser";
 
 const Login = () => {
-  const { isLogged } = useUser();
+  const isLogged = useUserIsLogged();
 
   if (isLogged) {
     navigate("/pet");

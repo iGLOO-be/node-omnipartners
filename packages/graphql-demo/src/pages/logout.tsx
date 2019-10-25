@@ -1,15 +1,18 @@
+import { useUserIsLogged, useUserLogout } from "@igloo-be-omnipartners/hooks";
 import { navigate } from "gatsby";
-import { useLogout, useUser } from "../lib/user/useUser";
+import { useEffect } from "react";
 
 const Logout = () => {
-  const { isLogged } = useUser();
-  const { logout } = useLogout();
+  const isLogged = useUserIsLogged();
+  const logout = useUserLogout();
 
-  if (!isLogged) {
-    return navigate("/");
-  }
-
-  logout();
+  useEffect(() => {
+    if (!isLogged) {
+      navigate("/");
+    } else {
+      logout();
+    }
+  }, [ isLogged ])
 
   return null;
 };

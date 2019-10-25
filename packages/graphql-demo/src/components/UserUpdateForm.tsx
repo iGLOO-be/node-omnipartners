@@ -25,14 +25,14 @@ export const UserUpdateForm = () => {
             }
           }}
           initialValues={{
-            title: user.result.owner.title || "",
-            firstName: user.result.owner.firstName || "",
-            lastName: user.result.owner.lastName || "",
-            dob: user.result.owner.dob || "",
-            gender: user.result.owner.gender || "",
-            mobilePhone: user.result.owner.mobilePhone || "",
-            email: user.result.owner.email || "",
-            language: user.result.owner.language || "",
+            title: user.owner.title || "",
+            firstName: user.owner.firstName || "",
+            lastName: user.owner.lastName || "",
+            dob: user.owner.dob || "",
+            gender: user.owner.gender || "",
+            mobilePhone: user.owner.mobilePhone || "",
+            email: user.owner.email || "",
+            language: user.owner.language || "",
           }}
           render={() => (
             <Form>
