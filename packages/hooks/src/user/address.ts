@@ -6,21 +6,21 @@ import {
 } from "../../__generated__/globalTypes";
 import { decodeToken } from "../lib/tokenStorage";
 import {
-  UserDefaultAddress,
-  UserDefaultAddressVariables,
-} from "./__generated__/UserDefaultAddress";
+  UserAddress,
+  UserAddressVariables,
+} from "./__generated__/UserAddress";
 import {
-  UserDefaultAddressCreate,
-  UserDefaultAddressCreateVariables,
-} from "./__generated__/UserDefaultAddressCreate";
+  UserAddressCreate,
+  UserAddressCreateVariables,
+} from "./__generated__/UserAddressCreate";
 import {
-  UserDefaultAddressUpdate,
-  UserDefaultAddressUpdateVariables,
-} from "./__generated__/UserDefaultAddressUpdate";
+  UserAddressUpdate,
+  UserAddressUpdateVariables,
+} from "./__generated__/UserAddressUpdate";
 import { useUserToken } from "./tokenContext";
 
-export const UserDefaultAddressFragment = gql`
-  fragment UserDefaultAddressFragment on User {
+export const UserAddressFragment = gql`
+  fragment UserAddressFragment on User {
     owner {
       guid
     }
@@ -40,15 +40,15 @@ export const UserDefaultAddressFragment = gql`
 // QUERY
 // ------------
 
-export const UserDefaultAddressQuery = gql`
-  query UserDefaultAddress($token: String!) {
+export const UserAddressQuery = gql`
+  query UserAddress($token: String!) {
     user(token: $token) {
       result {
         token
         owner {
           guid
         }
-        ...UserDefaultAddressFragment
+        ...UserAddressFragment
       }
       error {
         message
@@ -56,13 +56,13 @@ export const UserDefaultAddressQuery = gql`
       }
     }
   }
-  ${UserDefaultAddressFragment}
+  ${UserAddressFragment}
 `;
 
-export const useUserDefaultAddress = () => {
+export const useUserAddress = () => {
   const token = useUserToken();
-  const res = useQuery<UserDefaultAddress, UserDefaultAddressVariables>(
-    UserDefaultAddressQuery,
+  const res = useQuery<UserAddress, UserAddressVariables>(
+    UserAddressQuery,
     {
       skip: !token,
       variables: {
@@ -78,7 +78,7 @@ export const useUserDefaultAddress = () => {
       res.data.user &&
       res.data.user.result &&
       res.data.user.result.addresses &&
-      res.data.user.result.addresses.find(address => address.isDefault),
+      res.data.user.result.addresses,
   };
 };
 
@@ -86,15 +86,15 @@ export const useUserDefaultAddress = () => {
 // CREATE
 // ------------
 
-const UserDefaultAddressCreateMutation = gql`
-  mutation UserDefaultAddressCreate(
+const UserAddressCreateMutation = gql`
+  mutation UserAddressCreate(
     $userAddressInput: UserAddressCreateInput!
     $token: String!
   ) {
     userAddressCreate(userAddressInput: $userAddressInput, token: $token) {
       result {
         user {
-          ...UserDefaultAddressFragment
+          ...UserAddressFragment
         }
       }
       error {
@@ -111,24 +111,24 @@ const UserDefaultAddressCreateMutation = gql`
     }
   }
 
-  ${UserDefaultAddressFragment}
+  ${UserAddressFragment}
 `;
 
-export const useUserDefaultAddressCreate = ({
+export const useUserAddressCreate = ({
   optimistic = false,
 }: {
   optimistic?: boolean;
 } = {}) => {
   const [createAddress, mutationResult] = useMutation<
-    UserDefaultAddressCreate,
-    UserDefaultAddressCreateVariables
-  >(UserDefaultAddressCreateMutation);
+    UserAddressCreate,
+    UserAddressCreateVariables
+  >(UserAddressCreateMutation);
   const token = useUserToken();
   const { user_guid } = decodeToken(token);
 
   return {
     ...mutationResult,
-    userDefaultAddressCreate: async (
+    userAddressCreate: async (
       userAddressCreateInput: UserAddressCreateInput,
     ) => {
       const { data } = await createAddress({
@@ -148,12 +148,12 @@ export const useUserDefaultAddressCreate = ({
                   addresses: [
                     {
                       __typename: "UserAddress",
+                      isDefault: false,
                       street1: "",
                       street2: "",
                       country: "",
                       streetnum: "",
                       ...userAddressCreateInput,
-                      isDefault: true,
                       id: -1,
                     },
                   ],
@@ -172,15 +172,15 @@ export const useUserDefaultAddressCreate = ({
     },
   };
 };
-const UserDefaultAddressUpdateMutation = gql`
-  mutation UserDefaultAddressUpdate(
+const UserAddressUpdateMutation = gql`
+  mutation UserAddressUpdate(
     $token: String!
     $userAddressInput: UserAddressUpdateInput!
   ) {
     userAddressUpdate(token: $token, userAddressInput: $userAddressInput) {
       result {
         user {
-          ...UserDefaultAddressFragment
+          ...UserAddressFragment
         }
       }
       error {
@@ -197,26 +197,26 @@ const UserDefaultAddressUpdateMutation = gql`
     }
   }
 
-  ${UserDefaultAddressFragment}
+  ${UserAddressFragment}
 `;
 
 // ------------
 // UPDATE
 // ------------
 
-export const useUserDefaultAddressUpdate = () => {
+export const useUserAddressUpdate = () => {
   const token = useUserToken();
-  const [userDefaultAddressUpdate, mutationResult] = useMutation<
-    UserDefaultAddressUpdate,
-    UserDefaultAddressUpdateVariables
-  >(UserDefaultAddressUpdateMutation);
+  const [userAddressUpdate, mutationResult] = useMutation<
+    UserAddressUpdate,
+    UserAddressUpdateVariables
+  >(UserAddressUpdateMutation);
 
   return {
     ...mutationResult,
-    userDefaultAddressUpdate: async (
+    userAddressUpdate: async (
       userAddressInput: UserAddressUpdateInput,
     ) => {
-      const { data } = await userDefaultAddressUpdate({
+      const { data } = await userAddressUpdate({
         variables: {
           token,
           userAddressInput,

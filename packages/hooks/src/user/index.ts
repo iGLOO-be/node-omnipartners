@@ -7,7 +7,7 @@ export * from "./useUserLogin";
 export * from "./useUserRecoverPassword";
 export * from "./useUserCreate";
 export * from "./useUserConfirmLegalForms";
-export * from "./defaultAddress";
+export * from "./address";
 export * from "./useUserChildCreate";
 export * from "./useUserUpdate";
 export * from "./useUserChildren";
