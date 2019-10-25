@@ -1,3 +1,3 @@
-import { useUserToken } from "./useUser";
+import { useUserToken } from "../user/tokenContext";
 
 export const useUserIsLogged = () => !!useUserToken();

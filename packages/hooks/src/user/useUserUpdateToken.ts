@@ -4,7 +4,8 @@ import gql from "graphql-tag";
 import { useEffect } from "react";
 import { decodeToken } from "../lib/tokenStorage";
 import { UserToken, UserTokenVariables } from "./__generated__/UserToken";
-import { IUserProviderOptions, useUserContext } from "./UserProvider";
+import { useUserContext } from "./tokenContext";
+import { IUserProviderOptions } from "./UserProvider";
 
 const UserTokenQuery = gql`
   query UserToken($token: String!) {

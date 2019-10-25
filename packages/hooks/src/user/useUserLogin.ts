@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { UserLogin, UserLoginVariables } from "./__generated__/UserLogin";
-import { useUserContext } from "./UserProvider";
+import { useUserContext } from "./tokenContext";
 import { useFetchUser } from "./useUser";
 
 const UserLoginQuery = gql`

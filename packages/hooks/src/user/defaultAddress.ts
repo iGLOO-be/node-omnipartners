@@ -17,7 +17,7 @@ import {
   UserDefaultAddressUpdate,
   UserDefaultAddressUpdateVariables,
 } from "./__generated__/UserDefaultAddressUpdate";
-import { useUserToken } from "./useUser";
+import { useUserToken } from "./tokenContext";
 
 export const UserDefaultAddressFragment = gql`
   fragment UserDefaultAddressFragment on User {

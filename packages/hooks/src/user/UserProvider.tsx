@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { tokenStorage } from "../lib/tokenStorage";
 import { useUserUpdateToken } from "./useUserUpdateToken";
 
@@ -74,8 +74,4 @@ export const UserProvider = ({
   children: JSX.Element;
 } & IUserProviderOptions) => {
   return <UserTokenProvider {...props}>{children}</UserTokenProvider>;
-};
-
-export const useUserContext = () => {
-  return useContext(userTokenContext);
 };

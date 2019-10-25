@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { sortBy } from "lodash";
+import { useUserToken } from "../user/tokenContext";
 import {
   UserChildren,
   UserChildrenVariables,
 } from "./__generated__/UserChildren";
 import { UserChildrenFragment } from "./Fragments";
-import { useUserToken } from "./useUser";
 
 export const UserChildrenQuery = gql`
   query UserChildren($token: String!) {
