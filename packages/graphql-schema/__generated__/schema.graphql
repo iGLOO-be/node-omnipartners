@@ -190,6 +190,11 @@ type GenericValidationError {
   validationErrors: [FieldValidationError!]
 }
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
 type Language {
   name: String
   code: String!
@@ -452,8 +457,8 @@ type Query {
   productCollectionsByTargetingInfo(input: ProductCollectionsByTargetingInfoInput!): [ProductCollectionsByTargetingInfoCollection!]
   productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
   user(token: String!): UserResult
-  userLogin(password: String!, identifier: String!): UserResult!
-  userLoginByAccessToken(access_token: String!): UserResult!
+  userLogin(userContextData: JSON, password: String!, identifier: String!): UserResult!
+  userLoginByAccessToken(userContextData: JSON, access_token: String!): UserResult!
   userEmailExists(email: String!): Boolean!
   userCreateAuthCode(ttl: Float!, value: String!, type: String!): GenericError
   userLoginByCode(auth_code: String!): UserResult
