@@ -26,6 +26,7 @@ export const UserAddressFragment = gql`
     }
     addresses {
       id
+      name
       street1
       postalCode
       country
@@ -149,6 +150,7 @@ export const useUserAddressCreate = ({
                     {
                       __typename: "UserAddress",
                       isDefault: false,
+                      name: "",
                       street1: "",
                       street2: "",
                       country: "",

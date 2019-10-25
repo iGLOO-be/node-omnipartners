@@ -14,6 +14,7 @@ export interface UserAddress_user_result_owner {
 export interface UserAddress_user_result_addresses {
   __typename: "UserAddress";
   id: number;
+  name: string | null;
   street1: string | null;
   postalCode: string | null;
   country: string | null;
