@@ -4,8 +4,20 @@ import {
   UserSubscriptions,
   UserSubscriptionsVariables,
 } from "./__generated__/UserSubscriptions";
-import { UserSubscriptionsFragment } from "./Fragments";
 import { useUserToken } from "./tokenContext";
+
+export * from "./__generated__/UserSubscriptions";
+
+export const UserSubscriptionsFragment = gql`
+  fragment UserSubscriptionsFragment on User {
+    owner {
+      guid
+    }
+    preferences {
+      subscriptions
+    }
+  }
+`;
 
 export const UserSubscriptionsQuery = gql`
   query UserSubscriptions($token: String!) {

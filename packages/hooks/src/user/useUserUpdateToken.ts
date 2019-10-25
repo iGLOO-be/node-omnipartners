@@ -7,6 +7,8 @@ import { UserToken, UserTokenVariables } from "./__generated__/UserToken";
 import { useUserContext } from "./tokenContext";
 import { IUserProviderOptions } from "./UserProvider";
 
+export * from "./__generated__/UserToken";
+
 const UserTokenQuery = gql`
   query UserToken($token: String!) {
     user(token: $token) {

@@ -16,6 +16,10 @@ import {
 } from "./__generated__/UserAddressUpdate";
 import { useUserToken } from "./tokenContext";
 
+export * from "./__generated__/UserAddress";
+export * from "./__generated__/UserAddressCreate";
+export * from "./__generated__/UserAddressUpdate";
+
 export const UserAddressFragment = gql`
   fragment UserAddressFragment on User {
     owner {
@@ -169,6 +173,11 @@ export const useUserAddressCreate = ({
     },
   };
 };
+
+// ------------
+// UPDATE
+// ------------
+
 const UserAddressUpdateMutation = gql`
   mutation UserAddressUpdate(
     $token: String!
@@ -196,10 +205,6 @@ const UserAddressUpdateMutation = gql`
 
   ${UserAddressFragment}
 `;
-
-// ------------
-// UPDATE
-// ------------
 
 export const useUserAddressUpdate = () => {
   const token = useUserToken();

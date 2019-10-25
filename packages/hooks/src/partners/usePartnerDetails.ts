@@ -5,6 +5,8 @@ import {
   PartnerDetailsVariables,
 } from "./__generated__/PartnerDetails";
 
+export * from "./__generated__/PartnerDetails";
+
 const PartnerDetailsQuery = gql`
   query PartnerDetails($extId: String!) {
     partnerDetails(partner_ext_id: $extId) {

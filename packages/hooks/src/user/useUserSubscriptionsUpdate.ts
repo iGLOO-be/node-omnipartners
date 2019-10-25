@@ -7,6 +7,8 @@ import {
 import { useUserToken } from "./tokenContext";
 import { UserSubscriptionsQuery } from "./useUserSubscriptions";
 
+export * from "./__generated__/UserSubscriptionsUpdate";
+
 const UserSubscriptionsUpdateMutation = gql`
   mutation UserSubscriptionsUpdate(
     $updateSubscriptionsInput: UserUpdateSubscriptionsInput!

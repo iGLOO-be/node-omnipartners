@@ -5,6 +5,8 @@ import {
   MetadataCountriesVariables,
 } from "./__generated__/MetadataCountries";
 
+export * from "./__generated__/MetadataCountries";
+
 const MetadataCountriesQuery = gql`
   query MetadataCountries($lang: String!) {
     metadataCountries(lang: $lang) {

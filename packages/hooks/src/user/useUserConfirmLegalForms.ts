@@ -5,6 +5,8 @@ import {
   UserConfirmLegalFormsVariables,
 } from "./__generated__/UserConfirmLegalForms";
 
+export * from "./__generated__/UserConfirmLegalForms";
+
 const UserConfirmLegalFormsMutation = gql`
   mutation UserConfirmLegalForms(
     $token: String!

@@ -7,6 +7,8 @@ import {
   DealSubscribeVariables,
 } from "./__generated__/DealSubscribe";
 
+export { DealSubscribe, DealSubscribeVariables };
+
 const DealSubscribeMutation = gql`
   mutation DealSubscribe(
     $dealSubscribeInput: DealSubscribeInput!

@@ -5,6 +5,8 @@ import {
   MetadataAnimalBreedsVariables,
 } from "./__generated__/MetadataAnimalBreeds";
 
+export * from "./__generated__/MetadataAnimalBreeds";
+
 const MetadataAnimalBreedsQuery = gql`
   query MetadataAnimalBreeds($lang: String!) {
     metadataAnimalBreeds(lang: $lang) {

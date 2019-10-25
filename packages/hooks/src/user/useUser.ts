@@ -3,6 +3,8 @@ import gql from "graphql-tag";
 import { User, UserVariables } from "./__generated__/User";
 import { useUserToken } from "./tokenContext";
 
+export * from "./__generated__/User";
+
 const UserQuery = gql`
   query User($token: String!) {
     user(token: $token) {

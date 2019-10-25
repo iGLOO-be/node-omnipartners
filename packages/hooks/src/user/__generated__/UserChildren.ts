@@ -21,7 +21,6 @@ export interface UserChildren_user_result_children {
 
 export interface UserChildren_user_result {
   __typename: "User";
-  token: string;
   owner: UserChildren_user_result_owner;
   children: UserChildren_user_result_children[];
 }
