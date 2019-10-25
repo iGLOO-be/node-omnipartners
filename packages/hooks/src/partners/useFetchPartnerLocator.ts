@@ -5,6 +5,8 @@ import {
   PartnerLocatorVariables,
 } from "./__generated__/PartnerLocator";
 
+export * from "./__generated__/PartnerLocator";
+
 const PartnerLocatorQuery = gql`
   query PartnerLocator($partnerLocatorInput: PartnerLocatorInput!) {
     findPartners(partnerLocatorInput: $partnerLocatorInput) {

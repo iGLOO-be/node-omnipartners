@@ -5,6 +5,8 @@ import { decodeToken } from "../lib/tokenStorage";
 import { UserUpdate, UserUpdateVariables } from "./__generated__/UserUpdate";
 import { useUserToken } from "./tokenContext";
 
+export * from "./__generated__/UserUpdate";
+
 const UserUpdateMutation = gql`
   mutation UserUpdate($token: String!, $userInput: UserUpdateInput!) {
     userUpdate(token: $token, userInput: $userInput) {

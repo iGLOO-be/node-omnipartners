@@ -5,6 +5,8 @@ import {
   DealCheckSecureCodeVariables,
 } from "./__generated__/DealCheckSecureCode";
 
+export { DealCheckSecureCode, DealCheckSecureCodeVariables };
+
 const DealCheckSecureCodeQuery = gql`
   query DealCheckSecureCode($code: String!, $deal_ref: String!) {
     dealCheckSecureCode(code: $code, deal_ref: $deal_ref) {

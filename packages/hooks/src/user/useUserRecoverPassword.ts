@@ -6,6 +6,8 @@ import {
   UserRecoverPasswordVariables,
 } from "./__generated__/UserRecoverPassword";
 
+export * from "./__generated__/UserRecoverPassword";
+
 const UserRecoverPasswordMutation = gql`
   mutation UserRecoverPassword($email: String!) {
     userRecoverPassword(email: $email) {

@@ -15,6 +15,10 @@ import {
 } from "./__generated__/UserPetsUpdate";
 import { useUserToken } from "./tokenContext";
 
+export * from "./__generated__/UserPets";
+export * from "./__generated__/UserPetsCreate";
+export * from "./__generated__/UserPetsUpdate";
+
 export const UserPetsFragment = gql`
   fragment UserPetsFragment on User {
     owner {

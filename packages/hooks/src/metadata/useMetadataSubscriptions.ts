@@ -5,6 +5,8 @@ import {
   MetadataSubscriptionsVariables,
 } from "./__generated__/MetadataSubscriptions";
 
+export * from "./__generated__/MetadataSubscriptions";
+
 const MetadataSubscriptionsQuery = gql`
   query MetadataSubscriptions($lang: String!) {
     metadataSubscriptions(lang: $lang) {

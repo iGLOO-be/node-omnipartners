@@ -18,6 +18,10 @@ import {
 } from "./__generated__/UserChildrenUpdate";
 import { useUserToken } from "./tokenContext";
 
+export * from "./__generated__/UserChildren";
+export * from "./__generated__/UserChildrenCreate";
+export * from "./__generated__/UserChildrenUpdate";
+
 export const UserChildrenFragment = gql`
   fragment UserChildrenFragment on User {
     children {
@@ -80,7 +84,10 @@ const UserChildrenCreateMutation = gql`
     $userChildCreateInput: UserChildCreateInput!
     $token: String!
   ) {
-    userChildCreate(userChildCreateInput: $userChildCreateInput, token: $token) {
+    userChildCreate(
+      userChildCreateInput: $userChildCreateInput
+      token: $token
+    ) {
       result {
         user {
           ...UserChildrenFragment
@@ -141,7 +148,10 @@ const UserChildrenUpdateMutation = gql`
     $token: String!
     $userChildUpdateInput: UserChildUpdateInput!
   ) {
-    userChildUpdate(token: $token, userChildUpdateInput: $userChildUpdateInput) {
+    userChildUpdate(
+      token: $token
+      userChildUpdateInput: $userChildUpdateInput
+    ) {
       result {
         user {
           ...UserChildrenFragment

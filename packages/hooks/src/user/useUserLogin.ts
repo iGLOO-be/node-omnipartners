@@ -4,6 +4,8 @@ import { UserLogin, UserLoginVariables } from "./__generated__/UserLogin";
 import { useUserContext } from "./tokenContext";
 import { useFetchUser } from "./useUser";
 
+export * from "./__generated__/UserLogin";
+
 const UserLoginQuery = gql`
   query UserLogin($identifier: String!, $password: String!) {
     userLogin(identifier: $identifier, password: $password) {

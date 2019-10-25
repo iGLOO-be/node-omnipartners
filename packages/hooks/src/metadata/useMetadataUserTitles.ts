@@ -5,6 +5,8 @@ import {
   MetadataUserTitlesVariables,
 } from "./__generated__/MetadataUserTitles";
 
+export * from "./__generated__/MetadataUserTitles";
+
 const MetadataUserTitlesQuery = gql`
   query MetadataUserTitles($lang: String!) {
     metadataUserTitles(lang: $lang) {

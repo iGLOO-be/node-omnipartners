@@ -5,6 +5,8 @@ import { UserCreate, UserCreateVariables } from "./__generated__/UserCreate";
 import { useUserContext } from "./tokenContext";
 import { useFetchUser } from "./useUser";
 
+export * from "./__generated__/UserCreate";
+
 const UserCreateMutation = gql`
   mutation UserCreate($userInput: UserCreateInput!) {
     userCreate(userInput: $userInput) {

@@ -6,6 +6,8 @@ import {
 } from "./__generated__/UserSubscriptions";
 import { useUserToken } from "./tokenContext";
 
+export * from "./__generated__/UserSubscriptions";
+
 export const UserSubscriptionsFragment = gql`
   fragment UserSubscriptionsFragment on User {
     owner {

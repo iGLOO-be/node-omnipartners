@@ -5,6 +5,8 @@ import {
   MetadataLegalFormsVariables,
 } from "./__generated__/MetadataLegalForms";
 
+export * from "./__generated__/MetadataLegalForms";
+
 const MetadataLegalFormsQuery = gql`
   query MetadataLegalForms($lang: String!, $codes: String!) {
     metadataLegalForms(lang: $lang, codes: $codes) {

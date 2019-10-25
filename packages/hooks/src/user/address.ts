@@ -16,7 +16,6 @@ import {
 } from "./__generated__/UserAddressUpdate";
 import { useUserToken } from "./tokenContext";
 
-export { UserAddressCreateInput, UserAddressUpdateInput };
 export * from "./__generated__/UserAddress";
 export * from "./__generated__/UserAddressCreate";
 export * from "./__generated__/UserAddressUpdate";

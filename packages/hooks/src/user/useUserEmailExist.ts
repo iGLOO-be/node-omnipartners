@@ -5,6 +5,8 @@ import {
   UserEmailExistsVariables,
 } from "./__generated__/UserEmailExists";
 
+export * from "./__generated__/UserEmailExists";
+
 const UserEmailExistsQuery = gql`
   query UserEmailExists($email: String!) {
     userEmailExists(email: $email)

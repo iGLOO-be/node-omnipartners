@@ -8,11 +8,6 @@ import { UserChildUpdateInput } from "./../../../__generated__/globalTypes";
 // GraphQL mutation operation: UserChildrenUpdate
 // ====================================================
 
-export interface UserChildrenUpdate_userChildUpdate_result_user_owner {
-  __typename: "UserOwner";
-  guid: string;
-}
-
 export interface UserChildrenUpdate_userChildUpdate_result_user_children {
   __typename: "UserChild";
   birthday: any | null;
@@ -23,7 +18,6 @@ export interface UserChildrenUpdate_userChildUpdate_result_user_children {
 
 export interface UserChildrenUpdate_userChildUpdate_result_user {
   __typename: "User";
-  owner: UserChildrenUpdate_userChildUpdate_result_user_owner;
   children: UserChildrenUpdate_userChildUpdate_result_user_children[];
 }
 
