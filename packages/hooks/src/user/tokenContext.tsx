@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-const userTokenContext = createContext<{
+export const userTokenContext = createContext<{
   ready: boolean;
   token: string;
   setToken: (v: string | undefined) => void;
