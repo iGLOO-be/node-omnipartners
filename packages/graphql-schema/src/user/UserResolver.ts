@@ -94,7 +94,8 @@ export class UserResolver {
     @Ctx() ctx: Context,
     @Arg("identifier") identifier: string,
     @Arg("password") password: string,
-    @Arg("userContextData", () => GraphQLJSON, { nullable: true }) userContextData?: any
+    @Arg("userContextData", () => GraphQLJSON, { nullable: true })
+    userContextData?: any,
   ): Promise<UserResult> {
     try {
       const user = await ctx.omnipartners.identity.authenticate({
@@ -117,7 +118,8 @@ export class UserResolver {
   public async userLoginByAccessToken(
     @Ctx() ctx: Context,
     @Arg("access_token") access_token: string,
-    @Arg("userContextData", () => GraphQLJSON, { nullable: true }) userContextData?: any,
+    @Arg("userContextData", () => GraphQLJSON, { nullable: true })
+    userContextData?: any,
   ): Promise<UserResult> {
     try {
       const user = await ctx.omnipartners.identity.authenticateByAccessToken({

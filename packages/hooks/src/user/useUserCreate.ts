@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { UserCreateInput } from "../../__generated__/globalTypes";
 import { UserCreate, UserCreateVariables } from "./__generated__/UserCreate";
-import { useUserContext } from "./UserProvider";
+import { useUserContext } from "./tokenContext";
 import { useFetchUser } from "./useUser";
 
 const UserCreateMutation = gql`

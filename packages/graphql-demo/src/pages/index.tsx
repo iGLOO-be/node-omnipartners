@@ -1,14 +1,18 @@
+import { useUserIsLogged } from "@igloo-be-omnipartners/hooks";
 import { navigate } from "gatsby";
-import React from "react";
+import React, { useEffect } from "react";
 import { LoginForm } from "../components/LoginForm";
-import { useUser } from "../lib/user/useUser";
 
 const Login = () => {
-  const { isLogged } = useUser();
+  const isLogged = useUserIsLogged();
 
-  if(isLogged) {
-    navigate("/pet")
-  }
+  useEffect(() => {
+    if (isLogged) {
+      navigate("/pet");
+    }
+  }, [isLogged]);
+
+  console.log(isLogged);
 
   return (
     <div>
@@ -16,6 +20,6 @@ const Login = () => {
       <LoginForm onSuccess={() => navigate("/pet")} />
     </div>
   );
-}
+};
 
 export default Login;

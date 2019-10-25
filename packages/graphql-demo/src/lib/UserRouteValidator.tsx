@@ -1,19 +1,13 @@
+import { useUserIsLogged } from "@igloo-be-omnipartners/hooks";
 import { navigate } from "gatsby";
-import React from "react"
-import { Loading } from "../layout/Loading";
-import { useUser } from "./user/useUser";
 
-export const UserRouteValidator = (props) => {
-  const { isLoading, isLogged } = useUser();
-
-  if (isLoading) {
-    return <Loading />;
-  }
+export const UserRouteValidator = props => {
+  const isLogged = useUserIsLogged();
 
   if (!isLogged) {
-    navigate('/')
-    return null
+    navigate("/");
+    return null;
   }
 
-  return props.children
-}
+  return props.children;
+};

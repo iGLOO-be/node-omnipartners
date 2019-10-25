@@ -15,19 +15,19 @@ const MetadataSubscriptionsQuery = gql`
 `;
 
 export const useMetadataSubscriptions = (lang: string) => {
-  const { data, loading } = useQuery<
-    MetadataSubscriptions,
-    MetadataSubscriptionsVariables
-  >(MetadataSubscriptionsQuery, {
-    variables: {
-      lang,
+  const res = useQuery<MetadataSubscriptions, MetadataSubscriptionsVariables>(
+    MetadataSubscriptionsQuery,
+    {
+      variables: {
+        lang,
+      },
     },
-  });
+  );
 
-  const items = (data && data.metadataSubscriptions) || [];
+  const items = (res.data && res.data.metadataSubscriptions) || [];
 
   return {
+    ...res,
     items,
-    loading,
   };
 };

@@ -17,6 +17,7 @@ export interface User_user_result_owner {
   country: string | null;
   dob: string | null;
   gender: string | null;
+  language: string | null;
 }
 
 export interface User_user_result {

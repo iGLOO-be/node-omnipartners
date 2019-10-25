@@ -1,22 +1,5 @@
 import gql from "graphql-tag";
 
-export const UserAddressFragment = gql`
-  fragment UserAddressFragment on User {
-    owner {
-      guid
-    }
-    addresses {
-      id
-      street1
-      postalCode
-      country
-      streetnum
-      city
-      isDefault
-    }
-  }
-`;
-
 export const UserChildrenFragment = gql`
   fragment UserChildrenFragment on User {
     owner {

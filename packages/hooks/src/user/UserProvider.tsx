@@ -1,21 +1,12 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { tokenStorage } from "../lib/tokenStorage";
+import { userTokenContext } from "./tokenContext";
 import { useUserUpdateToken } from "./useUserUpdateToken";
 
 export interface IUserProviderOptions {
   env?: string;
   refreshTokenAfter?: null | number; // in days
 }
-
-const userTokenContext = createContext<{
-  ready: boolean;
-  token: string;
-  setToken: (v: string | undefined) => void;
-}>({
-  ready: false,
-  token: "",
-  setToken: () => "",
-});
 
 const UserTokenUpdate = ({
   children,
@@ -74,8 +65,4 @@ export const UserProvider = ({
   children: JSX.Element;
 } & IUserProviderOptions) => {
   return <UserTokenProvider {...props}>{children}</UserTokenProvider>;
-};
-
-export const useUserContext = () => {
-  return useContext(userTokenContext);
 };

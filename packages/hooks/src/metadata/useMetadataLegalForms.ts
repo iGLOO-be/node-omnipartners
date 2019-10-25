@@ -17,20 +17,20 @@ const MetadataLegalFormsQuery = gql`
 `;
 
 export const useMetadataLegalForms = (lang: string, codes: string[] = []) => {
-  const { data, loading } = useQuery<
-    MetadataLegalForms,
-    MetadataLegalFormsVariables
-  >(MetadataLegalFormsQuery, {
-    variables: {
-      lang,
-      codes: codes.join(","),
+  const res = useQuery<MetadataLegalForms, MetadataLegalFormsVariables>(
+    MetadataLegalFormsQuery,
+    {
+      variables: {
+        lang,
+        codes: codes.join(","),
+      },
     },
-  });
+  );
 
-  const items = (data && data.metadataLegalForms) || [];
+  const items = (res.data && res.data.metadataLegalForms) || [];
 
   return {
+    ...res,
     items,
-    loading,
   };
 };

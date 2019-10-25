@@ -12,18 +12,17 @@ try {
   if (err.code !== "MODULE_NOT_FOUND") {
     throw err;
   }
+
+}
+if (!config) {
+  console.error(
+    "Unable to find omnipartners config. Please create a file `dev-config.js`.",
+  );
+  process.exit(0);
 }
 
 const createServer = async () => {
-  if (!config) {
-    console.error(
-      "Unable to find omnipartners config. Please create a file `dev-config.js`.",
-    );
-    process.exit(0);
-    return;
-  }
-
-  const omnipartners = createOmnipartners(config);
+  const omnipartners = createOmnipartners(config as IOmnipartnersConfig);
   omnipartners.use(createLogger());
 
   const context = new Context({

@@ -1,7 +1,7 @@
 import { useApolloClient, useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { User, UserVariables } from "./__generated__/User";
-import { useUserContext } from "./UserProvider";
+import { useUserToken } from "./tokenContext";
 
 const UserQuery = gql`
   query User($token: String!) {
@@ -18,6 +18,7 @@ const UserQuery = gql`
           country
           dob
           gender
+          language
         }
       }
       error {
@@ -27,10 +28,6 @@ const UserQuery = gql`
     }
   }
 `;
-
-export const useUserToken = () => {
-  return useUserContext().token;
-};
 
 export const useFetchUser = () => {
   const client = useApolloClient();
@@ -52,6 +49,7 @@ export const useUser = () => {
 
   return {
     ...res,
-    data: res.data && res.data.user,
+    error: res.data && res.data.user && res.data.user.error,
+    user: res.data && res.data.user && res.data.user.result,
   };
 };

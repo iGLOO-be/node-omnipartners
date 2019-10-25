@@ -1,12 +1,12 @@
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { UserChildCreateInput } from "../../__generated__/globalTypes";
+import { useUserToken } from "../user/tokenContext";
 import {
   UserChildCreate,
   UserChildCreateVariables,
 } from "./__generated__/UserChildCreate";
 import { UserChildrenFragment } from "./Fragments";
-import { useUserToken } from "./useUser";
 
 const UserChildCreateMutation = gql`
   mutation UserChildCreate(

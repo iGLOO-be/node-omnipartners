@@ -1,36 +1,6 @@
-import gql from "graphql-tag";
+import { useUserAddress } from "@igloo-be-omnipartners/hooks";
 import React from "react";
-import { useQuery } from "react-apollo-hooks";
 import { Loading } from "../layout/Loading";
-import { useUser } from "../lib/user/useUser";
-import {
-  GetUserAddresses,
-  GetUserAddressesVariables,
-} from "./__generated__/GetUserAddresses";
-
-export const GetUserAddressesQuery = gql`
-  query GetUserAddresses($token: String!) {
-    user(token: $token) {
-      result {
-        owner {
-          guid
-        }
-        addresses {
-          id
-          name
-          streetnum
-          street1
-          postalCode
-          city
-          country
-        }
-      }
-      error {
-        message
-      }
-    }
-  }
-`;
 
 export const AddressList = ({
   handleCreate,
@@ -39,26 +9,11 @@ export const AddressList = ({
   handleCreate: () => void;
   handleUpdate: (pet: any) => void;
 }) => {
-  const { userToken } = useUser();
-  const { data, loading } = useQuery<
-    GetUserAddresses,
-    GetUserAddressesVariables
-  >(GetUserAddressesQuery, {
-    fetchPolicy: "cache-and-network",
-    variables: {
-      token: userToken,
-    },
-  });
-
-  const isLoading = !data && loading;
+  const { loading, addresses } = useUserAddress();
 
   return (
     <>
-      {data &&
-      data.user &&
-      data.user.result &&
-      data.user.result.addresses &&
-      !isLoading ? (
+      {!loading ? (
         <table>
           <thead>
             <tr>
@@ -71,7 +26,7 @@ export const AddressList = ({
             </tr>
           </thead>
           <tbody>
-            {data.user.result.addresses.map(address => (
+            {addresses.map(address => (
               <tr key={address.id}>
                 <td>{address.name}</td>
                 <td>{address.streetnum}</td>

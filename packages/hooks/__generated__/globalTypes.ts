@@ -87,6 +87,29 @@ export interface UserCreateInput {
   city?: string | null;
 }
 
+export interface UserPetCreateInput {
+  name: string;
+  type: string;
+  breed: string;
+  dob: string;
+  neutered?: boolean | null;
+  gender?: string | null;
+  pictureUrl?: string | null;
+  placeOfPurchase?: string | null;
+}
+
+export interface UserPetUpdateInput {
+  guid: string;
+  name: string;
+  type?: string | null;
+  breed?: string | null;
+  dob?: string | null;
+  gender?: string | null;
+  neutered?: boolean | null;
+  pictureUrl?: string | null;
+  placeOfPurchase?: string | null;
+}
+
 export interface UserUpdateInput {
   title?: string | null;
   firstName?: string | null;

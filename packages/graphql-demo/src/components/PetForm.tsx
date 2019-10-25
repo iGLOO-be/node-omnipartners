@@ -1,61 +1,13 @@
+import {
+  useUserPetsCreate,
+  useUserPetsUpdate,
+} from "@igloo-be-omnipartners/hooks";
 import { Field, Form, Formik } from "formik";
-import gql from "graphql-tag";
 import React from "react";
-import { useMutation } from "react-apollo-hooks";
 import yn from "yn";
 import { SimpleInput } from "../layout/SimpleInput";
-import { useUser } from "../lib/user/useUser";
-import {
-  UserPetCreate,
-  UserPetCreateVariables,
-} from "./__generated__/UserPetCreate";
-import {
-  UserPetUpdate,
-  UserPetUpdateVariables,
-} from "./__generated__/UserPetUpdate";
 import { BreedSelector } from "./BreedSelector";
-import { GetUserPetsQuery } from "./PetList";
 import { Radio } from "./Radio";
-
-const UserPetCreateMutation = gql`
-  mutation UserPetCreate($token: String!, $userPetInput: UserPetCreateInput!) {
-    userPetCreate(token: $token, userPetInput: $userPetInput) {
-      result {
-        pet {
-          name
-          guid
-          dob
-          neutered
-          gender
-          pictureUrl
-        }
-      }
-      error {
-        message
-      }
-    }
-  }
-`;
-
-const UserPetUpdateMutation = gql`
-  mutation UserPetUpdate($token: String!, $userPetInput: UserPetUpdateInput!) {
-    userPetUpdate(token: $token, userPetInput: $userPetInput) {
-      result {
-        pet {
-          name
-          guid
-          dob
-          neutered
-          gender
-          pictureUrl
-        }
-      }
-      error {
-        message
-      }
-    }
-  }
-`;
 
 export const PetForm = ({
   action,
@@ -66,80 +18,38 @@ export const PetForm = ({
   pet: any;
   resetState: () => void;
 }) => {
-  const { userToken } = useUser();
-  const petCreate = useMutation<UserPetCreate, UserPetCreateVariables>(
-    UserPetCreateMutation,
-    {
-      refetchQueries: [
-        {
-          query: GetUserPetsQuery,
-          variables: {
-            token: userToken,
-          },
-        },
-      ],
-    },
-  );
+  const { userPetsCreate } = useUserPetsCreate();
+  const { userPetsUpdate } = useUserPetsUpdate();
 
-  const petUpdate = useMutation<UserPetUpdate, UserPetUpdateVariables>(
-    UserPetUpdateMutation,
-    {
-      refetchQueries: [
-        {
-          query: GetUserPetsQuery,
-          variables: {
-            token: userToken,
-          },
-        },
-      ],
-    },
-  );
   return (
     <div>
       <h1>{action.toUpperCase()}</h1>
       <Formik
         onSubmit={async values => {
           if (action === "create") {
-            const { data } = await petCreate({
-              variables: {
-                token: userToken,
-                userPetInput: {
-                  ...values,
-                  neutered: yn(values.neutered),
-                },
-              },
+            const { result, error } = await userPetsCreate({
+              ...values,
+              neutered: yn(values.neutered),
             });
 
-            if (data && data.userPetCreate && data.userPetCreate.error) {
-              console.log(
-                "pet creation, validation error",
-                data.userPetCreate.error.message,
-              );
+            if (error) {
+              console.log("pet creation, validation error", error.message);
             }
-            if (data && data.userPetCreate && data.userPetCreate.result) {
-              console.log("pet created", data.userPetCreate.result);
+            if (result) {
+              console.log("pet created", result);
               resetState();
             }
           } else if (action === "update") {
-            const { data } = await petUpdate({
-              variables: {
-                token: userToken,
-                userPetInput: {
-                  guid: pet.guid,
-                  ...values,
-                  neutered: yn(values.neutered),
-                },
-              },
+            const { result, error } = await userPetsUpdate({
+              guid: pet.guid,
+              ...values,
+              neutered: yn(values.neutered),
             });
-
-            if (data && data.userPetUpdate && data.userPetUpdate.error) {
-              console.log(
-                "pet edition, validation error",
-                data.userPetUpdate.error.message,
-              );
+            if (error) {
+              console.log("pet update, validation error", error.message);
             }
-            if (data && data.userPetUpdate && data.userPetUpdate.result) {
-              console.log("pet updated", data.userPetUpdate.result);
+            if (result) {
+              console.log("pet updated", result);
               resetState();
             }
           }

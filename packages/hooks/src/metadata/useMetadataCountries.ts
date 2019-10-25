@@ -26,7 +26,7 @@ export const useMetadataCountries = (lang: string) => {
 
   return {
     ...res,
-    data:
+    items:
       (res.data &&
         res.data.metadataCountries.map(country => ({
           value: country.code,

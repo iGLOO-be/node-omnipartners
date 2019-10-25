@@ -5,7 +5,7 @@ import {
   UserSubscriptionsVariables,
 } from "./__generated__/UserSubscriptions";
 import { UserSubscriptionsFragment } from "./Fragments";
-import { useUserToken } from "./useUser";
+import { useUserToken } from "./tokenContext";
 
 export const UserSubscriptionsQuery = gql`
   query UserSubscriptions($token: String!) {

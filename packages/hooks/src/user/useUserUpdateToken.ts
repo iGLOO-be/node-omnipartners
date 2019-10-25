@@ -4,7 +4,8 @@ import gql from "graphql-tag";
 import { useEffect } from "react";
 import { decodeToken } from "../lib/tokenStorage";
 import { UserToken, UserTokenVariables } from "./__generated__/UserToken";
-import { IUserProviderOptions, useUserContext } from "./UserProvider";
+import { useUserContext } from "./tokenContext";
+import { IUserProviderOptions } from "./UserProvider";
 
 const UserTokenQuery = gql`
   query UserToken($token: String!) {
@@ -16,7 +17,9 @@ const UserTokenQuery = gql`
   }
 `;
 
-export const useUserUpdateToken = (refreshTokenAfter: IUserProviderOptions["refreshTokenAfter"]) => {
+export const useUserUpdateToken = (
+  refreshTokenAfter: IUserProviderOptions["refreshTokenAfter"],
+) => {
   const { token, setToken } = useUserContext();
   const tokenNearExpired = isUserTokenNearExpired(token, refreshTokenAfter);
   const { data } = useQuery<UserToken, UserTokenVariables>(UserTokenQuery, {
@@ -32,10 +35,13 @@ export const useUserUpdateToken = (refreshTokenAfter: IUserProviderOptions["refr
     if (newToken) {
       setToken(newToken);
     }
-  }, [newToken]);
+  }, [newToken, setToken]);
 };
 
-const isUserTokenNearExpired = (token: string, refreshTokenAfter: IUserProviderOptions["refreshTokenAfter"]) => {
+const isUserTokenNearExpired = (
+  token: string,
+  refreshTokenAfter: IUserProviderOptions["refreshTokenAfter"],
+) => {
   if (!refreshTokenAfter) {
     return false;
   }

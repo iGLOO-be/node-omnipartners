@@ -1,67 +1,11 @@
+import {
+  useUserAddressCreate,
+  useUserAddressUpdate,
+} from "@igloo-be-omnipartners/hooks";
 import { Field, Form, Formik } from "formik";
-import gql from "graphql-tag";
 import React from "react";
-import { useMutation } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
-import { useUser } from "../lib/user/useUser";
-import {
-  UserAddressCreate,
-  UserAddressCreateVariables,
-} from "./__generated__/UserAddressCreate";
-import {
-  UserAddressUpdate,
-  UserAddressUpdateVariables,
-} from "./__generated__/UserAddressUpdate";
-import { GetUserAddressesQuery } from "./AddressList";
 import { CountrySelector } from "./CountrySelector";
-
-const UserAddressCreateMutation = gql`
-  mutation UserAddressCreate(
-    $token: String!
-    $userAddressInput: UserAddressCreateInput!
-  ) {
-    userAddressCreate(token: $token, userAddressInput: $userAddressInput) {
-      result {
-        address {
-          id
-          name
-          city
-          country
-          streetnum
-          street1
-          postalCode
-        }
-      }
-      error {
-        message
-      }
-    }
-  }
-`;
-
-const UserAddressUpdateMutation = gql`
-  mutation UserAddressUpdate(
-    $token: String!
-    $userAddressInput: UserAddressUpdateInput!
-  ) {
-    userAddressUpdate(token: $token, userAddressInput: $userAddressInput) {
-      result {
-        address {
-          id
-          name
-          city
-          country
-          streetnum
-          street1
-          postalCode
-        }
-      }
-      error {
-        message
-      }
-    }
-  }
-`;
 
 export const AddressForm = ({
   action,
@@ -72,85 +16,35 @@ export const AddressForm = ({
   address: any;
   resetState: () => void;
 }) => {
-  const { userToken: token } = useUser();
-  const addressCreate = useMutation<
-    UserAddressCreate,
-    UserAddressCreateVariables
-  >(UserAddressCreateMutation, {
-    refetchQueries: [
-      {
-        query: GetUserAddressesQuery,
-        variables: {
-          token,
-        },
-      },
-    ],
-  });
+  const { userAddressCreate } = useUserAddressCreate();
+  const { userAddressUpdate } = useUserAddressUpdate();
 
-  const addressUpdate = useMutation<
-    UserAddressUpdate,
-    UserAddressUpdateVariables
-  >(UserAddressUpdateMutation);
   return (
     <div>
       <h1>{action.toUpperCase()}</h1>
       <Formik
         onSubmit={async values => {
           if (action === "create") {
-            const { data } = await addressCreate({
-              variables: {
-                token,
-                userAddressInput: {
-                  ...values,
-                },
-              },
-            });
+            const { result, error } = await userAddressCreate(values);
 
-            if (
-              data &&
-              data.userAddressCreate &&
-              data.userAddressCreate.error
-            ) {
-              console.log(
-                "address creation, validation error",
-                data.userAddressCreate.error.message,
-              );
+            if (error) {
+              console.log("address creation, validation error", error.message);
             }
-            if (
-              data &&
-              data.userAddressCreate &&
-              data.userAddressCreate.result
-            ) {
-              console.log("address created", data.userAddressCreate.result);
+            if (result) {
+              console.log("address created", result);
               resetState();
             }
           } else if (action === "update") {
-            const { data } = await addressUpdate({
-              variables: {
-                token,
-                userAddressInput: {
-                  id: `${address.id}`,
-                  ...values,
-                },
-              },
+            const { result, error } = await userAddressUpdate({
+              id: `${address.id}`,
+              ...values,
             });
 
-            if (
-              data &&
-              data.userAddressUpdate &&
-              data.userAddressUpdate.error
-            ) {
-              console.log(
-                "address edition, validation error",
-                data.userAddressUpdate.error.message,
-              );
+            if (error) {
+              console.log("address update, validation error", error.message);
             }
-            if (
-              data &&
-              data.userAddressUpdate &&
-              data.userAddressUpdate.result
-            ) {
-              console.log("address updated", data.userAddressUpdate.result);
+            if (result) {
+              console.log("address updated", result);
               resetState();
             }
           }

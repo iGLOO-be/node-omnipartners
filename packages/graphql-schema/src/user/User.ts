@@ -179,10 +179,10 @@ export class User<T = {}> {
       return new UserPartnerRelations(res.data);
     } else {
       const partners: IUserGetPartnerAccountRelationsResult = {
-        clientof: res.data.clientof
-          .filter(relation => relation.ptn_status === "A"),
-        partof: res.data.partof
-          .filter(relation => relation.ptn_status === "A"),
+        clientof: res.data.clientof.filter(
+          relation => relation.ptn_status === "A",
+        ),
+        partof: res.data.partof.filter(relation => relation.ptn_status === "A"),
       };
 
       return new UserPartnerRelations(partners);

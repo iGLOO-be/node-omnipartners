@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { sortBy } from "lodash";
+import { useUserToken } from "../user/tokenContext";
 import {
   UserChildren,
   UserChildrenVariables,
 } from "./__generated__/UserChildren";
 import { UserChildrenFragment } from "./Fragments";
-import { useUserToken } from "./useUser";
 
 export const UserChildrenQuery = gql`
   query UserChildren($token: String!) {
@@ -36,21 +36,24 @@ export const useUserChildren = () => {
     },
   });
 
-  const children =
-    sortBy(
-      res.data &&
-        res.data.user &&
-        res.data.user.result &&
-        res.data.user.result.children &&
-        res.data.user.result.children.map(child => ({
-          ...child,
-          firstName: child.firstName === "--" ? "" : child.firstName,
-        })),
-      ["birthday"],
-    ).reverse() || [];
+  const children = sortBy(
+    (res.data &&
+      res.data.user &&
+      res.data.user.result &&
+      res.data.user.result.children &&
+      res.data.user.result.children.map(child => ({
+        ...child,
+        firstName: child.firstName === "--" ? "" : child.firstName,
+      }))) ||
+      [],
+    [child => child.birthday],
+  ).reverse();
 
   return {
     ...res,
-    data: children,
+    data: children.map(child => ({
+      ...child,
+      firstName: child.firstName === "--" ? "" : child.firstName,
+    })),
   };
 };

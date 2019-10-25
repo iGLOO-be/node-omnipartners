@@ -1,4 +1,4 @@
-import { useUserContext } from "./UserProvider";
+import { useUserContext } from "./tokenContext";
 
 export const useUserLogout = () => {
   const { setToken } = useUserContext();

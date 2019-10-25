@@ -1,14 +1,14 @@
+import { useMutation } from "@apollo/react-hooks";
 import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
 import React from "react";
-import { useMutation } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
-import { useUser } from "../lib/user/useUser";
 import {
   UserPartnerRelationCreate,
   UserPartnerRelationCreateVariables,
 } from "./__generated__/UserPartnerRelationCreate";
 
+import { useUserToken } from "@igloo-be-omnipartners/hooks";
 import { GetUserPartnersQuery } from "./PartnerRelationList";
 import { Radio } from "./Radio";
 
@@ -49,8 +49,8 @@ export const PartnerRelationForm = ({
   partner: any;
   resetState: () => void;
 }) => {
-  const { userToken } = useUser();
-  const partnerRelationCreate = useMutation<
+  const userToken = useUserToken();
+  const [partnerRelationCreate] = useMutation<
     UserPartnerRelationCreate,
     UserPartnerRelationCreateVariables
   >(UserPartnerRelationCreateMutation, {
@@ -94,7 +94,10 @@ export const PartnerRelationForm = ({
               data.userPartnerRelationCreate &&
               data.userPartnerRelationCreate.result
             ) {
-              console.log("partner relation created", data.userPartnerRelationCreate.result);
+              console.log(
+                "partner relation created",
+                data.userPartnerRelationCreate.result,
+              );
               resetState();
             }
           }
@@ -103,7 +106,7 @@ export const PartnerRelationForm = ({
           extId: "",
           relationship: "clientof",
           roles: "",
-          status: "submitted"
+          status: "submitted",
         }}
         render={() => (
           <Form>

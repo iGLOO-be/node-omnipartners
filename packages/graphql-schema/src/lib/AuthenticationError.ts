@@ -3,7 +3,7 @@ export class AuthenticationError extends Error {
   public code = "E_NOT_LOGGED";
 
   constructor(message = "Not logged!") {
-    super()
-    this.message = message
+    super();
+    this.message = message;
   }
 }

@@ -1,17 +1,17 @@
+import { useLogin } from "@igloo-be-omnipartners/hooks";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { SimpleInput } from "../layout/SimpleInput";
-import { useUserLogin } from "../lib/user/useUserLogin";
 
 export const LoginForm = ({ onSuccess }: { onSuccess: () => void }) => {
-  const { doLogin } = useUserLogin();
+  const login = useLogin();
 
   return (
     <Formik
       onSubmit={async (values, { setSubmitting }) => {
         console.log("values", values);
 
-        await doLogin(values);
+        await login(values);
         onSuccess();
         setSubmitting(false);
       }}

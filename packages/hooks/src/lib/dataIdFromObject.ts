@@ -1,4 +1,3 @@
-
 export const dataIdFromObject = (value: any) => {
   const { __typename } = value;
 

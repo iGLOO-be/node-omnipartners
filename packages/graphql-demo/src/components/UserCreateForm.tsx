@@ -1,46 +1,24 @@
+import { useUserCreate } from "@igloo-be-omnipartners/hooks";
 import { Field, Form, Formik } from "formik";
-import gql from "graphql-tag";
 import React from "react";
-import { useMutation } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
-import { UserCreate, UserCreateVariables } from "./__generated__/UserCreate";
 import { Radio } from "./Radio";
 import { TitleRadio } from "./TitleRadio";
 
-const UserCreateMutation = gql`
-  mutation UserCreate($userInput: UserCreateInput!) {
-    userCreate(userInput: $userInput) {
-      result {
-        token
-      }
-      error {
-        message
-        code
-      }
-    }
-  }
-`;
-
 export const UserCreateForm = () => {
-  const userCreate = useMutation<UserCreate, UserCreateVariables>(
-    UserCreateMutation,
-  );
+  const { userCreate } = useUserCreate();
 
   return (
     <div>
       <h1>Create user</h1>
       <Formik
         onSubmit={async values => {
-          const { data } = await userCreate({
-            variables: { userInput: { ...values } },
-          });
-          if (data && data.userCreate) {
-            if (data.userCreate.result) {
-              console.log(data.userCreate.result);
-            }
-            if (data.userCreate.error) {
-              console.error(data.userCreate.error);
-            }
+          const { result, error } = await userCreate(values);
+          if (result) {
+            console.log(result);
+          }
+          if (error) {
+            console.error(error);
           }
         }}
         initialValues={{

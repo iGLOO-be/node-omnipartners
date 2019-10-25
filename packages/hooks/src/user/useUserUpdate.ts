@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { UserUpdateInput } from "../../__generated__/globalTypes";
 import { decodeToken } from "../lib/tokenStorage";
 import { UserUpdate, UserUpdateVariables } from "./__generated__/UserUpdate";
-import { useUserToken } from "./useUser";
+import { useUserToken } from "./tokenContext";
 
 const UserUpdateMutation = gql`
   mutation UserUpdate($token: String!, $userInput: UserUpdateInput!) {

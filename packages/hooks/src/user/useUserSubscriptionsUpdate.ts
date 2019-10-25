@@ -4,7 +4,7 @@ import {
   UserSubscriptionsUpdate,
   UserSubscriptionsUpdateVariables,
 } from "./__generated__/UserSubscriptionsUpdate";
-import { useUserToken } from "./useUser";
+import { useUserToken } from "./tokenContext";
 import { UserSubscriptionsQuery } from "./useUserSubscriptions";
 
 const UserSubscriptionsUpdateMutation = gql`
