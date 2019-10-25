@@ -26,7 +26,10 @@ export { UserCreateResolver } from "./user/UserCreateResolver";
 export { UserPetCreateResolver } from "./user/UserPetCreateResolver";
 export { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
 export { UserResolver, userDataOptions } from "./user/UserResolver";
-export { UserPartnerRelation, UserPartnerRelations } from "./user/UserPartnerRelations";
+export {
+  UserPartnerRelation,
+  UserPartnerRelations,
+} from "./user/UserPartnerRelations";
 export { UserUpdateResolver } from "./user/UserUpdateResolver";
 export { UserChildUpdateResolver } from "./user/UserChildUpdateResolver";
 export { UserChildCreateResolver } from "./user/UserChildCreateResolver";
