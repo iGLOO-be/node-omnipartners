@@ -17,7 +17,7 @@ const MetadataLegalFormsQuery = gql`
 `;
 
 export const useMetadataLegalForms = (lang: string, codes: string[] = []) => {
-  const { data, loading } = useQuery<
+  const res = useQuery<
     MetadataLegalForms,
     MetadataLegalFormsVariables
   >(MetadataLegalFormsQuery, {
@@ -27,10 +27,10 @@ export const useMetadataLegalForms = (lang: string, codes: string[] = []) => {
     },
   });
 
-  const items = (data && data.metadataLegalForms) || [];
+  const items = (res.data && res.data.metadataLegalForms) || [];
 
   return {
+    ...res,
     items,
-    loading,
   };
 };

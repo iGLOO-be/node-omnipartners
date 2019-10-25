@@ -15,7 +15,7 @@ const MetadataUserTitlesQuery = gql`
 `;
 
 export const useMetadataUserTitles = (lang: string) => {
-  const { data, loading } = useQuery<
+  const res = useQuery<
     MetadataUserTitles,
     MetadataUserTitlesVariables
   >(MetadataUserTitlesQuery, {
@@ -25,16 +25,16 @@ export const useMetadataUserTitles = (lang: string) => {
   });
 
   const items =
-    (data &&
-      data.metadataUserTitles &&
-      data.metadataUserTitles.map(d => ({
+    (res.data &&
+      res.data.metadataUserTitles &&
+      res.data.metadataUserTitles.map(d => ({
         label: d.name,
         value: d.code,
       }))) ||
     [];
 
   return {
+    ...res,
     items,
-    loading,
   };
 };
