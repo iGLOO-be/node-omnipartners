@@ -73,7 +73,7 @@ export const useUserDefaultAddress = () => {
 
   return {
     ...res,
-    data:
+    addresses:
       res.data &&
       res.data.user &&
       res.data.user.result &&
