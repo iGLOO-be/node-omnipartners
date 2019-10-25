@@ -1,7 +1,7 @@
 import { ILightUser, IUserOptions, User } from "../user/User";
 
 export interface IUserHelperOptions<T = {}> {
-  validateUser?: (user: ILightUser) => Promise<IUserOptions<T>>;
+  validateUser?: (user: ILightUser) => Promise<IUserOptions<T>> | IUserOptions<T>;
 }
 
 export class UserHelper {
