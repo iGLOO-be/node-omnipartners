@@ -73,7 +73,7 @@ export const useUserAddress = () => {
       res.data.user &&
       res.data.user.result &&
       res.data.user.result.addresses &&
-      res.data.user.result.addresses,
+      res.data.user.result.addresses || [],
   };
 };
 
