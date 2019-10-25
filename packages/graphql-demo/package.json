@@ -22,7 +22,7 @@
     "apollo-link-retry": "^2.2.15",
     "eslint-plugin-react-hooks": "^2.2.0",
     "formik": "^1.5.8",
-    "gatsby": "^2.17.3",
+    "gatsby": "^2.17.4",
     "gatsby-plugin-catch-links": "^2.1.15",
     "gatsby-plugin-typescript": "^2.1.15",
     "graphql-tag": "^2.10.1",
