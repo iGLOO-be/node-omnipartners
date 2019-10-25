@@ -1,7 +1,7 @@
+import { useMutation } from "@apollo/react-hooks";
 import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
 import React from "react";
-import { useMutation } from "react-apollo-hooks";
 import yn from "yn";
 import { SimpleInput } from "../layout/SimpleInput";
 import { useUser } from "../lib/user/useUser";
@@ -67,7 +67,7 @@ export const PetForm = ({
   resetState: () => void;
 }) => {
   const { userToken } = useUser();
-  const petCreate = useMutation<UserPetCreate, UserPetCreateVariables>(
+  const [petCreate] = useMutation<UserPetCreate, UserPetCreateVariables>(
     UserPetCreateMutation,
     {
       refetchQueries: [
@@ -81,7 +81,7 @@ export const PetForm = ({
     },
   );
 
-  const petUpdate = useMutation<UserPetUpdate, UserPetUpdateVariables>(
+  const [petUpdate] = useMutation<UserPetUpdate, UserPetUpdateVariables>(
     UserPetUpdateMutation,
     {
       refetchQueries: [

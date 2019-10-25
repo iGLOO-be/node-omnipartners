@@ -1,7 +1,7 @@
+import { useQuery } from "@apollo/react-hooks";
 import { Field } from "formik";
 import gql from "graphql-tag";
 import React from "react";
-import { useQuery } from "react-apollo-hooks";
 import { RadioButton } from "../layout/RadioButton";
 import { GetTitle } from "./__generated__/GetTitle";
 

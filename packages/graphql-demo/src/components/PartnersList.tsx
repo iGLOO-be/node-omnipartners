@@ -1,6 +1,6 @@
+import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import React, { useState } from "react";
-import { useQuery } from "react-apollo-hooks";
 import { Loading } from "../layout/Loading";
 import { GetPartners, GetPartnersVariables } from "./__generated__/GetPartners";
 import { PartnersListForm } from "./PartnersListForm";

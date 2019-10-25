@@ -1,7 +1,7 @@
+import { useMutation } from "@apollo/react-hooks";
 import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
 import React from "react";
-import { useMutation } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
 import { useUser } from "../lib/user/useUser";
 import {
@@ -73,7 +73,7 @@ export const AddressForm = ({
   resetState: () => void;
 }) => {
   const { userToken: token } = useUser();
-  const addressCreate = useMutation<
+  const [addressCreate] = useMutation<
     UserAddressCreate,
     UserAddressCreateVariables
   >(UserAddressCreateMutation, {
@@ -87,7 +87,7 @@ export const AddressForm = ({
     ],
   });
 
-  const addressUpdate = useMutation<
+  const [addressUpdate] = useMutation<
     UserAddressUpdate,
     UserAddressUpdateVariables
   >(UserAddressUpdateMutation);

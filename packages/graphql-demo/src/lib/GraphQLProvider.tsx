@@ -1,3 +1,4 @@
+import { ApolloProvider } from "@apollo/react-hooks";
 import {
   defaultDataIdFromObject,
   InMemoryCache,
@@ -12,8 +13,6 @@ import { RetryLink } from "apollo-link-retry";
 import fetch from "isomorphic-fetch";
 import localforage from "localforage";
 import React, { useEffect, useState } from "react";
-import { ApolloProvider } from "react-apollo";
-import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 
 const createClient = async () => {
   const uri = process.env.GRAPHQL_ENDPOINT;
@@ -106,7 +105,7 @@ export const GraphQLProvider = ({
 
   return (
     <ApolloProvider client={client}>
-      <ApolloHooksProvider client={client}>{children}</ApolloHooksProvider>
+      {children}
     </ApolloProvider>
   );
 };

@@ -1,7 +1,7 @@
+import { useMutation } from "@apollo/react-hooks";
 import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
 import React from "react";
-import { useMutation, useQuery } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
 import { useUser } from "../lib/user/useUser";
 import { UserUpdate, UserUpdateVariables } from "./__generated__/UserUpdate";
@@ -35,7 +35,7 @@ const UserUpdateMutation = gql`
 export const UserUpdateForm = () => {
   const { userToken, user: { user } } = useUser();
 
-  const userUpdate = useMutation<UserUpdate, UserUpdateVariables>(
+  const [userUpdate] = useMutation<UserUpdate, UserUpdateVariables>(
     UserUpdateMutation,
   );
   return (

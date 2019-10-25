@@ -1,6 +1,6 @@
+import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import React, { useState } from "react";
-import { useQuery } from "react-apollo-hooks";
 import {
   UseUserTokenLogin,
   UseUserTokenLoginVariables,

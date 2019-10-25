@@ -1,7 +1,7 @@
+import { useMutation } from "@apollo/react-hooks";
 import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
 import React from "react";
-import { useMutation } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
 import { UserCreate, UserCreateVariables } from "./__generated__/UserCreate";
 import { Radio } from "./Radio";
@@ -22,7 +22,7 @@ const UserCreateMutation = gql`
 `;
 
 export const UserCreateForm = () => {
-  const userCreate = useMutation<UserCreate, UserCreateVariables>(
+  const [userCreate] = useMutation<UserCreate, UserCreateVariables>(
     UserCreateMutation,
   );
 

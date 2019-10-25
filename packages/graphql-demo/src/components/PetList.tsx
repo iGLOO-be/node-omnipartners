@@ -1,6 +1,6 @@
+import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import React from "react";
-import { useQuery } from "react-apollo-hooks";
 import { Loading } from "../layout/Loading";
 import { useUser } from "../lib/user/useUser";
 import { GetUserPets, GetUserPetsVariables } from "./__generated__/GetUserPets";

@@ -1,6 +1,6 @@
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import React from "react";
-import { useMutation, useQuery } from "react-apollo-hooks";
 import { Loading } from "../layout/Loading";
 import { useUser } from "../lib/user/useUser";
 import {
@@ -90,7 +90,7 @@ export const PartnerRelationList = ({
     },
   );
 
-  const partnerRelationDelete = useMutation<
+  const [partnerRelationDelete] = useMutation<
     UserPartnerRelationDelete,
     UserPartnerRelationDeleteVariables
   >(UserPartnerRelationDeleteMutation, {

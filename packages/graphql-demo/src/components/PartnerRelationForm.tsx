@@ -1,7 +1,7 @@
+import { useMutation } from "@apollo/react-hooks";
 import { Field, Form, Formik } from "formik";
 import gql from "graphql-tag";
 import React from "react";
-import { useMutation } from "react-apollo-hooks";
 import { SimpleInput } from "../layout/SimpleInput";
 import { useUser } from "../lib/user/useUser";
 import {
@@ -50,7 +50,7 @@ export const PartnerRelationForm = ({
   resetState: () => void;
 }) => {
   const { userToken } = useUser();
-  const partnerRelationCreate = useMutation<
+  const [partnerRelationCreate] = useMutation<
     UserPartnerRelationCreate,
     UserPartnerRelationCreateVariables
   >(UserPartnerRelationCreateMutation, {

@@ -1,6 +1,6 @@
+import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { useEffect } from "react";
-import { useQuery } from "react-apollo-hooks";
 import {
   UseUserFetch,
   UseUserFetchVariables,
