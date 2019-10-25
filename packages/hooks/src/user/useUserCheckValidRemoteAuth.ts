@@ -11,8 +11,7 @@ export const useUserCheckValidRemoteAuth = ({
   onNotLogged?: () => void;
   onError?: (err: User_user_error) => void;
 } = {}) => {
-  const { data, loading } = useUser();
-  const error = data && data.error;
+  const { error, loading } = useUser();
   const isNotLoggedError = error && error.code === E_NOT_LOGGED;
   const isOtherError = error && error.code !== E_NOT_LOGGED;
   const ready = !loading;

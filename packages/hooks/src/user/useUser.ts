@@ -48,6 +48,7 @@ export const useUser = () => {
 
   return {
     ...res,
-    data: res.data && res.data.user,
+    error: res.data && res.data.user && res.data.user.error,
+    user: res.data && res.data.user && res.data.user.result,
   };
 };
