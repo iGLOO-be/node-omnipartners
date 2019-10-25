@@ -13,7 +13,7 @@ export const PetList = ({
 
   return (
     <>
-      {loading ? (
+      {!loading ? (
         <table>
           <thead>
             <tr>

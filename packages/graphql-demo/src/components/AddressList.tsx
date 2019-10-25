@@ -13,7 +13,7 @@ export const AddressList = ({
 
   return (
     <>
-      {loading ? (
+      {!loading ? (
         <table>
           <thead>
             <tr>

@@ -12,7 +12,7 @@ const Logout = () => {
     } else {
       logout();
     }
-  }, [ isLogged ])
+  }, [isLogged]);
 
   return null;
 };

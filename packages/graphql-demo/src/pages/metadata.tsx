@@ -1,7 +1,6 @@
 import React from "react";
 import { BreedSelector } from "../components/BreedSelector";
 import { CountrySelector } from "../components/CountrySelector";
-import { UserRouteValidator } from "../lib/UserRouteValidator";
 
 const MetaData = () => (
   <>
