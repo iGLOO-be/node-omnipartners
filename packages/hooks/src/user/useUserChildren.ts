@@ -36,21 +36,24 @@ export const useUserChildren = () => {
     },
   });
 
-  const children =
-    sortBy(
-      res.data &&
-        res.data.user &&
-        res.data.user.result &&
-        res.data.user.result.children &&
-        res.data.user.result.children.map(child => ({
-          ...child,
-          firstName: child.firstName === "--" ? "" : child.firstName,
-        })),
-      ["birthday"],
-    ).reverse() || [];
+  const children = sortBy(
+    (res.data &&
+      res.data.user &&
+      res.data.user.result &&
+      res.data.user.result.children &&
+      res.data.user.result.children.map(child => ({
+        ...child,
+        firstName: child.firstName === "--" ? "" : child.firstName,
+      }))) ||
+      [],
+    [child => child.birthday],
+  ).reverse();
 
   return {
     ...res,
-    data: children,
+    data: children.map(child => ({
+      ...child,
+      firstName: child.firstName === "--" ? "" : child.firstName,
+    })),
   };
 };
