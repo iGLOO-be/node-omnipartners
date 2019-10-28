@@ -18,7 +18,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/depd": "^1.1.32",
-    "@types/jest": "^24.0.19",
+    "@types/jest": "^24.0.20",
     "@types/lodash": "^4.14.144",
     "@types/nock": "^11.1.0",
     "@types/node": "^12.11.7",
