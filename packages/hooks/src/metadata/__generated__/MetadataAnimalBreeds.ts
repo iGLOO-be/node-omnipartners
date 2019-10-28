@@ -18,4 +18,5 @@ export interface MetadataAnimalBreeds {
 
 export interface MetadataAnimalBreedsVariables {
   lang: string;
+  type?: string | null;
 }

@@ -8,20 +8,21 @@ import {
 export * from "./__generated__/MetadataAnimalBreeds";
 
 const MetadataAnimalBreedsQuery = gql`
-  query MetadataAnimalBreeds($lang: String!) {
-    metadataAnimalBreeds(lang: $lang) {
+  query MetadataAnimalBreeds($lang: String!, $type: String) {
+    metadataAnimalBreeds(lang: $lang, type: $type) {
       id
       name
     }
   }
 `;
 
-export const useMetadataAnimalBreeds = (lang: string) => {
+export const useMetadataAnimalBreeds = (lang: string, type?: string) => {
   const res = useQuery<MetadataAnimalBreeds, MetadataAnimalBreedsVariables>(
     MetadataAnimalBreedsQuery,
     {
       variables: {
         lang,
+        type,
       },
     },
   );
