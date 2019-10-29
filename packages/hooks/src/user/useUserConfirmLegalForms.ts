@@ -32,12 +32,13 @@ export const useUserConfirmLegalForms = () => {
     UserConfirmLegalForms,
     UserConfirmLegalFormsVariables
   >(UserConfirmLegalFormsMutation);
+  const userToken = useUserToken();
 
   return {
     ...result,
     error: result.error || (result.data && result.data.userConfirmLegalForms),
     userConfirmLegalForms: async ({
-      token = useUserToken(),
+      token = userToken,
       legalForms,
       confirmedPlace,
     }: UserConfirmLegalFormsVariables & {

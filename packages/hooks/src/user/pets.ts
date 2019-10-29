@@ -114,6 +114,7 @@ export const useUserPetsCreate = () => {
     UserPetsCreate,
     UserPetsCreateVariables
   >(UserPetsCreateMutation);
+  const userToken = useUserToken();
 
   return {
     ...mutationResult,
@@ -121,7 +122,7 @@ export const useUserPetsCreate = () => {
       mutationResult.error ||
       (mutationResult.data && mutationResult.data.userPetCreate.error),
     userPetsCreate: async ({
-      token = useUserToken(),
+      token = userToken,
       ...userPetCreateInput
     }: { token?: string } & UserPetCreateInput) => {
       const { data } = await createPet({
