@@ -41,6 +41,9 @@ export const useUserCreate = () => {
 
   return {
     ...mutationResult,
+    error:
+      mutationResult.error ||
+      (mutationResult.data && mutationResult.data.userCreate.error),
     userCreate: async (userInput: UserCreateInput) => {
       const { data } = await userCreate({
         variables: {

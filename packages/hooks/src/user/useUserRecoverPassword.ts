@@ -27,6 +27,9 @@ export const useUserRecoverPassword = () => {
 
   return {
     ...mutationResult,
+    error:
+      mutationResult.error ||
+      (mutationResult.data && mutationResult.data.userRecoverPassword),
     userRecoverPassword: async (email: string) => {
       try {
         setLoading(true);
