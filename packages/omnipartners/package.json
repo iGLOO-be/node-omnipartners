@@ -30,6 +30,7 @@
     "@types/url-join": "^4.0.0",
     "@types/uuid": "^3.4.5",
     "jest": "^24.9.0",
+    "nock": "^11.6.0",
     "sinon": "^7.5.0",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.4"
@@ -39,7 +40,6 @@
     "depd": "^2.0.0",
     "fetch-retry": "^2.2.3",
     "lodash": "^4.17.15",
-    "nock": "^11.6.0",
     "node-fetch": "^2.6.0",
     "qs": "^6.9.0",
     "request": "^2.88.0",
