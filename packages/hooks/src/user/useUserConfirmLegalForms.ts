@@ -4,6 +4,7 @@ import {
   UserConfirmLegalForms,
   UserConfirmLegalFormsVariables,
 } from "./__generated__/UserConfirmLegalForms";
+import { useUserToken } from "./tokenContext";
 
 export * from "./__generated__/UserConfirmLegalForms";
 
@@ -35,10 +36,12 @@ export const useUserConfirmLegalForms = () => {
   return {
     ...result,
     userConfirmLegalForms: async ({
-      token,
+      token = useUserToken(),
       legalForms,
       confirmedPlace,
-    }: UserConfirmLegalFormsVariables) => {
+    }: UserConfirmLegalFormsVariables & {
+      token?: string;
+    }) => {
       await confirmLegalForms({
         variables: {
           token,
