@@ -119,6 +119,9 @@ export const useUserChildrenCreate = () => {
 
   return {
     ...mutationResult,
+    error:
+      mutationResult.error ||
+      (mutationResult.data && mutationResult.data.userChildCreate.error),
     userChildrenCreate: async (
       userChildCreateInput: Omit<UserChildCreateInput, "firstName"> & {
         firstName?: string;
@@ -183,6 +186,9 @@ export const useUserChildrenUpdate = () => {
 
   return {
     ...mutationResult,
+    error:
+      mutationResult.error ||
+      (mutationResult.data && mutationResult.data.userChildUpdate.error),
     userChildrenUpdate: async (
       userChildUpdateInput: Omit<UserChildUpdateInput, "firstName"> & {
         firstName?: string;

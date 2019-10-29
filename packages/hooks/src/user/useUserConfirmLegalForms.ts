@@ -35,6 +35,7 @@ export const useUserConfirmLegalForms = () => {
 
   return {
     ...result,
+    error: result.error || (result.data && result.data.userConfirmLegalForms),
     userConfirmLegalForms: async ({
       token = useUserToken(),
       legalForms,

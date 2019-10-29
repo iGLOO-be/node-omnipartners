@@ -50,6 +50,9 @@ export const useUserUpdate = ({
 
   return {
     ...mutationResult,
+    error:
+      mutationResult.error ||
+      (mutationResult.data && mutationResult.data.userUpdate.error),
     userUpdate: async (userInput: UserUpdateInput) => {
       if (token) {
         const { data } = await userUpdate({

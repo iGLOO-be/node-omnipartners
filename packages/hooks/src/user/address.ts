@@ -128,6 +128,9 @@ export const useUserAddressCreate = ({
 
   return {
     ...mutationResult,
+    error:
+      mutationResult.error ||
+      (mutationResult.data && mutationResult.data.userAddressCreate.error),
     userAddressCreate: async (
       userAddressCreateInput: UserAddressCreateInput,
     ) => {
@@ -215,6 +218,9 @@ export const useUserAddressUpdate = () => {
 
   return {
     ...mutationResult,
+    error:
+      mutationResult.error ||
+      (mutationResult.data && mutationResult.data.userAddressUpdate.error),
     userAddressUpdate: async (userAddressInput: UserAddressUpdateInput) => {
       const { data } = await userAddressUpdate({
         variables: {

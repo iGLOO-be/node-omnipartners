@@ -40,6 +40,9 @@ export const useUserSubscriptionsUpdate = () => {
 
   return {
     ...mutationResult,
+    error:
+      mutationResult.error ||
+      (mutationResult.data && mutationResult.data.userUpdateSubscriptions),
     userUpdateSubscriptions: async (subscriptions: string[]) =>
       updateSubscriptions({
         refetchQueries: [
