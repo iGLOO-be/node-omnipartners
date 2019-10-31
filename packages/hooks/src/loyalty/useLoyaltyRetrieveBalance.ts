@@ -29,17 +29,19 @@ export const useLoyaltyRetrieveBalance = ({
   token,
   program_id,
   card_program_id,
+  skip,
 }: {
   token?: string;
   program_id: string;
   card_program_id?: string;
+  skip?: boolean;
 }) => {
   const defaultToken = useUserToken();
   token = token || defaultToken;
   const res = useQuery<LoyaltyRetrieveBalance, LoyaltyRetrieveBalanceVariables>(
     LoyaltyRetrieveBalanceQuery,
     {
-      skip: !token,
+      skip: skip || !token,
       variables: {
         token,
         program_id,

@@ -46,6 +46,8 @@ class UserOwner {
   public confirmed?: boolean;
   @Field({ nullable: true })
   public customerGroup?: string;
+  @Field(() => [String], { nullable: true })
+  public type?: string[];
 
   constructor(data: IUserOwner) {
     Object.assign(this, data);
