@@ -6,3 +6,4 @@ export * from "./deals/useDealCheckSecureCode";
 export * from "./deals/useDealSubscribe";
 export * from "./lib/dataIdFromObject";
 export * from "../__generated__/globalTypes";
+export * from "./loyalty";
