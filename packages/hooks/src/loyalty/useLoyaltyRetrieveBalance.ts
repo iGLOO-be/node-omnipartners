@@ -11,13 +11,11 @@ const LoyaltyRetrieveBalanceQuery = gql`
     $token: String!
     $program_id: String!
     $card_program_id: String
-    $auth_type: String
   ) {
     loyaltyRetrieveBalance(
       token: $token
       program_id: $program_id
       card_program_id: $card_program_id
-      auth_type: $auth_type
     ) {
       user_total_points
       user_guid

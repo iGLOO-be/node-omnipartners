@@ -470,7 +470,7 @@ type Query {
   userCreateAuthCode(ttl: Float!, value: String!, type: String!): GenericError
   userLoginByCode(auth_code: String!): UserResult
   findPartners(partnerLocatorInput: PartnerLocatorInput!): [Partner!]
-  loyaltyRetrieveBalance(auth_type: String, card_program_id: String, user_id: String, token: String, program_id: String!): LoyaltyBalance!
+  loyaltyRetrieveBalance(card_program_id: String, program_id: String!, token: String!): LoyaltyBalance!
   directCashbackDealDetail(ref: String!): DirectCashbackDealDetail
   directCashbackDealListEligible(token: String!): [DirectCashbackDealDetail!]!
   directCashbackDealListEligiblePets(deal_ref: String!, token: String!): [UserPet!]!

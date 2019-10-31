@@ -22,5 +22,4 @@ export interface LoyaltyRetrieveBalanceVariables {
   token: string;
   program_id: string;
   card_program_id?: string | null;
-  auth_type?: string | null;
 }
