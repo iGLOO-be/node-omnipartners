@@ -660,6 +660,7 @@ type UserOwner {
   postalCode: String
   confirmed: Boolean!
   customerGroup: String
+  type: [String!]
 }
 
 type UserPartnerRelation {
