@@ -689,6 +689,11 @@ export interface IUserOwner {
   default_address: null;
 }
 
+export interface IUserSegment {
+  id: number;
+  handle: string;
+}
+
 export interface IUser {
   feedback: {
     unauthorized_data_options: [];
@@ -706,10 +711,7 @@ export interface IUser {
     clientof: IUserPartnerRelation[];
     partof: IUserPartnerRelation[];
   };
-  segments: Array<{
-    id: number;
-    handle: string;
-  }>;
+  segments: IUserSegment[];
   stamps_count: number | null;
 }
 

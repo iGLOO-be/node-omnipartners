@@ -14,6 +14,7 @@ import { UserAddress } from "./UserAddress";
 import { UserChild } from "./UserChild";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
+import { UserSegment } from "./UserSegments";
 
 export interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
 
@@ -211,6 +212,15 @@ export class User<T = {}> {
     })).data;
 
     return res.map(d => new UserChild(d));
+  }
+
+  @Field(() => [UserSegment], { nullable: false })
+  public async segments(@Ctx() ctx: Context): Promise<UserSegment[]> {
+    const res = (await ctx.omnipartners.identity.getUserSegments({
+      user_guid: this.owner.guid,
+    })).data;
+
+    return res.map(s => new UserSegment(s));
   }
 }
 
