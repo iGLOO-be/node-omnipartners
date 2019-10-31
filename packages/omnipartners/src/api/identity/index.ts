@@ -27,6 +27,7 @@ import {
   IUserPetUpdateInput,
   IUserPlaceOfPurchase,
   IUserPreferences,
+  IUserSegment,
   IUserUpdateInput,
   IUserUpdatePlacesOfPurchaseInput,
   IUserUpdateSubscriptionsInput,
@@ -1085,6 +1086,20 @@ export default class Identity extends Api {
   ): Promise<{ data: IUserChild }> {
     return this.post("/service/children/update", data, {
       hashKeys: undefined,
+    });
+  }
+
+  /*
+    Manage segments
+  */
+
+  @doc("http://doc.omnipartners.be/index.php/Get_User_Segments")
+  @filterInput(["user_guid"])
+  public getUserSegments(data: {
+    user_guid: string;
+  }): Promise<{ data: IUserSegment[] }> {
+    return this.post("/service/segments/get-user-segments", data, {
+      hashNoKey: undefined,
     });
   }
 }

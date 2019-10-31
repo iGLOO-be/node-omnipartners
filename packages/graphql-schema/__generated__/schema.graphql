@@ -512,6 +512,7 @@ type User {
   partners(showInactivePartners: Boolean): UserPartnerRelations!
   placesOfPurchase: [UserPlaceOfPurchase!]!
   children: [UserChild!]!
+  segments: [UserSegment!]!
 }
 
 type UserAddress {
@@ -745,6 +746,11 @@ type UserPreferences {
 type UserResult {
   error: GenericError
   result: User
+}
+
+type UserSegment {
+  id: Float!
+  handle: String!
 }
 
 type UserTitle {
