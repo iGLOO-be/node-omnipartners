@@ -35,6 +35,7 @@ export { UserChildUpdateResolver } from "./user/UserChildUpdateResolver";
 export { UserChildCreateResolver } from "./user/UserChildCreateResolver";
 export { PartnerLocatorResolver } from "./partner/PartnerLocatorResolver";
 export { AuthenticationError } from "./lib/AuthenticationError";
+export { LoyaltyResolver } from "./resolvers/LoyaltyResolver";
 
 export * from "./schema";
 export * from "./utils";

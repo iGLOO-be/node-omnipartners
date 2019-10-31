@@ -17,6 +17,7 @@ Array [
   "useFetchPartnerLocator",
   "useFetchUser",
   "useLogin",
+  "useLoyaltyRetrieveBalance",
   "useMetadataAnimalBreeds",
   "useMetadataCountries",
   "useMetadataLegalForms",

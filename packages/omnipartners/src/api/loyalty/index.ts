@@ -9,7 +9,7 @@ import {
 export interface ILoyaltyRetrieveBalanceInput {
   program_id: string;
   card_program_id?: string;
-  auth_type?: "card_no" | "mobile_no" | "partner_ext_id";
+  auth_type?: "user_guid" | "card_no" | "mobile_no" | "partner_ext_id";
   user_id: string;
 }
 
