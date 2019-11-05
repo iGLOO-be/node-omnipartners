@@ -24,7 +24,7 @@ const UserLoginQuery = gql`
 `;
 
 export const useUserLogin = ({ updateToken } = { updateToken: true }) => {
-  const { refetch, ...rest } = useQuery<UserLogin, UserLoginVariables>(
+  const { refetch, error, ...res } = useQuery<UserLogin, UserLoginVariables>(
     UserLoginQuery,
     {
       skip: true,
@@ -34,7 +34,9 @@ export const useUserLogin = ({ updateToken } = { updateToken: true }) => {
   const { setToken } = useUserContext();
 
   return {
-    ...rest,
+    ...res,
+    error: error || (res.data && res.data.userLogin.error),
+    data: res.data && res.data.userLogin,
     userLogin: async ({
       identifier,
       password,
