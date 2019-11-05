@@ -6,6 +6,12 @@ import {
   IPartnerLocatorInput,
 } from "../../types";
 
+interface IPartnerGroup {
+  partner_group_name: string;
+  partner_group_handle: string;
+  is_availability_group: "0" | "1";
+}
+
 export default class Partners extends Api {
   public defaultHost = "https://partners.clixray.io/";
 
@@ -317,6 +323,20 @@ export default class Partners extends Api {
   }): Promise<{ data: { partner_ext_id: string } }> {
     return this._call("resolve-partner-by-terminal-id", data, {
       hashKeys: ["action", "key", "terminal_id"],
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/List_Partners_Group")
+  @filterInput([
+    "partner_group_handle", // (Optional)	The “Partner Group Handle” used to filter and retrieve partner group information relative to the handle.
+    "partner_type", // (Optional)	The “Partner Type” used to filter and retrieve partner group information based on the partner assignment to that group.
+  ])
+  public listPartnerGroups(data: {
+    partner_group_handle?: string;
+    partner_type?: string;
+  }): Promise<{ data: IPartnerGroup[] }> {
+    return this._call("get-partner-groups", data, {
       retry: true,
     });
   }
