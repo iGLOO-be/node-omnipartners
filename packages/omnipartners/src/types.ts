@@ -1188,3 +1188,27 @@ export interface ILoyaltyPointsExpirationDate {
   expiration_date: string;
   expiration_points: string;
 }
+
+export interface ILoyaltyPointStampAddition {
+  transactionpoints: number;
+  newtotalpoints: number;
+  transactionstamps: number;
+  new_total_all_stamps: number;
+  status: string;
+  message: string;
+  log_id: number;
+  transaction_id: number;
+  user_guid: string;
+  user_profile: ILoyaltyUserProfile;
+}
+
+export interface ILoyaltyPointDeduction {
+  transactionpoints: number;
+  newtotalpoints: number;
+  status: string;
+  message: string;
+  log_id: number;
+  transaction_id: number;
+  user_guid: string;
+  user_profile: ILoyaltyUserProfile;
+}

@@ -2,7 +2,9 @@ import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
   ILoyaltyBalance,
+  ILoyaltyPointDeduction,
   ILoyaltyPointsExpirationDate,
+  ILoyaltyPointStampAddition,
   ILoyaltyTransactionHistory,
 } from "../../types";
 
@@ -35,6 +37,34 @@ export interface ILoyaltyGetPointsExpirationDateInput {
   user_id: string;
   user_id_type: "user_loyalty_card_number" | "user_mobile" | "partner_ext_id";
 }
+
+export interface ILoyaltyPointStampAdditionInput {
+  program_id: string;
+  shop_id: string;
+  type?: "terminal" | "extid";
+  user_id: string;
+  auth_type?: "user_guid" | "card_no";
+  message?: string;
+  source: "SYSTEM" | "WEBSITE";
+  points?: number;
+  stamps?: number;
+  transaction_ext_id?: string;
+  transaction_ext_origin?: string;
+}
+
+export interface ILoyaltyPointDeductionInput {
+  program_id: string;
+  shop_id: string;
+  type?: "terminal" | "extid";
+  user_id: string;
+  auth_type?: "user_guid" | "card_no";
+  source: "SYSTEM" | "WEBSITE";
+  points: number;
+  reason?: "redemption" | "expiration" | "adjustment";
+  transaction_ext_id?: string;
+  transaction_ext_origin?: string;
+}
+
 
 export default class Loyalty extends Api {
   public defaultHost = "https://rewards.clixray.io/points";
@@ -158,6 +188,87 @@ export default class Loyalty extends Api {
       hashKeys: ["action", "program_reference", "user_id", "user_id_type"],
       retry: true,
     });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Point_/_Stamps_addition")
+  @filterInput([
+    "program_id",
+    "shop_id",
+    "type",
+    "user_id",
+    "auth_type",
+    "message",
+    "source",
+    "points",
+    "stamps",
+    "transaction_ext_id",
+    "transaction_ext_origin",
+  ])
+  public pointStampsAddition(
+    data: ILoyaltyPointStampAdditionInput
+  ): Promise<ILoyaltyPointStampAddition> {
+    return this._call("addition", data, {
+      errorMap: {
+        1004: { message: "Points Service Secret is not available for that key." },
+        1005: { message: "Points Service Secret key retrieve error" },
+        1006: { message: "Unauthorized user access, input secret key might be invalid." },
+        1054: { message: "Authentication key and action not mapped" },
+        1042: { message: "Resolve the Card Number - Invalid Request" },
+        1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
+        1044: { message: "Associated user account is not active" },
+        1045: { message: "Resolve the Card Number - Card not found" },
+        1046: { message: "Resolve the Card Number - Card expired" },
+        1064: { message: "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )" },
+        1070: { message: "program_id required" },
+      },
+      hashKey: "sigid",
+      hashKeys: [
+        "source",
+        "user_id",
+        "action",
+      ],
+      retry: false
+    })
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Point_deduction")
+  @filterInput([
+    "program_id",
+    "shop_id",
+    "type",
+    "user_id",
+    "auth_type",
+    "source",
+    "points",
+    "reason",
+    "transaction_ext_id",
+    "transaction_ext_origin",
+  ])
+  public pointStampsDeduction(
+    data: ILoyaltyPointDeductionInput
+  ): Promise<ILoyaltyPointDeduction> {
+    return this._call("deduction", data, {
+      errorMap: {
+        1004: { message: "Points Service Secret is not available for that key." },
+        1005: { message: "Points Service Secret key retrieve error" },
+        1006: { message: "Unauthorized user access, input secret key might be invalid." },
+        1054: { message: "Authentication key and action not mapped" },
+        1042: { message: "Resolve the Card Number - Invalid Request" },
+        1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
+        1044: { message: "Associated user account is not active" },
+        1045: { message: "Resolve the Card Number - Card not found" },
+        1046: { message: "Resolve the Card Number - Card expired" },
+        1064: { message: "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )" },
+        1070: { message: "program_id required" },
+      },
+      hashKey: "sigid",
+      hashKeys: [
+        "source",
+        "user_id",
+        "action",
+      ],
+      retry: false
+    })
   }
 
   private _call(
