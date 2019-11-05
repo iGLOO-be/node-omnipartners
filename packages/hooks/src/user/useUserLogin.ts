@@ -23,37 +23,48 @@ const UserLoginQuery = gql`
   }
 `;
 
-export const useLogin = ({ updateToken } = { updateToken: true }) => {
-  const { refetch } = useQuery<UserLogin, UserLoginVariables>(UserLoginQuery, {
-    skip: true,
-  });
+export const useUserLogin = ({ updateToken } = { updateToken: true }) => {
+  const { refetch, ...rest } = useQuery<UserLogin, UserLoginVariables>(
+    UserLoginQuery,
+    {
+      skip: true,
+    },
+  );
   const fetchUser = useFetchUser();
   const { setToken } = useUserContext();
 
-  return async ({
-    identifier,
-    password,
-  }: {
-    identifier: string;
-    password: string;
-  }) => {
-    const { data } = await refetch({
+  return {
+    ...rest,
+    userLogin: async ({
       identifier,
       password,
-    });
-
-    if (
-      updateToken &&
-      data.userLogin &&
-      data.userLogin.result &&
-      data.userLogin.result.token
-    ) {
-      setToken(data.userLogin.result.token);
-      await fetchUser({
-        token: data.userLogin.result.token,
+    }: {
+      identifier: string;
+      password: string;
+    }) => {
+      const { data } = await refetch({
+        identifier,
+        password,
       });
-    }
 
-    return data && data.userLogin;
+      if (
+        updateToken &&
+        data.userLogin &&
+        data.userLogin.result &&
+        data.userLogin.result.token
+      ) {
+        setToken(data.userLogin.result.token);
+        await fetchUser({
+          token: data.userLogin.result.token,
+        });
+      }
+
+      return data && data.userLogin;
+    },
   };
+};
+
+export const useLogin = ({ updateToken } = { updateToken: true }) => {
+  console.warn("`useLogin` is deprecated. Please use `useUserLogin`");
+  return useUserLogin({ updateToken }).userLogin;
 };
