@@ -6,7 +6,7 @@ import {
   IPartnerLocatorInput,
 } from "../../types";
 
-interface IPartnerGroup {
+export interface IPartnerGroup {
   partner_group_name: string;
   partner_group_handle: string;
   is_availability_group: "0" | "1";
