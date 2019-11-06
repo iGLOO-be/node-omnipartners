@@ -16,17 +16,15 @@ export const ErrorView = ({
   }
 
   return (
-    <>
-      <div>
-        {errorsFiltered.map(({ code, message }, i) => (
-          <div key={i}>
-            <span style={{ color: "#ee8b00" }}>
-              {!!code && code + " "}
-              {message}
-            </span>
-          </div>
-        ))}
-      </div>
-    </>
+    <div style={{ margin: "20px 0" }}>
+      {errorsFiltered.map(({ code, message }, i) => (
+        <div key={i}>
+          <span style={{ color: "#ee8b00" }}>
+            {!!code && code + " "}
+            {message}
+          </span>
+        </div>
+      ))}
+    </div>
   );
 };
