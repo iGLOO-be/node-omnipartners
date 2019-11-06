@@ -41,8 +41,8 @@ export const useUserRecoverPassword = () => {
 
         setLoading(false);
         return {
-          error: data && data.userRecoverPassword
-        }
+          error: data && data.userRecoverPassword,
+        };
       } catch (err) {
         setLoading(false);
         throw err;

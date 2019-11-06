@@ -110,7 +110,7 @@ function useBetterLazyQuery<TData = any, TVariables = OperationVariables>(
       resolveRef.current(result);
       resolveRef.current = undefined;
     }
-  }, [result.loading, result.called, result.variables]);
+  }, [result.loading, result.called, result.variables]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const queryLazily = useCallback(
     ({ variables }: QueryLazyOptions<TVariables> = {}) => {
