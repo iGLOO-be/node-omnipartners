@@ -288,21 +288,6 @@ export class UserResolver {
   }
 
   @Mutation(() => GenericError, { nullable: true })
-  public async userForceActivate(
-    @Ctx() ctx: Context,
-    @Arg("guid") guid: string,
-  ): Promise<GenericError | undefined> {
-    try {
-      await ctx.omnipartners.identity.forceActivate({
-        user_guid: guid,
-      });
-      return;
-    } catch (err) {
-      return new GenericError(err);
-    }
-  }
-
-  @Mutation(() => GenericError, { nullable: true })
   public async userConfirmAccount(
     @Ctx() ctx: Context,
     @Arg("token") token: string,

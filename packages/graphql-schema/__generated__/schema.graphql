@@ -226,7 +226,6 @@ type Mutation {
   userConfirmLegalForms(confirmLegalFormsInput: UserConfirmLegalFormsInput!, token: String!): GenericValidationError
   userUpdateSubscriptions(updateSubscriptionsInput: UserUpdateSubscriptionsInput!, token: String!): GenericValidationError
   userUpdatePlacesOfPurchase(updatePlacesOfPurchaseInput: UserUpdatePlacesOfPurchaseInput!, token: String!): GenericValidationError
-  userForceActivate(guid: String!): GenericError
   userConfirmAccount(token: String!): GenericError
   userAddressCreate(userAddressInput: UserAddressCreateInput!, token: String!): UserAddressUpdateResult!
   userAddressUpdate(userAddressInput: UserAddressUpdateInput!, token: String!): UserAddressUpdateResult!
