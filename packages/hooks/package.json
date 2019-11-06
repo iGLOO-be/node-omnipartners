@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "date-fns": "^2.6.0",
+    "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "jwt-decode": "^2.2.0"
   },
