@@ -39,6 +39,7 @@ Array [
   "useUserCreate",
   "useUserEmailExist",
   "useUserIsLogged",
+  "useUserLogin",
   "useUserLogout",
   "useUserPets",
   "useUserPetsCreate",

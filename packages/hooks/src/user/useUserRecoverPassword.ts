@@ -33,15 +33,19 @@ export const useUserRecoverPassword = () => {
     userRecoverPassword: async (email: string) => {
       try {
         setLoading(true);
-        await recoverPassword({
+        const { data } = await recoverPassword({
           variables: {
             email,
           },
         });
-      } catch (err) {
-        throw err;
-      } finally {
+
         setLoading(false);
+        return {
+          error: data && data.userRecoverPassword,
+        };
+      } catch (err) {
+        setLoading(false);
+        throw err;
       }
     },
     loading,

@@ -16,7 +16,7 @@
     "watch": "yarn build && concurrently 'tsc -w --preserveWatchOutput' 'yarn build:schema --watch'",
     "prepare": "yarn build",
     "start": "yarn watch",
-    "start:server": "nodemon -r ts-node/register scripts/start-server.ts"
+    "start:server": "ts-node-dev scripts/start-server.ts"
   },
   "peerDependencies": {
     "graphql": "^14",
@@ -38,13 +38,14 @@
     "concurrently": "^5.0.0",
     "execa": "^3.2.0",
     "fs-extra": "^8.1.0",
-    "graphql": "^14.5.6",
+    "graphql": "^14.5.8",
     "jest": "^24.9.0",
     "omnipartners": "^2.12.0",
     "p-debounce": "^2.1.0",
     "tempy": "^0.3.0",
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
+    "ts-node-dev": "^1.0.0-pre.44",
     "type-fest": "^0.8.1",
     "type-graphql": "^0.17.5",
     "typescript": "3.6.4",

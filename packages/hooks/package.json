@@ -30,6 +30,7 @@
     "@igloo-be-omnipartners/graphql-schema": "^1.13.3",
     "@types/jwt-decode": "^2.2.1",
     "apollo": "^2.21.0",
+    "graphql": "^14.5.8",
     "react": "^16.11.0",
     "react-apollo": "^3.1.3",
     "tsdx": "^0.10.5",
