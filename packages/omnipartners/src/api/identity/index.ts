@@ -1102,4 +1102,18 @@ export default class Identity extends Api {
       hashNoKey: undefined,
     });
   }
+
+  @doc("http://doc.omnipartners.be/index.php/Flush_User_Segment_Cache")
+  @filterInput(["user_guid"])
+  public flushUserSegmentCache(data: {
+    user_guid: string;
+  }): Promise<{
+    data: {
+      statusCode: number;
+    };
+  }> {
+    return this.post("/service/user/flush-segment-cache", data, {
+      hashNoKey: undefined,
+    });
+  }
 }
