@@ -185,7 +185,7 @@ export default class Loyalty extends Api {
         },
         1070: { message: "program_id required" },
       },
-      hashKeys: ["action", "program_reference", "user_id", "user_id_type"],
+      hashKeys: ["action", "key", "program_reference", "user_id", "user_id_type"],
       retry: true,
     });
   }
