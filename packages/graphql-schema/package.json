@@ -19,6 +19,7 @@
     "start:server": "ts-node-dev scripts/start-server.ts"
   },
   "peerDependencies": {
+    "graphql": "^14",
     "omnipartners": "^2.8.1",
     "type-graphql": "^0.17"
   },
@@ -37,6 +38,7 @@
     "concurrently": "^5.0.0",
     "execa": "^3.2.0",
     "fs-extra": "^8.1.0",
+    "graphql": "^14.5.8",
     "jest": "^24.9.0",
     "omnipartners": "^2.11.0",
     "p-debounce": "^2.1.0",
@@ -50,7 +52,6 @@
     "winston": "^3.2.1"
   },
   "dependencies": {
-    "graphql": "^14.5.8",
     "graphql-type-json": "^0.3.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
