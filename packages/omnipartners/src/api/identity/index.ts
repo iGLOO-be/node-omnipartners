@@ -52,7 +52,6 @@ export default class Identity extends Api {
   public updateRecoveredPassword(data: { token: string; password: string }) {
     return this.get("/service/account/create-password", data, {
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
       },
       hashKeys: ["password"],
@@ -126,7 +125,6 @@ export default class Identity extends Api {
   public recoverPassword(data: { uid: string; mode?: string; url?: string }) {
     return this.get("/service/account/recover-password", data, {
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         27: {
           message:
@@ -173,7 +171,6 @@ export default class Identity extends Api {
       errorMap: {
         1: { message: "Internal error." },
         6: { message: "Not authorized to use this function or its disabled." },
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         19: { message: "There is no confirmed partner relationship." },
         34: { message: "Account already active." },
@@ -190,7 +187,6 @@ export default class Identity extends Api {
         1: { message: "Internal error." },
         4: { message: "User is not active in the system" },
         6: { message: "Not authorized to use this function or its disabled." },
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         24: { message: "Account already confirmed." },
       },
@@ -276,7 +272,6 @@ export default class Identity extends Api {
           message:
             "Either key is invalid or the method is restricted for the key",
         },
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
       },
       hashKeys: ["user_guid"],
@@ -294,7 +289,6 @@ export default class Identity extends Api {
           message:
             "Either key is invalid or the method is restricted for the key",
         },
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
       },
       hashKeys: ["user_guid", "place_id", "place_rating"],
@@ -350,7 +344,6 @@ export default class Identity extends Api {
   ): Promise<{ data: IUserAddress }> {
     return this.post("/service/user-address/add", data, {
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
       },
       hashKeys: ["user_guid"],
@@ -383,7 +376,6 @@ export default class Identity extends Api {
   ): Promise<{ data: IUserAddress }> {
     return this.post("/service/user-address/update", data, {
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         22: {
           message:
@@ -400,7 +392,6 @@ export default class Identity extends Api {
   public deleteUserAddress(data: { user_guid: string; address_id: string }) {
     return this.post("/service/user-address/delete", data, {
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         22: { message: "Delete restricted if address is the default address." },
         26: { message: "Address not found in the system." },
@@ -575,7 +566,6 @@ export default class Identity extends Api {
             "Failed to generate the auth code. This error usually appears when system fails to generate a unique identifier because it has already generated too many and filled up the most of the possibilities.",
         },
         6: { message: "Not authorized to use this function or its disabled." },
-        8: { message: "Internal error." },
         11: {
           message:
             "Too many consecutive requests for the the same account. Requests are allowed once in every 2 minutes per account.",
@@ -605,7 +595,6 @@ export default class Identity extends Api {
         retry: true,
         errorMap: {
           7: { message: "Auth Code not found in the system." },
-          8: { message: "Internal error." },
           49: { message: "User not confirmed." },
         },
       },
@@ -651,7 +640,6 @@ export default class Identity extends Api {
           6: {
             message: "Not authorized to use this function or its disabled.",
           },
-          8: { message: "Internal error." },
           16: { message: "Invalid hash." },
         },
         retry: true,
@@ -675,7 +663,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/add/", data, {
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
       },
@@ -704,7 +691,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/update/", data, {
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
       },
@@ -730,7 +716,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/delete/", data, {
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
       },
@@ -747,7 +732,6 @@ export default class Identity extends Api {
   public getPets(data: { user_guid: string }): Promise<{ data: IUserPet[] }> {
     return this.get("/service/pets/get", data, {
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
       },
       hashNoKey: true,
@@ -763,7 +747,6 @@ export default class Identity extends Api {
   }): Promise<{ data: IUsetPetWithOwner }> {
     return this.get("/service/pets/get-pet", data, {
       errorMap: {
-        8: { message: "Internal error." },
         9: { message: "Pet not found in the system." },
         16: { message: "Invalid hash." },
       },
@@ -801,7 +784,6 @@ export default class Identity extends Api {
     return this.post("/service/pets/add", data, {
       multipart: true,
       errorMap: {
-        8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         35: { message: "Pet limit reached for this account." },
       },
@@ -838,7 +820,6 @@ export default class Identity extends Api {
     return this.post("/service/pets/update", data, {
       multipart: true,
       errorMap: {
-        8: { message: "Internal error." },
         9: { message: "Pet not found in the system." },
         16: { message: "Invalid hash." },
       },
