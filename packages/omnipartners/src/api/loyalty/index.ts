@@ -35,7 +35,7 @@ export interface ILoyaltyRetrieveTransactionHistoryInput {
 export interface ILoyaltyGetPointsExpirationDateInput {
   program_reference: string;
   user_id: string;
-  user_id_type: "user_loyalty_card_number" | "user_mobile" | "partner_ext_id";
+  user_id_type?: "user_loyalty_card_number" | "user_mobile" | "partner_ext_id";
 }
 
 export interface ILoyaltyPointStampAdditionInput {
