@@ -52,7 +52,6 @@ export default class Identity extends Api {
   public updateRecoveredPassword(data: { token: string; password: string }) {
     return this.get("/service/account/create-password", data, {
       errorMap: {
-        4: { message: "User is found but not active in the system." },
         6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
@@ -128,7 +127,6 @@ export default class Identity extends Api {
   public recoverPassword(data: { uid: string; mode?: string; url?: string }) {
     return this.get("/service/account/recover-password", data, {
       errorMap: {
-        4: { message: "User is found but not active in the system." },
         6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
@@ -611,7 +609,6 @@ export default class Identity extends Api {
       {
         retry: true,
         errorMap: {
-          4: { message: "User is found but not active in the system." },
           6: {
             message: "Not authorised to use this function or its disabled.",
           },
