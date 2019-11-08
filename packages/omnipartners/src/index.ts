@@ -59,6 +59,7 @@ export class Omnipartners {
       this.identify,
       this.identity,
       this.partners,
+      this.loyalty,
       this.products,
       this.deals,
       this.data,
