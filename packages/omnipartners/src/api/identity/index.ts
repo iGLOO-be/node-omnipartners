@@ -52,7 +52,6 @@ export default class Identity extends Api {
   public updateRecoveredPassword(data: { token: string; password: string }) {
     return this.get("/service/account/create-password", data, {
       errorMap: {
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
       },
@@ -127,7 +126,6 @@ export default class Identity extends Api {
   public recoverPassword(data: { uid: string; mode?: string; url?: string }) {
     return this.get("/service/account/recover-password", data, {
       errorMap: {
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         27: {
@@ -155,7 +153,6 @@ export default class Identity extends Api {
   public register(data: IRegisterUserInput): Promise<{ data: IUser }> {
     return this.get("/service/user/register", data, {
       errorMap: {
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Error saving data to the database." },
         9: { message: "Pet information required but not specified." },
         16: { message: "Invalid hash." },
@@ -256,7 +253,6 @@ export default class Identity extends Api {
   public updateSubscriptions(data: IUserUpdateSubscriptionsInput) {
     return this.get("/service/preferences/update", data, {
       errorMap: {
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Error saving data to the database." },
         16: { message: "Invalid hash." },
         36: { message: "User in blacklist." },
@@ -433,7 +429,6 @@ export default class Identity extends Api {
           message: "An error is occured.",
         },
         3: { message: "Specified user not found." },
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Error saving data to the database." },
         16: { message: "Invalid hash." },
         39: { message: "Error in File upload." },
@@ -609,9 +604,6 @@ export default class Identity extends Api {
       {
         retry: true,
         errorMap: {
-          6: {
-            message: "Not authorised to use this function or its disabled.",
-          },
           7: { message: "Auth Code not found in the system." },
           8: { message: "Internal error." },
           49: { message: "User not confirmed." },
@@ -683,7 +675,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/add/", data, {
       errorMap: {
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
@@ -713,7 +704,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/update/", data, {
       errorMap: {
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
@@ -740,7 +730,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/delete/", data, {
       errorMap: {
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
@@ -812,7 +801,6 @@ export default class Identity extends Api {
     return this.post("/service/pets/add", data, {
       multipart: true,
       errorMap: {
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
         35: { message: "Pet limit reached for this account." },
@@ -850,7 +838,6 @@ export default class Identity extends Api {
     return this.post("/service/pets/update", data, {
       multipart: true,
       errorMap: {
-        6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         9: { message: "Pet not found in the system." },
         16: { message: "Invalid hash." },
