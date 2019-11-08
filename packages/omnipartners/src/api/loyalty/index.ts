@@ -206,7 +206,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointStampAddition> {
     return this._call("addition", data, {
       errorMap: {
-        1004: { message: "Points Service Secret is not available for that key." },
         1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
         1044: { message: "Associated user account is not active" },
         1045: { message: "Resolve the Card Number - Card not found" },
@@ -242,7 +241,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointDeduction> {
     return this._call("deduction", data, {
       errorMap: {
-        1004: { message: "Points Service Secret is not available for that key." },
         1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
         1044: { message: "Associated user account is not active" },
         1045: { message: "Resolve the Card Number - Card not found" },
