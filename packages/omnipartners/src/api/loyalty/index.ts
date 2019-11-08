@@ -65,6 +65,13 @@ export interface ILoyaltyPointDeductionInput {
   transaction_ext_origin?: string;
 }
 
+export interface ILoyaltyRetrieveTransactionHistoryResult {
+  data: ILoyaltyTransactionHistory[];
+  total_records: number;
+  selected_records: number;
+  status: string;
+}
+
 
 export default class Loyalty extends Api {
   public defaultHost = "https://rewards.clixray.io/points";
@@ -144,7 +151,7 @@ export default class Loyalty extends Api {
   ])
   public retrieveTransactionHistory(
     data: ILoyaltyRetrieveTransactionHistoryInput,
-  ): Promise<{ data: ILoyaltyTransactionHistory[] }> {
+  ): Promise<ILoyaltyRetrieveTransactionHistoryResult> {
     return this._call("transacnhistory", data, {
       errorMap: {
         1023: { message: "Transaction history records not found" },
