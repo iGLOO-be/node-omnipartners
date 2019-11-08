@@ -81,10 +81,23 @@ export default class Loyalty extends Api {
     100: { message: "Missing action." },
     101: { message: "Missing program ID." },
     103: { message: "Inactive Key" },
+    1004: {
+      message: "Points Service Secret is not available for that key.",
+    },
+    1005: { message: "Points Service Secret key retrieve error" },
+    1006: {
+      message:
+        "Unauthorized user access, input secret key might be invalid.",
+    },
     1025: { message: "Invalid Key" },
     1026: { message: "Key retrieve error" },
     1027: { message: "Invalid Secret Key" },
-    1043: { message: "User (GUID) not found" },
+    1042: { message: "Resolve the Card Number - Invalid Request" },
+    1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
+    1044: { message: "Associated user account is not active" },
+    1045: { message: "Resolve the Card Number - Card not found" },
+    1046: { message: "Resolve the Card Number - Card expired" },
+    1054: { message: "Authentication key and action not mapped" },
     1055: {
       message: "ptn_ext_customer_id ( partner_ext_id ) record not found",
     },
@@ -97,6 +110,7 @@ export default class Loyalty extends Api {
     1070: { message: "program_id required" },
     1071: { message: "Internal error - Program id resolution for the card" },
     1072: { message: "User Guid not found for that partner ext id" },
+    1091: { message: "Default program is not set in control center." },
     1094: { message: "Invalid parameter values sent in request." },
   };
 
@@ -111,25 +125,6 @@ export default class Loyalty extends Api {
     data: ILoyaltyRetrieveBalanceInput,
   ): Promise<ILoyaltyBalance> {
     return this._call("getpointbalance", data, {
-      errorMap: {
-        1004: {
-          message: "Points Service Secret is not available for that key.",
-        },
-        1005: { message: "Points Service Secret key retrieve error" },
-        1006: {
-          message:
-            "Unauthorized user access, input secret key might be invalid.",
-        },
-        1054: { message: "Authentication key and action not mapped" },
-        1042: { message: "Resolve the Card Number - Invalid Request" },
-        1043: {
-          message: "Resolve the Card Number / Mobile Number - User not found",
-        },
-        1044: { message: "Associated user account is not active" },
-        1045: { message: "Resolve the Card Number - Card not found" },
-        1046: { message: "Resolve the Card Number - Card expired" },
-        1091: { message: "Default program is not set in control center." },
-      },
       hashKey: "sigid",
       hashKeys: ["action", "program_id", "user_id"],
       retry: true,
@@ -170,26 +165,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointsExpirationDate> {
     return this._call("get-points-expiration-date", data, {
       errorMap: {
-        1004: {
-          message: "Points Service Secret is not available for that key.",
-        },
-        1005: { message: "Points Service Secret key retrieve error" },
-        1006: {
-          message:
-            "Unauthorized user access, input secret key might be invalid.",
-        },
-        1054: { message: "Authentication key and action not mapped" },
-        1042: { message: "Resolve the Card Number - Invalid Request" },
-        1043: {
-          message: "Resolve the Card Number / Mobile Number - User not found",
-        },
-        1044: { message: "Associated user account is not active" },
-        1045: { message: "Resolve the Card Number - Card not found" },
-        1046: { message: "Resolve the Card Number - Card expired" },
-        1064: {
-          message:
-            "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )",
-        },
         1070: { message: "program_id required" },
       },
       hashKeys: ["action", "key", "program_reference", "user_id", "user_id_type"],
@@ -216,16 +191,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointStampAddition> {
     return this._call("addition", data, {
       errorMap: {
-        1004: { message: "Points Service Secret is not available for that key." },
-        1005: { message: "Points Service Secret key retrieve error" },
-        1006: { message: "Unauthorized user access, input secret key might be invalid." },
-        1054: { message: "Authentication key and action not mapped" },
-        1042: { message: "Resolve the Card Number - Invalid Request" },
-        1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
-        1044: { message: "Associated user account is not active" },
-        1045: { message: "Resolve the Card Number - Card not found" },
-        1046: { message: "Resolve the Card Number - Card expired" },
-        1064: { message: "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )" },
         1070: { message: "program_id required" },
       },
       hashKey: "sigid",
@@ -256,16 +221,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointDeduction> {
     return this._call("deduction", data, {
       errorMap: {
-        1004: { message: "Points Service Secret is not available for that key." },
-        1005: { message: "Points Service Secret key retrieve error" },
-        1006: { message: "Unauthorized user access, input secret key might be invalid." },
-        1054: { message: "Authentication key and action not mapped" },
-        1042: { message: "Resolve the Card Number - Invalid Request" },
-        1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
-        1044: { message: "Associated user account is not active" },
-        1045: { message: "Resolve the Card Number - Card not found" },
-        1046: { message: "Resolve the Card Number - Card expired" },
-        1064: { message: "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )" },
         1070: { message: "program_id required" },
       },
       hashKey: "sigid",
