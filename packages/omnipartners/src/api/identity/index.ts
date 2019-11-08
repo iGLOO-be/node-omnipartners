@@ -51,9 +51,6 @@ export default class Identity extends Api {
   @filterInput(["token", "password"])
   public updateRecoveredPassword(data: { token: string; password: string }) {
     return this.get("/service/account/create-password", data, {
-      errorMap: {
-        16: { message: "Invalid hash." },
-      },
       hashKeys: ["password"],
     });
   }
@@ -125,7 +122,6 @@ export default class Identity extends Api {
   public recoverPassword(data: { uid: string; mode?: string; url?: string }) {
     return this.get("/service/account/recover-password", data, {
       errorMap: {
-        16: { message: "Invalid hash." },
         27: {
           message:
             "Password could not be auto generated because of validation constraints.",
@@ -153,7 +149,6 @@ export default class Identity extends Api {
       errorMap: {
         8: { message: "Error saving data to the database." },
         9: { message: "Pet information required but not specified." },
-        16: { message: "Invalid hash." },
         18: { message: "Email address already exists in the system." },
         23: { message: "Duplicate request." },
       },
@@ -171,7 +166,6 @@ export default class Identity extends Api {
       errorMap: {
         1: { message: "Internal error." },
         6: { message: "Not authorized to use this function or its disabled." },
-        16: { message: "Invalid hash." },
         19: { message: "There is no confirmed partner relationship." },
         34: { message: "Account already active." },
       },
@@ -187,7 +181,6 @@ export default class Identity extends Api {
         1: { message: "Internal error." },
         4: { message: "User is not active in the system" },
         6: { message: "Not authorized to use this function or its disabled." },
-        16: { message: "Invalid hash." },
         24: { message: "Account already confirmed." },
       },
       hashKeys: ["identifier"],
@@ -238,7 +231,6 @@ export default class Identity extends Api {
       errorMap: {
         6: { message: "Not authorised to use this function or it's disabled." },
         8: { message: "Error saving data to the database." },
-        16: { message: "Invalid hash." },
       },
       hashKeys: ["user_guid"],
     });
@@ -250,7 +242,6 @@ export default class Identity extends Api {
     return this.get("/service/preferences/update", data, {
       errorMap: {
         8: { message: "Error saving data to the database." },
-        16: { message: "Invalid hash." },
         36: { message: "User in blacklist." },
       },
       hashKeys: ["user_guid"],
@@ -272,7 +263,6 @@ export default class Identity extends Api {
           message:
             "Either key is invalid or the method is restricted for the key",
         },
-        16: { message: "Invalid hash." },
       },
       hashKeys: ["user_guid"],
     });
@@ -289,7 +279,6 @@ export default class Identity extends Api {
           message:
             "Either key is invalid or the method is restricted for the key",
         },
-        16: { message: "Invalid hash." },
       },
       hashKeys: ["user_guid", "place_id", "place_rating"],
     });
@@ -343,9 +332,6 @@ export default class Identity extends Api {
     data: IRegisterUserAddressInput,
   ): Promise<{ data: IUserAddress }> {
     return this.post("/service/user-address/add", data, {
-      errorMap: {
-        16: { message: "Invalid hash." },
-      },
       hashKeys: ["user_guid"],
     });
   }
@@ -376,7 +362,6 @@ export default class Identity extends Api {
   ): Promise<{ data: IUserAddress }> {
     return this.post("/service/user-address/update", data, {
       errorMap: {
-        16: { message: "Invalid hash." },
         22: {
           message:
             'Update restricted, if it is the only address and trying to update it as "not default".',
@@ -392,7 +377,6 @@ export default class Identity extends Api {
   public deleteUserAddress(data: { user_guid: string; address_id: string }) {
     return this.post("/service/user-address/delete", data, {
       errorMap: {
-        16: { message: "Invalid hash." },
         22: { message: "Delete restricted if address is the default address." },
         26: { message: "Address not found in the system." },
       },
@@ -421,7 +405,6 @@ export default class Identity extends Api {
         },
         3: { message: "Specified user not found." },
         8: { message: "Error saving data to the database." },
-        16: { message: "Invalid hash." },
         39: { message: "Error in File upload." },
         40: { message: "Legal form is already confirmed." },
         41: { message: "Invalid File." },
@@ -570,7 +553,6 @@ export default class Identity extends Api {
           message:
             "Too many consecutive requests for the the same account. Requests are allowed once in every 2 minutes per account.",
         },
-        16: { message: "Invalid hash." },
         26: { message: "User Mobile number not available in user profile." },
         50: { message: "SMS Template not available." },
       },
@@ -640,7 +622,6 @@ export default class Identity extends Api {
           6: {
             message: "Not authorized to use this function or its disabled.",
           },
-          16: { message: "Invalid hash." },
         },
         retry: true,
       },
@@ -663,7 +644,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/add/", data, {
       errorMap: {
-        16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
       },
       hashKeys: [
@@ -691,7 +671,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/update/", data, {
       errorMap: {
-        16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
       },
       hashKeys: [
@@ -716,7 +695,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/delete/", data, {
       errorMap: {
-        16: { message: "Invalid hash." },
         19: { message: "Partner not found." },
       },
       hashKeys: ["user_guid", "partner_ext_id", "partner_relationship"],
@@ -731,9 +709,6 @@ export default class Identity extends Api {
   @filterInput(["user_guid"])
   public getPets(data: { user_guid: string }): Promise<{ data: IUserPet[] }> {
     return this.get("/service/pets/get", data, {
-      errorMap: {
-        16: { message: "Invalid hash." },
-      },
       hashNoKey: true,
       retry: true,
     });
@@ -748,7 +723,6 @@ export default class Identity extends Api {
     return this.get("/service/pets/get-pet", data, {
       errorMap: {
         9: { message: "Pet not found in the system." },
-        16: { message: "Invalid hash." },
       },
       hashNoKey: true,
       retry: true,
@@ -784,7 +758,6 @@ export default class Identity extends Api {
     return this.post("/service/pets/add", data, {
       multipart: true,
       errorMap: {
-        16: { message: "Invalid hash." },
         35: { message: "Pet limit reached for this account." },
       },
       hashKeys: ["pet_name", "user_guid"],
@@ -821,7 +794,6 @@ export default class Identity extends Api {
       multipart: true,
       errorMap: {
         9: { message: "Pet not found in the system." },
-        16: { message: "Invalid hash." },
       },
       hashKeys: ["pet_name", "pet_guid"],
     });
