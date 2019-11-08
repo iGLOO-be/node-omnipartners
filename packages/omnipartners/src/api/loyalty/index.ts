@@ -110,6 +110,7 @@ export default class Loyalty extends Api {
     1070: { message: "program_id required" },
     1071: { message: "Internal error - Program id resolution for the card" },
     1072: { message: "User Guid not found for that partner ext id" },
+    1091: { message: "Default program is not set in control center." },
     1094: { message: "Invalid parameter values sent in request." },
   };
 
@@ -124,9 +125,6 @@ export default class Loyalty extends Api {
     data: ILoyaltyRetrieveBalanceInput,
   ): Promise<ILoyaltyBalance> {
     return this._call("getpointbalance", data, {
-      errorMap: {
-        1091: { message: "Default program is not set in control center." },
-      },
       hashKey: "sigid",
       hashKeys: ["action", "program_id", "user_id"],
       retry: true,
