@@ -52,10 +52,6 @@ export default class Identity extends Api {
   public updateRecoveredPassword(data: { token: string; password: string }) {
     return this.get("/service/account/create-password", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         4: { message: "User is found but not active in the system." },
         6: { message: "Not authorised to use this function or its disabled." },
@@ -133,10 +129,6 @@ export default class Identity extends Api {
   public recoverPassword(data: { uid: string; mode?: string; url?: string }) {
     return this.get("/service/account/recover-password", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         4: { message: "User is found but not active in the system." },
         6: { message: "Not authorised to use this function or its disabled." },
@@ -167,10 +159,6 @@ export default class Identity extends Api {
   public register(data: IRegisterUserInput): Promise<{ data: IUser }> {
     return this.get("/service/user/register", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Error saving data to the database." },
         9: { message: "Pet information required but not specified." },
@@ -191,10 +179,6 @@ export default class Identity extends Api {
     return this.get("/service/account/force-activate", data, {
       errorMap: {
         1: { message: "Internal error." },
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: { message: "Not authorized to use this function or its disabled." },
         8: { message: "Internal error." },
@@ -212,10 +196,6 @@ export default class Identity extends Api {
     return this.get("/service/account/confirm", data, {
       errorMap: {
         1: { message: "Internal error." },
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         4: { message: "User is not active in the system" },
         6: { message: "Not authorized to use this function or its disabled." },
@@ -269,10 +249,6 @@ export default class Identity extends Api {
   }> {
     return this.get("/service/preferences/get", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: { message: "Not authorised to use this function or it's disabled." },
         8: { message: "Error saving data to the database." },
@@ -287,10 +263,6 @@ export default class Identity extends Api {
   public updateSubscriptions(data: IUserUpdateSubscriptionsInput) {
     return this.get("/service/preferences/update", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Error saving data to the database." },
@@ -312,10 +284,6 @@ export default class Identity extends Api {
   }> {
     return this.get("service/preferences/get-places-of-purchase", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: {
           message:
@@ -335,10 +303,6 @@ export default class Identity extends Api {
   public updateUserPlacesOfPurchase(data: IUserUpdatePlacesOfPurchaseInput) {
     return this.get("/service/preferences/add-place-of-purchase", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: {
           message:
@@ -400,10 +364,6 @@ export default class Identity extends Api {
   ): Promise<{ data: IUserAddress }> {
     return this.post("/service/user-address/add", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
@@ -438,10 +398,6 @@ export default class Identity extends Api {
   ): Promise<{ data: IUserAddress }> {
     return this.post("/service/user-address/update", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
@@ -460,10 +416,6 @@ export default class Identity extends Api {
   public deleteUserAddress(data: { user_guid: string; address_id: string }) {
     return this.post("/service/user-address/delete", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
@@ -492,10 +444,6 @@ export default class Identity extends Api {
         //       { invalidLegalFormCode: 'Invalid legal form code \'foo\' specified' } }
         [-1]: {
           message: "An error is occured.",
-        },
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
         },
         3: { message: "Specified user not found." },
         6: { message: "Not authorised to use this function or its disabled." },
@@ -644,10 +592,6 @@ export default class Identity extends Api {
           message:
             "Failed to generate the auth code. This error usually appears when system fails to generate a unique identifier because it has already generated too many and filled up the most of the possibilities.",
         },
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: { message: "Not authorized to use this function or its disabled." },
         8: { message: "Internal error." },
@@ -679,10 +623,6 @@ export default class Identity extends Api {
       {
         retry: true,
         errorMap: {
-          2: {
-            message:
-              "Invalid request in which required header or parameters are either missing or invalid.",
-          },
           3: { message: "User not found in the system." },
           4: { message: "User is found but not active in the system." },
           6: {
@@ -731,10 +671,6 @@ export default class Identity extends Api {
       },
       {
         errorMap: {
-          2: {
-            message:
-              "Invalid request in which required header or parameters are either missing or invalid.",
-          },
           3: { message: "User not found in the system." },
           4: { message: "User not active in the system." },
           6: {
@@ -764,10 +700,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/add/", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
@@ -799,10 +731,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/update/", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
@@ -831,10 +759,6 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/partners/delete/", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
@@ -853,10 +777,6 @@ export default class Identity extends Api {
   public getPets(data: { user_guid: string }): Promise<{ data: IUserPet[] }> {
     return this.get("/service/pets/get", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         8: { message: "Internal error." },
         16: { message: "Invalid hash." },
@@ -874,10 +794,6 @@ export default class Identity extends Api {
   }): Promise<{ data: IUsetPetWithOwner }> {
     return this.get("/service/pets/get-pet", data, {
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         8: { message: "Internal error." },
         9: { message: "Pet not found in the system." },
@@ -917,10 +833,6 @@ export default class Identity extends Api {
     return this.post("/service/pets/add", data, {
       multipart: true,
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
@@ -960,10 +872,6 @@ export default class Identity extends Api {
     return this.post("/service/pets/update", data, {
       multipart: true,
       errorMap: {
-        2: {
-          message:
-            "Invalid request in which required header or parameters are either missing or invalid.",
-        },
         3: { message: "User not found in the system." },
         6: { message: "Not authorised to use this function or its disabled." },
         8: { message: "Internal error." },
