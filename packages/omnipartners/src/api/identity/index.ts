@@ -41,6 +41,10 @@ export interface IUserGetPartnerAccountRelationsResult {
 }
 
 export default class Identity extends Api {
+  public errorMap = {
+    19: { message: "Partner not found." },
+  };
+
   @doc("http://doc.omnipartners.be/index.php/Delete_User_Accounts")
   @filterInput(["owner_guid"])
   public deleteUser(data: { owner_guid: string }) {
