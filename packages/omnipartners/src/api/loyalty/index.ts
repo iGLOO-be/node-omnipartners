@@ -93,6 +93,7 @@ export default class Loyalty extends Api {
     1026: { message: "Key retrieve error" },
     1027: { message: "Invalid Secret Key" },
     1043: { message: "User (GUID) not found" },
+    1054: { message: "Authentication key and action not mapped" },
     1055: {
       message: "ptn_ext_customer_id ( partner_ext_id ) record not found",
     },
@@ -120,7 +121,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyBalance> {
     return this._call("getpointbalance", data, {
       errorMap: {
-        1054: { message: "Authentication key and action not mapped" },
         1042: { message: "Resolve the Card Number - Invalid Request" },
         1043: {
           message: "Resolve the Card Number / Mobile Number - User not found",
@@ -170,7 +170,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointsExpirationDate> {
     return this._call("get-points-expiration-date", data, {
       errorMap: {
-        1054: { message: "Authentication key and action not mapped" },
         1042: { message: "Resolve the Card Number - Invalid Request" },
         1043: {
           message: "Resolve the Card Number / Mobile Number - User not found",
@@ -209,7 +208,6 @@ export default class Loyalty extends Api {
     return this._call("addition", data, {
       errorMap: {
         1004: { message: "Points Service Secret is not available for that key." },
-        1054: { message: "Authentication key and action not mapped" },
         1042: { message: "Resolve the Card Number - Invalid Request" },
         1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
         1044: { message: "Associated user account is not active" },
@@ -247,7 +245,6 @@ export default class Loyalty extends Api {
     return this._call("deduction", data, {
       errorMap: {
         1004: { message: "Points Service Secret is not available for that key." },
-        1054: { message: "Authentication key and action not mapped" },
         1042: { message: "Resolve the Card Number - Invalid Request" },
         1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
         1044: { message: "Associated user account is not active" },
