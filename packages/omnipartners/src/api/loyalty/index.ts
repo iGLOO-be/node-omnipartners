@@ -96,6 +96,7 @@ export default class Loyalty extends Api {
     1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
     1044: { message: "Associated user account is not active" },
     1045: { message: "Resolve the Card Number - Card not found" },
+    1046: { message: "Resolve the Card Number - Card expired" },
     1054: { message: "Authentication key and action not mapped" },
     1055: {
       message: "ptn_ext_customer_id ( partner_ext_id ) record not found",
@@ -124,7 +125,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyBalance> {
     return this._call("getpointbalance", data, {
       errorMap: {
-        1046: { message: "Resolve the Card Number - Card expired" },
         1091: { message: "Default program is not set in control center." },
       },
       hashKey: "sigid",
@@ -167,7 +167,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointsExpirationDate> {
     return this._call("get-points-expiration-date", data, {
       errorMap: {
-        1046: { message: "Resolve the Card Number - Card expired" },
         1064: {
           message:
             "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )",
@@ -198,7 +197,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointStampAddition> {
     return this._call("addition", data, {
       errorMap: {
-        1046: { message: "Resolve the Card Number - Card expired" },
         1064: { message: "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )" },
         1070: { message: "program_id required" },
       },
@@ -230,7 +228,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointDeduction> {
     return this._call("deduction", data, {
       errorMap: {
-        1046: { message: "Resolve the Card Number - Card expired" },
         1064: { message: "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )" },
         1070: { message: "program_id required" },
       },
