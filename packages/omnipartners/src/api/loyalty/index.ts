@@ -84,6 +84,7 @@ export default class Loyalty extends Api {
     1004: {
       message: "Points Service Secret is not available for that key.",
     },
+    1005: { message: "Points Service Secret key retrieve error" },
     1025: { message: "Invalid Key" },
     1026: { message: "Key retrieve error" },
     1027: { message: "Invalid Secret Key" },
@@ -115,7 +116,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyBalance> {
     return this._call("getpointbalance", data, {
       errorMap: {
-        1005: { message: "Points Service Secret key retrieve error" },
         1006: {
           message:
             "Unauthorized user access, input secret key might be invalid.",
@@ -170,7 +170,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointsExpirationDate> {
     return this._call("get-points-expiration-date", data, {
       errorMap: {
-        1005: { message: "Points Service Secret key retrieve error" },
         1006: {
           message:
             "Unauthorized user access, input secret key might be invalid.",
@@ -214,7 +213,6 @@ export default class Loyalty extends Api {
     return this._call("addition", data, {
       errorMap: {
         1004: { message: "Points Service Secret is not available for that key." },
-        1005: { message: "Points Service Secret key retrieve error" },
         1006: { message: "Unauthorized user access, input secret key might be invalid." },
         1054: { message: "Authentication key and action not mapped" },
         1042: { message: "Resolve the Card Number - Invalid Request" },
@@ -254,7 +252,6 @@ export default class Loyalty extends Api {
     return this._call("deduction", data, {
       errorMap: {
         1004: { message: "Points Service Secret is not available for that key." },
-        1005: { message: "Points Service Secret key retrieve error" },
         1006: { message: "Unauthorized user access, input secret key might be invalid." },
         1054: { message: "Authentication key and action not mapped" },
         1042: { message: "Resolve the Card Number - Invalid Request" },
