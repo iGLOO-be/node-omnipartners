@@ -165,10 +165,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointsExpirationDate> {
     return this._call("get-points-expiration-date", data, {
       errorMap: {
-        1064: {
-          message:
-            "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )",
-        },
         1070: { message: "program_id required" },
       },
       hashKeys: ["action", "key", "program_reference", "user_id", "user_id_type"],
@@ -195,7 +191,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointStampAddition> {
     return this._call("addition", data, {
       errorMap: {
-        1064: { message: "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )" },
         1070: { message: "program_id required" },
       },
       hashKey: "sigid",
@@ -226,7 +221,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointDeduction> {
     return this._call("deduction", data, {
       errorMap: {
-        1064: { message: "Resolve the User Partner Ext Id error. ( with user_id_type => 'partner_ext_id' )" },
         1070: { message: "program_id required" },
       },
       hashKey: "sigid",
