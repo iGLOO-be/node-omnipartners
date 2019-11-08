@@ -119,6 +119,15 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Find_account_GUID_by_partner_ext_id")
+  @filterInput(["partner_ext_id"])
+  public findAccountByPartnerExtId(data: { partner_ext_id: string }) {
+    return this.get("/service/user/resolve-by-partner", data, {
+      hashKeys: ["partner_ext_id"],
+      retry: true,
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Recover_by_email_or_user_id")
   @filterInput(["uid", "mode", "url"])
   public recoverPassword(data: { uid: string; mode?: string; url?: string }) {
