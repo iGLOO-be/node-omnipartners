@@ -6,6 +6,7 @@ import {
   ILoyaltyPointsExpirationDate,
   ILoyaltyPointStampAddition,
   ILoyaltyTransactionHistory,
+  ILoyaltyUserProfile,
 } from "../../types";
 
 export interface ILoyaltyRetrieveBalanceInput {
@@ -65,6 +66,23 @@ export interface ILoyaltyPointDeductionInput {
   transaction_ext_origin?: string;
 }
 
+export interface ILoyaltyEshopPurchaseInput {
+  program_id: string;
+  shop_id: string;
+  user_id: string;
+  source: string;
+  transaction_ext_id?: string;
+  transaction_ext_origin?: string;
+  points: number;
+}
+
+export interface ILoyaltyeEshopPurchase {
+  transactionpoints: number;
+  newtotalpoints: number;
+  message: string;
+  user_profile: ILoyaltyUserProfile;
+}
+
 export interface ILoyaltyRetrieveTransactionHistoryResult {
   data: ILoyaltyTransactionHistory[];
   total_records: number;
@@ -102,11 +120,14 @@ export default class Loyalty extends Api {
       message: "ptn_ext_customer_id ( partner_ext_id ) record not found",
     },
     1056: { message: "Required fields are not found in service request" },
+    1058: { message: "Multiple programs exist for that user" },
     1059: { message: "Internal error - Account Database access error" },
+    1062: { message: "Card number does not belong to the partner / group" },
     1063: { message: "Card number does not belong to any program." },
     1064: { message: "Partner extension id records retrieve error" },
     1065: { message: "Key /Action authorization records retrieve error" },
     1067: { message: "Key not found" },
+    1069: { message: "Shop associated programs resolution error" },
     1070: { message: "program_id required" },
     1071: { message: "Internal error - Program id resolution for the card" },
     1072: { message: "User Guid not found for that partner ext id" },
@@ -223,6 +244,30 @@ export default class Loyalty extends Api {
       errorMap: {
         1070: { message: "program_id required" },
       },
+      hashKey: "sigid",
+      hashKeys: [
+        "source",
+        "user_id",
+        "action",
+      ],
+      retry: false
+    })
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Loyalty_eShop_purchase")
+  @filterInput([
+    "program_id",
+    "shop_id",
+    "user_id",
+    "source",
+    "transaction_ext_id",
+    "transaction_ext_origin",
+    "points",
+  ])
+  public eshopPurchase(
+    data: ILoyaltyEshopPurchaseInput
+  ): Promise<ILoyaltyeEshopPurchase> {
+    return this._call("shop-redemption", data, {
       hashKey: "sigid",
       hashKeys: [
         "source",
