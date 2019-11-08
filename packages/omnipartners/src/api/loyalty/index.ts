@@ -93,7 +93,7 @@ export default class Loyalty extends Api {
     1026: { message: "Key retrieve error" },
     1027: { message: "Invalid Secret Key" },
     1042: { message: "Resolve the Card Number - Invalid Request" },
-    1043: { message: "User (GUID) not found" },
+    1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
     1054: { message: "Authentication key and action not mapped" },
     1055: {
       message: "ptn_ext_customer_id ( partner_ext_id ) record not found",
@@ -122,9 +122,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyBalance> {
     return this._call("getpointbalance", data, {
       errorMap: {
-        1043: {
-          message: "Resolve the Card Number / Mobile Number - User not found",
-        },
         1044: { message: "Associated user account is not active" },
         1045: { message: "Resolve the Card Number - Card not found" },
         1046: { message: "Resolve the Card Number - Card expired" },
@@ -170,9 +167,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointsExpirationDate> {
     return this._call("get-points-expiration-date", data, {
       errorMap: {
-        1043: {
-          message: "Resolve the Card Number / Mobile Number - User not found",
-        },
         1044: { message: "Associated user account is not active" },
         1045: { message: "Resolve the Card Number - Card not found" },
         1046: { message: "Resolve the Card Number - Card expired" },
@@ -206,7 +200,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointStampAddition> {
     return this._call("addition", data, {
       errorMap: {
-        1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
         1044: { message: "Associated user account is not active" },
         1045: { message: "Resolve the Card Number - Card not found" },
         1046: { message: "Resolve the Card Number - Card expired" },
@@ -241,7 +234,6 @@ export default class Loyalty extends Api {
   ): Promise<ILoyaltyPointDeduction> {
     return this._call("deduction", data, {
       errorMap: {
-        1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
         1044: { message: "Associated user account is not active" },
         1045: { message: "Resolve the Card Number - Card not found" },
         1046: { message: "Resolve the Card Number - Card expired" },
