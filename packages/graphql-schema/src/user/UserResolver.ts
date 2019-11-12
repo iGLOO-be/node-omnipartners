@@ -137,6 +137,34 @@ export class UserResolver {
     }
   }
 
+  @Query(() => UserResult)
+  public async userLoginByPublicToken(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Arg("userContextData", () => GraphQLJSON, { nullable: true })
+    userContextData?: any,
+  ): Promise<UserResult> {
+    try {
+      const { data } = await ctx.omnipartners.identity.findAccountByPublicToken(
+        {
+          token,
+        },
+      );
+
+      const user = await ctx.omnipartners.identity.authenticateByGUID({
+        user_guid: data.user_guid,
+      });
+
+      return new UserResult({
+        result: await ctx.userHelper.createUser(user, userContextData),
+      });
+    } catch (err) {
+      return new UserResult({
+        error: new GenericError(err),
+      });
+    }
+  }
+
   @Query(() => Boolean, { nullable: false })
   public async userEmailExists(
     @Ctx() ctx: Context,

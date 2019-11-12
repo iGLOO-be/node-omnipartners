@@ -91,7 +91,10 @@ type LazyQueryTuple<TData, TVariables> = [
   QueryResult<TData, TVariables>,
 ];
 
-function useBetterLazyQuery<TData = any, TVariables = OperationVariables>(
+export function useBetterLazyQuery<
+  TData = any,
+  TVariables = OperationVariables
+>(
   query: DocumentNode,
   options?: LazyQueryHookOptions<TData, TVariables>,
 ): LazyQueryTuple<TData, TVariables> {
