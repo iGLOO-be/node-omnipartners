@@ -90,7 +90,6 @@ export interface ILoyaltyRetrieveTransactionHistoryResult {
   status: string;
 }
 
-
 export default class Loyalty extends Api {
   public defaultHost = "https://rewards.clixray.io/points";
 
@@ -98,23 +97,39 @@ export default class Loyalty extends Api {
     99: { message: "Missing key." },
     100: { message: "Missing action." },
     101: { message: "Missing program ID." },
+    102: { message: "Point amount cannot be negative value" },
     103: { message: "Inactive Key" },
+    1000: {
+      message:
+        "Current user total points are insufficient to perform this points deduction action",
+    },
+    1001: {
+      message:
+        "Error on performing user points data logging in deduction action",
+    },
     1004: {
       message: "Points Service Secret is not available for that key.",
     },
     1005: { message: "Points Service Secret key retrieve error" },
     1006: {
-      message:
-        "Unauthorized user access, input secret key might be invalid.",
+      message: "Unauthorized user access, input secret key might be invalid.",
     },
     1025: { message: "Invalid Key" },
     1026: { message: "Key retrieve error" },
     1027: { message: "Invalid Secret Key" },
     1042: { message: "Resolve the Card Number - Invalid Request" },
-    1043: { message: "Resolve the Card Number / Mobile Number - User not found" },
+    1043: {
+      message: "Resolve the Card Number / Mobile Number - User not found",
+    },
     1044: { message: "Associated user account is not active" },
     1045: { message: "Resolve the Card Number - Card not found" },
     1046: { message: "Resolve the Card Number - Card expired" },
+    1047: { message: "Resolve the Card Number - Card inactive" },
+    1051: { message: "Partner terminal map records not found" },
+    1053: {
+      message:
+        "Shop Id (partner Id) not mapped with program OR Partner does not exist or not active.",
+    },
     1054: { message: "Authentication key and action not mapped" },
     1055: {
       message: "ptn_ext_customer_id ( partner_ext_id ) record not found",
@@ -122,6 +137,7 @@ export default class Loyalty extends Api {
     1056: { message: "Required fields are not found in service request" },
     1058: { message: "Multiple programs exist for that user" },
     1059: { message: "Internal error - Account Database access error" },
+    1061: { message: "Invalid reason" },
     1062: { message: "Card number does not belong to the partner / group" },
     1063: { message: "Card number does not belong to any program." },
     1064: { message: "Partner extension id records retrieve error" },
@@ -188,7 +204,13 @@ export default class Loyalty extends Api {
       errorMap: {
         1070: { message: "program_id required" },
       },
-      hashKeys: ["action", "key", "program_reference", "user_id", "user_id_type"],
+      hashKeys: [
+        "action",
+        "key",
+        "program_reference",
+        "user_id",
+        "user_id_type",
+      ],
       retry: true,
     });
   }
@@ -208,20 +230,16 @@ export default class Loyalty extends Api {
     "transaction_ext_origin",
   ])
   public pointStampsAddition(
-    data: ILoyaltyPointStampAdditionInput
+    data: ILoyaltyPointStampAdditionInput,
   ): Promise<ILoyaltyPointStampAddition> {
     return this._call("addition", data, {
       errorMap: {
         1070: { message: "program_id required" },
       },
       hashKey: "sigid",
-      hashKeys: [
-        "source",
-        "user_id",
-        "action",
-      ],
-      retry: false
-    })
+      hashKeys: ["source", "user_id", "action"],
+      retry: false,
+    });
   }
 
   @doc("http://doc.omnipartners.be/index.php/Point_deduction")
@@ -238,20 +256,16 @@ export default class Loyalty extends Api {
     "transaction_ext_origin",
   ])
   public pointStampsDeduction(
-    data: ILoyaltyPointDeductionInput
+    data: ILoyaltyPointDeductionInput,
   ): Promise<ILoyaltyPointDeduction> {
     return this._call("deduction", data, {
       errorMap: {
         1070: { message: "program_id required" },
       },
       hashKey: "sigid",
-      hashKeys: [
-        "source",
-        "user_id",
-        "action",
-      ],
-      retry: false
-    })
+      hashKeys: ["source", "user_id", "action"],
+      retry: false,
+    });
   }
 
   @doc("http://doc.omnipartners.be/index.php/Loyalty_eShop_purchase")
@@ -265,17 +279,13 @@ export default class Loyalty extends Api {
     "points",
   ])
   public eshopPurchase(
-    data: ILoyaltyEshopPurchaseInput
+    data: ILoyaltyEshopPurchaseInput,
   ): Promise<ILoyaltyeEshopPurchase> {
     return this._call("shop-redemption", data, {
       hashKey: "sigid",
-      hashKeys: [
-        "source",
-        "user_id",
-        "action",
-      ],
-      retry: false
-    })
+      hashKeys: ["source", "user_id", "action"],
+      retry: false,
+    });
   }
 
   private _call(
