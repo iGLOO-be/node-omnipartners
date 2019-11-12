@@ -16,13 +16,24 @@ const MetadataCountriesQuery = gql`
   }
 `;
 
-export const useMetadataCountries = (lang: string) => {
+export const useMetadataCountries = (
+  optionsOrLang:
+    | string
+    | {
+        skip?: boolean;
+        lang: string;
+      },
+) => {
+  const lang =
+    typeof optionsOrLang === "object" ? optionsOrLang.lang : optionsOrLang;
+  const skip = typeof optionsOrLang === "object" ? optionsOrLang.skip : false;
   const res = useQuery<MetadataCountries, MetadataCountriesVariables>(
     MetadataCountriesQuery,
     {
       variables: {
         lang,
       },
+      skip,
     },
   );
 

@@ -16,13 +16,25 @@ const MetadataSubscriptionsQuery = gql`
   }
 `;
 
-export const useMetadataSubscriptions = (lang: string) => {
+export const useMetadataSubscriptions = (
+  optionsOrLang:
+    | string
+    | {
+        skip?: boolean;
+        lang: string;
+      },
+) => {
+  const lang =
+    typeof optionsOrLang === "object" ? optionsOrLang.lang : optionsOrLang;
+  const skip = typeof optionsOrLang === "object" ? optionsOrLang.skip : false;
+
   const res = useQuery<MetadataSubscriptions, MetadataSubscriptionsVariables>(
     MetadataSubscriptionsQuery,
     {
       variables: {
         lang,
       },
+      skip,
     },
   );
 

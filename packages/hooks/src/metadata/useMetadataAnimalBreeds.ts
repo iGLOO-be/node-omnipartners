@@ -16,7 +16,21 @@ const MetadataAnimalBreedsQuery = gql`
   }
 `;
 
-export const useMetadataAnimalBreeds = (lang: string, type?: string) => {
+export const useMetadataAnimalBreeds = (
+  optionsOrLang:
+    | string
+    | {
+        lang: string;
+        type?: string;
+        skip?: boolean;
+      },
+  type?: string,
+) => {
+  const lang =
+    typeof optionsOrLang === "object" ? optionsOrLang.lang : optionsOrLang;
+  const skip = typeof optionsOrLang === "object" ? optionsOrLang.skip : false;
+  type = typeof optionsOrLang === "object" ? optionsOrLang.type : type;
+
   const res = useQuery<MetadataAnimalBreeds, MetadataAnimalBreedsVariables>(
     MetadataAnimalBreedsQuery,
     {
@@ -24,6 +38,7 @@ export const useMetadataAnimalBreeds = (lang: string, type?: string) => {
         lang,
         type,
       },
+      skip,
     },
   );
 
