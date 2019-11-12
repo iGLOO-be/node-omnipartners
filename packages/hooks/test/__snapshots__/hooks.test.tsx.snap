@@ -42,6 +42,7 @@ Array [
   "useUserIsLogged",
   "useUserLogin",
   "useUserLoginByAccessToken",
+  "useUserLoginByPublicToken",
   "useUserLogout",
   "useUserPets",
   "useUserPetsCreate",

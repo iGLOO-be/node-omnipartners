@@ -465,6 +465,7 @@ type Query {
   user(token: String!): UserResult
   userLogin(userContextData: JSON, password: String!, identifier: String!): UserResult!
   userLoginByAccessToken(userContextData: JSON, access_token: String!): UserResult!
+  userLoginByPublicToken(userContextData: JSON, token: String!): UserResult!
   userEmailExists(email: String!): Boolean!
   userCreateAuthCode(ttl: Float!, value: String!, type: String!): GenericError
   userLoginByCode(auth_code: String!): UserResult
