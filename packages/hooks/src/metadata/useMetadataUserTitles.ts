@@ -16,13 +16,25 @@ const MetadataUserTitlesQuery = gql`
   }
 `;
 
-export const useMetadataUserTitles = (lang: string) => {
+export function useMetadataUserTitles(
+  optionsOrLang:
+    | string
+    | {
+        skip?: boolean;
+        lang: string;
+      },
+) {
+  const lang =
+    typeof optionsOrLang === "object" ? optionsOrLang.lang : optionsOrLang;
+  const skip = typeof optionsOrLang === "object" ? optionsOrLang.skip : false;
+
   const res = useQuery<MetadataUserTitles, MetadataUserTitlesVariables>(
     MetadataUserTitlesQuery,
     {
       variables: {
         lang,
       },
+      skip,
     },
   );
 
@@ -39,4 +51,4 @@ export const useMetadataUserTitles = (lang: string) => {
     ...res,
     items,
   };
-};
+}

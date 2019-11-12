@@ -18,7 +18,22 @@ const MetadataLegalFormsQuery = gql`
   }
 `;
 
-export const useMetadataLegalForms = (lang: string, codes: string[] = []) => {
+export const useMetadataLegalForms = (
+  optionsOrLang:
+    | string
+    | {
+        lang: string;
+        skip?: boolean;
+        codes?: string[];
+      },
+  codes: string[] = [],
+) => {
+  const lang =
+    typeof optionsOrLang === "object" ? optionsOrLang.lang : optionsOrLang;
+  const skip = typeof optionsOrLang === "object" ? optionsOrLang.skip : false;
+  codes =
+    typeof optionsOrLang === "object" ? optionsOrLang.codes || codes : codes;
+
   const res = useQuery<MetadataLegalForms, MetadataLegalFormsVariables>(
     MetadataLegalFormsQuery,
     {
@@ -26,6 +41,7 @@ export const useMetadataLegalForms = (lang: string, codes: string[] = []) => {
         lang,
         codes: codes.join(","),
       },
+      skip,
     },
   );
 

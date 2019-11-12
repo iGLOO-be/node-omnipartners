@@ -54,39 +54,36 @@ export const useUserUpdate = ({
       mutationResult.error ||
       (mutationResult.data && mutationResult.data.userUpdate.error),
     userUpdate: async (userInput: UserUpdateInput) => {
-      if (token) {
-        const { data } = await userUpdate({
-          variables: {
-            token,
-            userInput,
-          },
-          ...(optimistic && {
-            optimisticResponse: {
-              userUpdate: {
-                __typename: "UserUpdateResult",
-                error: null,
-                result: {
-                  __typename: "User",
-                  owner: {
-                    __typename: "UserOwner",
-                    guid: user_guid,
-                    email: "",
-                    firstName: "",
-                    lastName: "",
-                    mobilePhone: "",
-                    title: "",
-                    country: "",
-                    ...userInput,
-                  },
+      const { data } = await userUpdate({
+        variables: {
+          token,
+          userInput,
+        },
+        ...(optimistic && {
+          optimisticResponse: {
+            userUpdate: {
+              __typename: "UserUpdateResult",
+              error: null,
+              result: {
+                __typename: "User",
+                owner: {
+                  __typename: "UserOwner",
+                  guid: user_guid,
+                  email: "",
+                  firstName: "",
+                  lastName: "",
+                  mobilePhone: "",
+                  title: "",
+                  country: "",
+                  ...userInput,
                 },
               },
             },
-          }),
-        });
+          },
+        }),
+      });
 
-        return data && data.userUpdate;
-      }
-      return;
+      return data && data.userUpdate;
     },
   };
 };
