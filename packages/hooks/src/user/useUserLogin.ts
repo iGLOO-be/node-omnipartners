@@ -14,8 +14,16 @@ import { useFetchUser } from "./useUser";
 export * from "./__generated__/UserLogin";
 
 const UserLoginQuery = gql`
-  query UserLogin($identifier: String!, $password: String!) {
-    userLogin(identifier: $identifier, password: $password) {
+  query UserLogin(
+    $userContextData: JSON
+    $identifier: String!
+    $password: String!
+  ) {
+    userLogin(
+      userContextData: $userContextData
+      identifier: $identifier
+      password: $password
+    ) {
       result {
         token
         owner {
@@ -44,14 +52,17 @@ export const useUserLogin = ({ updateToken } = { updateToken: true }) => {
     userLogin: async ({
       identifier,
       password,
+      userContextData,
     }: {
       identifier: string;
       password: string;
+      userContextData?: any;
     }) => {
       const { data } = await login({
         variables: {
           identifier,
           password,
+          userContextData,
         },
       });
 
