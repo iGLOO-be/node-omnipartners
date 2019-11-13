@@ -4,8 +4,8 @@ import gql from "graphql-tag";
 import { useEffect } from "react";
 import { decodeToken } from "../lib/tokenStorage";
 import { UserToken, UserTokenVariables } from "./__generated__/UserToken";
+import { IUserProviderOptions } from "./IUserProviderOptions";
 import { useUserContext } from "./tokenContext";
-import { IUserProviderOptions } from "./UserProvider";
 
 export * from "./__generated__/UserToken";
 

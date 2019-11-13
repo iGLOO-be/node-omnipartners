@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { tokenStorage } from "../lib/tokenStorage";
+import { IUserProviderOptions } from "./IUserProviderOptions";
 import { userTokenContext } from "./tokenContext";
 import { useUserUpdateToken } from "./useUserUpdateToken";
-
-export interface IUserProviderOptions {
-  env?: string;
-  refreshTokenAfter?: null | number; // in days
-}
 
 const UserTokenUpdate = ({
   children,
