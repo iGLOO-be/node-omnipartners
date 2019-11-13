@@ -34,6 +34,7 @@ export interface UserLogin {
 }
 
 export interface UserLoginVariables {
+  userContextData?: any | null;
   identifier: string;
   password: string;
 }
