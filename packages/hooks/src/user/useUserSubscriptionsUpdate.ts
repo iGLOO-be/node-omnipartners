@@ -32,7 +32,7 @@ const UserSubscriptionsUpdateMutation = gql`
 `;
 
 export const useUserSubscriptionsUpdate = () => {
-  const token = useUserToken();
+  const userToken = useUserToken();
   const [updateSubscriptions, mutationResult] = useMutation<
     UserSubscriptionsUpdate,
     UserSubscriptionsUpdateVariables
@@ -43,8 +43,22 @@ export const useUserSubscriptionsUpdate = () => {
     error:
       mutationResult.error ||
       (mutationResult.data && mutationResult.data.userUpdateSubscriptions),
-    userUpdateSubscriptions: async (subscriptions: string[]) =>
-      updateSubscriptions({
+    userUpdateSubscriptions: async (
+      optionsOrSubscriptions:
+        | {
+            token?: string;
+            subscriptions: string[];
+          }
+        | string[],
+    ) => {
+      const token = Array.isArray(optionsOrSubscriptions)
+        ? userToken
+        : optionsOrSubscriptions.token || userToken;
+      const subscriptions = Array.isArray(optionsOrSubscriptions)
+        ? optionsOrSubscriptions
+        : optionsOrSubscriptions.subscriptions;
+
+      return updateSubscriptions({
         refetchQueries: [
           {
             query: UserSubscriptionsQuery,
@@ -60,6 +74,7 @@ export const useUserSubscriptionsUpdate = () => {
             subscriptions,
           },
         },
-      }),
+      });
+    },
   };
 };
