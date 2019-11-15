@@ -7,7 +7,11 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 import { useCallback, useEffect, useRef } from "react";
 import { OperationVariables, QueryResult } from "react-apollo";
-import { UserLogin, UserLoginVariables } from "./__generated__/UserLogin";
+import {
+  UserLogin,
+  UserLogin_userLogin_result,
+  UserLoginVariables,
+} from "./__generated__/UserLogin";
 import { useUserContext } from "./tokenContext";
 import { useFetchUser } from "./useUser";
 
@@ -38,12 +42,20 @@ const UserLoginQuery = gql`
   }
 `;
 
-export const useUserLogin = ({ updateToken } = { updateToken: true }) => {
+export const useUserLogin = ({
+  updateToken,
+  beforeSetToken,
+}: {
+  updateToken?: boolean;
+  beforeSetToken?: (userResult: UserLogin_userLogin_result) => Promise<void>;
+} = {}) => {
   const [login, res] = useBetterLazyQuery<UserLogin, UserLoginVariables>(
     UserLoginQuery,
   );
   const fetchUser = useFetchUser();
   const { setToken } = useUserContext();
+
+  updateToken = typeof updateToken === "undefined" ? true : updateToken;
 
   return {
     ...res,
@@ -73,10 +85,13 @@ export const useUserLogin = ({ updateToken } = { updateToken: true }) => {
         data.userLogin.result &&
         data.userLogin.result.token
       ) {
-        setToken(data.userLogin.result.token);
         await fetchUser({
           token: data.userLogin.result.token,
         });
+        if (beforeSetToken) {
+          await beforeSetToken(data.userLogin.result);
+        }
+        setToken(data.userLogin.result.token);
       }
 
       return (data && data.userLogin) || { result: null, error: null };
