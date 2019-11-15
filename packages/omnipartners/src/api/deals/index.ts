@@ -315,6 +315,18 @@ interface IVoucher {
     child_ext_id: string;
   };
 }
+export interface IGetVisiblePartnerInput {
+  deal_ref: string;
+  user_guid: string;
+  search?: string;
+  favorite_only?: boolean;
+  partner_lat?: number;
+  partner_lng?: number;
+  radius?: number;
+  p_page?: number;
+  p_length?: number;
+  limit?: number;
+}
 
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
@@ -498,18 +510,7 @@ export default class Deals extends Api {
     "p_length",
     "limit",
   ])
-  public getVisiblePartner(data: {
-    deal_ref: string;
-    user_guid: string;
-    search: string;
-    favorite_only: boolean;
-    partner_lat: number;
-    partner_lng: number;
-    radius: number;
-    p_page: number;
-    p_length: number;
-    limit: number;
-  }) {
+  public getVisiblePartner(data: IGetVisiblePartnerInput) {
     return this._call("get-visible-partners-for-user", data, {
       hashKeys: ["deal_ref"],
       retry: true,
