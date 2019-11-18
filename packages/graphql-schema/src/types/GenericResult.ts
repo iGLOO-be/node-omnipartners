@@ -2,13 +2,6 @@ import { OmnipartnersError } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
 import { AuthenticationError } from "../lib/AuthenticationError";
 
-function isInternalError(error: Error) {
-  return (
-    !(error instanceof OmnipartnersError) &&
-    !(error instanceof AuthenticationError)
-  );
-}
-
 @ObjectType()
 export class GenericError {
   @Field(() => String)
@@ -19,10 +12,6 @@ export class GenericError {
   protected error: Error;
 
   constructor(error: any) {
-    if (error && isInternalError(error)) {
-      throw error;
-    }
-
     this.error = error;
     this.message = error ? error.message : "Unknown error";
     this.code = error ? error.code : "UNKNOWN_ERROR";
@@ -30,12 +19,27 @@ export class GenericError {
 }
 
 @ObjectType({ isAbstract: true })
-export abstract class GenericResult<TResult, TError = GenericError> {
+export abstract class GenericResult<TResult> {
   @Field(() => GenericError, { nullable: true })
-  public error?: TError;
+  public error?: GenericError;
   public result?: TResult;
-  constructor({ error, result }: { error?: TError; result?: TResult }) {
-    this.error = error;
+  constructor({ error, result }: { error?: any; result?: TResult }) {
+    if (error && this.isInternalError(error)) {
+      throw error;
+    }
+
+    this.error = error
+      ? error instanceof GenericError
+        ? error
+        : new GenericError(error)
+      : undefined;
     this.result = result;
+  }
+
+  public isInternalError(error: any) {
+    return (
+      !(error instanceof OmnipartnersError) &&
+      !(error instanceof AuthenticationError)
+    );
   }
 }
