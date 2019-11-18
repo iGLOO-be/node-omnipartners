@@ -10,6 +10,7 @@ import {
   Query,
 } from "type-graphql";
 import { ConnectionArgs } from "../connections";
+import { Deal as DealDetails } from "../deals/Deal";
 import {
   DealVisiblePartnerForUserResult,
   GetVisiblePartnerInputArgs,
@@ -149,13 +150,10 @@ export class DealResolver {
     @Args() connectioArgs: ConnectionArgs,
   ): Promise<DealVisiblePartnerForUserResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
-    const limit = parseInt(connectioArgs.limit as any || '100', 10);
-    const page = parseInt(connectioArgs.page as any || '1', 10);
+    const limit = parseInt((connectioArgs.limit as any) || "100", 10);
+    const page = parseInt((connectioArgs.page as any) || "1", 10);
 
-    const {
-      data,
-      p_total,
-    } = await ctx.omnipartners.deals.getVisiblePartner({
+    const { data, p_total } = await ctx.omnipartners.deals.getVisiblePartner({
       ...inputs,
       user_guid,
       p_page: page,
@@ -172,7 +170,20 @@ export class DealResolver {
         hasNextPage,
         page,
       },
-      result: data
+      result: data,
     };
+  }
+
+  @Query(() => DealDetails, { nullable: true })
+  public async deal(
+    @Ctx() ctx: Context,
+    @Arg("deal_ref") deal_ref: string,
+    @Arg("default_lang", { nullable: true }) default_lang?: string,
+  ): Promise<DealDetails> {
+    const { data } = await ctx.omnipartners.deals.getDeal({
+      ref: deal_ref,
+      default_lang: default_lang || "fr",
+    });
+    return new DealDetails(data);
   }
 }
