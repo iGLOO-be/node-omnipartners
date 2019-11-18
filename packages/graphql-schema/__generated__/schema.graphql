@@ -15,7 +15,9 @@ type AnimalType {
 }
 
 type AnimalUniverse {
+  id: String!
   name: String!
+  species: String!
 }
 
 type Country {
