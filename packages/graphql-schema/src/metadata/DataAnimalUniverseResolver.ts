@@ -6,7 +6,13 @@ import { Context } from "../types/Context";
 @ObjectType()
 export class AnimalUniverse implements Pick<IMetadataAnimalUniverse, "name"> {
   @Field()
+  public id!: string;
+
+  @Field()
   public name!: string;
+
+  @Field()
+  public species!: string;
 }
 
 @Resolver(() => AnimalUniverse)
