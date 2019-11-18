@@ -17,6 +17,7 @@ Array [
   "useBetterLazyQuery",
   "useDealCheckSecureCode",
   "useDealSubscribe",
+  "useDealVisiblePartnerForUser",
   "useFetchPartnerLocator",
   "useFetchUser",
   "useLogin",

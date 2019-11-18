@@ -1,6 +1,7 @@
 import { IDealProduct, ISubscribeToDealInput } from "omnipartners";
 import {
   Arg,
+  Args,
   Ctx,
   Field,
   InputType,
@@ -8,6 +9,11 @@ import {
   ObjectType,
   Query,
 } from "type-graphql";
+import { ConnectionArgs } from "../connections";
+import {
+  DealVisiblePartnerForUserResult,
+  GetVisiblePartnerInputArgs,
+} from "../deals/VisiblePartner";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { ProductCollection } from "../types/ProductCollection";
@@ -133,5 +139,40 @@ export class DealResolver {
     } catch (err) {
       return new GenericValidationError(err);
     }
+  }
+
+  @Query(() => DealVisiblePartnerForUserResult, { nullable: true })
+  public async dealVisiblePartnerForUser(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Args() inputs: GetVisiblePartnerInputArgs,
+    @Args() connectioArgs: ConnectionArgs,
+  ): Promise<DealVisiblePartnerForUserResult> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+    const limit = parseInt(connectioArgs.limit as any || '100', 10);
+    const page = parseInt(connectioArgs.page as any || '1', 10);
+
+    const {
+      data,
+      p_total,
+    } = await ctx.omnipartners.deals.getVisiblePartner({
+      ...inputs,
+      user_guid,
+      p_page: page,
+      p_length: limit,
+    });
+
+    const count = parseInt(p_total, 10);
+    const hasNextPage = page !== Math.ceil(count / limit);
+
+    return {
+      pageInfo: {
+        count,
+        limit,
+        hasNextPage,
+        page,
+      },
+      result: data
+    };
   }
 }

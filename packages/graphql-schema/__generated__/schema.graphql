@@ -55,6 +55,26 @@ input DealSubscribeInput {
   child_guid: String
 }
 
+type DealVisiblePartnerForUserResult {
+  pageInfo: PageInfo!
+  result: [DealVisiblePartnerForUserResultData!]!
+}
+
+type DealVisiblePartnerForUserResultData {
+  id: String!
+  extid: String!
+  name: String!
+  street1: String
+  street2: String
+  streetnum: String
+  postal_code: String
+  city: String
+  region: String
+  country: String
+  lat: Float
+  lng: Float
+}
+
 type DirectCashbackDealDetail {
   id: String!
   ref: String!
@@ -462,6 +482,18 @@ type Query {
   metadataUserTitles(lang: String): [UserTitle!]!
   dealProducts(deal_ref: String!): [DealProduct!]
   dealCheckSecureCode(code: String!, deal_ref: String!): GenericValidationError
+  dealVisiblePartnerForUser(
+    """Paginate limit"""
+    limit: Float
+    page: Float
+    deal_ref: String!
+    search: String
+    favorite_only: Boolean
+    partner_lat: Float
+    partner_lng: Float
+    radius: Float
+    token: String!
+  ): DealVisiblePartnerForUserResult
   productCollectionsByTargetingInfo(input: ProductCollectionsByTargetingInfoInput!): [ProductCollectionsByTargetingInfoCollection!]
   productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
   user(token: String!): UserResult
