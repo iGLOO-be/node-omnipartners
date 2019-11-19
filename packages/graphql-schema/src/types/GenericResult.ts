@@ -9,7 +9,7 @@ export class GenericError {
   @Field(() => String)
   public code: string = "";
 
-  protected error: Error;
+  public error: Error;
 
   constructor(error: any) {
     this.error = error;
@@ -37,9 +37,10 @@ export abstract class GenericResult<TResult> {
   }
 
   public isInternalError(error: any) {
+    const originalError = error instanceof GenericError ? error.error : error
     return (
-      !(error instanceof OmnipartnersError) &&
-      !(error instanceof AuthenticationError)
+      !(originalError instanceof OmnipartnersError) &&
+      !(originalError instanceof AuthenticationError)
     );
   }
 }
