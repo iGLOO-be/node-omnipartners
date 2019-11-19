@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useApolloClient } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { useUserToken } from "../user";
 import {
@@ -24,6 +24,28 @@ const LoyaltyRetrieveBalanceQuery = gql`
     }
   }
 `;
+
+export const useFetchLoyaltyRetrieveBalance = () => {
+  const client = useApolloClient();
+  const defaultToken = useUserToken();
+  return ({
+    token,
+    program_id,
+    card_program_id,
+  }: {
+    token?: string;
+    program_id: string;
+    card_program_id?: string;
+  }) =>
+    client.query<LoyaltyRetrieveBalance, LoyaltyRetrieveBalanceVariables>({
+      query: LoyaltyRetrieveBalanceQuery,
+      variables: {
+        token: token || defaultToken,
+        program_id,
+        card_program_id,
+      },
+    });
+};
 
 export const useLoyaltyRetrieveBalance = ({
   token,
