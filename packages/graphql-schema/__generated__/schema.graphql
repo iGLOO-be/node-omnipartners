@@ -641,7 +641,7 @@ type Subscription {
 type User {
   owner: UserOwner!
   token: String!
-  pets(dealRef: String): [UserPet!]!
+  pets(dealRef: String, locale: String): [UserPet!]!
   addresses: [UserAddress!]!
   preferences: UserPreferences!
   legalForms(codes: [String!]): UserLegalForms!
