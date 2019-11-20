@@ -11,6 +11,11 @@ export interface UserPetsFragment_owner {
   guid: string;
 }
 
+export interface UserPetsFragment_pets_breedDetails {
+  __typename: "UserBreedDetail";
+  name: string;
+}
+
 export interface UserPetsFragment_pets {
   __typename: "UserPet";
   guid: string;
@@ -20,6 +25,7 @@ export interface UserPetsFragment_pets {
   neutered: boolean;
   type: string;
   breed: string;
+  breedDetails: UserPetsFragment_pets_breedDetails;
   pictureUrl: string;
 }
 

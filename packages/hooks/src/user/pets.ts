@@ -32,6 +32,9 @@ export const UserPetsFragment = gql`
       neutered
       type
       breed
+      breedDetails {
+        name
+      }
       pictureUrl
     }
   }
