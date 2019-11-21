@@ -16,8 +16,8 @@ export function filterInput(allowKeys: string[]) {
   ) => {
     const fn = descriptor.value;
     if (fn) {
-      descriptor.value = function(data: {}) {
-        return fn.call(this, pick(data, allowKeys));
+      descriptor.value = function(data: {}, ...rest) {
+        return fn.call(this, pick(data, allowKeys), ...rest);
       };
     }
   };

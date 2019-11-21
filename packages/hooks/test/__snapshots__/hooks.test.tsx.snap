@@ -18,6 +18,7 @@ Array [
   "useDealCheckSecureCode",
   "useDealSubscribe",
   "useDealVisiblePartnerForUser",
+  "useFetchLoyaltyRetrieveBalance",
   "useFetchPartnerLocator",
   "useFetchUser",
   "useLogin",

@@ -121,12 +121,16 @@ export class User<T = {}> {
   @Field(() => [UserPet], { nullable: false })
   public async pets(
     @Ctx() ctx: Context,
+    @Arg("locale", { nullable: true }) locale?: string,
     @Arg("dealRef", { nullable: true }) dealRef?: string,
   ): Promise<UserPet[]> {
     const [petsResult, dealPetsResult] = await Promise.all([
-      ctx.omnipartners.identity.getPets({
-        user_guid: this.owner.guid,
-      }),
+      ctx.omnipartners.identity.getPets(
+        {
+          user_guid: this.owner.guid,
+        },
+        { locale },
+      ),
       dealRef
         ? ctx.omnipartners.deals.listEligiblePets({
             deal_ref: dealRef,

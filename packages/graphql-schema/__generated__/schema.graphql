@@ -31,6 +31,81 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
+type Deal {
+  ref: String!
+  name: String
+  type: String
+  redeem_days: [String!]
+  is_locked: Boolean
+  partner_visibility: String
+  restrict_registration: Boolean
+  image_url: String
+  postal_address_required: Boolean
+  optin_options: [DealOptionOptions!]
+  display_on_terminal: Float
+  redeem_duration_value: Float
+  redeem_duration_unit: String
+  is_relative_redeem_dates: Boolean
+  google_tracking_id: String
+  status: String
+  referrer_required: Float
+  pet_required: String
+  pet_type: String
+  pet_universe: String
+  pet_breed: [AnimalBreed!]
+  pet_age_limit_value: String
+  pet_age_limit_unit: String
+  pet_age_limit_operator: String
+  pet_age_limit_to_value: String
+  pet_age_limit_to_unit: String
+  send_voucher_email: Boolean
+  send_voucher_sms: Boolean
+  need_to_scan: Float
+  available_from: String
+  available_to: String
+  redeem_validity_from: String
+  redeem_validity_to: String
+  validity_message: String
+  confirmation_text: String
+  description: String
+  slogan: String
+  public_name: String
+  site_footer: String
+  voucher_small_print: String
+  redemption_confirmation_text: String
+  redirect_url: String
+  langs: [String!]
+  logo_url: String
+  css_file_url: String
+  internal_barcode: String
+  presentation_images: DealPresentationImages
+  subscription_count: DealSubscriptionCount
+  saving_end_time_value: String
+  saving_end_time_unit: String
+  saving_end_date: String
+  allowed_partner_groups: [String!]
+  excluded_partner_groups: [String!]
+  deal_groups: [String!]
+  products: [ProductCollection!]
+  type_details: DealTypeDetails
+}
+
+type DealAmounts {
+  EUR: Float
+}
+
+type DealOptionOptions {
+  id: String!
+  visible: String!
+  default_value: String!
+  can_change: String!
+}
+
+type DealPresentationImages {
+  small: DealStringByLang!
+  large: DealStringByLang!
+}
+
 type DealProduct {
   ean: String!
   id: String!
@@ -39,6 +114,13 @@ type DealProduct {
   min_qty: Float!
   collectionReference: String
   collection(lang: String!): ProductCollection
+}
+
+type DealStringByLang {
+  FR: String
+  NL: String
+  EN: String
+  forLocale: String
 }
 
 input DealSubscribeInput {
@@ -53,6 +135,17 @@ input DealSubscribeInput {
   referral_code_type: String
   delivery_address_id: String
   child_guid: String
+}
+
+type DealSubscriptionCount {
+  REDEEMED: Float!
+  SUBSCRIBED: Float!
+  IN_PROGRESS: Float!
+}
+
+type DealTypeDetails {
+  discount_type: String!
+  amounts: DealAmounts!
 }
 
 type DealVisiblePartnerForUserResult {
@@ -494,6 +587,7 @@ type Query {
     radius: Float
     token: String!
   ): DealVisiblePartnerForUserResult
+  deal(default_lang: String, deal_ref: String!): Deal
   productCollectionsByTargetingInfo(input: ProductCollectionsByTargetingInfoInput!): [ProductCollectionsByTargetingInfoCollection!]
   productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
   user(token: String!): UserResult
@@ -547,7 +641,7 @@ type Subscription {
 type User {
   owner: UserOwner!
   token: String!
-  pets(dealRef: String): [UserPet!]!
+  pets(dealRef: String, locale: String): [UserPet!]!
   addresses: [UserAddress!]!
   preferences: UserPreferences!
   legalForms(codes: [String!]): UserLegalForms!
