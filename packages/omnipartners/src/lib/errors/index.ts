@@ -5,6 +5,10 @@ interface IAnyData {
   [key: string]: any;
 }
 
+export function isOmnipartnersError(err: any): err is OmnipartnersError {
+  return err.isOmnipartnersError;
+}
+
 export class OmnipartnersError extends Error {
   public readonly statusCode: number = 502;
   public readonly statusText: string = "Bad Gateway";
