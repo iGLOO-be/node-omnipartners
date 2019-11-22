@@ -142,6 +142,9 @@ export default class Loyalty extends Api {
     1063: { message: "Card number does not belong to any program." },
     1064: { message: "Partner extension id records retrieve error" },
     1065: { message: "Key /Action authorization records retrieve error" },
+    1066: {
+      message: "Partner associated user account is not available in the system",
+    },
     1067: { message: "Key not found" },
     1069: { message: "Shop associated programs resolution error" },
     1070: { message: "program_id required" },
