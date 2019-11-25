@@ -21,6 +21,7 @@ import { useUserToken } from "./tokenContext";
 export * from "./__generated__/UserChildren";
 export * from "./__generated__/UserChildrenCreate";
 export * from "./__generated__/UserChildrenUpdate";
+import { sortBy } from "lodash";
 
 export const UserChildrenFragment = gql`
   fragment UserChildrenFragment on User {
@@ -64,14 +65,22 @@ export const useUserChildren = () => {
     },
   });
 
+  const children = sortBy(
+    (res.data &&
+      res.data.user &&
+      res.data.user.result &&
+      res.data.user.result.children &&
+      res.data.user.result.children.map(child => ({
+        ...child,
+        firstName: child.firstName === "--" ? "" : child.firstName,
+      }))) ||
+      [],
+    [child => child.birthday],
+  ).reverse();
+
   return {
     ...res,
-    children:
-      (res.data &&
-        res.data.user &&
-        res.data.user.result &&
-        res.data.user.result.children) ||
-      [],
+    children,
   };
 };
 
