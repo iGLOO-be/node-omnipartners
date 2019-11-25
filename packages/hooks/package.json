@@ -18,7 +18,8 @@
   "dependencies": {
     "date-fns": "^2.6.0",
     "graphql-tag": "^2.10.1",
-    "jwt-decode": "^2.2.0"
+    "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.15"
   },
   "peerDependencies": {
     "@apollo/react-hooks": "^3.1.3",

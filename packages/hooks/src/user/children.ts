@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import { sortBy } from "lodash";
 import {
   UserChildCreateInput,
   UserChildUpdateInput,
@@ -64,14 +65,22 @@ export const useUserChildren = () => {
     },
   });
 
+  const children = sortBy(
+    (res.data &&
+      res.data.user &&
+      res.data.user.result &&
+      res.data.user.result.children &&
+      res.data.user.result.children.map(child => ({
+        ...child,
+        firstName: child.firstName === "--" ? "" : child.firstName,
+      }))) ||
+      [],
+    [child => child.birthday],
+  ).reverse();
+
   return {
     ...res,
-    children:
-      (res.data &&
-        res.data.user &&
-        res.data.user.result &&
-        res.data.user.result.children) ||
-      [],
+    children,
   };
 };
 
