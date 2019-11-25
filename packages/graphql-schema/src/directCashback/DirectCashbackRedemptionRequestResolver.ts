@@ -1,4 +1,7 @@
-import { IDirectCashbackRedemptionRequestListInput } from "omnipartners";
+import {
+  IDirectCashbackRedemptionRequestListInput,
+  OPStatusError,
+} from "omnipartners";
 import {
   Arg,
   Args,
@@ -102,7 +105,10 @@ export class DirectCashbackRedemptionRequestResolver {
           )));
 
       if (!input.benefitId) {
-        throw new Error();
+        throw new OPStatusError({
+          message: "Product ean or code required.",
+          statusCode: 1020,
+        });
       }
 
       const {
