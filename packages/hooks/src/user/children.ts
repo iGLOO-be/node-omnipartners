@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import { sortBy } from "lodash";
 import {
   UserChildCreateInput,
   UserChildUpdateInput,
@@ -21,7 +22,6 @@ import { useUserToken } from "./tokenContext";
 export * from "./__generated__/UserChildren";
 export * from "./__generated__/UserChildrenCreate";
 export * from "./__generated__/UserChildrenUpdate";
-import { sortBy } from "lodash";
 
 export const UserChildrenFragment = gql`
   fragment UserChildrenFragment on User {
