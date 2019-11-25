@@ -36,7 +36,7 @@ export abstract class GenericResult<TResult> {
     this.result = result;
   }
 
-  public isInternalError?(error: any) {
+  public isInternalError(error: any) {
     const originalError = error instanceof GenericError ? error.error : error
     return (
       !(originalError instanceof OmnipartnersError) &&
