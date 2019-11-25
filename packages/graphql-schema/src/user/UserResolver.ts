@@ -238,6 +238,18 @@ export class UserResolver {
     }
   }
 
+  @Query(() => Boolean, { nullable: true })
+  public async userCheckPasswordTokenValidity(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+  ): Promise<boolean> {
+    const { statusCode } = await ctx.omnipartners.identity.checkPasswordTokenValidity({
+      token,
+    });
+
+    return statusCode === 0
+  }
+
   @Mutation(() => GenericValidationError, { nullable: true })
   public async userConfirmLegalForms(
     @Ctx() ctx: Context,
