@@ -21,6 +21,7 @@ Array [
   "useFetchLoyaltyRetrieveBalance",
   "useFetchPartnerLocator",
   "useFetchUser",
+  "useFetchUserCheckPasswordTokenValidity",
   "useLogin",
   "useLoyaltyRetrieveBalance",
   "useMetadataAnimalBreeds",
@@ -34,6 +35,7 @@ Array [
   "useUserAddress",
   "useUserAddressCreate",
   "useUserAddressUpdate",
+  "useUserCheckPasswordTokenValidity",
   "useUserCheckValidRemoteAuth",
   "useUserChildren",
   "useUserChildrenCreate",
@@ -56,6 +58,7 @@ Array [
   "useUserSubscriptionsUpdate",
   "useUserToken",
   "useUserUpdate",
+  "useUserUpdateRecoveredPassword",
   "userTokenContext",
 ]
 `;

@@ -18,3 +18,5 @@ export * from "./children";
 export * from "./segments";
 export * from "./useUserLoginByAccessToken";
 export * from "./useUserLoginByPublicToken";
+export * from "./useUserCheckPasswordTokenValidity";
+export * from "./useUserUpdateRecoveredPassword";

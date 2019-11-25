@@ -59,6 +59,12 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Check_Password_Token_Validity")
+  @filterInput(["token"])
+  public checkPasswordTokenValidity(data: { token: string }) {
+    return this.get("/service/account/check-password-token-validity", data);
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Create_Access_Token")
   @filterInput(["session_token", "ttl"])
   public getAccessToken(data: {
@@ -112,7 +118,9 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Find_account_GUID_by_partner_ext_id")
+  @doc(
+    "http://doc.omnipartners.be/index.php/Find_account_GUID_by_partner_ext_id",
+  )
   @filterInput(["partner_ext_id"])
   public findAccountByPartnerExtId(data: { partner_ext_id: string }) {
     return this.get("/service/user/resolve-by-partner", data, {

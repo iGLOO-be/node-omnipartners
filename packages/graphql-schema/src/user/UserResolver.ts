@@ -238,6 +238,35 @@ export class UserResolver {
     }
   }
 
+  @Query(() => Boolean, { nullable: true })
+  public async userCheckPasswordTokenValidity(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+  ): Promise<boolean> {
+    const { statusCode } = await ctx.omnipartners.identity.checkPasswordTokenValidity({
+      token,
+    });
+
+    return statusCode === 0
+  }
+
+  @Mutation(() => GenericValidationError, { nullable: true })
+  public async userUpdateRecoveredPassword(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Arg("password") password: string,
+  ): Promise<GenericValidationError | undefined> {
+    try {
+      await ctx.omnipartners.identity.updateRecoveredPassword({
+        token,
+        password
+      });
+      return;
+    } catch (err) {
+      return new GenericValidationError(err);
+    }
+  }
+
   @Mutation(() => GenericValidationError, { nullable: true })
   public async userConfirmLegalForms(
     @Ctx() ctx: Context,
