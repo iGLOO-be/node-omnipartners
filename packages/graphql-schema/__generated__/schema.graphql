@@ -338,6 +338,7 @@ type LoyaltyBalance {
 type Mutation {
   dealSubscribe(input: DealSubscribeInput!, token: String!): GenericValidationError
   userRecoverPassword(email: String!): GenericError
+  userUpdateRecoveredPassword(password: String!, token: String!): GenericValidationError
   userConfirmLegalForms(confirmLegalFormsInput: UserConfirmLegalFormsInput!, token: String!): GenericValidationError
   userUpdateSubscriptions(updateSubscriptionsInput: UserUpdateSubscriptionsInput!, token: String!): GenericValidationError
   userUpdatePlacesOfPurchase(updatePlacesOfPurchaseInput: UserUpdatePlacesOfPurchaseInput!, token: String!): GenericValidationError

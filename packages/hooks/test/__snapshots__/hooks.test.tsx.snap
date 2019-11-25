@@ -58,6 +58,7 @@ Array [
   "useUserSubscriptionsUpdate",
   "useUserToken",
   "useUserUpdate",
+  "useUserUpdateRecoveredPassword",
   "userTokenContext",
 ]
 `;

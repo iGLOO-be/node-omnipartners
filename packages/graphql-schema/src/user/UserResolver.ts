@@ -251,6 +251,23 @@ export class UserResolver {
   }
 
   @Mutation(() => GenericValidationError, { nullable: true })
+  public async userUpdateRecoveredPassword(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Arg("password") password: string,
+  ): Promise<GenericValidationError | undefined> {
+    try {
+      await ctx.omnipartners.identity.updateRecoveredPassword({
+        token,
+        password
+      });
+      return;
+    } catch (err) {
+      return new GenericValidationError(err);
+    }
+  }
+
+  @Mutation(() => GenericValidationError, { nullable: true })
   public async userConfirmLegalForms(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
