@@ -91,7 +91,7 @@ class BasicGet extends BaseIdentityTest {
   public "handle socket timeout"({ err }: { err: any }) {
     expect(err).toMatchObject({
       code: "OP/RequestTimeoutError",
-      data: undefined,
+      data: {},
       isOmnipartnersError: true,
       message: "OP/Request Timeout Error",
       statusCode: 503,

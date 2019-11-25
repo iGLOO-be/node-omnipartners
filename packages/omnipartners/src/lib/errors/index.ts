@@ -9,6 +9,11 @@ export function isOmnipartnersError(err: any): err is OmnipartnersError {
   return err.isOmnipartnersError;
 }
 
+interface IBaseErrorInput extends IAnyData {
+  request?: Request;
+  response?: Response;
+}
+
 export class OmnipartnersError extends Error {
   public readonly statusCode: number = 502;
   public readonly statusText: string = "Bad Gateway";
@@ -19,7 +24,7 @@ export class OmnipartnersError extends Error {
   public code: string;
   public errors?: { [key: string]: { [validator: string]: string } };
 
-  constructor(request: Request | Response, data?: IAnyData) {
+  constructor({ request, response, ...data }: IBaseErrorInput = {}) {
     super();
 
     this.data = data;
@@ -28,7 +33,11 @@ export class OmnipartnersError extends Error {
     this.errors = data && data.errors;
 
     this.request =
-      request instanceof Request ? request.toJSON() : request.request.toJSON();
+      request instanceof Request
+        ? request.toJSON()
+        : response instanceof Response
+        ? response.request.toJSON()
+        : {};
   }
 }
 
@@ -62,10 +71,8 @@ export class NoOPStatusError extends OmnipartnersError {
 }
 
 export class UnknownOPStatusError extends OmnipartnersError {
-  constructor(request: Request | Response, opStatus: number) {
-    super(request, {
-      statusCode: opStatus,
-    });
+  constructor({ opStatus, ...data }: IBaseErrorInput & { opStatus: number }) {
+    super({ ...data, statusCode: opStatus });
 
     this.message = `OP/Invalid Response Error - Unkown OP Status/${opStatus}`;
     this.code = `OP/UnknownOPStatusError/${opStatus}`;
@@ -76,15 +83,21 @@ export class OPStatusError extends OmnipartnersError {
   public message = "OP/Invalid Response Error/OP Status";
   public code = "OP/OPStatusError";
 
-  constructor(request: Request | Response, data: IAnyData) {
-    super(request, data);
-    if (data.message) {
+  constructor(
+    data: IBaseErrorInput & {
+      message?: string;
+      statusCode?: number;
+      status?: number;
+    },
+  ) {
+    super(data);
+    if (data && data.message) {
       this.message = `OP/${data.message}`;
     }
-    if (data.statusCode) {
+    if (data && data.statusCode) {
       this.code = `OP/OPStatusError/${data.statusCode}`;
     }
-    if (data.status) {
+    if (data && data.status) {
       this.code = `OP/OPStatusError/${data.status}`;
     }
   }

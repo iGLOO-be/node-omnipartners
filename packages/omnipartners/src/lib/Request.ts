@@ -167,7 +167,7 @@ export default class Request extends EventEmitter {
     } catch (e) {
       this.emit("fetchError", e);
       if (e.type === "request-timeout") {
-        throw new RequestTimeoutError(this);
+        throw new RequestTimeoutError({ request: this });
       } else if (e.code === "ECONNRESET") {
         throw new RequestError(this);
       } else {
