@@ -53,7 +53,7 @@ export default class Response {
     const body = await this.json();
     const opStatus = findOpStatus(body);
     if (typeof opStatus === "undefined") {
-      throw new NoOPStatusError(this);
+      throw new NoOPStatusError({ response: this });
     }
 
     const err = this.getErrorForOPStatus(body, opStatus, errorMap);
@@ -62,7 +62,10 @@ export default class Response {
     }
 
     if (validStatus.indexOf(opStatus) < 0) {
-      throw new UnknownOPStatusError(this, opStatus);
+      throw new UnknownOPStatusError({
+        response: this,
+        opStatus,
+      });
     }
   }
 
@@ -80,7 +83,7 @@ export default class Response {
       try {
         return JSON.parse(value);
       } catch (err) {
-        throw new InvalidJSONReponseError(this, { text: value });
+        throw new InvalidJSONReponseError({ response: this, text: value });
       }
     });
     return this.bodyJson;
@@ -100,7 +103,8 @@ export default class Response {
       return;
     }
 
-    return new OPStatusError(this, {
+    return new OPStatusError({
+      response: this,
       ...data,
       ...error,
     });
