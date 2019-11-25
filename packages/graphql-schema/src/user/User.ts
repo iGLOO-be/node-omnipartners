@@ -139,6 +139,10 @@ export class User<T = {}> {
         : Promise.resolve(undefined),
     ]);
 
+    if (!petsResult) {
+      return [];
+    }
+
     if (!dealPetsResult) {
       return petsResult.data.map(d => new UserPet(d));
     }
@@ -213,18 +217,22 @@ export class User<T = {}> {
 
   @Field(() => [UserChild], { nullable: false })
   public async children(@Ctx() ctx: Context): Promise<UserChild[]> {
-    const res = (await ctx.omnipartners.identity.getChildren({
-      user_guid: this.owner.guid,
-    })).data;
+    const res = (
+      await ctx.omnipartners.identity.getChildren({
+        user_guid: this.owner.guid,
+      })
+    ).data;
 
     return res.map(d => new UserChild(d));
   }
 
   @Field(() => [UserSegment], { nullable: false })
   public async segments(@Ctx() ctx: Context): Promise<UserSegment[]> {
-    const res = (await ctx.omnipartners.identity.getUserSegments({
-      user_guid: this.owner.guid,
-    })).data;
+    const res = (
+      await ctx.omnipartners.identity.getUserSegments({
+        user_guid: this.owner.guid,
+      })
+    ).data;
 
     return res.map(s => new UserSegment(s));
   }
@@ -269,8 +277,10 @@ class UserLegalForms {
 
   @Memoize()
   private async getConfirmedLegalForms(ctx: Context) {
-    return (await ctx.omnipartners.identity.getConfirmedLegalForm({
-      user_guid: this.user.data.owner.guid,
-    })).data.map(legal => legal.legal_form_code);
+    return (
+      await ctx.omnipartners.identity.getConfirmedLegalForm({
+        user_guid: this.user.data.owner.guid,
+      })
+    ).data.map(legal => legal.legal_form_code);
   }
 }
