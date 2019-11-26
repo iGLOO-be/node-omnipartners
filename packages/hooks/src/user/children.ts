@@ -25,6 +25,9 @@ export * from "./__generated__/UserChildrenUpdate";
 
 export const UserChildrenFragment = gql`
   fragment UserChildrenFragment on User {
+    owner {
+      guid
+    }
     children {
       birthday
       gender
@@ -42,9 +45,6 @@ export const UserChildrenQuery = gql`
   query UserChildren($token: String!) {
     user(token: $token) {
       result {
-        owner {
-          guid
-        }
         ...UserChildrenFragment
       }
       error {
