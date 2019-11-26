@@ -6,6 +6,7 @@
   "typings": "dist/index.d.ts",
   "license": "MIT",
   "files": [
+    "__generated__",
     "dist"
   ],
   "scripts": {
