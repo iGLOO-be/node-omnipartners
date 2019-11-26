@@ -8,6 +8,11 @@ import { UserChildCreateInput } from "./../../../__generated__/globalTypes";
 // GraphQL mutation operation: UserChildrenCreate
 // ====================================================
 
+export interface UserChildrenCreate_userChildCreate_result_user_owner {
+  __typename: "UserOwner";
+  guid: string;
+}
+
 export interface UserChildrenCreate_userChildCreate_result_user_children {
   __typename: "UserChild";
   birthday: any | null;
@@ -18,6 +23,7 @@ export interface UserChildrenCreate_userChildCreate_result_user_children {
 
 export interface UserChildrenCreate_userChildCreate_result_user {
   __typename: "User";
+  owner: UserChildrenCreate_userChildCreate_result_user_owner;
   children: UserChildrenCreate_userChildCreate_result_user_children[];
 }
 
