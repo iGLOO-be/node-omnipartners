@@ -353,6 +353,8 @@ type Mutation {
   userChildCreate(userChildCreateInput: UserChildCreateInput!, token: String!): UserChildResult!
   directCashbackDealSubscribe(input: DirectCashbackDealSubscribeInput!, token: String!): GenericValidationError
   directCashbackRedemptionRequestCreate(input: DirectCashbackRedemptionRequestInput!, token: String!): DirectCashbackRedemptionRequestCreateResult
+  userFavouritesCreate(userFavouriteInput: UserFavouritesCreateInput!, token: String!): GenericValidationError
+  userFavouritesDelete(id: String!, token: String!): GenericValidationError
   userPartnerRelationCreate(userPartnerInput: UserPartnerRelationCreateInput!, token: String!): UserPartnerUpdateResult!
   userPartnerRelationDelete(userPartnerInput: UserPartnerRelationDeleteInput!, token: String!): UserPartnerUpdateResult!
 }
@@ -651,7 +653,7 @@ type User {
   placesOfPurchase: [UserPlaceOfPurchase!]!
   children: [UserChild!]!
   segments: [UserSegment!]!
-  favourites(type: String!, source: String!): [UserFavourites!]!
+  favourites(type: String, source: String): [UserFavourites!]!
 }
 
 type UserAddress {
@@ -769,6 +771,13 @@ input UserCreateInput {
 
 type UserFavourites {
   id: String!
+  date: String!
+  type: String!
+  content: String!
+  source: String!
+}
+
+input UserFavouritesCreateInput {
   date: String!
   type: String!
   content: String!
