@@ -1,7 +1,6 @@
-import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
+import { Arg, Ctx, Field, InputType, Mutation } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { User } from "./User";
 
 @InputType()
 export class UserFavouritesCreateInput {
@@ -18,7 +17,6 @@ export class UserFavouritesCreateInput {
   public source!: string;
 }
 
-@Resolver(() => User)
 export class UserFavouritesCreateResolver {
   @Mutation(() => GenericValidationError, { nullable: true })
   public async userFavouritesCreate(
@@ -31,6 +29,28 @@ export class UserFavouritesCreateResolver {
     try {
       await ctx.omnipartners.identity.addUserFavourites({
         ...userFavouriteInput,
+        user_guid,
+      });
+
+      return;
+    } catch (err) {
+      return new GenericValidationError(err);
+    }
+  }
+}
+
+export class UserFavouritesDeleteResolver {
+  @Mutation(() => GenericValidationError, { nullable: true })
+  public async userFavouritesDelete(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Arg("id") id: string,
+  ): Promise<GenericValidationError | undefined> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+
+    try {
+      await ctx.omnipartners.identity.deleteUserFavourites({
+        content_id: id,
         user_guid,
       });
 
