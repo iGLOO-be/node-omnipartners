@@ -24,6 +24,7 @@ import { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
 import { UserChildCreateResolver } from "./user/UserChildCreateResolver";
 import { UserChildUpdateResolver } from "./user/UserChildUpdateResolver";
 import { UserCreateResolver } from "./user/UserCreateResolver";
+import { UserFavouritesCreateResolver } from "./user/UserFavouritesCreateResolver";
 import { UserPartnerRelationCreateResolver } from "./user/UserPartnerRelationCreateResolver";
 import { UserPartnerRelationDeleteResolver } from "./user/UserPartnerRelationDeleteResolver";
 import { UserPetCreateResolver } from "./user/UserPetCreateResolver";
@@ -62,6 +63,7 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       DirectCashbackRedemptionRequestResolver,
       UserChildUpdateResolver,
       UserChildCreateResolver,
+      UserFavouritesCreateResolver
     ],
     ...options,
   });
