@@ -651,6 +651,7 @@ type User {
   placesOfPurchase: [UserPlaceOfPurchase!]!
   children: [UserChild!]!
   segments: [UserSegment!]!
+  favourites(type: String!, source: String!): [UserFavourites!]!
 }
 
 type UserAddress {
@@ -764,6 +765,14 @@ input UserCreateInput {
   originDetails: String
   postalCode: String
   city: String
+}
+
+type UserFavourites {
+  id: String!
+  date: String!
+  type: String!
+  content: String!
+  source: String!
 }
 
 type UserLegalForms {

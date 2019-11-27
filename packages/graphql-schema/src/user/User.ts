@@ -12,6 +12,7 @@ import { IUserTokenPayload } from "../lib/UserTokenHelper";
 import { LegalForm } from "../metadata/DataLegalFormResolver";
 import { UserAddress } from "./UserAddress";
 import { UserChild } from "./UserChild";
+import { UserFavourites } from "./UserFavourites";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
 import { UserSegment } from "./UserSegments";
@@ -217,24 +218,35 @@ export class User<T = {}> {
 
   @Field(() => [UserChild], { nullable: false })
   public async children(@Ctx() ctx: Context): Promise<UserChild[]> {
-    const res = (
-      await ctx.omnipartners.identity.getChildren({
-        user_guid: this.owner.guid,
-      })
-    ).data;
+    const res = (await ctx.omnipartners.identity.getChildren({
+      user_guid: this.owner.guid,
+    })).data;
 
     return res.map(d => new UserChild(d));
   }
 
   @Field(() => [UserSegment], { nullable: false })
   public async segments(@Ctx() ctx: Context): Promise<UserSegment[]> {
-    const res = (
-      await ctx.omnipartners.identity.getUserSegments({
-        user_guid: this.owner.guid,
-      })
-    ).data;
+    const res = (await ctx.omnipartners.identity.getUserSegments({
+      user_guid: this.owner.guid,
+    })).data;
 
     return res.map(s => new UserSegment(s));
+  }
+
+  @Field(() => [UserFavourites], { nullable: false })
+  public async favourites(
+    @Ctx() ctx: Context,
+    @Arg("source", { nullable: true }) source?: string,
+    @Arg("type", { nullable: true }) type?: string,
+  ): Promise<UserFavourites[]> {
+    const res = (await ctx.omnipartners.identity.getUserFavourites({
+      user_guid: this.owner.guid,
+      source,
+      type,
+    })).data;
+
+    return res.map(d => new UserFavourites(d));
   }
 }
 
@@ -277,10 +289,8 @@ class UserLegalForms {
 
   @Memoize()
   private async getConfirmedLegalForms(ctx: Context) {
-    return (
-      await ctx.omnipartners.identity.getConfirmedLegalForm({
-        user_guid: this.user.data.owner.guid,
-      })
-    ).data.map(legal => legal.legal_form_code);
+    return (await ctx.omnipartners.identity.getConfirmedLegalForm({
+      user_guid: this.user.data.owner.guid,
+    })).data.map(legal => legal.legal_form_code);
   }
 }
