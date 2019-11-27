@@ -9,6 +9,7 @@ import {
   UserFavouritesCreate,
   UserFavouritesCreateVariables,
 } from "./__generated__/UserFavouritesCreate";
+import { UserFavouritesDelete, UserFavouritesDeleteVariables } from "./__generated__/UserFavouritesDelete";
 import { useUserToken } from "./tokenContext";
 
 export const UserFavouritesFragment = gql`
@@ -119,6 +120,48 @@ export const useUserFavouritesCreate = () => {
       });
 
       return data && data.userFavouritesCreate;
+    },
+  };
+};
+
+// ------------
+// DELETE
+// ------------
+
+const UserFavouritesDeleteMutation = gql`
+  mutation UserFavouritesDelete($id: String!, $token: String!) {
+    userFavouritesDelete(id: $id, token: $token) {
+      message
+      code
+      validationErrors {
+        field
+        errors {
+          validator
+          message
+        }
+      }
+    }
+  }
+`;
+
+export const useUserFavouritesDelete = () => {
+  const [userFavouritesDelete, mutationResult] = useMutation<
+    UserFavouritesDelete,
+    UserFavouritesDeleteVariables
+  >(UserFavouritesDeleteMutation);
+  const token = useUserToken();
+
+  return {
+    ...mutationResult,
+    userFavouritesDelete: async (id: string) => {
+      const { data } = await userFavouritesDelete({
+        variables: {
+          id,
+          token,
+        },
+      });
+
+      return data && data.userFavouritesDelete;
     },
   };
 };
