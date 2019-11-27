@@ -15,6 +15,11 @@ const E_NOT_LOGGED = "E_NOT_LOGGED";
 const UserCheckQuery = gql`
   query UserCheck($token: String!) {
     result: user(token: $token) {
+      result {
+        owner {
+          guid
+        }
+      }
       error {
         message
         code
