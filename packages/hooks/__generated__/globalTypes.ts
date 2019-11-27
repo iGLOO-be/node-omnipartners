@@ -87,6 +87,13 @@ export interface UserCreateInput {
   city?: string | null;
 }
 
+export interface UserFavouritesCreateInput {
+  date: any;
+  type: string;
+  content: string;
+  source: string;
+}
+
 export interface UserPetCreateInput {
   name: string;
   type: string;

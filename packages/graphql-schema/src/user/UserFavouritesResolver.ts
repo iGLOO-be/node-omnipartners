@@ -1,11 +1,11 @@
+import { format } from "date-fns";
 import { Arg, Ctx, Field, InputType, Mutation } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-
 @InputType()
 export class UserFavouritesCreateInput {
   @Field()
-  public date!: string;
+  public date!: Date;
 
   @Field()
   public type!: string;
@@ -22,13 +22,15 @@ export class UserFavouritesCreateResolver {
   public async userFavouritesCreate(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
-    @Arg("userFavouriteInput") userFavouriteInput: UserFavouritesCreateInput,
+    @Arg("userFavouritesCreateInput")
+    userFavouritesCreateInput: UserFavouritesCreateInput,
   ): Promise<GenericValidationError | undefined> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
 
     try {
       await ctx.omnipartners.identity.addUserFavourites({
-        ...userFavouriteInput,
+        ...userFavouritesCreateInput,
+        date: format(userFavouritesCreateInput.date, "yyyy-MM-dd"),
         user_guid,
       });
 

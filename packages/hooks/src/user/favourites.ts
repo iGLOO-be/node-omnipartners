@@ -1,9 +1,14 @@
 import gql from "graphql-tag";
-import { useQuery } from "react-apollo";
+import { useMutation, useQuery } from "react-apollo";
+import { UserFavouritesCreateInput } from "../../__generated__/globalTypes";
 import {
   UserFavourites,
   UserFavouritesVariables,
 } from "./__generated__/UserFavourites";
+import {
+  UserFavouritesCreate,
+  UserFavouritesCreateVariables,
+} from "./__generated__/UserFavouritesCreate";
 import { useUserToken } from "./tokenContext";
 
 export const UserFavouritesFragment = gql`
@@ -40,7 +45,13 @@ export const UserFavouritesQuery = gql`
   ${UserFavouritesFragment}
 `;
 
-export const useUserFavourites = () => {
+export const useUserFavourites = ({
+  source,
+  type,
+}: {
+  source?: string;
+  type?: string;
+}) => {
   const token = useUserToken();
   const { data, ...res } = useQuery<UserFavourites, UserFavouritesVariables>(
     UserFavouritesQuery,
@@ -48,6 +59,8 @@ export const useUserFavourites = () => {
       skip: !token,
       variables: {
         token,
+        source,
+        type,
       },
     },
   );
@@ -64,65 +77,48 @@ export const useUserFavourites = () => {
 // CREATE
 // ------------
 
-// const UserFavouritesCreateMutation = gql`
-//   mutation UserFavouritesCreate(
-//     $userChildCreateInput: UserChildCreateInput!
-//     $token: String!
-//   ) {
-//     userChildCreate(
-//       userChildCreateInput: $userChildCreateInput
-//       token: $token
-//     ) {
-//       result {
-//         user {
-//           ...UserFavouritesFragment
-//         }
-//       }
-//       error {
-//         message
-//         code
-//         validationErrors {
-//           field
-//           errors {
-//             validator
-//             message
-//           }
-//         }
-//       }
-//     }
-//   }
+const UserFavouritesCreateMutation = gql`
+  mutation UserFavouritesCreate(
+    $userFavouritesCreateInput: UserFavouritesCreateInput!
+    $token: String!
+  ) {
+    userFavouritesCreate(
+      userFavouritesCreateInput: $userFavouritesCreateInput
+      token: $token
+    ) {
+      message
+      code
+      validationErrors {
+        field
+        errors {
+          validator
+          message
+        }
+      }
+    }
+  }
+`;
 
-//   ${UserFavouritesFragment}
-// `;
+export const useUserFavouritesCreate = () => {
+  const [userFavouritesCreate, mutationResult] = useMutation<
+    UserFavouritesCreate,
+    UserFavouritesCreateVariables
+  >(UserFavouritesCreateMutation);
+  const token = useUserToken();
 
-// export const useUserFavouritesCreate = () => {
-//   const [createPet, mutationResult] = useMutation<
-//     UserFavouritesCreate,
-//     UserFavouritesCreateVariables
-//   >(UserFavouritesCreateMutation);
-//   const token = useUserToken();
+  return {
+    ...mutationResult,
+    userFavouritesCreate: async (
+      userFavouritesCreateInput: UserFavouritesCreateInput,
+    ) => {
+      const { data } = await userFavouritesCreate({
+        variables: {
+          userFavouritesCreateInput,
+          token,
+        },
+      });
 
-//   return {
-//     ...mutationResult,
-//     error:
-//       mutationResult.error ||
-//       (mutationResult.data && mutationResult.data.userChildCreate.error),
-//     userChildrenCreate: async (
-//       userChildCreateInput: Omit<UserChildCreateInput, "firstName"> & {
-//         firstName?: string;
-//       },
-//     ) => {
-//       const { data } = await createPet({
-//         variables: {
-//           userChildCreateInput: {
-//             ...userChildCreateInput,
-//             firstName: userChildCreateInput.firstName || "--",
-//           },
-//           token,
-//         },
-//       });
-
-//       return data && data.userChildCreate;
-//     },
-//   };
-// };
+      return data && data.userFavouritesCreate;
+    },
+  };
+};

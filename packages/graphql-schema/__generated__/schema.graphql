@@ -353,7 +353,7 @@ type Mutation {
   userChildCreate(userChildCreateInput: UserChildCreateInput!, token: String!): UserChildResult!
   directCashbackDealSubscribe(input: DirectCashbackDealSubscribeInput!, token: String!): GenericValidationError
   directCashbackRedemptionRequestCreate(input: DirectCashbackRedemptionRequestInput!, token: String!): DirectCashbackRedemptionRequestCreateResult
-  userFavouritesCreate(userFavouriteInput: UserFavouritesCreateInput!, token: String!): GenericValidationError
+  userFavouritesCreate(userFavouritesCreateInput: UserFavouritesCreateInput!, token: String!): GenericValidationError
   userFavouritesDelete(id: String!, token: String!): GenericValidationError
   userPartnerRelationCreate(userPartnerInput: UserPartnerRelationCreateInput!, token: String!): UserPartnerUpdateResult!
   userPartnerRelationDelete(userPartnerInput: UserPartnerRelationDeleteInput!, token: String!): UserPartnerUpdateResult!
@@ -778,7 +778,7 @@ type UserFavourites {
 }
 
 input UserFavouritesCreateInput {
-  date: String!
+  date: DateTime!
   type: String!
   content: String!
   source: String!
