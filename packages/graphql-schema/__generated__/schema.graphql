@@ -414,6 +414,11 @@ input PartnerLocatorInput {
   partner_status: String
 }
 
+type PartnerType {
+  code: String!
+  name: String!
+}
+
 type PlaceOfPurchase {
   name: String!
   code: String!
@@ -628,6 +633,7 @@ type Query {
     token: String!
   ): DirectCashbackVoucherConnection
   directCashbackVoucherDetail(deal_data_options: [String!], barcode: String!, token: String!): DirectCashbackVoucherDetail
+  metadataPartnerTypes(lang: String): [PartnerType!]!
   partnerList(
     """Paginate limit"""
     limit: Float

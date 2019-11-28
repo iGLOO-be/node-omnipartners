@@ -11,6 +11,7 @@ import { DataAnimalUniverseResolver } from "./metadata/DataAnimalUniverseResolve
 import { DataCountryResolver } from "./metadata/DataCountryResolver";
 import { DataLanguageResolver } from "./metadata/DataLanguageResolver";
 import { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
+import { DataPartnerTypeResolver } from "./metadata/DataPartnerTypeResolver";
 import { DataPlaceOfPurchaseResolver } from "./metadata/DataPlaceOfPurchaseResolver";
 import { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
 import { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
@@ -68,6 +69,7 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       UserChildCreateResolver,
       UserFavouritesCreateResolver,
       UserFavouritesDeleteResolver,
+      DataPartnerTypeResolver
     ],
     ...options,
   });

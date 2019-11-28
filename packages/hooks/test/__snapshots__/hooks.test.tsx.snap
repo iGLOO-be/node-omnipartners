@@ -30,6 +30,7 @@ Array [
   "useMetadataAnimalUniverses",
   "useMetadataCountries",
   "useMetadataLegalForms",
+  "useMetadataPartnerTypes",
   "useMetadataSubscriptions",
   "useMetadataUserTitles",
   "usePartnerDetails",
