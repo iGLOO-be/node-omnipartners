@@ -9,7 +9,10 @@ import {
   UserFavouritesCreate,
   UserFavouritesCreateVariables,
 } from "./__generated__/UserFavouritesCreate";
-import { UserFavouritesDelete, UserFavouritesDeleteVariables } from "./__generated__/UserFavouritesDelete";
+import {
+  UserFavouritesDelete,
+  UserFavouritesDeleteVariables,
+} from "./__generated__/UserFavouritesDelete";
 import { useUserToken } from "./tokenContext";
 
 export const UserFavouritesFragment = gql`
@@ -82,22 +85,32 @@ const UserFavouritesCreateMutation = gql`
   mutation UserFavouritesCreate(
     $userFavouritesCreateInput: UserFavouritesCreateInput!
     $token: String!
+    $source: String
+    $type: String
   ) {
     userFavouritesCreate(
       userFavouritesCreateInput: $userFavouritesCreateInput
       token: $token
     ) {
-      message
-      code
-      validationErrors {
-        field
-        errors {
-          validator
-          message
+      result {
+        user {
+          ...UserFavouritesFragment
+        }
+      }
+      error {
+        message
+        code
+        validationErrors {
+          field
+          errors {
+            validator
+            message
+          }
         }
       }
     }
   }
+  ${UserFavouritesFragment}
 `;
 
 export const useUserFavouritesCreate = () => {
@@ -129,19 +142,32 @@ export const useUserFavouritesCreate = () => {
 // ------------
 
 const UserFavouritesDeleteMutation = gql`
-  mutation UserFavouritesDelete($id: String!, $token: String!) {
+  mutation UserFavouritesDelete(
+    $id: String!
+    $token: String!
+    $source: String
+    $type: String
+  ) {
     userFavouritesDelete(id: $id, token: $token) {
-      message
-      code
-      validationErrors {
-        field
-        errors {
-          validator
-          message
+      result {
+        user {
+          ...UserFavouritesFragment
+        }
+      }
+      error {
+        message
+        code
+        validationErrors {
+          field
+          errors {
+            validator
+            message
+          }
         }
       }
     }
   }
+  ${UserFavouritesFragment}
 `;
 
 export const useUserFavouritesDelete = () => {
