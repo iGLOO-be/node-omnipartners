@@ -694,6 +694,24 @@ export interface IUserSegment {
   handle: string;
 }
 
+export interface IUserFavourites {
+  content_id: string;
+  date: string;
+  type: string;
+  content: string;
+  source: string;
+}
+
+export interface IUserFavouritesAddInput
+  extends Omit<IUserFavourites, "content_id"> {
+  user_guid: string;
+}
+
+export interface IUserFavouritesDeleteInput {
+  content_id: string;
+  user_guid: string;
+}
+
 export interface IUser {
   feedback: {
     unauthorized_data_options: [];

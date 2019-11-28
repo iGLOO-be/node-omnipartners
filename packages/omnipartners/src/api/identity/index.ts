@@ -15,6 +15,9 @@ import {
   IUserChildUpdateInput,
   IUserConfirmLegalFormsInput,
   IUserDataOptions,
+  IUserFavourites,
+  IUserFavouritesAddInput,
+  IUserFavouritesDeleteInput,
   IUserLegalFormsItems,
   IUserOwner,
   IUserPartial,
@@ -969,6 +972,67 @@ export default class Identity extends Api {
   }> {
     return this.post("/service/user/flush-segment-cache", data, {
       hashNoKey: undefined,
+    });
+  }
+
+  /*
+    Manage favourites
+  */
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Add_a_favourite_to_the_user_account",
+  )
+  @filterInput([
+    "user_guid", // The GUID of the user.
+    "date", // Date value for the favorite to be added (YYYY-MM-DD).
+    "type", // Text string used to define the type of favorite (eg: video / picture).
+    "content", // Text string used to store the content of the favorite.
+    "source", // Text string used to identify the source that created the favorite.
+  ])
+  public addUserFavourites(
+    data: IUserFavouritesAddInput,
+  ): Promise<{
+    statusCode: number;
+  }> {
+    return this.get("/service/user/add-favorite/", data, {
+      hashKeys: ["user_guid", "source", "date", "type"],
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Retrieve_favourites_of_a_user_account",
+  )
+  @filterInput([
+    "user_guid", // (Required) The GUID of the user.
+    "type", // (Optional) Text string used to define the type of favorite (eg: video / picture).
+    "source", // (Optional) Text string used to define the source of favorite.
+  ])
+  public getUserFavourites(data: {
+    user_guid: string;
+    type?: string;
+    source?: string;
+  }): Promise<{
+    data: IUserFavourites[];
+  }> {
+    return this.get("service/user/get-favorite/", data, {
+      hashKeys: ["user_guid"],
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Delete_a_favourite_from_a_user_account",
+  )
+  @filterInput([
+    "user_guid", // The GUID of the user.
+    "content_id", // The content ID of the pet owner favorite record
+  ])
+  public deleteUserFavourites(
+    data: IUserFavouritesDeleteInput,
+  ): Promise<{
+    statusCode: number;
+  }> {
+    return this.get("/service/user/del-favorite/", data, {
+      hashKeys: ["user_guid", "content_id"],
     });
   }
 }

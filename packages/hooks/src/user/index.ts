@@ -15,6 +15,7 @@ export * from "./useUserCheckValidRemoteAuth";
 export * from "./pets";
 export * from "./tokenContext";
 export * from "./children";
+export * from "./favourites";
 export * from "./segments";
 export * from "./useUserLoginByAccessToken";
 export * from "./useUserLoginByPublicToken";

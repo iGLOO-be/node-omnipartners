@@ -353,6 +353,8 @@ type Mutation {
   userChildCreate(userChildCreateInput: UserChildCreateInput!, token: String!): UserChildResult!
   directCashbackDealSubscribe(input: DirectCashbackDealSubscribeInput!, token: String!): GenericValidationError
   directCashbackRedemptionRequestCreate(input: DirectCashbackRedemptionRequestInput!, token: String!): DirectCashbackRedemptionRequestCreateResult
+  userFavouritesCreate(userFavouritesCreateInput: UserFavouritesCreateInput!, token: String!): UserFavouritesResult!
+  userFavouritesDelete(id: String!, token: String!): UserFavouritesResult!
   userPartnerRelationCreate(userPartnerInput: UserPartnerRelationCreateInput!, token: String!): UserPartnerUpdateResult!
   userPartnerRelationDelete(userPartnerInput: UserPartnerRelationDeleteInput!, token: String!): UserPartnerUpdateResult!
 }
@@ -651,6 +653,7 @@ type User {
   placesOfPurchase: [UserPlaceOfPurchase!]!
   children: [UserChild!]!
   segments: [UserSegment!]!
+  favourites(type: String, source: String): [UserFavourites!]!
 }
 
 type UserAddress {
@@ -700,6 +703,10 @@ type UserAndAddress {
 type UserAndChild {
   user: User!
   child: UserChild!
+}
+
+type UserAndFavourites {
+  user: User!
 }
 
 type UserAndPartner {
@@ -764,6 +771,26 @@ input UserCreateInput {
   originDetails: String
   postalCode: String
   city: String
+}
+
+type UserFavourites {
+  id: String!
+  date: String!
+  type: String!
+  content: String!
+  source: String!
+}
+
+input UserFavouritesCreateInput {
+  date: DateTime!
+  type: String!
+  content: String!
+  source: String!
+}
+
+type UserFavouritesResult {
+  error: GenericValidationError
+  result: UserAndFavourites
 }
 
 type UserLegalForms {
