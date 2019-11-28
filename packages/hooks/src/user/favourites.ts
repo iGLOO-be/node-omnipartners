@@ -113,7 +113,13 @@ const UserFavouritesCreateMutation = gql`
   ${UserFavouritesFragment}
 `;
 
-export const useUserFavouritesCreate = () => {
+export const useUserFavouritesCreate = ({
+  source,
+  type,
+}: {
+  source?: string;
+  type?: string;
+}) => {
   const [userFavouritesCreate, mutationResult] = useMutation<
     UserFavouritesCreate,
     UserFavouritesCreateVariables
@@ -129,6 +135,8 @@ export const useUserFavouritesCreate = () => {
         variables: {
           userFavouritesCreateInput,
           token,
+          source,
+          type,
         },
       });
 
@@ -170,7 +178,13 @@ const UserFavouritesDeleteMutation = gql`
   ${UserFavouritesFragment}
 `;
 
-export const useUserFavouritesDelete = () => {
+export const useUserFavouritesDelete = ({
+  source,
+  type,
+}: {
+  source?: string;
+  type?: string;
+}) => {
   const [userFavouritesDelete, mutationResult] = useMutation<
     UserFavouritesDelete,
     UserFavouritesDeleteVariables
@@ -184,6 +198,8 @@ export const useUserFavouritesDelete = () => {
         variables: {
           id,
           token,
+          source,
+          type,
         },
       });
 
