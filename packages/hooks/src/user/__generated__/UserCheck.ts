@@ -6,6 +6,16 @@
 // GraphQL query operation: UserCheck
 // ====================================================
 
+export interface UserCheck_result_result_owner {
+  __typename: "UserOwner";
+  guid: string;
+}
+
+export interface UserCheck_result_result {
+  __typename: "User";
+  owner: UserCheck_result_result_owner;
+}
+
 export interface UserCheck_result_error {
   __typename: "GenericError";
   message: string;
@@ -14,6 +24,7 @@ export interface UserCheck_result_error {
 
 export interface UserCheck_result {
   __typename: "UserResult";
+  result: UserCheck_result_result | null;
   error: UserCheck_result_error | null;
 }
 
