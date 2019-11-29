@@ -414,6 +414,11 @@ input PartnerLocatorInput {
   partner_status: String
 }
 
+type PartnerRelation {
+  code: String!
+  name: String!
+}
+
 type PartnerType {
   code: String!
   name: String!
@@ -581,6 +586,7 @@ type Query {
   metadataLanguages(lang: String): [Language!]!
   metadataSubscriptions(lang: String): [Subscription!]!
   metadataUserTitles(lang: String): [UserTitle!]!
+  metadataPartnerRelationTypes: [PartnerRelation!]!
   dealProducts(deal_ref: String!): [DealProduct!]
   dealCheckSecureCode(code: String!, deal_ref: String!): GenericValidationError
   dealVisiblePartnerForUser(
