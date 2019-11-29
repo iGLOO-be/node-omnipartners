@@ -71,6 +71,7 @@ export const useUserFavourites = ({
 
   return {
     ...res,
+    data,
     favourites:
       (data && data.user && data.user.result && data.user.result.favourites) ||
       [],
@@ -185,6 +186,7 @@ export const useUserFavouritesDelete = ({
   source?: string;
   type?: string;
 }) => {
+  const { data: userFavouritesData } = useUserFavourites({ source, type });
   const [userFavouritesDelete, mutationResult] = useMutation<
     UserFavouritesDelete,
     UserFavouritesDeleteVariables
@@ -200,6 +202,33 @@ export const useUserFavouritesDelete = ({
           token,
           source,
           type,
+        },
+        optimisticResponse: {
+          userFavouritesDelete: {
+            result: {
+              user: {
+                owner: {
+                  guid: `${userFavouritesData &&
+                    userFavouritesData.user &&
+                    userFavouritesData.user.result &&
+                    userFavouritesData.user.result.owner.guid}`,
+                  __typename: "UserOwner",
+                },
+                favourites:
+                  (userFavouritesData &&
+                    userFavouritesData.user &&
+                    userFavouritesData.user.result &&
+                    userFavouritesData.user.result.favourites.filter(
+                      v => v.id !== id,
+                    )) ||
+                  [],
+                __typename: "User",
+              },
+              __typename: "UserAndFavourites",
+            },
+            error: null,
+            __typename: "UserFavouritesResult",
+          },
         },
       });
 
