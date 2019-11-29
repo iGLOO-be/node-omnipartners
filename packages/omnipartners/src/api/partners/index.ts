@@ -340,4 +340,38 @@ export default class Partners extends Api {
       retry: true,
     });
   }
+
+  @doc("http://doc.omnipartners.be/index.php/Add_Relation")
+  @filterInput([
+    "partner_ext_id",
+    "relation_type", // Code of the relation type
+    "reference",
+  ])
+  public addRelation(data: {
+    partner_ext_id: string;
+    relation_type: string;
+    reference: string;
+  }): Promise<{ statusCode: number }> {
+    return this._call("add-partner-relations", data, {
+      hashKeys: ["action", "key", "partner_ext_id", "reference", "relation_type"],
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Delete_Relation")
+  @filterInput([
+    "partner_ext_id",
+    "relation_type", // Code of the relation type
+    "reference",
+  ])
+  public deleteRelation(data: {
+    partner_ext_id: string;
+    relation_type: string;
+    reference: string;
+  }): Promise<{ statusCode: number }> {
+    return this._call("delete-partner-relations", data, {
+      hashKeys: ["action", "key", "partner_ext_id", "reference", "relation_type"],
+      retry: true,
+    });
+  }
 }
