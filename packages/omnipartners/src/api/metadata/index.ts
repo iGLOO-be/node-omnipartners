@@ -214,6 +214,11 @@ export interface IMetadataLoyaltyProgram {
   thirdParty: "Y" | "N";
 }
 
+export interface IMetadataPartnerRelationType {
+  code: string;
+  name: string;
+}
+
 export default class Metadata extends Api {
   public defaultHost = "http://metadata.omnipartners.be/";
 
@@ -472,5 +477,11 @@ export default class Metadata extends Api {
   @filterInput(["lang", "indexed"])
   public getFeaturedAactivities(data?: IBaseInput): Promise<{ data: any }> {
     return this._call("get-featured-activities", data);
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_Partner_Relation_Types_List")
+  @filterInput(["lang", "indexed"])
+  public getPartnerRelationTypes(data?: IBaseInput): Promise<{ data: IMetadataPartnerRelationType[] }> {
+    return this._call("get-partner-relation-types", data);
   }
 }
