@@ -45,5 +45,13 @@ export const dataIdFromObject = (value: any) => {
     }
   }
 
+  if (__typename === "LoyaltyBalance") {
+    if (value.user_guid) {
+      return `${__typename}:${value.user_guid}`;
+    } else {
+      console.warn("Missing `user_guid` in `LoyaltyBalance`");
+    }
+  }
+
   return null;
 };
