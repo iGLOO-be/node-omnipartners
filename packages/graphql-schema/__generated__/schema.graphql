@@ -351,10 +351,10 @@ type Mutation {
   userUpdate(userInput: UserUpdateInput!, token: String!): UserUpdateResult!
   userChildUpdate(userChildUpdateInput: UserChildUpdateInput!, token: String!): UserChildResult!
   userChildCreate(userChildCreateInput: UserChildCreateInput!, token: String!): UserChildResult!
-  directCashbackDealSubscribe(input: DirectCashbackDealSubscribeInput!, token: String!): GenericValidationError
-  directCashbackRedemptionRequestCreate(input: DirectCashbackRedemptionRequestInput!, token: String!): DirectCashbackRedemptionRequestCreateResult
   userFavouritesCreate(userFavouritesCreateInput: UserFavouritesCreateInput!, token: String!): UserFavouritesResult!
   userFavouritesDelete(id: String!, token: String!): UserFavouritesResult!
+  directCashbackDealSubscribe(input: DirectCashbackDealSubscribeInput!, token: String!): GenericValidationError
+  directCashbackRedemptionRequestCreate(input: DirectCashbackRedemptionRequestInput!, token: String!): DirectCashbackRedemptionRequestCreateResult
   userPartnerRelationCreate(userPartnerInput: UserPartnerRelationCreateInput!, token: String!): UserPartnerUpdateResult!
   userPartnerRelationDelete(userPartnerInput: UserPartnerRelationDeleteInput!, token: String!): UserPartnerUpdateResult!
 }
