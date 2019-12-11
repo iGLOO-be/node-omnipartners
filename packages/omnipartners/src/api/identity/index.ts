@@ -721,13 +721,14 @@ export default class Identity extends Api {
   */
 
   @doc("http://doc.omnipartners.be/index.php/Retrieve_pet_information")
-  @filterInput(["user_guid"])
+  @filterInput(["user_guid", "data_options"])
   public getPets(
-    data: { user_guid: string },
+    data: { user_guid: string; data_options?: IUsetPetDataOptions },
     options?: { locale?: string },
   ): Promise<{ data: IUserPet[] }> {
     return this.get("/service/pets/get", data, {
       hashNoKey: true,
+      hashKeys: ["user_guid"],
       retry: true,
       ...(options &&
         options.locale && {
