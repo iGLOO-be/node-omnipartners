@@ -19,6 +19,7 @@ export * from "./types";
 export * from "./data-types";
 export * from "./api/metadata";
 export * from "./api/deals";
+export * from "./api/partners";
 export * from "./api/products";
 export * from "./api/loyalty";
 export * from "./lib/errors";
