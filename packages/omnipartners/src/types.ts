@@ -1203,7 +1203,7 @@ export interface ILoyaltyTransactionHistory {
 export interface ILoyaltyPointsExpirationDate {
   status: string;
   user_guid: string;
-  expiration_date: string;
+  expiration_date?: string | null;
   expiration_points: string;
 }
 
