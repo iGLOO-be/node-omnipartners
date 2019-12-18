@@ -9,6 +9,14 @@ import {
   IUserEligibleDirectCashbackDeal,
 } from "../../types";
 
+interface IUpdateSecureCodePropertiesInput {
+  access_code: string;
+  status?: string;
+  referral_partner_ext_id?: string;
+  expiry_date?: string;
+  deal_ref?: string;
+}
+
 export interface ISubscribeToDealInput {
   user_guid: string;
   ref: string;
@@ -634,6 +642,32 @@ export default class Deals extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Update_secure_code_properties")
+  @filterInput([
+    "access_code", // (Required) Updating access code
+    "status", // (optional) The status of the access code. This can only be 'AVAILABLE' or 'PUBLISHED'.
+    "referral_partner_ext_id", // (optional) Ext ID of the referral partner.
+    "expiry_date", // (optional) Expiry date of the access code. (ex: "2019-03-12 11:10:49")
+    "deal_ref", // (optional) New deal reference for the access code. This will update the deal of the access code only if the code status is 'AVAILABLE'
+  ])
+  public updateSecureCodeProperties(
+    data: IUpdateSecureCodePropertiesInput,
+  ): Promise<{
+    successCode: number;
+  }> {
+    return this._call("update-access-code-properties", data, {
+      hashKeys: undefined,
+      retry: true,
+      errorMap: {
+        1019: { message: "Referral partner ext id not exist."},
+        3062: { message: "At least one parameter must provide to update."},
+        3063: { message: "Access code does not exist."},
+        3129: { message: "Invalid status provided. Valid values are 'AVAILABLE' and 'PUBLISHED'."},
+        3130: { message: "Error on updating the record."},
+      }
+    });
+  }
+
   @doc(
     "http://doc.omnipartners.be/index.php/Get_List_of_eligible_Direct_Cashback_Deals",
   )
@@ -826,10 +860,10 @@ export default class Deals extends Api {
     "http://doc.omnipartners.be/index.php/Get_direct_cashback_voucher_approval_history",
   )
   @filterInput([
-    "barcode", // (Required)	Barcode of the cashback subscription.
-    "lang", // (optional)	Language ID will use to filter the collection name. (see http://doc.omnipartners.be/index.php/Language_list)
-    "sort_field", // (optional)	Field name to be apply the sorting. Allowed fields subscription_changed_on,redeem_history_changed_on
-    "sort_order", // (optional)	Sort order. possible values are DESC,ASC
+    "barcode", // (Required) Barcode of the cashback subscription.
+    "lang", // (optional) Language ID will use to filter the collection name. (see http://doc.omnipartners.be/index.php/Language_list)
+    "sort_field", // (optional) Field name to be apply the sorting. Allowed fields subscription_changed_on,redeem_history_changed_on
+    "sort_order", // (optional) Sort order. possible values are DESC,ASC
   ])
   public getDirectCashbackVoucherApprovalHistory(data: {
     barcode: string;
