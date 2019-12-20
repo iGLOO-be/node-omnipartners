@@ -226,6 +226,17 @@ export interface IPartnerLocatorInput {
   partner_status?: string;
 }
 
+interface IPartnerLink {
+  link_id: number;
+  contents: {
+    [lang: string]: string;
+  }
+}
+
+interface IPartnerLinks {
+  [k: string]: IPartnerLink[];
+}
+
 export interface IPartnerDetails {
   partner_ext_id: string;
   partner_inv_name: string;
@@ -288,7 +299,7 @@ export interface IPartnerDetails {
   partner_logo_small: string;
   partner_logo_medium: string;
   partner_logo_large: string;
-  links: [];
+  links: IPartnerLinks;
   partner_custom_conv: string;
   partner_custom_discountcode: string;
   partner_custom_edicode: string;
@@ -296,6 +307,9 @@ export interface IPartnerDetails {
   partner_custom_salesmanemail: string;
   partner_custom_species: string;
   partner_short_description_generic: string;
+  partner_opening_hours: {
+    [k: string]: Array<{ from: string; to: string }>;
+  } | null;
 }
 
 export interface IUserPartial {
