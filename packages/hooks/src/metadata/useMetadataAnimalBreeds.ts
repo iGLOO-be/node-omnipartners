@@ -54,12 +54,12 @@ export const useMetadataAnimalBreeds = (
       }))) ||
     [];
 
-  const { true: isOther, false: isNotOther } = groupBy(items, "isOther");
+  const { true: otherBreeds, false: regularBreeds } = groupBy(items, "isOther");
 
   return {
     ...res,
     items,
-    isOther,
-    isNotOther,
+    otherBreeds,
+    regularBreeds,
   };
 };

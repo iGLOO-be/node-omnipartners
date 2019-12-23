@@ -3,15 +3,35 @@ import { FieldProps } from "formik";
 import React from "react";
 
 export const BreedSelector = ({ field }: Partial<FieldProps>) => {
-  const { items } = useMetadataAnimalBreeds("fr");
+  const { items, otherBreeds, regularBreeds } = useMetadataAnimalBreeds("fr");
 
   return (
     <>
       <label htmlFor="breed" style={{ display: "block" }}>
-        Breed
+        All breeds
       </label>
       <select {...field} style={{ marginBottom: 15 }}>
         {items.map(item => (
+          <option key={item.value} value={item.value} id={item.value}>
+            {item.label}
+          </option>
+        ))}
+      </select>
+      <label htmlFor="breed" style={{ display: "block" }}>
+       Regular breeds
+      </label>
+      <select {...field} style={{ marginBottom: 15 }}>
+        {regularBreeds.map(item => (
+          <option key={item.value} value={item.value} id={item.value}>
+            {item.label}
+          </option>
+        ))}
+      </select>
+      <label htmlFor="breed" style={{ display: "block" }}>
+        Other Breeds
+      </label>
+      <select {...field} style={{ marginBottom: 15 }}>
+        {otherBreeds.map(item => (
           <option key={item.value} value={item.value} id={item.value}>
             {item.label}
           </option>
