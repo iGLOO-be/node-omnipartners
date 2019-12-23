@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import { groupBy } from "lodash";
 import {
   MetadataAnimalBreeds,
   MetadataAnimalBreedsVariables,
@@ -12,6 +13,7 @@ const MetadataAnimalBreedsQuery = gql`
     metadataAnimalBreeds(lang: $lang, type: $type) {
       id
       name
+      other
     }
   }
 `;
@@ -48,11 +50,16 @@ export const useMetadataAnimalBreeds = (
       res.data.metadataAnimalBreeds.map(d => ({
         label: d.name,
         value: d.id,
+        isOther: d.other,
       }))) ||
     [];
+
+  const { true: isOther, false: isNotOther } = groupBy(items, "isOther");
 
   return {
     ...res,
     items,
+    isOther,
+    isNotOther,
   };
 };
