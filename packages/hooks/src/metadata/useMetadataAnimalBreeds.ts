@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { groupBy } from "lodash";
 import {
   MetadataAnimalBreeds,
   MetadataAnimalBreedsVariables,
@@ -54,15 +53,8 @@ export const useMetadataAnimalBreeds = (
       }))) ||
     [];
 
-  const { true: otherBreeds = [], false: regularBreeds = [] } = groupBy(
-    items,
-    "isOther",
-  );
-
   return {
     ...res,
     items,
-    otherBreeds,
-    regularBreeds,
   };
 };
