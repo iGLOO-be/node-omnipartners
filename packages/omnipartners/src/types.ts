@@ -618,6 +618,17 @@ export interface IUserPetWeightEntry {
   ideal_weight?: string;
 }
 
+export interface IUserPetBmiEntryAddInput extends IUserPetBmiEntry {
+  pet_guid: string;
+}
+
+export interface IUserPetBmiEntry {
+  date: string;
+  bmi: number;
+  partner_ext_id?: string;
+  source: string;
+}
+
 export interface IUserChild {
   child_birthday: string;
   child_added_on: string;
