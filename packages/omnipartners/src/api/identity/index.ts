@@ -934,6 +934,23 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Delete_weight_entry")
+  @filterInput([
+    "pet_guid", // (Required)The GUID of the pet.
+    "date", // (Required)Date value for the pet weight record. Date format is ”YYYY-MM-DD”.
+    "partner_ext_id", // (Optional)Ext ID of the partner who adds the entry.
+  ])
+  public deletePetWeight(
+    data: Pick<
+      IUserPetWeightEntryAddInput,
+      "date" | "pet_guid" | "partner_ext_id"
+    >,
+  ) {
+    return this.post("/service/pets/del-weight/", data, {
+      hashKeys: ["pet_guid", "date"],
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Add_body_mass_index_entry")
   @filterInput([
     "pet_guid", // (Required)The GUID of the pet.
@@ -973,7 +990,7 @@ export default class Identity extends Api {
       IUserPetBmiEntryAddInput,
       "date" | "pet_guid" | "partner_ext_id"
     >,
-  ): Promise<{ statusCode: number; data: IUserPetBmiEntry[] }> {
+  ) {
     return this.post("/service/pets/del-bmi/", data, {
       hashKeys: ["pet_guid", "date"],
     });
