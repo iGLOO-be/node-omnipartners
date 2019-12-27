@@ -533,6 +533,11 @@ export interface IUserPetCreateInput {
   pet_ext_id?: string;
 }
 
+export interface IUserPetDeleteInput {
+  pet_guid: string;
+  pet_deletion_cause?: string;
+}
+
 export interface IUserPetUpdateInput {
   // The GUID of the pet.
   pet_guid: string;

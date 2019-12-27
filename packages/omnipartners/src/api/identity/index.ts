@@ -26,6 +26,7 @@ import {
   IUserPetBmiEntry,
   IUserPetBmiEntryAddInput,
   IUserPetCreateInput,
+  IUserPetDeleteInput,
   IUserPetPlaceOfPurchase,
   IUserPetPlaceOfPurchaseDeleteInput,
   IUserPetPlaceOfPurchaseUpdateInput,
@@ -791,6 +792,29 @@ export default class Identity extends Api {
         35: { message: "Pet limit reached for this account." },
       },
       hashKeys: ["pet_name", "user_guid"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Delete_existing_pet")
+  @filterInput([
+    "pet_guid", // (Required) GUID of the pet.
+    "pet_deletion_cause", // (Optional) Code of pet deletion cause. Please refer Animal deletion causes list for valid values.
+  ])
+  public deletePet(data: IUserPetDeleteInput) {
+    return this.post("/service/pets/delete", data, {
+      hashKeys: ["pet_guid"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Animal_deletion_causes_list")
+  @filterInput([
+    "lang", // (Optional) The language in which the list of animal types must be retrieved. Please refer Language list for valid values.
+  ])
+  public getPetDeletionCauses(data: {
+    lang?: string;
+  }) {
+    return this.post("service/data/get-animal-deletion-causes", data, {
+      hashKeys: undefined,
     });
   }
 
