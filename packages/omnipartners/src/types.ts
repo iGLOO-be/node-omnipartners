@@ -606,6 +606,18 @@ export interface IUserPetPlaceOfPurchaseDeleteInput {
   place_id: string;
 }
 
+export interface IUserPetWeightEntryAddInput extends IUserPetWeightEntry {
+  pet_guid: string;
+}
+
+export interface IUserPetWeightEntry {
+  date: string;
+  weight: string;
+  partner_ext_id?: string;
+  source: string;
+  ideal_weight?: string;
+}
+
 export interface IUserChild {
   child_birthday: string;
   child_added_on: string;
