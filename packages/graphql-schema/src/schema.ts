@@ -20,6 +20,7 @@ import { PartnerLocatorResolver } from "./partner/PartnerLocatorResolver";
 import { PartnerResolver } from "./partner/PartnerResolver";
 import { DealResolver } from "./resolvers/DealResolver";
 import { ProductResolver } from "./resolvers/ProductResolver";
+import { UserPetDeleteResolver } from "./user/TestResolver";
 import { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
 import { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
 import { UserChildCreateResolver } from "./user/UserChildCreateResolver";
@@ -32,7 +33,6 @@ import {
 import { UserPartnerRelationCreateResolver } from "./user/UserPartnerRelationCreateResolver";
 import { UserPartnerRelationDeleteResolver } from "./user/UserPartnerRelationDeleteResolver";
 import { UserPetCreateResolver } from "./user/UserPetCreateResolver";
-import { UserPetDeleteResolver } from "./user/UserPetDeleteresolver";
 import { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
 import { UserResolver } from "./user/UserResolver";
 import { UserUpdateResolver } from "./user/UserUpdateResolver";

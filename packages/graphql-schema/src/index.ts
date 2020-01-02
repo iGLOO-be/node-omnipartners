@@ -21,6 +21,7 @@ export { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
 export { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
 export { UserCreateResolver } from "./user/UserCreateResolver";
 export { UserPetCreateResolver } from "./user/UserPetCreateResolver";
+export { UserPetDeleteResolver } from "./user/TestResolver";
 export { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
 export { UserResolver, userDataOptions } from "./user/UserResolver";
 export {

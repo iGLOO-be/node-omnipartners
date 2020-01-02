@@ -354,6 +354,7 @@ type Mutation {
   userAddressUpdate(userAddressInput: UserAddressUpdateInput!, token: String!): UserAddressUpdateResult!
   userCreate(userInput: UserCreateInput!): UserUpdateResult!
   userPetCreate(userPetInput: UserPetCreateInput!, token: String!): UserPetUpdateResult!
+  userPetDelete(userPetDeleteInput: UserPetDeleteInput!, token: String!): UserResult!
   userPetUpdate(userPetInput: UserPetUpdateInput!, token: String!): UserPetUpdateResult!
   userUpdate(userInput: UserUpdateInput!, token: String!): UserUpdateResult!
   userChildUpdate(userChildUpdateInput: UserChildUpdateInput!, token: String!): UserChildResult!
@@ -364,7 +365,6 @@ type Mutation {
   directCashbackRedemptionRequestCreate(input: DirectCashbackRedemptionRequestInput!, token: String!): DirectCashbackRedemptionRequestCreateResult
   userPartnerRelationCreate(userPartnerInput: UserPartnerRelationCreateInput!, token: String!): UserPartnerUpdateResult!
   userPartnerRelationDelete(userPartnerInput: UserPartnerRelationDeleteInput!, token: String!): UserPartnerUpdateResult!
-  userPetDelete(userPetDeleteInput: UserPetDeleteInput!, token: String!): UserResult!
 }
 
 type PageInfo {
