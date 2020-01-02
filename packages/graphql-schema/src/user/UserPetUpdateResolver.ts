@@ -4,6 +4,7 @@ import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserPet } from "./UserPet";
+import { Bmi } from "./UserPetCreateResolver";
 import { UserPetUpdateResult } from "./UserPetUpdateResult";
 import { userDataOptions } from "./UserResolver";
 
@@ -34,7 +35,10 @@ class UserPetUpdateInput {
   public pictureUrl?: string;
 
   @Field({ nullable: true })
-  public placeOfPurchase!: string;
+  public placeOfPurchase?: string;
+
+  @Field(() => Bmi, { nullable: true })
+  public bmi?: Bmi;
 }
 
 const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
@@ -95,9 +99,11 @@ export class UserPetUpdateResolver {
   ): Promise<UserPetUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
-      const pet = (await ctx.omnipartners.identity.getPet({
-        pet_guid: userPetInput.guid,
-      })).data;
+      const pet = (
+        await ctx.omnipartners.identity.getPet({
+          pet_guid: userPetInput.guid,
+        })
+      ).data;
 
       if (pet.pet_owner.user_guid !== user_guid) {
         // TODO: better error
@@ -113,6 +119,13 @@ export class UserPetUpdateResolver {
           pet_guid: pet.guid,
           place_id: userPetInput.placeOfPurchase,
           place_rating: "5",
+        });
+      }
+
+      if (userPetInput.bmi) {
+        await ctx.omnipartners.identity.addPetBmi({
+          pet_guid: pet.guid,
+          ...userPetInput.bmi,
         });
       }
 

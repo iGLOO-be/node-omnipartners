@@ -1,4 +1,4 @@
-import { IUserPetCreateInput } from "omnipartners";
+import { IUserPetBmiEntry, IUserPetCreateInput } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
@@ -6,6 +6,21 @@ import { User } from "./User";
 import { UserPet } from "./UserPet";
 import { UserPetUpdateResult } from "./UserPetUpdateResult";
 import { userDataOptions } from "./UserResolver";
+
+@InputType()
+export class Bmi implements IUserPetBmiEntry {
+  @Field()
+  public date!: string;
+
+  @Field()
+  public bmi!: number;
+
+  @Field({ nullable: true })
+  public partner_ext_id?: string;
+
+  @Field()
+  public source!: string;
+}
 
 @InputType()
 class UserPetCreateInput {
@@ -32,6 +47,12 @@ class UserPetCreateInput {
 
   @Field({ nullable: true })
   public placeOfPurchase!: string;
+
+  @Field({ nullable: true })
+  public weight!: number;
+
+  @Field(() => Bmi, { nullable: true })
+  public bmi!: Bmi;
 }
 
 const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
@@ -89,10 +110,12 @@ export class UserPetCreateResolver {
   ): Promise<UserPetUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
-      const pet = (await ctx.omnipartners.identity.createPet({
-        ...mapClixrayFields(userPetInput),
-        user_guid,
-      })).data;
+      const pet = (
+        await ctx.omnipartners.identity.createPet({
+          ...mapClixrayFields(userPetInput),
+          user_guid,
+        })
+      ).data;
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: userDataOptions,
         user_guid,
@@ -102,6 +125,13 @@ export class UserPetCreateResolver {
           pet_guid: pet.guid,
           place_id: userPetInput.placeOfPurchase,
           place_rating: "5",
+        });
+      }
+
+      if (userPetInput.bmi) {
+        await ctx.omnipartners.identity.addPetBmi({
+          pet_guid: pet.guid,
+          ...userPetInput.bmi,
         });
       }
 

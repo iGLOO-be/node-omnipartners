@@ -874,6 +874,12 @@ type UserPet {
   lastUpdated: DateTime
   pictureUrl: String!
   placeOfPurchase: [UserPetPlaceOfPurchase!]!
+  weightSeries: [UserPetWeight!]!
+  bmiSeries: [UserPetBmi!]!
+}
+
+type UserPetBmi {
+  bmi: String!
 }
 
 input UserPetCreateInput {
@@ -908,6 +914,10 @@ input UserPetUpdateInput {
 type UserPetUpdateResult {
   error: GenericValidationError
   result: UserAndPet
+}
+
+type UserPetWeight {
+  weight: String!
 }
 
 type UserPlaceOfPurchase {
