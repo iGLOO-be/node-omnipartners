@@ -1,4 +1,8 @@
-import { IUserPetBmiEntry, IUserPetCreateInput } from "omnipartners";
+import {
+  IUserPetBmiEntry,
+  IUserPetCreateInput,
+  IUserPetWeightEntry,
+} from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
@@ -14,6 +18,21 @@ export class Bmi implements IUserPetBmiEntry {
 
   @Field()
   public bmi!: number;
+
+  @Field({ nullable: true })
+  public partner_ext_id?: string;
+
+  @Field()
+  public source!: string;
+}
+
+@InputType()
+export class Weight implements IUserPetWeightEntry {
+  @Field()
+  public date!: string;
+
+  @Field()
+  public weight!: number;
 
   @Field({ nullable: true })
   public partner_ext_id?: string;
@@ -48,11 +67,11 @@ class UserPetCreateInput {
   @Field({ nullable: true })
   public placeOfPurchase!: string;
 
-  @Field({ nullable: true })
-  public weight!: number;
-
   @Field(() => Bmi, { nullable: true })
   public bmi!: Bmi;
+
+  @Field(() => Weight, { nullable: true })
+  public weight!: Weight;
 }
 
 const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
@@ -132,6 +151,13 @@ export class UserPetCreateResolver {
         await ctx.omnipartners.identity.addPetBmi({
           pet_guid: pet.guid,
           ...userPetInput.bmi,
+        });
+      }
+
+      if (userPetInput.weight) {
+        await ctx.omnipartners.identity.addPetWeight({
+          pet_guid: pet.guid,
+          ...userPetInput.weight,
         });
       }
 

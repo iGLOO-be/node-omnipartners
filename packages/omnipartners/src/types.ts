@@ -617,7 +617,7 @@ export interface IUserPetWeightEntryAddInput extends IUserPetWeightEntry {
 
 export interface IUserPetWeightEntry {
   date: string;
-  weight: string;
+  weight: number;
   partner_ext_id?: string;
   source: string;
   ideal_weight?: string;

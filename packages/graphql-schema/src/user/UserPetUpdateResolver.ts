@@ -4,7 +4,7 @@ import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserPet } from "./UserPet";
-import { Bmi } from "./UserPetCreateResolver";
+import { Bmi, Weight } from "./UserPetCreateResolver";
 import { UserPetUpdateResult } from "./UserPetUpdateResult";
 import { userDataOptions } from "./UserResolver";
 
@@ -39,6 +39,9 @@ class UserPetUpdateInput {
 
   @Field(() => Bmi, { nullable: true })
   public bmi?: Bmi;
+
+  @Field(() => Weight, { nullable: true })
+  public weight?: Weight;
 }
 
 const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
@@ -126,6 +129,13 @@ export class UserPetUpdateResolver {
         await ctx.omnipartners.identity.addPetBmi({
           pet_guid: pet.guid,
           ...userPetInput.bmi,
+        });
+      }
+
+      if (userPetInput.weight) {
+        await ctx.omnipartners.identity.addPetWeight({
+          pet_guid: pet.guid,
+          ...userPetInput.weight,
         });
       }
 
