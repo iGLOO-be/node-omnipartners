@@ -20,6 +20,13 @@ type AnimalUniverse {
   species: String!
 }
 
+input Bmi {
+  date: String!
+  bmi: Float!
+  partner_ext_id: String
+  source: String!
+}
+
 type Country {
   name: String!
   code: String!
@@ -357,6 +364,7 @@ type Mutation {
   directCashbackRedemptionRequestCreate(input: DirectCashbackRedemptionRequestInput!, token: String!): DirectCashbackRedemptionRequestCreateResult
   userPartnerRelationCreate(userPartnerInput: UserPartnerRelationCreateInput!, token: String!): UserPartnerUpdateResult!
   userPartnerRelationDelete(userPartnerInput: UserPartnerRelationDeleteInput!, token: String!): UserPartnerUpdateResult!
+  userPetDelete(userPetDeleteInput: UserPetDeleteInput!, token: String!): UserResult!
 }
 
 type PageInfo {
@@ -891,6 +899,13 @@ input UserPetCreateInput {
   gender: String
   pictureUrl: String
   placeOfPurchase: String
+  bmi: Bmi
+  weight: Weight
+}
+
+input UserPetDeleteInput {
+  guid: String!
+  petDeletionCause: String!
 }
 
 type UserPetPlaceOfPurchase {
@@ -909,6 +924,8 @@ input UserPetUpdateInput {
   neutered: Boolean
   pictureUrl: String
   placeOfPurchase: String
+  bmi: Bmi
+  weight: Weight
 }
 
 type UserPetUpdateResult {
@@ -985,4 +1002,11 @@ input UserUpdateSubscriptionsInput {
 type ValidationError {
   validator: String!
   message: String!
+}
+
+input Weight {
+  date: String!
+  weight: Float!
+  partner_ext_id: String
+  source: String!
 }
