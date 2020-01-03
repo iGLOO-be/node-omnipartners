@@ -3,7 +3,7 @@ import { FieldProps } from "formik";
 import React from "react";
 
 export const BreedSelector = ({ field }: Partial<FieldProps>) => {
-  const { items, otherBreeds, regularBreeds } = useMetadataAnimalBreeds("fr");
+  const { items } = useMetadataAnimalBreeds("fr");
 
   return (
     <>
@@ -18,24 +18,28 @@ export const BreedSelector = ({ field }: Partial<FieldProps>) => {
         ))}
       </select>
       <label htmlFor="breed" style={{ display: "block" }}>
-       Regular breeds
+        Regular breeds
       </label>
       <select {...field} style={{ marginBottom: 15 }}>
-        {regularBreeds.map(item => (
-          <option key={item.value} value={item.value} id={item.value}>
-            {item.label}
-          </option>
-        ))}
+        {items
+          .filter(breed => !breed.isOther)
+          .map(item => (
+            <option key={item.value} value={item.value} id={item.value}>
+              {item.label}
+            </option>
+          ))}
       </select>
       <label htmlFor="breed" style={{ display: "block" }}>
         Other Breeds
       </label>
       <select {...field} style={{ marginBottom: 15 }}>
-        {otherBreeds.map(item => (
-          <option key={item.value} value={item.value} id={item.value}>
-            {item.label}
-          </option>
-        ))}
+        {items
+          .filter(breed => breed.isOther)
+          .map(item => (
+            <option key={item.value} value={item.value} id={item.value}>
+              {item.label}
+            </option>
+          ))}
       </select>
     </>
   );
