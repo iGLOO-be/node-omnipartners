@@ -12,7 +12,7 @@ import { UserPetUpdateResult } from "./UserPetUpdateResult";
 import { userDataOptions } from "./UserResolver";
 
 @InputType()
-export class Bmi implements IUserPetBmiEntry {
+export class UserPetBmiEntry implements IUserPetBmiEntry {
   @Field()
   public date!: string;
 
@@ -27,7 +27,7 @@ export class Bmi implements IUserPetBmiEntry {
 }
 
 @InputType()
-export class Weight implements IUserPetWeightEntry {
+export class UserPetWeightEntry implements IUserPetWeightEntry {
   @Field()
   public date!: string;
 
@@ -67,11 +67,11 @@ class UserPetCreateInput {
   @Field({ nullable: true })
   public placeOfPurchase!: string;
 
-  @Field(() => Bmi, { nullable: true })
-  public bmi!: Bmi;
+  @Field(() => UserPetBmiEntry, { nullable: true })
+  public bmi!: UserPetBmiEntry;
 
-  @Field(() => Weight, { nullable: true })
-  public weight!: Weight;
+  @Field(() => UserPetWeightEntry, { nullable: true })
+  public weight!: UserPetWeightEntry;
 }
 
 const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
@@ -139,27 +139,25 @@ export class UserPetCreateResolver {
         data_options: userDataOptions,
         user_guid,
       });
-      if (userPetInput.placeOfPurchase) {
-        await ctx.omnipartners.identity.updatePetPlaceOfPurchase({
-          pet_guid: pet.guid,
-          place_id: userPetInput.placeOfPurchase,
-          place_rating: "5",
-        });
-      }
 
-      if (userPetInput.bmi) {
-        await ctx.omnipartners.identity.addPetBmi({
-          pet_guid: pet.guid,
-          ...userPetInput.bmi,
-        });
-      }
-
-      if (userPetInput.weight) {
-        await ctx.omnipartners.identity.addPetWeight({
-          pet_guid: pet.guid,
-          ...userPetInput.weight,
-        });
-      }
+      await Promise.all([
+        userPetInput.placeOfPurchase &&
+          ctx.omnipartners.identity.updatePetPlaceOfPurchase({
+            pet_guid: pet.guid,
+            place_id: userPetInput.placeOfPurchase,
+            place_rating: "5",
+          }),
+        userPetInput.bmi &&
+          ctx.omnipartners.identity.addPetBmi({
+            pet_guid: pet.guid,
+            ...userPetInput.bmi,
+          }),
+        userPetInput.weight &&
+          ctx.omnipartners.identity.addPetWeight({
+            pet_guid: pet.guid,
+            ...userPetInput.weight,
+          }),
+      ]);
 
       return new UserPetUpdateResult({
         result: {

@@ -20,13 +20,6 @@ type AnimalUniverse {
   species: String!
 }
 
-input Bmi {
-  date: String!
-  bmi: Float!
-  partner_ext_id: String
-  source: String!
-}
-
 type Country {
   name: String!
   code: String!
@@ -890,6 +883,13 @@ type UserPetBmi {
   bmi: String!
 }
 
+input UserPetBmiEntry {
+  date: String!
+  bmi: Float!
+  partner_ext_id: String
+  source: String!
+}
+
 input UserPetCreateInput {
   name: String!
   type: String!
@@ -899,8 +899,8 @@ input UserPetCreateInput {
   gender: String
   pictureUrl: String
   placeOfPurchase: String
-  bmi: Bmi
-  weight: Weight
+  bmi: UserPetBmiEntry
+  weight: UserPetWeightEntry
 }
 
 input UserPetDeleteInput {
@@ -924,8 +924,8 @@ input UserPetUpdateInput {
   neutered: Boolean
   pictureUrl: String
   placeOfPurchase: String
-  bmi: Bmi
-  weight: Weight
+  bmi: UserPetBmiEntry
+  weight: UserPetWeightEntry
 }
 
 type UserPetUpdateResult {
@@ -935,6 +935,13 @@ type UserPetUpdateResult {
 
 type UserPetWeight {
   weight: String!
+}
+
+input UserPetWeightEntry {
+  date: String!
+  weight: Float!
+  partner_ext_id: String
+  source: String!
 }
 
 type UserPlaceOfPurchase {
@@ -1002,11 +1009,4 @@ input UserUpdateSubscriptionsInput {
 type ValidationError {
   validator: String!
   message: String!
-}
-
-input Weight {
-  date: String!
-  weight: Float!
-  partner_ext_id: String
-  source: String!
 }

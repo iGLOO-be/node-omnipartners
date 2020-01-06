@@ -4,7 +4,7 @@ import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserPet } from "./UserPet";
-import { Bmi, Weight } from "./UserPetCreateResolver";
+import { UserPetBmiEntry, UserPetWeightEntry } from "./UserPetCreateResolver";
 import { UserPetUpdateResult } from "./UserPetUpdateResult";
 import { userDataOptions } from "./UserResolver";
 
@@ -37,11 +37,11 @@ class UserPetUpdateInput {
   @Field({ nullable: true })
   public placeOfPurchase?: string;
 
-  @Field(() => Bmi, { nullable: true })
-  public bmi?: Bmi;
+  @Field(() => UserPetBmiEntry, { nullable: true })
+  public bmi?: UserPetBmiEntry;
 
-  @Field(() => Weight, { nullable: true })
-  public weight?: Weight;
+  @Field(() => UserPetWeightEntry, { nullable: true })
+  public weight?: UserPetWeightEntry;
 }
 
 const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
@@ -113,31 +113,39 @@ export class UserPetUpdateResolver {
         throw new Error("Not your pet!");
       }
 
-      const updatedPet = (await ctx.omnipartners.identity.updatePet(
-        mapClixrayFields(userPetInput),
-      )).data;
+      const updatedPet = (
+        await ctx.omnipartners.identity.updatePet(
+          mapClixrayFields({
+            ...userPetInput,
+            guid: userPetInput.guid || pet.guid,
+            name: userPetInput.name || pet.name,
+            breed: userPetInput.breed || pet.breed,
+            dob: userPetInput.dob || pet.pet_dob,
+            gender: userPetInput.gender || pet.gender,
+            type: userPetInput.type || pet.type,
+            neutered: userPetInput.neutered,
+          }),
+        )
+      ).data;
 
-      if (userPetInput.placeOfPurchase) {
-        await ctx.omnipartners.identity.updatePetPlaceOfPurchase({
-          pet_guid: pet.guid,
-          place_id: userPetInput.placeOfPurchase,
-          place_rating: "5",
-        });
-      }
-
-      if (userPetInput.bmi) {
-        await ctx.omnipartners.identity.addPetBmi({
-          pet_guid: pet.guid,
-          ...userPetInput.bmi,
-        });
-      }
-
-      if (userPetInput.weight) {
-        await ctx.omnipartners.identity.addPetWeight({
-          pet_guid: pet.guid,
-          ...userPetInput.weight,
-        });
-      }
+      await Promise.all([
+        userPetInput.placeOfPurchase &&
+          ctx.omnipartners.identity.updatePetPlaceOfPurchase({
+            pet_guid: pet.guid,
+            place_id: userPetInput.placeOfPurchase,
+            place_rating: "5",
+          }),
+        userPetInput.bmi &&
+          ctx.omnipartners.identity.addPetBmi({
+            pet_guid: pet.guid,
+            ...userPetInput.bmi,
+          }),
+        userPetInput.weight &&
+          ctx.omnipartners.identity.addPetWeight({
+            pet_guid: pet.guid,
+            ...userPetInput.weight,
+          }),
+      ]);
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: userDataOptions,
