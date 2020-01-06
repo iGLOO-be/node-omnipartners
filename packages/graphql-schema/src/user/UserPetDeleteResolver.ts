@@ -33,6 +33,17 @@ export class UserPetDeleteResolver {
     @Arg("userPetDeleteInput") userPetDeleteInput: UserPetDeleteInput,
   ): Promise<UserResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
+    const pet = (
+      await ctx.omnipartners.identity.getPet({
+        pet_guid: userPetDeleteInput.guid,
+      })
+    ).data;
+
+    if (pet.pet_owner.user_guid !== user_guid) {
+      // TODO: better error
+      throw new Error("Not your pet!");
+    }
+
     try {
       await ctx.omnipartners.identity.deletePet(
         mapClixrayFields(userPetDeleteInput),
