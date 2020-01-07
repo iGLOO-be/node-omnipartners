@@ -12,6 +12,7 @@ const MetadataAnimalBreedsQuery = gql`
     metadataAnimalBreeds(lang: $lang, type: $type) {
       id
       name
+      other
     }
   }
 `;
@@ -48,6 +49,7 @@ export const useMetadataAnimalBreeds = (
       res.data.metadataAnimalBreeds.map(d => ({
         label: d.name,
         value: d.id,
+        isOther: d.other,
       }))) ||
     [];
 

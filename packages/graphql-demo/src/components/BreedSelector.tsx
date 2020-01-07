@@ -8,7 +8,7 @@ export const BreedSelector = ({ field }: Partial<FieldProps>) => {
   return (
     <>
       <label htmlFor="breed" style={{ display: "block" }}>
-        Breed
+        All breeds
       </label>
       <select {...field} style={{ marginBottom: 15 }}>
         {items.map(item => (
@@ -16,6 +16,30 @@ export const BreedSelector = ({ field }: Partial<FieldProps>) => {
             {item.label}
           </option>
         ))}
+      </select>
+      <label htmlFor="breed" style={{ display: "block" }}>
+        Regular breeds
+      </label>
+      <select {...field} style={{ marginBottom: 15 }}>
+        {items
+          .filter(breed => !breed.isOther)
+          .map(item => (
+            <option key={item.value} value={item.value} id={item.value}>
+              {item.label}
+            </option>
+          ))}
+      </select>
+      <label htmlFor="breed" style={{ display: "block" }}>
+        Other Breeds
+      </label>
+      <select {...field} style={{ marginBottom: 15 }}>
+        {items
+          .filter(breed => breed.isOther)
+          .map(item => (
+            <option key={item.value} value={item.value} id={item.value}>
+              {item.label}
+            </option>
+          ))}
       </select>
     </>
   );

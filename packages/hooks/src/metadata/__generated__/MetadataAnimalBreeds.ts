@@ -10,6 +10,7 @@ export interface MetadataAnimalBreeds_metadataAnimalBreeds {
   __typename: "AnimalBreed";
   id: string;
   name: string;
+  other: boolean;
 }
 
 export interface MetadataAnimalBreeds {
