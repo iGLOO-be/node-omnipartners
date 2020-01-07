@@ -547,6 +547,11 @@ export interface IUserPetCreateInput {
   pet_ext_id?: string;
 }
 
+export interface IUserPetDeleteInput {
+  pet_guid: string;
+  pet_deletion_cause?: string;
+}
+
 export interface IUserPetUpdateInput {
   // The GUID of the pet.
   pet_guid: string;
@@ -618,6 +623,29 @@ export interface IUserPetPlaceOfPurchase {
 export interface IUserPetPlaceOfPurchaseDeleteInput {
   pet_guid: string;
   place_id: string;
+}
+
+export interface IUserPetWeightEntryAddInput extends IUserPetWeightEntry {
+  pet_guid: string;
+}
+
+export interface IUserPetWeightEntry {
+  date: string;
+  weight: number;
+  partner_ext_id?: string;
+  source: string;
+  ideal_weight?: string;
+}
+
+export interface IUserPetBmiEntryAddInput extends IUserPetBmiEntry {
+  pet_guid: string;
+}
+
+export interface IUserPetBmiEntry {
+  date: string;
+  bmi: number;
+  partner_ext_id?: string;
+  source: string;
 }
 
 export interface IUserChild {

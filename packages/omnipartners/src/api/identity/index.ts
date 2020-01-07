@@ -23,11 +23,16 @@ import {
   IUserPartial,
   IUserPartnerRelationFromGet,
   IUserPet,
+  IUserPetBmiEntry,
+  IUserPetBmiEntryAddInput,
   IUserPetCreateInput,
+  IUserPetDeleteInput,
   IUserPetPlaceOfPurchase,
   IUserPetPlaceOfPurchaseDeleteInput,
   IUserPetPlaceOfPurchaseUpdateInput,
   IUserPetUpdateInput,
+  IUserPetWeightEntry,
+  IUserPetWeightEntryAddInput,
   IUserPlaceOfPurchase,
   IUserPreferences,
   IUserSegment,
@@ -45,6 +50,7 @@ export interface IUserGetPartnerAccountRelationsResult {
 
 export default class Identity extends Api {
   public errorMap = {
+    9: { message: "Pet not found" },
     19: { message: "Partner not found." },
   };
 
@@ -789,6 +795,29 @@ export default class Identity extends Api {
     });
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Delete_existing_pet")
+  @filterInput([
+    "pet_guid", // (Required) GUID of the pet.
+    "pet_deletion_cause", // (Optional) Code of pet deletion cause. Please refer Animal deletion causes list for valid values.
+  ])
+  public deletePet(data: IUserPetDeleteInput) {
+    return this.post("/service/pets/delete", data, {
+      hashKeys: ["pet_guid"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Animal_deletion_causes_list")
+  @filterInput([
+    "lang", // (Optional) The language in which the list of animal types must be retrieved. Please refer Language list for valid values.
+  ])
+  public getPetDeletionCauses(data: {
+    lang?: string;
+  }) {
+    return this.post("service/data/get-animal-deletion-causes", data, {
+      hashKeys: undefined,
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Update_pet_information")
   @filterInput([
     "pet_guid",
@@ -897,6 +926,97 @@ export default class Identity extends Api {
   ): Promise<{ statusCode: number; data: any }> {
     return this.post("/service/pet-purchase-place/delete-place/", data, {
       hashKeys: undefined,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Add_weight_entry")
+  @filterInput([
+    "pet_guid", // (Required)The GUID of the pet.
+    "date", // (Required)Date value for the pet weight record. Date format is ”YYYY-MM-DD”.
+    "weight", // (Required)Weight of the pet (in grams).
+    "partner_ext_id", // (Optional)Ext ID of the partner who adds the entry.
+    "source", // (Required)It’s a text value and specifies the source of the request.
+    "ideal_weight", // (Optional)Ideal Weight of the pet (in grams).
+  ])
+  public addPetWeight(data: IUserPetWeightEntryAddInput) {
+    return this.post("/service/pets/add-weight/", data, {
+      hashKeys: ["pet_guid", "date", "weight", "source"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Retrieve_weight_Series")
+  @filterInput([
+    "pet_guid", // (Required)The GUID of the pet.
+    "partner_ext_id", // (Optional)Ext ID of the partner who adds the entry.
+  ])
+  public getPetWeight(data: {
+    pet_guid: string;
+    partner_ext_id?: string;
+  }): Promise<{ statusCode: number; data: IUserPetWeightEntry[] }> {
+    return this.post("/service/pets/get-weight/", data, {
+      hashKeys: ["pet_guid"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Delete_weight_entry")
+  @filterInput([
+    "pet_guid", // (Required)The GUID of the pet.
+    "date", // (Required)Date value for the pet weight record. Date format is ”YYYY-MM-DD”.
+    "partner_ext_id", // (Optional)Ext ID of the partner who adds the entry.
+  ])
+  public deletePetWeight(
+    data: Pick<
+      IUserPetWeightEntryAddInput,
+      "date" | "pet_guid" | "partner_ext_id"
+    >,
+  ) {
+    return this.post("/service/pets/del-weight/", data, {
+      hashKeys: ["pet_guid", "date"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Add_body_mass_index_entry")
+  @filterInput([
+    "pet_guid", // (Required)The GUID of the pet.
+    "date", // (Required)Date value for the pet weight record. Date format is ”YYYY-MM-DD”.
+    "bmi", // (Required) BMIof the pet.
+    "partner_ext_id", // (Optional)Ext ID of the partner who adds the entry.
+    "source", // (Required)It’s a text value and specifies the source of the request.
+  ])
+  public addPetBmi(data: IUserPetBmiEntryAddInput) {
+    return this.post("/service/pets/add-bmi/", data, {
+      hashKeys: ["pet_guid", "date", "bmi", "source"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Retrieve_body_mass_index_Series")
+  @filterInput([
+    "pet_guid", // (Required)The GUID of the pet.
+    "partner_ext_id", // (Optional)Ext ID of the partner who adds the entry.
+  ])
+  public getPetBmi(data: {
+    pet_guid: string;
+    partner_ext_id?: string;
+  }): Promise<{ statusCode: number; data: IUserPetBmiEntry[] }> {
+    return this.post("/service/pets/get-bmi/", data, {
+      hashKeys: ["pet_guid"],
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Delete_body_mass_index_entry")
+  @filterInput([
+    "pet_guid", // (Required)The GUID of the pet.
+    "date", // (Required)Date value for the pet weight record. Date format is ”YYYY-MM-DD”.
+    "partner_ext_id", // (Optional)Ext ID of the partner who adds the entry.
+  ])
+  public deletePetBmi(
+    data: Pick<
+      IUserPetBmiEntryAddInput,
+      "date" | "pet_guid" | "partner_ext_id"
+    >,
+  ) {
+    return this.post("/service/pets/del-bmi/", data, {
+      hashKeys: ["pet_guid", "date"],
     });
   }
 

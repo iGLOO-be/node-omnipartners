@@ -94,6 +94,13 @@ export interface UserFavouritesCreateInput {
   source: string;
 }
 
+export interface UserPetBmiEntry {
+  date: string;
+  bmi: number;
+  partner_ext_id?: string | null;
+  source: string;
+}
+
 export interface UserPetCreateInput {
   name: string;
   type: string;
@@ -103,6 +110,8 @@ export interface UserPetCreateInput {
   gender?: string | null;
   pictureUrl?: string | null;
   placeOfPurchase?: string | null;
+  bmi?: UserPetBmiEntry | null;
+  weight?: UserPetWeightEntry | null;
 }
 
 export interface UserPetUpdateInput {
@@ -115,6 +124,15 @@ export interface UserPetUpdateInput {
   neutered?: boolean | null;
   pictureUrl?: string | null;
   placeOfPurchase?: string | null;
+  bmi?: UserPetBmiEntry | null;
+  weight?: UserPetWeightEntry | null;
+}
+
+export interface UserPetWeightEntry {
+  date: string;
+  weight: number;
+  partner_ext_id?: string | null;
+  source: string;
 }
 
 export interface UserUpdateInput {

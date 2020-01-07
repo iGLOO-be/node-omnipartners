@@ -347,6 +347,7 @@ type Mutation {
   userAddressUpdate(userAddressInput: UserAddressUpdateInput!, token: String!): UserAddressUpdateResult!
   userCreate(userInput: UserCreateInput!): UserUpdateResult!
   userPetCreate(userPetInput: UserPetCreateInput!, token: String!): UserPetUpdateResult!
+  userPetDelete(userPetDeleteInput: UserPetDeleteInput!, token: String!): UserResult!
   userPetUpdate(userPetInput: UserPetUpdateInput!, token: String!): UserPetUpdateResult!
   userUpdate(userInput: UserUpdateInput!, token: String!): UserUpdateResult!
   userChildUpdate(userChildUpdateInput: UserChildUpdateInput!, token: String!): UserChildResult!
@@ -874,6 +875,19 @@ type UserPet {
   lastUpdated: DateTime
   pictureUrl: String!
   placeOfPurchase: [UserPetPlaceOfPurchase!]!
+  weightSeries: [UserPetWeight!]!
+  bmiSeries: [UserPetBmi!]!
+}
+
+type UserPetBmi {
+  bmi: String!
+}
+
+input UserPetBmiEntry {
+  date: String!
+  bmi: Float!
+  partner_ext_id: String
+  source: String!
 }
 
 input UserPetCreateInput {
@@ -885,6 +899,13 @@ input UserPetCreateInput {
   gender: String
   pictureUrl: String
   placeOfPurchase: String
+  bmi: UserPetBmiEntry
+  weight: UserPetWeightEntry
+}
+
+input UserPetDeleteInput {
+  guid: String!
+  petDeletionCause: String!
 }
 
 type UserPetPlaceOfPurchase {
@@ -903,11 +924,24 @@ input UserPetUpdateInput {
   neutered: Boolean
   pictureUrl: String
   placeOfPurchase: String
+  bmi: UserPetBmiEntry
+  weight: UserPetWeightEntry
 }
 
 type UserPetUpdateResult {
   error: GenericValidationError
   result: UserAndPet
+}
+
+type UserPetWeight {
+  weight: String!
+}
+
+input UserPetWeightEntry {
+  date: String!
+  weight: Float!
+  partner_ext_id: String
+  source: String!
 }
 
 type UserPlaceOfPurchase {
