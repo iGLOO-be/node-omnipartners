@@ -4,7 +4,7 @@ import {
   IPartnerDetails,
   IPartnerListItem,
   IPartnerLocatorInput,
-} from "../../types";
+} from "../../partner-types";
 
 export interface IPartnerGroup {
   partner_group_name: string;
