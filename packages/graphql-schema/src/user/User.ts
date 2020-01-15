@@ -1,10 +1,10 @@
 import {
   IUser,
+  IUserGetPartnerAccountRelationsResult,
   IUserOwner,
   IUserPlaceOfPurchase,
   IUserPreferences,
 } from "omnipartners";
-import { IUserGetPartnerAccountRelationsResult } from "omnipartners/lib/api/identity";
 import { Arg, Ctx, Field, ObjectType } from "type-graphql";
 import { Memoize } from "typescript-memoize";
 import { Context } from "..";
