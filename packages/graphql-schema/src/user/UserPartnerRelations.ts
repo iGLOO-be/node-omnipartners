@@ -1,5 +1,4 @@
-import { IUserPartnerRelationFromGet } from "omnipartners";
-import { IUserGetPartnerAccountRelationsResult } from "omnipartners/lib/api/identity";
+import { IUserGetPartnerAccountRelationsResult, IUserPartnerRelationFromGet } from "omnipartners";
 import { Ctx, Field, ObjectType } from "type-graphql";
 import { Partner } from "../partner/Partner";
 import { Context } from "../types/Context";
