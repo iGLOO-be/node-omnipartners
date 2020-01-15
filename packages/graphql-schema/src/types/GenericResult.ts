@@ -13,8 +13,8 @@ export class GenericError {
 
   constructor(error: any) {
     this.error = error;
-    this.message = error ? error.message : "Unknown error";
-    this.code = error ? error.code : "UNKNOWN_ERROR";
+    this.message = error?.message ?? "Unknown error";
+    this.code = error?.code ?? "UNKNOWN_ERROR";
   }
 }
 

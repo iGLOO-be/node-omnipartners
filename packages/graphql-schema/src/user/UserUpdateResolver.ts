@@ -133,7 +133,7 @@ export class UserUpdateResolver {
     @Arg("userInput") userInput: UserUpdateInput,
   ): Promise<UserUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
-    const data: IUserUpdateInput = {
+    const data = {
       ...mapClixrayFields(userInput),
       user_guid,
     };

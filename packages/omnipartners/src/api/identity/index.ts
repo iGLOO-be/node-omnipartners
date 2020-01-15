@@ -4,6 +4,8 @@ import { doc, filterInput } from "../../lib/apiDecorators";
 import {
   IPartnerAccountRelationCreateInput,
   IPartnerAccountRelationDeleteInput,
+} from "../../partner-types";
+import {
   IPartnerDataOptions,
   IRegisterUserAddressInput,
   IRegisterUserInput,
@@ -810,9 +812,7 @@ export default class Identity extends Api {
   @filterInput([
     "lang", // (Optional) The language in which the list of animal types must be retrieved. Please refer Language list for valid values.
   ])
-  public getPetDeletionCauses(data: {
-    lang?: string;
-  }) {
+  public getPetDeletionCauses(data: { lang?: string }) {
     return this.post("service/data/get-animal-deletion-causes", data, {
       hashKeys: undefined,
     });
