@@ -19,7 +19,7 @@ export class UserPartnerRelation {
     Object.assign(this, data);
     this.extId = data.ptn_ext_customer_id;
     this.type = data.ptn_type;
-    this.roles = data.partner_relationship_roles;
+    this.roles = data.partner_relationship_roles || [];
   }
 
   @Field(() => Partner, { nullable: false })
