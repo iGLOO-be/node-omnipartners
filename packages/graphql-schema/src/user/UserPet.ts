@@ -77,6 +77,9 @@ export class UserPet
   public breed!: string;
 
   @Field()
+  public profileCompletion: number;
+
+  @Field()
   public breedDetails!: UserBreedDetail;
 
   @Field()
@@ -90,6 +93,7 @@ export class UserPet
     this.dob = data.pet_dob;
     this.type = data.petType;
     this.hasPicture = data.has_picture === "1" ? true : false;
+    this.profileCompletion = parseInt(data.profile_completion, 10) || 0;
     this.lastUpdated = data.lastUpdated
       ? new Date(data.lastUpdated)
       : undefined;
