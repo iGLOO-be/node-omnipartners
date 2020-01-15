@@ -4,15 +4,15 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "omnipartners": "^1.0.5",
-    "winston": "^2.4.0",
-    "winston-cloudwatch": "^1.13.0"
+    "omnipartners": "^2.24.1",
+    "winston": "^3.2.1",
+    "winston-cloudwatch": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.4.4"
+    "@babel/cli": "^7.8.0",
+    "@babel/core": "^7.8.0",
+    "@babel/node": "^7.8.0",
+    "@babel/preset-env": "^7.8.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
