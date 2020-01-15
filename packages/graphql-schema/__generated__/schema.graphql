@@ -870,6 +870,7 @@ type UserPet {
   neutered: Boolean!
   type: String!
   breed: String!
+  profileCompletion: Float!
   breedDetails: UserBreedDetail!
   hasPicture: Boolean!
   lastUpdated: DateTime
