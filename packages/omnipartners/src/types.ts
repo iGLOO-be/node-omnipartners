@@ -287,7 +287,7 @@ export interface IUserPartnerRelationFromGet {
   ptn_viadeo?: string;
   ptn_whatsapp?: string;
   ptn_youtube?: string;
-  ptn_ext_id?: string;
+  ptn_ext_id: string;
   ptn_groups?: string[];
   partner_lat?: string | null;
   partner_lng?: string | null;
