@@ -22,6 +22,7 @@ export * from "./api/deals";
 export * from "./api/partners";
 export * from "./api/products";
 export * from "./api/loyalty";
+export * from "./api/identity";
 export * from "./lib/errors";
 
 const deprecate = depd("API");
