@@ -360,7 +360,7 @@ export interface IUserPartnerRelationFromGet {
   ptn_updated: string;
   ptn_status: string;
   ptn_admin_id?: string | null;
-  ptn_ext_customer_id?: string;
+  ptn_ext_customer_id: string;
   ptn_inv_name?: string;
   ptn_inv_street1?: string;
   ptn_inv_street2?: string;
@@ -385,7 +385,7 @@ export interface IUserPartnerRelationFromGet {
   ptn_facebook?: string;
   ptn_twitter?: string;
   ptn_vat?: string;
-  ptn_type?: string;
+  ptn_type: string;
   ptn_subtype?: string;
   ptn_prim_cnt_title?: string;
   ptn_prim_cnt_first_name?: string;
