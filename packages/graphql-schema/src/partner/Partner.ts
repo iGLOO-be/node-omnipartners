@@ -7,40 +7,40 @@ export class Partner {
   public extId: string;
 
   @Field({ nullable: true })
-  public street1: string;
+  public street1?: string;
 
   @Field({ nullable: true })
-  public streetnum: string;
+  public streetnum?: string;
 
   @Field({ nullable: true })
-  public postalCode: string;
+  public postalCode?: string;
 
   @Field({ nullable: true })
-  public city: string;
+  public city?: string;
 
   @Field({ nullable: true })
-  public country: string;
+  public country?: string;
 
   @Field({ nullable: true })
-  public email: string;
+  public email?: string;
 
   @Field({ nullable: true })
-  public phone: string;
+  public phone?: string;
 
   @Field({ nullable: true })
-  public name: string;
+  public name?: string;
 
   @Field({ nullable: true })
-  public lat: string;
+  public lat?: string;
 
   @Field({ nullable: true })
-  public lng: string;
+  public lng?: string;
 
   @Field({ nullable: true })
   public type: string;
 
   @Field(() => [String], { nullable: true })
-  public partnerGroups: string[];
+  public partnerGroups?: string[];
 
   constructor(data: IPartnerDetails) {
     Object.assign(this, data);
