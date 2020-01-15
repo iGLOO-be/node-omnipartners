@@ -4,6 +4,7 @@ import {
   IPartnerDetails,
   IPartnerListItem,
   IPartnerLocatorInput,
+  IPartnerUpdateInput,
 } from "../../partner-types";
 
 export interface IPartnerGroup {
@@ -260,55 +261,7 @@ export default class Partners extends Api {
     "partner_deals_redirection_url",
     "partner_referral_code",
   ])
-  public updatePartner(data: {
-    partner_ext_id: string;
-    partner_inv_name: string;
-    partner_inv_street1: string;
-    partner_inv_street2: string;
-    partner_inv_streetnum: string;
-    partner_inv_postal_code: string;
-    partner_inv_city: string;
-    partner_inv_region: string;
-    partner_inv_country: string;
-    partner_pub_name: string;
-    partner_pub_street1: string;
-    partner_pub_street2: string;
-    partner_pub_streetnum: string;
-    partner_pub_postal_code: string;
-    partner_pub_city: string;
-    partner_pub_region: string;
-    partner_pub_country: string;
-    partner_email: string;
-    partner_emergency: string;
-    partner_phone: string;
-    partner_fax: string;
-    partner_website: string;
-    partner_facebook: string;
-    partner_twitter: string;
-    partner_vat: string;
-    partner_type: string;
-    partner_subtype: string;
-    partner_prim_cnt_title: string;
-    partner_prim_cnt_first_name: string;
-    partner_prim_cnt_last_name: string;
-    partner_prim_cnt_email: string;
-    partner_prim_cnt_mobile: string;
-    partner_salesrep: string;
-    partner_sales_support: string;
-    partner_prim_cnt_language: string;
-    partner_short_description: string;
-    partner_short_description_translations: string;
-    partner_eshop_url: string;
-    partner_lat: string;
-    partner_lng: string;
-    partner_status: string;
-    partner_is_hidden: string;
-    partner_timezone: string;
-    partner_self_id: string;
-    partner_self_prefix: string;
-    partner_deals_redirection_url: string;
-    partner_referral_code: string;
-  }) {
+  public updatePartner(data: IPartnerUpdateInput) {
     return this._call("update-partner", data, {
       hashKeys: ["action", "partner_ext_id"],
     });
@@ -353,7 +306,13 @@ export default class Partners extends Api {
     reference: string;
   }): Promise<{ statusCode: number }> {
     return this._call("add-partner-relations", data, {
-      hashKeys: ["action", "key", "partner_ext_id", "reference", "relation_type"],
+      hashKeys: [
+        "action",
+        "key",
+        "partner_ext_id",
+        "reference",
+        "relation_type",
+      ],
       retry: true,
     });
   }
@@ -370,7 +329,13 @@ export default class Partners extends Api {
     reference: string;
   }): Promise<{ statusCode: number }> {
     return this._call("delete-partner-relations", data, {
-      hashKeys: ["action", "key", "partner_ext_id", "reference", "relation_type"],
+      hashKeys: [
+        "action",
+        "key",
+        "partner_ext_id",
+        "reference",
+        "relation_type",
+      ],
       retry: true,
     });
   }
