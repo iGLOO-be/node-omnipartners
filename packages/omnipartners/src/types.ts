@@ -344,7 +344,7 @@ export interface IUserPet {
   chipNumber: null;
   pet_lifestyle: null;
   pet_brand: null;
-  pet_declarative_product: null;
+  pet_declarative_product?: string;
   pet_ideal_product: null;
   vaccinationDate: null;
   type: string;

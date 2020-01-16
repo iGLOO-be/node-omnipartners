@@ -871,6 +871,7 @@ type UserPet {
   type: String!
   breed: String!
   profileCompletion: Float!
+  declarativeProduct: String
   breedDetails: UserBreedDetail!
   hasPicture: Boolean!
   lastUpdated: DateTime
