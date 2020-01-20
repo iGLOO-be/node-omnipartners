@@ -79,6 +79,9 @@ export class UserPet
   @Field()
   public profileCompletion: number;
 
+  @Field({ nullable: true })
+  public declarativeProduct?: string;
+
   @Field()
   public breedDetails!: UserBreedDetail;
 
@@ -94,6 +97,7 @@ export class UserPet
     this.type = data.petType;
     this.hasPicture = data.has_picture === "1" ? true : false;
     this.profileCompletion = parseInt(data.profile_completion, 10) || 0;
+    this.declarativeProduct = data.pet_declarative_product;
     this.lastUpdated = data.lastUpdated
       ? new Date(data.lastUpdated)
       : undefined;
