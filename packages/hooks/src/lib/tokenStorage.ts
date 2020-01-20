@@ -5,21 +5,30 @@ const storage = typeof window !== "undefined" ? window.localStorage : undefined;
 class TokenStorage {
   public async set(env: string, token: string) {
     if (storage) {
-      await storage.setItem(TOKEN_STORAGE_KEY + "." + env, token);
+      tryFn(() => storage.setItem(TOKEN_STORAGE_KEY + "." + env, token));
     }
   }
   public async get(env: string) {
     if (storage) {
-      return storage.getItem(TOKEN_STORAGE_KEY + "." + env);
+      return tryFn(() => storage.getItem(TOKEN_STORAGE_KEY + "." + env));
     }
     return "";
   }
   public async remove(env: string) {
     if (storage) {
-      await storage.removeItem(TOKEN_STORAGE_KEY + "." + env);
+      tryFn(() => storage.removeItem(TOKEN_STORAGE_KEY + "." + env));
     }
   }
 }
+
+const tryFn = <T>(fn: () => T): T | undefined => {
+  try {
+    return fn();
+  } catch (err) {
+    console.warn(err);
+    return;
+  }
+};
 
 export const decodeToken = (token?: string) => {
   let result: any;
