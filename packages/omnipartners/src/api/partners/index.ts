@@ -1,3 +1,4 @@
+import { Readable } from "stream";
 import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
@@ -337,6 +338,32 @@ export default class Partners extends Api {
         "relation_type",
       ],
       retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Update_Partner_Logo_Image")
+  @filterInput(["partner_ext_id", "partner_logo"])
+  public updatePartnerLogo(data: {
+    partner_ext_id: string;
+    partner_logo:
+      | string
+      | Readable
+      | {
+          value: Buffer;
+          options: {
+            filename: string;
+          };
+        };
+  }): Promise<{ statusCode: number }> {
+    return this._call("update-partner-logo", data, {
+      hashKeys: ["action", "partner_ext_id"],
+      multipart: true,
+      errorMap: {
+        1033: {
+          message:
+            "Partner logo image upload error. Partner logo should be with valid file type - JPG, PNG or GIF",
+        },
+      },
     });
   }
 }
