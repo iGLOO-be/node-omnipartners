@@ -98,7 +98,10 @@ export interface IPartnerDetails {
   partner_sales_support?: string;
   partner_prim_cnt_language: string;
   partner_short_description?: string;
-  partner_short_description_translations?: string;
+  partner_short_description_translations?: Array<{
+    language: string;
+    value: string;
+  }>;
   partner_eshop_url?: string;
   partner_lat?: string;
   partner_lng?: string;
@@ -173,7 +176,10 @@ export interface IPartnerUpdateInput {
   partner_sales_support?: string;
   partner_prim_cnt_language?: string;
   partner_short_description?: string;
-  partner_short_description_translations?: Array<{ language: string, value: string }>;
+  partner_short_description_translations?: Array<{
+    language: string;
+    value: string;
+  }>;
   partner_eshop_url?: string;
   partner_lat?: string;
   partner_lng?: string;
