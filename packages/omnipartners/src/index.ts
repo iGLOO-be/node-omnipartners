@@ -38,6 +38,18 @@ export interface IOmnipartnersConfig {
   eventLogger?: IApiOptions;
 }
 
+export enum omnipartnersApiNames {
+  identify = "identify",
+  identity = "identity",
+  partners = "partners",
+  loyalty = "loyalty",
+  products = "products",
+  deals = "deals",
+  data = "data",
+  metadata = "metadata",
+  eventLogger = "eventLogger",
+}
+
 export class Omnipartners {
   public identify: Identity;
   public identity: Identity;
@@ -48,7 +60,7 @@ export class Omnipartners {
   public deals: Deals;
   public metadata: Metadata;
   public eventLogger: EventLogger;
-  private apis: Api[];
+  private apis: { [k in omnipartnersApiNames]: Api };
 
   constructor(config: IOmnipartnersConfig) {
     this.identity = new Identity(config.cis);
@@ -60,17 +72,17 @@ export class Omnipartners {
     this.deals = new Deals(config.deals);
     this.metadata = new Metadata(config.metadata);
     this.eventLogger = new EventLogger(config.eventLogger);
-    this.apis = [
-      this.identify,
-      this.identity,
-      this.partners,
-      this.loyalty,
-      this.products,
-      this.deals,
-      this.data,
-      this.metadata,
-      this.eventLogger,
-    ];
+    this.apis = {
+      identity: this.identity,
+      identify: this.identify,
+      partners: this.partners,
+      loyalty: this.loyalty,
+      data: this.data,
+      products: this.products,
+      deals: this.deals,
+      metadata: this.metadata,
+      eventLogger: this.eventLogger,
+    };
 
     deprecate.property(
       this,
@@ -85,8 +97,17 @@ export class Omnipartners {
     );
   }
 
-  public use(fn: (api: any) => void) {
-    this.apis.forEach(fn);
+  public use(
+    fn: (api: Api) => void,
+    {
+      except,
+    }: {
+      except?: omnipartnersApiNames[];
+    } = {},
+  ) {
+    Object.keys(omnipartnersApiNames)
+      .filter(api => !except || except.indexOf(api as any) < 0)
+      .forEach(api => fn((this.apis as any)[api]));
   }
 }
 
