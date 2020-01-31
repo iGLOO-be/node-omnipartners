@@ -61,6 +61,19 @@ interface IPartnerLinks {
   [k: string]: IPartnerLink[];
 }
 
+export type IPartnerOpeningHoursDay =
+  | "day_1"
+  | "day_2"
+  | "day_3"
+  | "day_4"
+  | "day_5"
+  | "day_6"
+  | "day_7";
+
+export type IPartnerOpeningHours = {
+  [key in IPartnerOpeningHoursDay]?: Array<{ from: string; to: string }>;
+};
+
 export interface IPartnerDetails {
   partner_ext_id: string;
   partner_inv_name: string;
@@ -134,9 +147,7 @@ export interface IPartnerDetails {
   partner_custom_salesmanemail?: string;
   partner_custom_species?: string;
   partner_short_description_generic?: string;
-  partner_opening_hours?: {
-    [k: string]: Array<{ from: string; to: string }>;
-  } | null;
+  partner_opening_hours?: IPartnerOpeningHours | null;
 }
 
 export interface IPartnerUpdateInput {
@@ -191,4 +202,14 @@ export interface IPartnerUpdateInput {
   partner_deals_redirection_url?: string;
   partner_referral_code?: string;
   // Optional	partner_custom_xxxxx	Apart from the field specified above custom fields could be added to the profile of a partner. Custom fields should be prefixed by "partner_custom_" for the service to identify them. The value of a custom field could be any string up to 100 characters in length. Field with empty values will be ignored by the service
+}
+
+export interface IPartnerAddOpeningHoursInput {
+  partner_ext_id: string;
+  data: IPartnerOpeningHours;
+}
+
+export interface IPartnerDeleteOpeningHoursInput {
+  partner_ext_id: string;
+  day: number | string;
 }

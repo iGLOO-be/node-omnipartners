@@ -2,6 +2,8 @@ import { Readable } from "stream";
 import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
+  IPartnerAddOpeningHoursInput,
+  IPartnerDeleteOpeningHoursInput,
   IPartnerDetails,
   IPartnerListItem,
   IPartnerLocatorInput,
@@ -364,6 +366,31 @@ export default class Partners extends Api {
             "Partner logo image upload error. Partner logo should be with valid file type - JPG, PNG or GIF",
         },
       },
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Add_Partner_Opening_Hours")
+  @filterInput(["partner_ext_id", "data"])
+  public addOpeningHours(
+    data: IPartnerAddOpeningHoursInput,
+  ): Promise<{ statusCode: number }> {
+    return this._call("add-partner-opening-hours", data, {
+      hashKeys: ["action", "partner_ext_id"],
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Delete_Partner_Opening_Hours")
+  @filterInput([
+    "partner_ext_id",
+    "day", // Day is the day number (Mon = 1, Sun = 7) Eg: "day":"1,3,4"
+  ])
+  public deleteOpeningHours(
+    data: IPartnerDeleteOpeningHoursInput,
+  ): Promise<{ statusCode: number }> {
+    return this._call("delete-partner-opening-hours", data, {
+      hashKeys: ["action", "partner_ext_id", "day"],
+      retry: true,
     });
   }
 }
