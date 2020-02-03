@@ -226,6 +226,34 @@ export default class Partners extends Api {
     );
   }
 
+  @doc("http://doc.omnipartners.be/index.php/Delete_Links")
+  @filterInput([
+    "partner_ext_id", // (Required) The ext id of the partner.
+    "type",
+    "link_id",
+  ])
+  public deleteLink(data: {
+    partner_ext_id: string;
+    type: string;
+    link_id: number;
+  }): Promise<{
+    statusCode: number;
+  }> {
+    return this._call(
+      "delete-partner-links",
+      {
+        ...data,
+        partner_ext_id: data.partner_ext_id
+          ? data.partner_ext_id.toString()
+          : null,
+      },
+      {
+        hashKeys: ["action", "partner_ext_id", "type", "link_id"],
+        retry: true,
+      },
+    );
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Update_Partner")
   @filterInput([
     "partner_ext_id",
