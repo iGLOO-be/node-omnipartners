@@ -205,7 +205,7 @@ export default class Partners extends Api {
   public addLink(data: {
     partner_ext_id: string;
     type: string;
-    link_data: IPartnerLink;
+    link_data: IPartnerLink["contents"];
   }): Promise<{
     statusCode: number;
     link_id?: number;
