@@ -5,6 +5,8 @@ import {
   IPartnerAddOpeningHoursInput,
   IPartnerDeleteOpeningHoursInput,
   IPartnerDetails,
+  IPartnerLink,
+  IPartnerLinks,
   IPartnerListItem,
   IPartnerLocatorInput,
   IPartnerUpdateInput,
@@ -169,7 +171,13 @@ export default class Partners extends Api {
     "partner_ext_id", // (Required) The ext id of the partner.
     "type", // (Optional) Links have a type (photo, video) to start with. If set then gives relative type of records only.
   ])
-  public getLinks(data: { partner_ext_id: string; type: string }) {
+  public getLinks(data: {
+    partner_ext_id: string;
+    type: string;
+  }): Promise<{
+    statusCode: number;
+    links: IPartnerLinks;
+  }> {
     return this._call(
       "get-partner-links",
       {
@@ -197,8 +205,12 @@ export default class Partners extends Api {
   public addLink(data: {
     partner_ext_id: string;
     type: string;
-    link_data: string;
-  }) {
+    link_data: IPartnerLink;
+  }): Promise<{
+    statusCode: number;
+    link_id?: number;
+    type?: string;
+  }> {
     return this._call(
       "add-partner-links",
       {

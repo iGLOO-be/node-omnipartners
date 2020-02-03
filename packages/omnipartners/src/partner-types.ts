@@ -50,14 +50,14 @@ export interface IPartnerLocatorInput {
   partner_status?: string;
 }
 
-interface IPartnerLink {
+export interface IPartnerLink {
   link_id: number;
   contents: {
     [lang: string]: string;
   };
 }
 
-interface IPartnerLinks {
+export interface IPartnerLinks {
   [k: string]: IPartnerLink[];
 }
 
