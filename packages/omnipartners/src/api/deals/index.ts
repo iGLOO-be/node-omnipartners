@@ -336,6 +336,15 @@ export interface IGetVisiblePartnerInput {
   limit?: number;
 }
 
+export type ISecureCodeDataOptions =
+  | ISecureCodeDataOption
+  | ISecureCodeDataOption[];
+type ISecureCodeDataOption =
+  | "subscription"
+  | "deals"
+  | "referral_partner"
+  | "expiration_date";
+
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
 
@@ -611,10 +620,11 @@ export default class Deals extends Api {
   }
 
   @doc("http://doc.omnipartners.be/index.php/Check_secure_code")
-  @filterInput(["deal_ref", "code"])
+  @filterInput(["deal_ref", "code", "data_options"])
   public checkSecureCode(data: {
     deal_ref?: string;
     code: string;
+    data_options?: ISecureCodeDataOptions;
   }): Promise<{
     data: {
       is_available: boolean;
