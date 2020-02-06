@@ -345,6 +345,19 @@ type ISecureCodeDataOption =
   | "referral_partner"
   | "expiration_date";
 
+interface IReferralPartner {
+  id: string;
+  ref_name: string;
+  extid: string;
+  street1: string;
+  street2: string;
+  streetnum: string;
+  postal_code: string;
+  city: string;
+  country: string;
+  status: string;
+}
+
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
 
@@ -629,6 +642,7 @@ export default class Deals extends Api {
     data: {
       is_available: boolean;
       deals: string[];
+      referral_partner?: IReferralPartner;
     };
   }> {
     return this._call("check-secure-code", data, {
@@ -669,12 +683,15 @@ export default class Deals extends Api {
       hashKeys: undefined,
       retry: true,
       errorMap: {
-        1019: { message: "Referral partner ext id not exist."},
-        3062: { message: "At least one parameter must provide to update."},
-        3063: { message: "Access code does not exist."},
-        3129: { message: "Invalid status provided. Valid values are 'AVAILABLE' and 'PUBLISHED'."},
-        3130: { message: "Error on updating the record."},
-      }
+        1019: { message: "Referral partner ext id not exist." },
+        3062: { message: "At least one parameter must provide to update." },
+        3063: { message: "Access code does not exist." },
+        3129: {
+          message:
+            "Invalid status provided. Valid values are 'AVAILABLE' and 'PUBLISHED'.",
+        },
+        3130: { message: "Error on updating the record." },
+      },
     });
   }
 
