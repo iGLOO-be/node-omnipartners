@@ -369,6 +369,11 @@ export interface ICollectionDetail {
   collection_caloric_table: null;
 }
 
+export interface IProductGroupListItem {
+  product_group_handle: string;
+  product_group_name: string;
+}
+
 export default class Products extends Api {
   public defaultHost = "https://products.clixray.io/";
 
@@ -555,6 +560,19 @@ export default class Products extends Api {
     data: IGetCollectionByPetGUIDInput,
   ): Promise<{ data: IGetCollectionByPetGUID[] }> {
     return this._call("get-collections-by-pet-guid", data, {
+      errorMap: {},
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_Product_Group_List")
+  @filterInput([
+    "group_handle", // The “Product Group Handle” used to filter and retrieve product group information relative to the handle.
+  ])
+  public getProductGroupList(data?: {
+    group_handle?: string;
+  }): Promise<{ data: IProductGroupListItem[] }> {
+    return this._call("list-product-groups", data, {
       errorMap: {},
       retry: true,
     });
