@@ -374,6 +374,15 @@ export interface IProductGroupListItem {
   product_group_name: string;
 }
 
+export interface IFindProductCollectionInput {
+  use_https_urls?: 0 | 1;
+  resolve_by: string;
+  value: string;
+  language?: string;
+  data_options?: string;
+  component_sort_order?: string;
+}
+
 export default class Products extends Api {
   public defaultHost = "https://products.clixray.io/";
 
@@ -450,14 +459,7 @@ export default class Products extends Api {
     "data_options",
     "component_sort_order",
   ])
-  public findProductCollection(data: {
-    use_https_urls?: 0 | 1;
-    resolve_by: string;
-    value: string;
-    language?: string;
-    data_options?: string;
-    component_sort_order?: string;
-  }) {
+  public findProductCollection(data: IFindProductCollectionInput) {
     return this._call(
       "find-product-collection",
       { "resolve-by": data.resolve_by, ...data },
