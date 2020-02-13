@@ -448,13 +448,15 @@ export default class Products extends Api {
     "value",
     "language",
     "data_options",
+    "component_sort_order",
   ])
   public findProductCollection(data: {
-    use_https_urls: string;
+    use_https_urls?: 0 | 1;
     resolve_by: string;
     value: string;
-    language: string;
-    data_options: string;
+    language?: string;
+    data_options?: string;
+    component_sort_order?: string;
   }) {
     return this._call(
       "find-product-collection",
