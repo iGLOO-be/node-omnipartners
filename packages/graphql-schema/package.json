@@ -1,6 +1,6 @@
 {
   "name": "@igloo-be-omnipartners/graphql-schema",
-  "version": "1.39.0",
+  "version": "1.39.1",
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -41,7 +41,7 @@
     "fs-extra": "^8.1.0",
     "graphql": "^14.5.8",
     "jest": "^24.9.0",
-    "omnipartners": "^2.33.0",
+    "omnipartners": "^2.33.1",
     "p-debounce": "^2.1.0",
     "reflect-metadata": "^0.1.13",
     "tempy": "^0.3.0",
