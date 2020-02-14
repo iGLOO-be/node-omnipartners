@@ -327,7 +327,7 @@ export interface IGetCollectionDetailsInput {
   // (Required) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
   language: string;
   // (Optional) States whether returned URLs should be secured or not. Valid values are 0 and 1. Default value is 0.
-  use_https_urls?: string;
+  use_https_urls?: 0 | 1;
   // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
   data_options?: ICollectionDataOptions;
   // (Optional) Valid value is "component_name". If this is provided and not empty, then the collection components in the response will order according to the alphabetical order of components name. Otherwise it'll get ordered from the order defined in the collection level components.
