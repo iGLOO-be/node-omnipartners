@@ -2,12 +2,28 @@ import Api, { IApiFetchOptions, IApiPostData } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
 import {
   IDeal,
+  IDealListItem,
   IDirectCashbackDealDetail,
   IDirectCashbackRedemptionRequestInput,
   IDirectCashbackVoucherDetail,
   IUserDirectCashbackDealEligiblePet,
   IUserEligibleDirectCashbackDeal,
 } from "../../types";
+
+export interface IGetDealsListInput {
+  partner_extid?: string;
+  saving_product_ean?: string;
+  saving_collection_reference?: string;
+  benefit_product_ean?: string;
+  benefit_collection_reference?: string;
+  pet_search_by?: "PET_UNIVERSE" | "PET_BREED" | "PET_TYPE";
+  pet_search_val?: string;
+  deal_type?: string;
+  display_on_terminal?: 0 | 1;
+  deal_visibility?: "all" | "public";
+  active_only?: 0 | 1;
+  deal_group_handle?: string;
+}
 
 interface IUpdateSecureCodePropertiesInput {
   access_code: string;
@@ -249,7 +265,7 @@ type IDirectCashbackDealDataOption =
 
 interface IVoucherListInput {
   user_guid?: string;
-  show?: string;
+  show?: "basic" | "extended";
   from?: string;
   to?: string;
   redeemed_from?: string;
@@ -266,7 +282,7 @@ interface IVoucherListInput {
   p_page: number;
 }
 
-interface IVoucher {
+export interface IVoucher {
   user_guid: string;
   ts_created: string;
   external_tracking_reference: string;
@@ -311,7 +327,7 @@ interface IVoucher {
     distance: string;
     ptn_status: string;
   };
-  child: {
+  child?: {
     child_birthday: string;
     child_added_on: string;
     child_updated_on: string;
@@ -485,6 +501,29 @@ export default class Deals extends Api {
     },
   };
 
+  @doc("http://doc.omnipartners.be/index.php/Get_deals_list")
+  @filterInput([
+    "partner_extid",
+    "saving_product_ean",
+    "saving_collection_reference",
+    "benefit_product_ean",
+    "benefit_collection_reference",
+    "pet_search_by",
+    "pet_search_val",
+    "deal_type",
+    "display_on_terminal",
+    "deal_visibility",
+    "active_only",
+    "deal_group_handle",
+  ])
+  public getDealsList(
+    data: IGetDealsListInput,
+  ): Promise<{ data: IDealListItem[]; status: string }> {
+    return this._call("list-deals", data, {
+      retry: true,
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Get_deals_details")
   @filterInput([
     "ref", // (Required) Deal reference code
@@ -603,7 +642,15 @@ export default class Deals extends Api {
     "p_length", // Item per page
     "p_page", // current page. start at 0
   ])
-  public listVouchers(data: IVoucherListInput): Promise<{ data: IVoucher[] }> {
+  public listVouchers(
+    data: IVoucherListInput,
+  ): Promise<{
+    data: IVoucher[];
+    p_total: number;
+    p_length: number;
+    p_page: number;
+    status: string;
+  }> {
     return this._call("listoffers", data, {
       retry: true,
     });

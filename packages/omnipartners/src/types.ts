@@ -870,13 +870,25 @@ export interface IUserUpdatePlacesOfPurchaseInput {
   place_rating: string;
 }
 
-export interface IDeal {
+export interface IDealListItem {
   id: number;
   ref: string;
   name: string;
   type: string;
-  redeem_days: string[];
+  available_from: string;
+  available_to: string;
   is_locked: boolean;
+  subscription_count: {
+    REDEEMED: number;
+    SUBSCRIBED: number;
+    IN_PROGRESS: number;
+  };
+  pet_type: string | null;
+  pet_breed: string[] | null;
+  deal_groups: string | null;
+}
+export interface IDeal extends IDealListItem {
+  redeem_days: string[];
   partner_visibility: string;
   restrict_registration: boolean;
   image_url: string;
@@ -902,9 +914,7 @@ export interface IDeal {
   child_age_limit_to_value: string;
   child_age_limit_to_unit: string;
   pet_required: "1" | "0";
-  pet_type: string;
   pet_universe: string | null;
-  pet_breed: [];
   pet_age_limit_value: string | null;
   pet_age_limit_unit: "DAY" | "WEEK" | "MONTH" | "YEAR" | null;
   pet_age_limit_operator: "LOWER" | "EQUAL" | "HIGHER" | "BTW" | "";
@@ -913,8 +923,6 @@ export interface IDeal {
   send_voucher_email: boolean;
   send_voucher_sms: boolean;
   need_to_scan: number;
-  available_from: string;
-  available_to: string;
   redeem_validity_from: string;
   redeem_validity_to: string;
   validity_message: string;
@@ -934,17 +942,11 @@ export interface IDeal {
     small: { NL: string | null; FR: string | null };
     large: { NL: string | null; FR: string | null };
   };
-  subscription_count: {
-    REDEEMED: number;
-    SUBSCRIBED: number;
-    IN_PROGRESS: number;
-  };
   saving_end_time_value: string | null;
   saving_end_time_unit: string | null;
   saving_end_date: string | null;
   allowed_partner_groups: [];
   excluded_partner_groups: [];
-  deal_groups: string | null;
   products: Array<{
     ean: string;
     id: number;
