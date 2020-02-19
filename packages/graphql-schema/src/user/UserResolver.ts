@@ -363,10 +363,12 @@ export class UserResolver {
   }
 
   @Mutation(() => GenericError, { nullable: true })
-  public async userDelete(
+  public async userDeleteSelf(
     @Ctx() ctx: Context,
-    @Arg("user_guid") user_guid: string,
+    @Arg("token") token: string,
   ): Promise<GenericError | undefined> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+
     try {
       await ctx.omnipartners.identity.deleteUser({
         user_guid,
