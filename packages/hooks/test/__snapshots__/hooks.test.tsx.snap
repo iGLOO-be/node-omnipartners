@@ -46,6 +46,7 @@ Array [
   "useUserConfirmLegalForms",
   "useUserContext",
   "useUserCreate",
+  "useUserDeleteSelf",
   "useUserEmailExist",
   "useUserFavourites",
   "useUserFavouritesCreate",
