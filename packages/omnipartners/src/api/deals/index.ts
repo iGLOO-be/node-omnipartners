@@ -374,6 +374,39 @@ interface IReferralPartner {
   status: string;
 }
 
+export interface IRedeemVoucherInput {
+  barcode?: string;
+  secure_code?: string;
+  user_guid?: string;
+  pet_guid?: string;
+  child_guid?: string;
+  external_tracking_ref?: string;
+  iban?: string; // Required for "CASHBACK" deals
+  bic?: string;
+  delivery_address_id?: string;
+  ean_code?: string;
+
+  shop_id?: string;
+  type?: "terminal" | "extid";
+  referral_code?: string;
+  referral_code_type?: string;
+}
+
+export interface IRedeemVoucherResult {
+  data: {
+    user_guid: string;
+    ts_created: string;
+    barcode: string;
+    subs_partner_id: number;
+    coupon_id: number;
+    status: string;
+    deal_voucher: IVoucher;
+    subscription_status_code: number;
+    feedback_msg: string;
+  }
+  status: string
+}
+
 export default class Deals extends Api {
   public defaultHost = "https://deals.clixray.io/";
 
@@ -652,6 +685,25 @@ export default class Deals extends Api {
     status: string;
   }> {
     return this._call("listoffers", data, {
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Redeem_voucher")
+  @filterInput([
+    "shop_id", // If you use terminal id, then the “type” parameter needs to be “terminal”. For the external customer id, the “type” parameter needs to be “extid”.
+    "type",
+    "referral_code",
+    "referral_code_type",
+    "barcode",
+  ])
+  public redeemVoucher(
+    data: IRedeemVoucherInput,
+  ): Promise<IRedeemVoucherResult> {
+    return this._call("redemption", data, {
+      hashKeys: [
+        data.barcode ? "barcode" : data.secure_code ? "secure_code" : "",
+      ],
       retry: true,
     });
   }
