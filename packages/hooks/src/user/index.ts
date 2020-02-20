@@ -21,3 +21,4 @@ export * from "./useUserLoginByAccessToken";
 export * from "./useUserLoginByPublicToken";
 export * from "./useUserCheckPasswordTokenValidity";
 export * from "./useUserUpdateRecoveredPassword";
+export * from "./useUserDeleteSelf";

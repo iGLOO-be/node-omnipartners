@@ -343,6 +343,7 @@ type Mutation {
   userUpdateSubscriptions(updateSubscriptionsInput: UserUpdateSubscriptionsInput!, token: String!): GenericValidationError
   userUpdatePlacesOfPurchase(updatePlacesOfPurchaseInput: UserUpdatePlacesOfPurchaseInput!, token: String!): GenericValidationError
   userConfirmAccount(token: String!): GenericError
+  userDeleteSelf(token: String!): GenericError
   userAddressCreate(userAddressInput: UserAddressCreateInput!, token: String!): UserAddressUpdateResult!
   userAddressUpdate(userAddressInput: UserAddressUpdateInput!, token: String!): UserAddressUpdateResult!
   userCreate(userInput: UserCreateInput!): UserUpdateResult!

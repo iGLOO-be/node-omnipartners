@@ -57,9 +57,11 @@ export default class Identity extends Api {
   };
 
   @doc("http://doc.omnipartners.be/index.php/Delete_User_Accounts")
-  @filterInput(["owner_guid"])
-  public deleteUser(data: { owner_guid: string }) {
-    return this.get("/service/account/delete", data);
+  @filterInput(["user_guid"])
+  public deleteUser(data: { user_guid: string }) {
+    return this.get("/service/account/delete", data, {
+      hashKeys: ["user_guid"],
+    });
   }
 
   @doc("http://doc.omnipartners.be/index.php/Update_Password")

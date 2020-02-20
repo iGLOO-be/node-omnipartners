@@ -243,11 +243,13 @@ export class UserResolver {
     @Ctx() ctx: Context,
     @Arg("token") token: string,
   ): Promise<boolean> {
-    const { statusCode } = await ctx.omnipartners.identity.checkPasswordTokenValidity({
+    const {
+      statusCode,
+    } = await ctx.omnipartners.identity.checkPasswordTokenValidity({
       token,
     });
 
-    return statusCode === 0
+    return statusCode === 0;
   }
 
   @Mutation(() => GenericValidationError, { nullable: true })
@@ -259,7 +261,7 @@ export class UserResolver {
     try {
       await ctx.omnipartners.identity.updateRecoveredPassword({
         token,
-        password
+        password,
       });
       return;
     } catch (err) {
@@ -353,6 +355,23 @@ export class UserResolver {
     try {
       await ctx.omnipartners.identity.confirmUserAccount({
         identifier: user_guid,
+      });
+      return;
+    } catch (err) {
+      return new GenericError(err);
+    }
+  }
+
+  @Mutation(() => GenericError, { nullable: true })
+  public async userDeleteSelf(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+  ): Promise<GenericError | undefined> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+
+    try {
+      await ctx.omnipartners.identity.deleteUser({
+        user_guid,
       });
       return;
     } catch (err) {
