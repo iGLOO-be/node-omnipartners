@@ -124,7 +124,7 @@ export const useUserChildrenCreate = () => {
     UserChildrenCreate,
     UserChildrenCreateVariables
   >(UserChildrenCreateMutation);
-  const token = useUserToken();
+  const userToken = useUserToken();
 
   return {
     ...mutationResult,
@@ -135,6 +135,7 @@ export const useUserChildrenCreate = () => {
       userChildCreateInput: Omit<UserChildCreateInput, "firstName"> & {
         firstName?: string;
       },
+      token = userToken
     ) => {
       const { data } = await createPet({
         variables: {
@@ -187,7 +188,7 @@ const UserChildrenUpdateMutation = gql`
 `;
 
 export const useUserChildrenUpdate = () => {
-  const token = useUserToken();
+  const userToken = useUserToken();
   const [userChildrenUpdate, mutationResult] = useMutation<
     UserChildrenUpdate,
     UserChildrenUpdateVariables
@@ -202,6 +203,7 @@ export const useUserChildrenUpdate = () => {
       userChildUpdateInput: Omit<UserChildUpdateInput, "firstName"> & {
         firstName?: string;
       },
+      token = userToken
     ) => {
       const { data } = await userChildrenUpdate({
         variables: {
