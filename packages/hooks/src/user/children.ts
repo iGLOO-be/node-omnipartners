@@ -135,7 +135,7 @@ export const useUserChildrenCreate = () => {
       userChildCreateInput: Omit<UserChildCreateInput, "firstName"> & {
         firstName?: string;
       },
-      token = userToken
+      token = userToken,
     ) => {
       const { data } = await createPet({
         variables: {
@@ -203,7 +203,7 @@ export const useUserChildrenUpdate = () => {
       userChildUpdateInput: Omit<UserChildUpdateInput, "firstName"> & {
         firstName?: string;
       },
-      token = userToken
+      token = userToken,
     ) => {
       const { data } = await userChildrenUpdate({
         variables: {
