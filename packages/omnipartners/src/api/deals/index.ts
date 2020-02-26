@@ -403,8 +403,8 @@ export interface IRedeemVoucherResult {
     deal_voucher: IVoucher;
     subscription_status_code: number;
     feedback_msg: string;
-  }
-  status: string
+  };
+  status: string;
 }
 
 export default class Deals extends Api {
@@ -614,6 +614,21 @@ export default class Deals extends Api {
   ])
   public getVisiblePartner(data: IGetVisiblePartnerInput) {
     return this._call("get-visible-partners-for-user", data, {
+      hashKeys: ["deal_ref"],
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Check_partner_validity")
+  @filterInput([
+    "deal_ref", // (Required) Deal reference
+    "partner_extid", // (Required) Partner extid that need to check the validity for give deal
+  ])
+  public checkPartnerValidity(data: {
+    deal_ref: string;
+    partner_extid: string;
+  }) {
+    return this._call("check-partner-validity", data, {
       hashKeys: ["deal_ref"],
       retry: true,
     });
