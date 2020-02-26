@@ -123,8 +123,7 @@ export const useUserAddressCreate = ({
     UserAddressCreate,
     UserAddressCreateVariables
   >(UserAddressCreateMutation);
-  const token = useUserToken();
-  const { user_guid } = decodeToken(token);
+  const userToken = useUserToken();
 
   return {
     ...mutationResult,
@@ -133,7 +132,9 @@ export const useUserAddressCreate = ({
       (mutationResult.data && mutationResult.data.userAddressCreate.error),
     userAddressCreate: async (
       userAddressCreateInput: UserAddressCreateInput,
+      token = userToken,
     ) => {
+      const { user_guid } = decodeToken(token);
       const { data } = await createAddress({
         variables: {
           userAddressInput: userAddressCreateInput,
@@ -210,7 +211,7 @@ const UserAddressUpdateMutation = gql`
 `;
 
 export const useUserAddressUpdate = () => {
-  const token = useUserToken();
+  const userToken = useUserToken();
   const [userAddressUpdate, mutationResult] = useMutation<
     UserAddressUpdate,
     UserAddressUpdateVariables
@@ -221,7 +222,10 @@ export const useUserAddressUpdate = () => {
     error:
       mutationResult.error ||
       (mutationResult.data && mutationResult.data.userAddressUpdate.error),
-    userAddressUpdate: async (userAddressInput: UserAddressUpdateInput) => {
+    userAddressUpdate: async (
+      userAddressInput: UserAddressUpdateInput,
+      token = userToken,
+    ) => {
       const { data } = await userAddressUpdate({
         variables: {
           token,
