@@ -748,7 +748,10 @@ export default class Deals extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Check_secure_code")
   @filterInput(["deal_ref", "code", "data_options"])
-  public checkSecureCode(data: {
+  public checkSecureCode({
+    data_options,
+    ...data
+  }: {
     deal_ref?: string;
     code: string;
     data_options?: ISecureCodeDataOptions;
@@ -759,10 +762,21 @@ export default class Deals extends Api {
       referral_partner?: IReferralPartner;
     };
   }> {
-    return this._call("check-secure-code", data, {
-      hashKeys: ["deal_ref", "code"],
-      retry: true,
-    });
+    return this._call(
+      "check-secure-code",
+      {
+        ...data,
+        data_options: data_options
+          ? Array.isArray(data_options)
+            ? data_options.join(",")
+            : data_options
+          : undefined,
+      },
+      {
+        hashKeys: ["deal_ref", "code"],
+        retry: true,
+      },
+    );
   }
 
   @doc("http://doc.omnipartners.be/index.php/New_secure_code")
