@@ -627,7 +627,7 @@ export default class Deals extends Api {
   public checkPartnerValidity(data: {
     deal_ref: string;
     partner_extid: string;
-  }) {
+  }): Promise<{ data: { is_valid: boolean } }> {
     return this._call("check-partner-validity", data, {
       hashKeys: ["deal_ref"],
       retry: true,
