@@ -263,7 +263,19 @@ type IDirectCashbackDealDataOption =
   | "benefits"
   | "benefit_product_detail";
 
-interface IVoucherListInput {
+export type IDealDataOptions = IDealDataOption | IDealDataOption[];
+type IDealDataOption =
+  | "collection_association"
+  | "basic_details"
+  | "benefits"
+  | "benefit_product_detail";
+
+export type IDealSubscriptionDataOptions =
+  | IDealSubscriptionDataOption
+  | IDealSubscriptionDataOption[];
+type IDealSubscriptionDataOption = "partner";
+
+export interface IVoucherListInput {
   user_guid?: string;
   show?: "basic" | "extended";
   from?: string;
@@ -339,6 +351,28 @@ export interface IVoucher {
     child_ext_id: string;
   };
 }
+
+export interface IVoucherDetail {
+  id: string;
+  user_guid: string;
+  barcode: string;
+  status: string;
+  pet_guid: string;
+  ts_redeemed: string;
+  active_redemption_request_status: string;
+  ts_subscribed: string;
+  redeem_validity_from: string;
+  redeem_validity_to: string;
+  deal: IDirectCashbackDealDetail;
+}
+
+export interface IVoucherDetailInput {
+  barcode: string;
+  coupon_id?: string;
+  deal_data_options?: IDealDataOptions;
+  data_options?: IDealSubscriptionDataOptions;
+}
+
 export interface IGetVisiblePartnerInput {
   deal_ref: string;
   user_guid: string;
@@ -720,6 +754,22 @@ export default class Deals extends Api {
         data.barcode ? "barcode" : data.secure_code ? "secure_code" : "",
       ],
       retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_deals_subscription_details")
+  @filterInput([
+    "barcode", // (Required) Subscription barcode without any formattings
+    "coupon_id", // (Optional) you can use coupon_id instead of barcode if it available. 'coupon_id' is internal sequence id, it's available in the List coupons result set. You need to use either barcode or coupon_id
+    "deal_data_options", // (Optional) This defines information that is returned in the deal details node. For more information please refer Deal Data Options.
+    "data_options", // (Optional) This defines information that is returned in the deal subscription details node. For more information please refer Deal Subscription Data Options.
+  ])
+  public getVoucherDetail(
+    data: IVoucherDetailInput,
+  ): Promise<{ data: IVoucherDetail }> {
+    return this._call("get-subscription-details", data, {
+      retry: true,
+      hashKeys: ["barcode", "coupon_id"],
     });
   }
 
