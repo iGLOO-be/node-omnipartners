@@ -974,6 +974,17 @@ export interface IDeal extends IDealListItem {
     coll_with_qty: string;
   }>;
   type_details: { discount_type: string; amounts: [] };
+  benefits: Array<{
+    id: string;
+    product: {
+      ean: string;
+      id: string;
+      label: string;
+      friendly_name: string;
+    };
+    value: string;
+    currency: string;
+  }>;
 }
 
 export interface IUserEligibleDirectCashbackDeal {

@@ -363,7 +363,7 @@ export interface IVoucherDetail {
   ts_subscribed: string;
   redeem_validity_from: string;
   redeem_validity_to: string;
-  deal: IDirectCashbackDealDetail;
+  deal: IDeal;
 }
 
 export interface IVoucherDetailInput {
