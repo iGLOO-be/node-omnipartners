@@ -280,6 +280,15 @@ export interface IVoucherListInput {
   show?: "basic" | "extended";
   from?: string;
   to?: string;
+  external_tracking_ref?: string;
+  deal_types?:
+    | "COUPON"
+    | "PRESENT"
+    | "SAVING"
+    | "PAYING"
+    | "LOYALTY"
+    | "CASHBACK"
+    | "DIRECT CASHBACK";
   redeemed_from?: string;
   redeemed_to?: string;
   barcode?: string;
@@ -291,7 +300,7 @@ export interface IVoucherListInput {
   sort_order?: string;
   q?: string;
   p_length?: number;
-  p_page: number;
+  p_page?: number;
 }
 
 export interface IVoucher {
@@ -364,6 +373,15 @@ export interface IVoucherDetail {
   redeem_validity_from: string;
   redeem_validity_to: string;
   deal: IDeal;
+
+  // deal_data_options: `benefits`
+  benefit: IVoucherBenefit;
+}
+
+export interface IVoucherBenefit {
+  product_id?: string;
+  amount?: string;
+  currency?: string;
 }
 
 export interface IVoucherDetailInput {
@@ -714,8 +732,10 @@ export default class Deals extends Api {
     "redeemed_from", // Date time value to filter on redeemed date
     "redeemed_to", // Date time value to filter on redeemed date
     "barcode", // Barcode value to filter. This could be full or a part of the barcode
+    "external_tracking_ref", // External tracking reference. Filter on the specified external_tracking_ref.
     "partner_extid", // To filter on the specified partner. Allowed only valid external-customer-id.
     "deal_ref", // Deal reference. Filter on the specified deal.
+    "deal_types", // Deal Types. Filter on the specified deal types. allowed values COUPON, PRESENT, SAVING, PAYING, LOYALTY, CASHBACK, DIRECT CASHBACK
     "status", // The status of the coupons subscription to filter. allowed values INVITED,SUBSCRIBED,REDEEMED.
     "inv_resend_count", // To filter on the number of invitation send
     "sort_field", // Field name to be apply the sorting. Allowed fields ts_created,subs_partner_id,coupon_id,status,num_invi_resend,ts_last_send,partner_name,user_identity
