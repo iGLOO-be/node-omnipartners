@@ -11,7 +11,7 @@ export { DataLanguageResolver } from "./metadata/DataLanguageResolver";
 export { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
 export { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
 export { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
-export * from "./metadata/DataPartnerRelationTypesResolver"
+export * from "./metadata/DataPartnerRelationTypesResolver";
 export { DealResolver } from "./resolvers/DealResolver";
 export { ProductResolver } from "./resolvers/ProductResolver";
 export * from "./types/Context";
@@ -43,3 +43,4 @@ export * from "./schema";
 export * from "./utils";
 export * from "./connections";
 export * from "./user/User";
+export * from "./deals/Deal";

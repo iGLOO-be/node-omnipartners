@@ -263,23 +263,48 @@ type IDirectCashbackDealDataOption =
   | "benefits"
   | "benefit_product_detail";
 
-interface IVoucherListInput {
+export type IDealDataOptions = IDealDataOption | IDealDataOption[];
+type IDealDataOption =
+  | "collection_association"
+  | "basic_details"
+  | "benefits"
+  | "benefit_product_detail";
+
+export type IDealSubscriptionDataOptions =
+  | IDealSubscriptionDataOption
+  | IDealSubscriptionDataOption[];
+type IDealSubscriptionDataOption = "partner";
+
+export type DealType =
+  | "COUPON"
+  | "PRESENT"
+  | "SAVING"
+  | "PAYING"
+  | "LOYALTY"
+  | "CASHBACK"
+  | "DIRECT CASHBACK";
+
+type IVoucherListInputDealTypes = DealType | DealType[];
+
+export interface IVoucherListInput {
   user_guid?: string;
   show?: "basic" | "extended";
   from?: string;
   to?: string;
+  external_tracking_ref?: string;
+  deal_types?: IVoucherListInputDealTypes;
   redeemed_from?: string;
   redeemed_to?: string;
   barcode?: string;
   partner_extid?: string;
   deal_ref?: string;
-  status?: string;
+  status?: "INVITED" | "SUBSCRIBED" | "REDEEMED";
   inv_resend_count?: string;
   sort_field?: string;
   sort_order?: string;
   q?: string;
   p_length?: number;
-  p_page: number;
+  p_page?: number;
 }
 
 export interface IVoucher {
@@ -339,6 +364,37 @@ export interface IVoucher {
     child_ext_id: string;
   };
 }
+
+export interface IVoucherDetail {
+  id: string;
+  user_guid: string;
+  barcode: string;
+  status: string;
+  pet_guid: string;
+  ts_redeemed: string;
+  active_redemption_request_status: string;
+  ts_subscribed: string;
+  redeem_validity_from: string;
+  redeem_validity_to: string;
+  deal: IDeal;
+
+  // deal_data_options: `benefits`
+  benefit: IVoucherBenefit;
+}
+
+export interface IVoucherBenefit {
+  product_id?: string;
+  amount?: string;
+  currency?: string;
+}
+
+export interface IVoucherDetailInput {
+  barcode: string;
+  coupon_id?: string;
+  deal_data_options?: IDealDataOptions;
+  data_options?: IDealSubscriptionDataOptions;
+}
+
 export interface IGetVisiblePartnerInput {
   deal_ref: string;
   user_guid: string;
@@ -680,8 +736,10 @@ export default class Deals extends Api {
     "redeemed_from", // Date time value to filter on redeemed date
     "redeemed_to", // Date time value to filter on redeemed date
     "barcode", // Barcode value to filter. This could be full or a part of the barcode
+    "external_tracking_ref", // External tracking reference. Filter on the specified external_tracking_ref.
     "partner_extid", // To filter on the specified partner. Allowed only valid external-customer-id.
     "deal_ref", // Deal reference. Filter on the specified deal.
+    "deal_types", // Deal Types. Filter on the specified deal types. allowed values COUPON, PRESENT, SAVING, PAYING, LOYALTY, CASHBACK, DIRECT CASHBACK
     "status", // The status of the coupons subscription to filter. allowed values INVITED,SUBSCRIBED,REDEEMED.
     "inv_resend_count", // To filter on the number of invitation send
     "sort_field", // Field name to be apply the sorting. Allowed fields ts_created,subs_partner_id,coupon_id,status,num_invi_resend,ts_last_send,partner_name,user_identity
@@ -720,6 +778,22 @@ export default class Deals extends Api {
         data.barcode ? "barcode" : data.secure_code ? "secure_code" : "",
       ],
       retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_deals_subscription_details")
+  @filterInput([
+    "barcode", // (Required) Subscription barcode without any formattings
+    "coupon_id", // (Optional) you can use coupon_id instead of barcode if it available. 'coupon_id' is internal sequence id, it's available in the List coupons result set. You need to use either barcode or coupon_id
+    "deal_data_options", // (Optional) This defines information that is returned in the deal details node. For more information please refer Deal Data Options.
+    "data_options", // (Optional) This defines information that is returned in the deal subscription details node. For more information please refer Deal Subscription Data Options.
+  ])
+  public getVoucherDetail(
+    data: IVoucherDetailInput,
+  ): Promise<{ data: IVoucherDetail }> {
+    return this._call("get-subscription-details", data, {
+      retry: true,
+      hashKeys: ["barcode", "coupon_id"],
     });
   }
 
