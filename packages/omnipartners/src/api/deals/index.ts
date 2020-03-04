@@ -275,26 +275,30 @@ export type IDealSubscriptionDataOptions =
   | IDealSubscriptionDataOption[];
 type IDealSubscriptionDataOption = "partner";
 
+export type DealType =
+  | "COUPON"
+  | "PRESENT"
+  | "SAVING"
+  | "PAYING"
+  | "LOYALTY"
+  | "CASHBACK"
+  | "DIRECT CASHBACK";
+
+type IVoucherListInputDealTypes = DealType | DealType[];
+
 export interface IVoucherListInput {
   user_guid?: string;
   show?: "basic" | "extended";
   from?: string;
   to?: string;
   external_tracking_ref?: string;
-  deal_types?:
-    | "COUPON"
-    | "PRESENT"
-    | "SAVING"
-    | "PAYING"
-    | "LOYALTY"
-    | "CASHBACK"
-    | "DIRECT CASHBACK";
+  deal_types?: IVoucherListInputDealTypes;
   redeemed_from?: string;
   redeemed_to?: string;
   barcode?: string;
   partner_extid?: string;
   deal_ref?: string;
-  status?: string;
+  status?: "INVITED" | "SUBSCRIBED" | "REDEEMED";
   inv_resend_count?: string;
   sort_field?: string;
   sort_order?: string;
