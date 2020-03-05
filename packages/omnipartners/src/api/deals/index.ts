@@ -691,12 +691,24 @@ export default class Deals extends Api {
   }
 
   @doc("http://doc.omnipartners.be/index.php/Check_deal_validity")
-  @filterInput(["user_guid", "pet_guid", "deal_ref"])
-  public checkDealValidity(data: {
-    user_guid: string;
-    pet_guid: string;
-    deal_ref: string;
-  }) {
+  @filterInput(["user_guid", "pet_guid", "child_guid", "deal_ref"])
+  public checkDealValidity(
+    data:
+      | {
+          user_guid: string;
+          deal_ref: string;
+        }
+      | {
+          user_guid: string;
+          pet_guid: string;
+          deal_ref: string;
+        }
+      | {
+          user_guid: string;
+          child_guid: string;
+          deal_ref: string;
+        },
+  ) {
     return this._call("check-deal-validity", data, {
       hashKeys: ["deal_ref", "user_guid"],
       retry: true,
