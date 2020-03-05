@@ -175,6 +175,10 @@ export interface IPartnerUpdateInput {
   partner_website?: string;
   partner_facebook?: string;
   partner_twitter?: string;
+  partner_instagram?: string;
+  partner_linkedin?: string;
+  partner_whatsapp?: string;
+  partner_youtube?: string;
   partner_vat?: string;
   partner_type?: string;
   partner_subtype?: string;
