@@ -38,6 +38,7 @@ export { LoyaltyResolver } from "./resolvers/LoyaltyResolver";
 export * from "./user/UserFavouritesResolver";
 export * from "./user/UserFavourites";
 export * from "./user/UserFavouritesResult";
+export * from "./user/UserResult";
 
 export * from "./schema";
 export * from "./utils";
