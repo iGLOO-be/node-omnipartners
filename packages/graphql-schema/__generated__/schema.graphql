@@ -608,6 +608,7 @@ type Query {
   productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
   user(token: String!): UserResult
   userLogin(userContextData: JSON, password: String!, identifier: String!): UserResult!
+  userLoginByEmail(userContextData: JSON, email: String!): UserResult!
   userLoginByAccessToken(userContextData: JSON, access_token: String!): UserResult!
   userLoginByPublicToken(userContextData: JSON, token: String!): UserResult!
   userEmailExists(email: String!): Boolean!

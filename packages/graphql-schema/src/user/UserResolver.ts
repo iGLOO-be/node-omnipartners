@@ -115,6 +115,29 @@ export class UserResolver {
   }
 
   @Query(() => UserResult)
+  public async userLoginByEmail(
+    @Ctx() ctx: Context,
+    @Arg("email") email: string,
+    @Arg("userContextData", () => GraphQLJSON, { nullable: true })
+    userContextData?: any,
+  ): Promise<UserResult> {
+    try {
+      const user = await ctx.omnipartners.identity.authenticateByEmail({
+        email,
+        data_options: userDataOptions,
+      });
+
+      return new UserResult({
+        result: await ctx.userHelper.createUser(user, userContextData),
+      });
+    } catch (err) {
+      return new UserResult({
+        error: new GenericError(err),
+      });
+    }
+  }
+
+  @Query(() => UserResult)
   public async userLoginByAccessToken(
     @Ctx() ctx: Context,
     @Arg("access_token") access_token: string,

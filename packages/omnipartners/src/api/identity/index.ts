@@ -552,7 +552,10 @@ export default class Identity extends Api {
     "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Email_ONLY_Service",
   )
   @filterInput(["email", "data_options"])
-  public authenticateByEmail(data: { email: string; data_options?: string }) {
+  public authenticateByEmail(data: {
+    email: string;
+    data_options?: IUserDataOptions;
+  }) {
     return this.get("/service/auth/email", data, {
       hashKeys: ["email"],
       retry: true,
