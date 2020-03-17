@@ -10,6 +10,9 @@
     "test": "yarn lint && lerna run --stream --concurrency 1 test",
     "prepare": "lerna run --ignore \"*/graphql-demo\" build"
   },
+  "engines": {
+    "node": ">=10"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
