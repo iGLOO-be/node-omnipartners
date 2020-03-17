@@ -74,6 +74,14 @@ export type IPartnerOpeningHours = {
   [key in IPartnerOpeningHoursDay]?: Array<{ from: string; to: string }>;
 };
 
+interface IPartnerBreedRelation {
+  id: string;
+  name: string;
+  species: string;
+  com_id: string;
+  universe: string;
+}
+
 export interface IPartnerDetails {
   partner_ext_id: string;
   partner_inv_name: string;
@@ -148,6 +156,7 @@ export interface IPartnerDetails {
   partner_custom_species?: string;
   partner_short_description_generic?: string;
   partner_opening_hours?: IPartnerOpeningHours | null;
+  partner_breed_relations?: IPartnerBreedRelation[] | null;
 }
 
 export interface IPartnerUpdateInput {
