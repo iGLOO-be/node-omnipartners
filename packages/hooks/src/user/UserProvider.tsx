@@ -22,7 +22,7 @@ const UserTokenProvider = ({
 }: {
   children: JSX.Element;
 } & IUserProviderOptions) => {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState<string | null | undefined>();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const UserTokenProvider = ({
     <userTokenContext.Provider
       value={{
         ready,
-        token,
+        token: token || "",
         setToken: (value: string | undefined) => {
           setToken(value);
           if (!value) {

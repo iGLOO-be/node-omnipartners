@@ -71,7 +71,7 @@ export type IPartnerOpeningHoursDay =
   | "day_7";
 
 export type IPartnerOpeningHours = {
-  [key in IPartnerOpeningHoursDay]?: Array<{ from: string; to: string }>;
+  [key in IPartnerOpeningHoursDay]?: { from: string; to: string }[];
 };
 
 interface IPartnerBreedRelation {
@@ -119,10 +119,10 @@ export interface IPartnerDetails {
   partner_sales_support?: string;
   partner_prim_cnt_language: string;
   partner_short_description?: string;
-  partner_short_description_translations?: Array<{
+  partner_short_description_translations?: {
     language: string;
     value: string;
-  }>;
+  }[];
   partner_eshop_url?: string;
   partner_lat?: string;
   partner_lng?: string;
@@ -200,10 +200,10 @@ export interface IPartnerUpdateInput {
   partner_sales_support?: string;
   partner_prim_cnt_language?: string;
   partner_short_description?: string;
-  partner_short_description_translations?: Array<{
+  partner_short_description_translations?: {
     language: string;
     value: string;
-  }>;
+  }[];
   partner_eshop_url?: string;
   partner_lat?: string;
   partner_lng?: string;

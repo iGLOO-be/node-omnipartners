@@ -8,7 +8,7 @@ interface IError {
 export const ErrorView = ({
   errors = [],
 }: {
-  errors: Array<IError | null | undefined>;
+  errors: (IError | null | undefined)[];
 }) => {
   const errorsFiltered = errors.filter(Boolean) as IError[];
   if (!errorsFiltered.length) {
