@@ -235,14 +235,14 @@ interface IDirectCashbackVoucherApprovalHistoryRedemptionRequestHistory {
   estimated_delivery_date: string;
   status: string;
   image_url: string;
-  history: Array<{
+  history: {
     changed_on: string;
     old_status: string;
     new_status: string;
     message: string;
     error?: string;
     description?: string;
-  }>;
+  }[];
 }
 
 export interface IDirectCashbackVoucherApprovalHistory {

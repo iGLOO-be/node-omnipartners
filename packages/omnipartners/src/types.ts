@@ -893,12 +893,12 @@ export interface IDeal extends IDealListItem {
   restrict_registration: boolean;
   image_url: string;
   postal_address_required: boolean;
-  optin_options: Array<{
+  optin_options: {
     id: string;
     visible: "1" | "0";
     default_value: string;
     can_change: "1" | "0";
-  }>;
+  }[];
   display_on_terminal: number;
   redeem_duration_value: number;
   redeem_duration_unit: string;
@@ -947,7 +947,7 @@ export interface IDeal extends IDealListItem {
   saving_end_date: string | null;
   allowed_partner_groups: [];
   excluded_partner_groups: [];
-  products: Array<{
+  products: {
     ean: string;
     id: number;
     label: string;
@@ -972,9 +972,9 @@ export interface IDeal extends IDealListItem {
     qty: number;
     label_with_qty: string;
     coll_with_qty: string;
-  }>;
+  }[];
   type_details: { discount_type: string; amounts: [] };
-  benefits: Array<{
+  benefits: {
     id: string;
     product: {
       ean: string;
@@ -984,7 +984,7 @@ export interface IDeal extends IDealListItem {
     };
     value: string;
     currency: string;
-  }>;
+  }[];
 }
 
 export interface IUserEligibleDirectCashbackDeal {
@@ -1029,7 +1029,7 @@ export interface IDirectCashbackDealDetail {
   slogan: string;
   public_name: string;
   langs: string[];
-  benefits: Array<{
+  benefits: {
     id: string;
     product: {
       ean: string;
@@ -1039,7 +1039,7 @@ export interface IDirectCashbackDealDetail {
     };
     value: string;
     currency: string;
-  }>;
+  }[];
 }
 
 export interface IDirectCashbackVoucherDetail {

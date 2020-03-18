@@ -18,7 +18,7 @@ const UserRecoverPasswordMutation = gql`
 `;
 
 export const useUserRecoverPassword = () => {
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState<boolean | undefined>();
 
   const [recoverPassword, mutationResult] = useMutation<
     UserRecoverPassword,

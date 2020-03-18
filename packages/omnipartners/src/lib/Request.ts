@@ -4,7 +4,7 @@ import fetch from "node-fetch"; // TODO: switch to fetch-retry
 import querystring from "qs";
 import { Response as RequestResponse } from "request";
 import request from "request-promise-native";
-import uuid from "uuid/v4";
+import { v4 as uuid } from "uuid";
 import { RequestError, RequestTimeoutError } from "./errors";
 import Response, { IFetchResponse } from "./Response";
 

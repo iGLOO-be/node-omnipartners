@@ -257,7 +257,7 @@ export interface IGetCollectionsByTargetingInfoCollection {
   product_groups?: string[];
 
   // Depends on data_options = available_packages
-  available_packages?: Array<{
+  available_packages?: {
     ean: string;
     label: string;
     weight: string;
@@ -275,7 +275,7 @@ export interface IGetCollectionsByTargetingInfoCollection {
       measure_type: string;
       measure_unit: string;
     };
-  }>;
+  }[];
 }
 
 export interface IGetCollectionByPetGUIDInput {

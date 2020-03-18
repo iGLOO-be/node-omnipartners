@@ -10,15 +10,18 @@
     "test": "yarn lint && lerna run --stream --concurrency 1 test",
     "prepare": "lerna run --ignore \"*/graphql-demo\" build"
   },
+  "engines": {
+    "node": ">=10"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
     ]
   },
   "devDependencies": {
-    "lerna": "^3.19.0",
+    "lerna": "^3.20.2",
     "prettier": "^1.19.1",
-    "tslint": "^5.20.1",
+    "tslint": "^6.1.0",
     "tslint-config-prettier": "^1.18.0"
   },
   "resolutions": {
