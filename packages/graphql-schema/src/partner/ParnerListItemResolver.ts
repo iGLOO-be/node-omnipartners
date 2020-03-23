@@ -13,7 +13,7 @@ import { PartnerConnection, PartnerListItem } from "./PartnerListItem";
 import { IPartnerListItemInput } from "omnipartners";
 
 @InputType()
-class IPartnerListItemInputArg {
+class PartnerListItemInput {
   @Field(() => [String], { nullable: true })
   public type?: string[] | string;
 
@@ -37,7 +37,7 @@ export class PartnerListItemResolver {
     @Ctx() ctx: Context,
     @Args() args: ConnectionArgs,
     @Arg("partnerListInput", { nullable: true })
-    partnerListInput?: IPartnerListItemInputArg,
+    partnerListInput?: PartnerListItemInput,
   ): Promise<PartnerConnection> {
     const res = await ctx.omnipartners.partners.listPartners({
       page: `${args.page}`,
