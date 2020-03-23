@@ -33,6 +33,21 @@ export interface IPartnerListItem {
   partner_pub_country: string;
 }
 
+export interface IPartnerListItemInput {
+  partner_type?: string;
+  partner_group_handle?: string;
+  collection_ref?: string;
+  stock_level?: string;
+  search_term?: string;
+  search_strict?: string;
+  partner_status?: string;
+  partner_updated_date?: string;
+  page?: string;
+  rows?: string;
+  show_hidden?: string;
+}
+
+
 export interface IPartnerLocatorInput {
   partner_lat: string;
   partner_lng: string;
