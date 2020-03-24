@@ -10,6 +10,7 @@ import {
   IPartnerListItem,
   IPartnerLocatorInput,
   IPartnerUpdateInput,
+  IPartnerListItemInput,
 } from "../../partner-types";
 
 export interface IPartnerGroup {
@@ -70,19 +71,7 @@ export default class Partners extends Api {
     "rows", // (Optional) The “Rows” used for pagination. Number of records per page. Its a number. The default value is 10. The maximum value is 100.
     "show_hidden", // (Optional) States whether to include the hidden partners in the result. (Valid Values: 0 OR 1) default 0
   ])
-  public listPartners(data: {
-    partner_type?: string;
-    partner_group_handle?: string;
-    collection_ref?: string;
-    stock_level?: string;
-    search_term?: string;
-    search_strict?: string;
-    partner_status?: string;
-    partner_updated_date?: string;
-    page?: string;
-    rows?: string;
-    show_hidden?: string;
-  }): Promise<{
+  public listPartners(data: IPartnerListItemInput): Promise<{
     data: IPartnerListItem[];
     page: string;
     total_rows: string;

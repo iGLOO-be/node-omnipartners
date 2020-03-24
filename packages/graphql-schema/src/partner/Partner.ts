@@ -2,6 +2,21 @@ import { IPartnerDetails } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
+export class PartnerLogo {
+  @Field({ nullable: true })
+  public default?: string;
+
+  @Field({ nullable: true })
+  public small?: string;
+
+  @Field({ nullable: true })
+  public medium?: string;
+
+  @Field({ nullable: true })
+  public large?: string;
+}
+
+@ObjectType()
 export class Partner {
   @Field()
   public extId: string;
@@ -39,8 +54,14 @@ export class Partner {
   @Field({ nullable: true })
   public type: string;
 
+  @Field({ nullable: true })
+  public website?: string;
+
   @Field(() => [String], { nullable: true })
   public partnerGroups?: string[];
+
+  @Field(() => PartnerLogo)
+  public logo?: PartnerLogo;
 
   constructor(data: IPartnerDetails) {
     Object.assign(this, data);
@@ -57,5 +78,12 @@ export class Partner {
     this.lng = data.partner_lng;
     this.type = data.partner_type;
     this.partnerGroups = data.partner_groups;
+    this.logo = {
+      default: data.partner_logo,
+      small: data.partner_logo_small,
+      medium: data.partner_logo_medium,
+      large: data.partner_logo_large,
+    };
+    this.website = data.partner_website;
   }
 }
