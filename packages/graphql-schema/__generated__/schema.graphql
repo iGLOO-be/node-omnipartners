@@ -305,11 +305,6 @@ type GenericValidationError {
   validationErrors: [FieldValidationError!]
 }
 
-input IPartnerListItemInputArg {
-  type: String
-  groupHandle: String
-}
-
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -388,7 +383,9 @@ type Partner {
   lat: String
   lng: String
   type: String
+  website: String
   partnerGroups: [String!]
+  logo: PartnerLogo!
 }
 
 type PartnerConnection {
@@ -407,6 +404,11 @@ type PartnerListItem {
   country: String
 }
 
+input PartnerListItemInput {
+  type: [String!]
+  groupHandle: [String!]
+}
+
 input PartnerLocatorInput {
   lat: String!
   lng: String!
@@ -419,6 +421,13 @@ input PartnerLocatorInput {
   stock_level: Float
   search_term: String
   partner_status: String
+}
+
+type PartnerLogo {
+  default: String
+  small: String
+  medium: String
+  large: String
 }
 
 type PartnerRelation {
@@ -648,7 +657,7 @@ type Query {
   directCashbackVoucherDetail(deal_data_options: [String!], barcode: String!, token: String!): DirectCashbackVoucherDetail
   metadataPartnerTypes(lang: String): [PartnerType!]!
   partnerList(
-    partnerListInput: IPartnerListItemInputArg
+    partnerListInput: PartnerListItemInput
 
     """Paginate limit"""
     limit: Float
