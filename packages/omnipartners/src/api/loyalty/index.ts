@@ -90,6 +90,16 @@ export interface ILoyaltyRetrieveTransactionHistoryResult {
   status: string;
 }
 
+export interface ILoyaltyTransactionHistoryStatsInput {
+  program_id: string;
+  shop_id?: string;
+  partner_ext_id?: string;
+  user_id: string;
+  starting_date?: string;
+  ending_date?: string;
+  filter_null_transactions?: "1";
+}
+
 export default class Loyalty extends Api {
   public defaultHost = "https://rewards.clixray.io/points";
 
@@ -307,5 +317,37 @@ export default class Loyalty extends Api {
         ...options,
       },
     );
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_transaction_history_stats")
+  @filterInput([
+    "program_id",
+    "shop_id",
+    "partner_ext_id",
+    "user_id",
+    "starting_date",
+    "ending_date",
+    "filter_null_transactions",
+  ])
+  public transactionHistoryStats(
+    data: ILoyaltyTransactionHistoryStatsInput,
+  ): Promise<{
+    status: number;
+    data: {
+      addition?: number;
+      deduction?: number;
+      "pet-sale"?: number;
+      activatecard?: number;
+      purchase?: number;
+    };
+  }> {
+    return this._call("get-transaction-history-stats", data, {
+      errorMap: {
+        1023: { message: "Transaction history records not found" },
+        1043: { message: "User (GUID) not found" },
+      },
+      hashKey: "sigid",
+      hashKeys: ["action", "program_id", "shop_id", "user_id"],
+    });
   }
 }
