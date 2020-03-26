@@ -947,6 +947,11 @@ export interface IDeal extends IDealListItem {
   saving_end_date: string | null;
   allowed_partner_groups: [];
   excluded_partner_groups: [];
+  subscription_partner_required: number;
+  subscription_referral_partner_required: number;
+  referral_partner_as_subscription_partner: number;
+  redemption_partner_required: number;
+  redemption_referral_partner_required: number;
   products: {
     ean: string;
     id: number;
