@@ -617,10 +617,12 @@ export default class Deals extends Api {
   @filterInput([
     "ref", // (Required) Deal reference code
     "default_lang", // (Optional) Language code.
+    "data_options", // This defines information that is returned in the deal details object. Multiple values should be comma separated. For more information please refer Deal Data Options.
   ])
   public getDeal(data: {
     ref: string;
     default_lang: string;
+    data_options?: IDealDataOptions;
   }): Promise<{ data: IDeal }> {
     return this._call("get-deal-details", data, {
       hashKeys: ["ref"],
