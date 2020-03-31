@@ -472,6 +472,38 @@ type ProductCollectionLinks {
   link: String
 }
 
+type ProductCollectionPetRation {
+  debug: ProductCollectionPetRationDebug!
+  energyValue: Float!
+  rationValue: Float!
+  energyValueUnit: String!
+  rationValueUnit: String!
+  approximationCodes: [String!]!
+  rationInCupsPerDay: String!
+}
+
+type ProductCollectionPetRationDebug {
+  exponent: Float!
+  constant: Float!
+}
+
+input ProductCollectionPetRationInput {
+  pet_guid: String!
+  user_guid: String
+  partner_id: String
+  partner_id_type: String
+  partner_group_handle: String
+  language: String
+  add_clientof_partner_groups: String
+  use_https_urls: String
+  apply_range_exlusions: String
+  data_options: [String!]
+  is_gestation: String
+  sort_order: String
+  component_sort_order: String
+  ignore_old_format: String
+}
+
 type ProductCollectionsByPetGUID {
   reference: String
   name: String
@@ -620,6 +652,7 @@ type Query {
   deal(default_lang: String, deal_ref: String!): Deal
   productCollectionsByTargetingInfo(input: ProductCollectionsByTargetingInfoInput!): [ProductCollectionsByTargetingInfoCollection!]
   productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
+  productCollectionPetRation(token: String!, input: ProductCollectionPetRationInput!): ProductCollectionPetRation
   user(token: String!): UserResult
   userLogin(userContextData: JSON, password: String!, identifier: String!): UserResult!
   userLoginByAccessToken(userContextData: JSON, access_token: String!): UserResult!
