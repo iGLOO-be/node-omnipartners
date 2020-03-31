@@ -893,6 +893,7 @@ export interface IDeal extends IDealListItem {
   restrict_registration: boolean;
   image_url: string;
   postal_address_required: boolean;
+  delivery_address_required: "1" | "0" | null,
   optin_options: {
     id: string;
     visible: "1" | "0";
