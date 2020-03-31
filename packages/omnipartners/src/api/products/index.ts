@@ -383,6 +383,34 @@ export interface IFindProductCollectionInput {
   component_sort_order?: string;
 }
 
+export type ApproximationCodes = "APC001" |"APC002" |"APC003" |"APC004" |"APC005" |"APC006"
+
+/**
+ * * **@pet_weight**: required only if pet has no weight set
+ */
+export interface IGetCollectionPetRationInput {
+  pet_weight?: string; // Required if pet has no weight series
+  pet_guid: string;
+  pet_predicted_adult_weight?: string;
+  pet_bcs?: string;
+  energy_level?: string;
+  collection_reference?: string;
+  language?: string;
+}
+
+export interface ICollectionPetRation {
+  debug: {
+    exponent: number;
+    constant: number;
+  };
+  energy_value: number;
+  ration_value: number;
+  energy_value_unit: string;
+  ration_value_unit: string;
+  approximation_codes: ApproximationCodes[];
+  ration_in_cups_per_day: string;
+}
+
 export default class Products extends Api {
   public defaultHost = "https://products.clixray.io/";
 
@@ -397,6 +425,47 @@ export default class Products extends Api {
     1021: { message: "Internal error." },
     1023: { message: "Invalid Request." },
     1030: { message: "Missing required fields." },
+    1939: {
+      message: "Invalid Data Provided (Ration value cannot be calculated).",
+    },
+    1940: {
+      message:
+        "Either energy level is not specified or collection doesn't have the energy level defined.",
+    },
+    1941: { message: "Invalid pet weight value." },
+    1942: { message: "Invalid pet BCS value." },
+    1943: {
+      message:
+        "Invalid pet BCS constant (Which is used inside the calculation).",
+    },
+    1954: { message: "Pet Species not found." },
+    1955: { message: "Invalid pet Species." },
+    1968: {
+      message:
+        "Pet Info not found. (When any of pet_species or pet_breed is not provided).",
+    },
+    1969: { message: "Invalid Breed." },
+    1973: { message: "Invalid Pet Stage." },
+    1974: { message: "Pet feeding Stage is Empty." },
+    1975: { message: "Cannot Derive Pet feeding Stage." },
+    1977: { message: "Pet neutered value is Invalid." },
+    1979: { message: "Pet's predicted Adult Weight is required." },
+    1980: { message: "Breed is required for the calculation." },
+    1981: { message: "Pet's Age is required for the calculation." },
+    1982: {
+      message:
+        "Predicted Adult Weight is not supporting for the calculation (Value mismatch).",
+    },
+    1983: {
+      message: "Age is not supporting for the calculation ( Value mismatch).",
+    },
+    1984: {
+      message:
+        "Pet is not in Growth feeding stage (Provided information does not match for the Growth Feeding stage).",
+    },
+    1991: { message: "Invalid Value for pet's predicted adult weight." },
+    1992: { message: "Invalid Value supplied for energy level." },
+    1989: { message: "Empty pet weight." },
   };
 
   public _call(action: string, data: any, options: IApiFetchOptions = {}) {
@@ -577,6 +646,27 @@ export default class Products extends Api {
     group_handle?: string;
   }): Promise<{ data: IProductGroupListItem[] }> {
     return this._call("list-product-groups", data, {
+      errorMap: {},
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_Collection_Pet_Ration")
+  @filterInput([
+    "pet_weight", // (Required if pet has no weight series) Pet's Weight measured in grams.
+    "pet_guid", // (Required) GUID of the pet.
+    "pet_predicted_adult_weight", // (Optional) Pet's Predicted adult Weight measured in grams. If this parameter has a value, then this value will be taken as pet's predicted adult weight else there will be an internal calculation to derive the value. Please refer here for more information.
+    "pet_bcs", // (Optional) Pet's Body Condition Score. This should be a valid value (Positive integer value which is less than or equal to 9 ) and if it is not provided , then the value will be taken as 5 in the ration calculation.
+    "energy_level", // (Optional) Energy level of the collection expressed in Kcal / kg. This will be a direct input to the service. Required if the Collection reference is not provided. If both collection reference and the energy level are found , value of this parameter will get considered in to the calculation.
+    "collection_reference", // (Optional) Reference of a Collection.
+    "language", // (Optional) Language ID will use to translate the units of the result. (see http://doc.omnipartners.be/index.php/Language_list)
+  ])
+  public getCollectionPetRation(
+    data?: IGetCollectionPetRationInput,
+  ): Promise<{
+    data: ICollectionPetRation;
+  }> {
+    return this._call("get-collection-pet-ration", data, {
       errorMap: {},
       retry: true,
     });
