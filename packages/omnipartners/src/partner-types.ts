@@ -125,6 +125,7 @@ export interface IPartnerDetails {
   partner_vat?: string;
   partner_type: string;
   partner_subtype?: string;
+  partner_prim_cnt_guid?: string;
   partner_prim_cnt_title?: string;
   partner_prim_cnt_first_name?: string;
   partner_prim_cnt_last_name?: string;
