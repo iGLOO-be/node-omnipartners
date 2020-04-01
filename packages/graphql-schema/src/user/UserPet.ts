@@ -95,7 +95,7 @@ export class UserPet
     Object.assign(this, data);
     this.dob = data.pet_dob;
     this.type = data.petType;
-    this.hasPicture = data.has_picture === "1" ? true : false;
+    this.hasPicture = Boolean(parseInt(data.has_picture, 10));
     this.profileCompletion = parseInt(data.profile_completion, 10) || 0;
     this.declarativeProduct = data.pet_declarative_product;
     this.lastUpdated = data.lastUpdated
