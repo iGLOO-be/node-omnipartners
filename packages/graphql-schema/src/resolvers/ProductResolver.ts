@@ -5,6 +5,9 @@ import {
   IGetCollectionsByTargetingInfoInput,
   IGetCollectionsByTargetingInfoInputFilterByAllSimple,
   IProductDataOptions,
+  IGetCollectionPetRationInput,
+  ICollectionPetRation,
+  ApproximationCodes,
 } from "omnipartners";
 import { Arg, Ctx, Field, InputType, ObjectType, Query } from "type-graphql";
 import { Context } from "../types/Context";
@@ -298,6 +301,73 @@ class ProductCollectionsByPetGUID {
   }
 }
 
+@InputType()
+class ProductCollectionPetRationInput implements IGetCollectionPetRationInput {
+  @Field()
+  public pet_guid!: string;
+
+  @Field({ nullable: true })
+  public pet_weight?: string;
+
+  @Field({ nullable: true })
+  public pet_predicted_adult_weight?: string;
+
+  @Field({ nullable: true })
+  public pet_bcs?: string;
+
+  @Field({ nullable: true })
+  public energy_level?: string;
+
+  @Field({ nullable: true })
+  public collection_reference?: string;
+
+  @Field({ nullable: true })
+  public language?: string;
+}
+
+@ObjectType()
+class ProductCollectionPetRationDebug {
+  @Field()
+  public exponent!: number;
+  @Field()
+  public constant!: number;
+}
+
+@ObjectType()
+class ProductCollectionPetRation {
+  @Field(() => ProductCollectionPetRationDebug)
+  public debug!: ProductCollectionPetRationDebug;
+
+  @Field()
+  public energyValue: number;
+
+  @Field()
+  public rationValue: number;
+
+  @Field()
+  public energyValueUnit: string;
+
+  @Field()
+  public rationValueUnit: string;
+
+  @Field(() => [String])
+  public approximationCodes: ApproximationCodes[];
+
+  @Field()
+  public rationInCupsPerDay: string;
+
+  constructor(data: ICollectionPetRation) {
+    Object.assign(this, data);
+    this.energyValue = data.energy_value;
+    this.rationValue = data.ration_value;
+    this.energyValueUnit = data.energy_value_unit;
+    this.rationValue = data.ration_value;
+    this.rationValueUnit = data.ration_value_unit;
+    this.approximationCodes = data.approximation_codes;
+    this.rationInCupsPerDay = data.ration_in_cups_per_day;
+  }
+}
+
 export class ProductResolver {
   @Query(() => [ProductCollectionsByTargetingInfoCollection], {
     nullable: true,
@@ -306,9 +376,9 @@ export class ProductResolver {
     @Ctx() ctx: Context,
     @Arg("input") input: ProductCollectionsByTargetingInfoInput,
   ): Promise<ProductCollectionsByTargetingInfoCollection[]> {
-    return (await ctx.omnipartners.products.getCollectionsByTargetingInfo(
-      input,
-    )).data;
+    return (
+      await ctx.omnipartners.products.getCollectionsByTargetingInfo(input)
+    ).data;
   }
 
   @Query(() => [ProductCollectionsByPetGUID], {
@@ -321,11 +391,32 @@ export class ProductResolver {
   ): Promise<ProductCollectionsByPetGUID[]> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
 
-    const res = (await ctx.omnipartners.products.getCollectionsByPetGUID({
-      ...input,
-      user_guid,
-    })).data;
+    const res = (
+      await ctx.omnipartners.products.getCollectionsByPetGUID({
+        ...input,
+        user_guid,
+      })
+    ).data;
 
     return res.map(d => new ProductCollectionsByPetGUID(d));
+  }
+
+  @Query(() => ProductCollectionPetRation, {
+    nullable: true,
+  })
+  public async productCollectionPetRation(
+    @Ctx() ctx: Context,
+    @Arg("input") input: ProductCollectionPetRationInput,
+    @Arg("token") token: string,
+  ): Promise<ProductCollectionPetRation> {
+    ctx.userTokenHelper.parse(token);
+
+    const res = (
+      await ctx.omnipartners.products.getCollectionPetRation({
+        ...input,
+      })
+    ).data;
+
+    return new ProductCollectionPetRation(res);
   }
 }
