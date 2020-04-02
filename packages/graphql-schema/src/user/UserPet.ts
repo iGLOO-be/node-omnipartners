@@ -47,6 +47,9 @@ class UserPetBmi {
   @Field()
   public bmi!: string;
 
+  @Field()
+  public date!: string;
+
   constructor(data: IUserPetBmiEntry) {
     Object.assign(this, data);
   }
