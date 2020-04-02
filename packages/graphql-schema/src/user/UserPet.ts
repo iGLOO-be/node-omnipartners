@@ -9,9 +9,17 @@ import { Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
 
 @ObjectType()
-class UserBreedDetail implements Pick<IUserPetBreedDetail, "name"> {
+class UserBreedDetail {
   @Field()
   public name!: string;
+
+  @Field()
+  public universeId!: string;
+
+  constructor(data: IUserPetBreedDetail) {
+    Object.assign(this, data);
+    this.universeId = data.universe_id;
+  }
 }
 
 @ObjectType()
@@ -104,6 +112,7 @@ export class UserPet
     this.lastUpdated = data.lastUpdated
       ? new Date(data.lastUpdated)
       : undefined;
+    this.breedDetails = new UserBreedDetail(data.breedDetails);
   }
 
   @Field()
