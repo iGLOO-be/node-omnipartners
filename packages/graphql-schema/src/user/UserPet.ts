@@ -102,6 +102,9 @@ export class UserPet
   @Field({ nullable: true })
   public lastUpdated?: Date;
 
+  @Field({ nullable: true })
+  public lifeStyle?: string;
+
   constructor(data: IUserPet) {
     Object.assign(this, data);
     this.dob = data.pet_dob;
@@ -113,6 +116,7 @@ export class UserPet
       ? new Date(data.lastUpdated)
       : undefined;
     this.breedDetails = new UserBreedDetail(data.breedDetails);
+    this.lifeStyle = data.pet_lifestyle ? data.pet_lifestyle : undefined;
   }
 
   @Field()

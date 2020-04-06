@@ -86,7 +86,7 @@ type Deal {
   allowed_partner_groups: [String!]
   excluded_partner_groups: [String!]
   deal_groups: [String!]
-  products: [ProductCollection!]
+  products: [ProductCollectionDetail!]
   type_details: DealTypeDetails
 }
 
@@ -113,7 +113,7 @@ type DealProduct {
   friendly_name: String
   min_qty: Float!
   collectionReference: String
-  collection(lang: String!): ProductCollection
+  collection(lang: String!): ProductCollectionDetail
 }
 
 type DealStringByLang {
@@ -445,21 +445,28 @@ type PlaceOfPurchase {
   code: String!
 }
 
-type ProductCollection {
+type ProductCollectionDetail {
   reference: String!
-  generic_name: String!
-  name: String!
-  energy_level: Float!
-  has_image: Boolean!
-  collection_reference: String!
-  collection_generic_name: String!
-  collection_name: String!
-  collection_description: String!
-  collection_tag_line: String!
-  collection_introduction: String!
-  collection_range_reference: String!
-  collection_range_family_reference: String!
-  collection_energy_level: Float!
+  name: String
+  description: String
+  tagLine: String
+  introduction: String
+  image: String
+  imageSmall: String
+  imageMedium: String
+  imageLarge: String
+  links: [ProductCollectionLinks!]
+  energy_level: Float! @deprecated(reason: "old field nomenclature")
+  has_image: Boolean! @deprecated(reason: "old field nomenclature")
+  collection_reference: String! @deprecated(reason: "old field nomenclature")
+  collection_generic_name: String! @deprecated(reason: "old field nomenclature")
+  collection_name: String! @deprecated(reason: "old field nomenclature")
+  collection_description: String! @deprecated(reason: "old field nomenclature")
+  collection_tag_line: String! @deprecated(reason: "old field nomenclature")
+  collection_introduction: String! @deprecated(reason: "old field nomenclature")
+  collection_range_reference: String! @deprecated(reason: "old field nomenclature")
+  collection_range_family_reference: String! @deprecated(reason: "old field nomenclature")
+  collection_energy_level: Float! @deprecated(reason: "old field nomenclature")
   collection_image: String
   collection_image_small: String
   collection_image_medium: String
@@ -617,6 +624,15 @@ input ProductCollectionsByTargetingInfoInput {
   ration_predicted_weight: String
 }
 
+input ProductCollectionsDetailInput {
+  collectionReference: String!
+  language: String!
+  useHttpUrls: Boolean
+  dataOptions: [String!]
+  componentSortOrder: String
+  ignoreOld_Format: String
+}
+
 type Query {
   metadataLegalForms(codes: String, lang: String): [LegalForm!]!
   metadataAnimalBreeds(type: String, lang: String): [AnimalBreed!]!
@@ -646,6 +662,7 @@ type Query {
   productCollectionsByTargetingInfo(input: ProductCollectionsByTargetingInfoInput!): [ProductCollectionsByTargetingInfoCollection!]
   productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
   productCollectionPetRation(token: String!, input: ProductCollectionPetRationInput!): ProductCollectionPetRation
+  productCollectionDetail(token: String!, input: ProductCollectionsDetailInput!): ProductCollectionDetail
   user(token: String!): UserResult
   userLogin(userContextData: JSON, password: String!, identifier: String!): UserResult!
   userLoginByAccessToken(userContextData: JSON, access_token: String!): UserResult!
@@ -919,6 +936,7 @@ type UserPet {
   breedDetails: UserBreedDetail!
   hasPicture: Boolean!
   lastUpdated: DateTime
+  lifeStyle: String
   pictureUrl: String!
   placeOfPurchase: [UserPetPlaceOfPurchase!]!
   weightSeries: [UserPetWeight!]!
@@ -973,6 +991,7 @@ input UserPetUpdateInput {
   placeOfPurchase: String
   bmi: UserPetBmiEntry
   weight: UserPetWeightEntry
+  lifeStyle: String
 }
 
 type UserPetUpdateResult {

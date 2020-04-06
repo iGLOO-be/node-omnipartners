@@ -17,7 +17,7 @@ import {
 } from "../deals/VisiblePartner";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { ProductCollection } from "../types/ProductCollection";
+import { ProductCollectionDetail } from "../products/ProductCollection";
 
 @InputType()
 export class DealSubscribeInput
@@ -80,11 +80,11 @@ class DealProduct implements Omit<IDealProduct, "collection"> {
     this.collectionReference = data.collection.reference;
   }
 
-  @Field(() => ProductCollection, { nullable: true })
+  @Field(() => ProductCollectionDetail, { nullable: true })
   public async collection(
     @Ctx() ctx: Context,
     @Arg("lang") lang: string,
-  ): Promise<ProductCollection | undefined> {
+  ): Promise<ProductCollectionDetail | undefined> {
     if (!this.collectionReference) {
       return;
     }

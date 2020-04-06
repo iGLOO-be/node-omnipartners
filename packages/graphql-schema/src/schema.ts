@@ -19,7 +19,6 @@ import { PartnerListItemResolver } from "./partner/ParnerListItemResolver";
 import { PartnerLocatorResolver } from "./partner/PartnerLocatorResolver";
 import { PartnerResolver } from "./partner/PartnerResolver";
 import { DealResolver } from "./resolvers/DealResolver";
-import { ProductResolver } from "./resolvers/ProductResolver";
 import { UserAddressCreateResolver } from "./user/UserAddressCreateResolver";
 import { UserAddressUpdateResolver } from "./user/UserAddressUpdateResolver";
 import { UserChildCreateResolver } from "./user/UserChildCreateResolver";
@@ -36,6 +35,7 @@ import { UserPetDeleteResolver } from "./user/UserPetDeleteResolver";
 import { UserPetUpdateResolver } from "./user/UserPetUpdateResolver";
 import { UserResolver } from "./user/UserResolver";
 import { UserUpdateResolver } from "./user/UserUpdateResolver";
+import { ProductCollectionResolver } from "./products/ProductCollectionResolver";
 
 export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
   typeGraphqlBuildschema({
@@ -60,7 +60,7 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       DataUserTitleResolver,
       DataLegalFormResolver,
       DealResolver,
-      ProductResolver,
+      ProductCollectionResolver,
       PartnerLocatorResolver,
       PartnerResolver,
       PartnerListItemResolver,

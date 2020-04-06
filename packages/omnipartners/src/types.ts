@@ -342,7 +342,7 @@ export interface IUserPet {
   pet_owner_since: null;
   tattooId: null;
   chipNumber: null;
-  pet_lifestyle: null;
+  pet_lifestyle: string | null;
   pet_brand: null;
   pet_declarative_product?: string;
   pet_ideal_product: null;

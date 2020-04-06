@@ -1,7 +1,7 @@
 import { IDeal } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
 import { AnimalBreed } from "../metadata/DataAnimalBreedResolver";
-import { ProductCollection } from "../types/ProductCollection";
+import { ProductCollectionDetail } from "../products/ProductCollection";
 
 @ObjectType()
 class DealOptionOptions {
@@ -171,8 +171,8 @@ export class Deal {
   public excluded_partner_groups?: string[];
   @Field(() => [String], { nullable: true })
   public deal_groups?: string[];
-  @Field(() => [ProductCollection], { nullable: true })
-  public products?: ProductCollection[];
+  @Field(() => [ProductCollectionDetail], { nullable: true })
+  public products?: ProductCollectionDetail[];
   @Field(() => DealTypeDetails, { nullable: true })
   public type_details?: DealTypeDetails;
 
