@@ -489,19 +489,12 @@ type ProductCollectionPetRationDebug {
 
 input ProductCollectionPetRationInput {
   pet_guid: String!
-  user_guid: String
-  partner_id: String
-  partner_id_type: String
-  partner_group_handle: String
+  pet_weight: String
+  pet_predicted_adult_weight: String
+  pet_bcs: String
+  energy_level: String
+  collection_reference: String
   language: String
-  add_clientof_partner_groups: String
-  use_https_urls: String
-  apply_range_exlusions: String
-  data_options: [String!]
-  is_gestation: String
-  sort_order: String
-  component_sort_order: String
-  ignore_old_format: String
 }
 
 type ProductCollectionsByPetGUID {
@@ -783,6 +776,7 @@ type UserAndPet {
 
 type UserBreedDetail {
   name: String!
+  universeId: String!
 }
 
 type UserChild {
@@ -933,6 +927,7 @@ type UserPet {
 
 type UserPetBmi {
   bmi: String!
+  date: String!
 }
 
 input UserPetBmiEntry {
