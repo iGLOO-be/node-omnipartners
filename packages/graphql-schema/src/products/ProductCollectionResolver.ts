@@ -85,6 +85,6 @@ export class ProductCollectionResolver {
       })
     ).data;
 
-    return res;
+    return new ProductCollectionDetail(res);
   }
 }
