@@ -383,7 +383,13 @@ export interface IFindProductCollectionInput {
   component_sort_order?: string;
 }
 
-export type ApproximationCodes = "APC001" |"APC002" |"APC003" |"APC004" |"APC005" |"APC006"
+export type ApproximationCodes =
+  | "APC001"
+  | "APC002"
+  | "APC003"
+  | "APC004"
+  | "APC005"
+  | "APC006";
 
 /**
  * * **@pet_weight**: required only if pet has no weight set
@@ -508,15 +514,26 @@ export default class Products extends Api {
   public getCollectionDetails(
     data: IGetCollectionDetailsInput,
   ): Promise<{ data: ICollectionDetail }> {
-    return this._call("get-collection-details", data, {
-      errorMap: {
-        1018: { message: "collection reference can not be empty." },
-        1019: { message: "language reference can not be empty." },
-        1014: { message: "Invalid language." },
-        2005: { message: "Invalid Component sort order field found." },
+    return this._call(
+      "get-collection-details",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
       },
-      retry: true,
-    });
+      {
+        errorMap: {
+          1018: { message: "collection reference can not be empty." },
+          1019: { message: "language reference can not be empty." },
+          1014: { message: "Invalid language." },
+          2005: { message: "Invalid Component sort order field found." },
+        },
+        retry: true,
+      },
+    );
   }
 
   @doc("http://doc.omnipartners.be/index.php/Find_product_collection")

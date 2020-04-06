@@ -263,6 +263,12 @@ type IDirectCashbackDealDataOption =
   | "benefits"
   | "benefit_product_detail";
 
+export interface IDirectCashbackDealDetailInput {
+  ref: string;
+  default_lang?: string;
+  data_options?: IDirectCashbackDealDataOptions;
+}
+
 export type IDealDataOptions = IDealDataOption | IDealDataOption[];
 type IDealDataOption =
   | "collection_association"
@@ -945,13 +951,24 @@ export default class Deals extends Api {
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_direct_cashback_deal_details")
-  @filterInput(["ref"])
-  public getDirectCashbackDealDetail(data: {
-    ref: string;
-  }): Promise<{
+  @filterInput([
+    "ref", // (Required) Deal reference code
+    "default_lang", // (Optional) Language code.
+    "data_options", // (Optional) This defines information that is returned in the deal details object. Multiple values should be comma separated. For more information please refer Direct Cashback Deal Data Options.
+  ])
+  public getDirectCashbackDealDetail(
+    data: IDirectCashbackDealDetailInput,
+  ): Promise<{
     data: IDirectCashbackDealDetail;
   }> {
-    return this._call("get-direct-cashback-deal-details", data, {
+    return this._call("get-direct-cashback-deal-details", {
+      ...data,
+      data_options: data.data_options
+        ? Array.isArray(data.data_options)
+          ? data.data_options.join(",")
+          : data.data_options
+        : undefined,
+    }, {
       retry: true,
       hashKeys: undefined,
     });

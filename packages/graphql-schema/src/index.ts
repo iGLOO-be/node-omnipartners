@@ -13,7 +13,7 @@ export { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
 export { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
 export * from "./metadata/DataPartnerRelationTypesResolver";
 export { DealResolver } from "./resolvers/DealResolver";
-export { ProductResolver } from "./resolvers/ProductResolver";
+export { ProductCollectionResolver } from "./products/ProductCollectionResolver";
 export * from "./types/Context";
 export * from "./types/GenericResult";
 export * from "./types/GenericValidationError";
