@@ -353,6 +353,7 @@ export interface ICollectionDetail {
   does_not_contain: [];
   caloric_table: null;
   benefits: ICollectionDetailBenefit[];
+  key_benefits?: string[];
   collection_reference: string;
   collection_generic_name: string;
   collection_name: string;
