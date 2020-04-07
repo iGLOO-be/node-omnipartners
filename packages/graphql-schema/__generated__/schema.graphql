@@ -455,6 +455,8 @@ type ProductCollectionDetail {
   imageSmall: String
   imageMedium: String
   imageLarge: String
+  benefits: [ProductCollectionDetailBenefits!]
+  keyBenefits: [String!]
   links: [ProductCollectionLinks!]
   energy_level: Float! @deprecated(reason: "old field nomenclature")
   has_image: Boolean! @deprecated(reason: "old field nomenclature")
@@ -471,6 +473,13 @@ type ProductCollectionDetail {
   collection_image_small: String
   collection_image_medium: String
   collection_image_large: String
+}
+
+type ProductCollectionDetailBenefits {
+  id: String!
+  title: String
+  description: String
+  image: String
 }
 
 type ProductCollectionLinks {

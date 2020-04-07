@@ -38,6 +38,18 @@ export class ProductCollectionsDetailInput {
 }
 
 @ObjectType()
+class ProductCollectionDetailBenefits {
+  @Field()
+  public id!: string;
+  @Field({ nullable: true })
+  public title?: string;
+  @Field({ nullable: true })
+  public description?: string;
+  @Field({ nullable: true })
+  public image?: string;
+}
+
+@ObjectType()
 export class ProductCollectionDetail {
   @Field()
   public reference!: string;
@@ -65,6 +77,14 @@ export class ProductCollectionDetail {
 
   @Field({ nullable: true })
   public imageLarge?: string;
+
+  // input: data_options === "benefits" && language is set
+  @Field(() => [ProductCollectionDetailBenefits], { nullable: true })
+  public benefits?: ProductCollectionDetailBenefits[];
+
+  // input: data_options === "key_benefits" && language is set
+  @Field(() => [String], { nullable: true })
+  public keyBenefits?: string[];
 
   // input: data_options === "links" && language is set
   @Field(() => [ProductCollectionLinks], { nullable: true })
@@ -126,6 +146,7 @@ export class ProductCollectionDetail {
     this.imageSmall = data.collection_image_small;
     this.imageMedium = data.collection_image_medium;
     this.imageLarge = data.collection_image_large;
+    this.keyBenefits = data.key_benefits;
   }
 }
 
