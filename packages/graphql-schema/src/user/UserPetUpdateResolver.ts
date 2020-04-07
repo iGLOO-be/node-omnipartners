@@ -45,6 +45,9 @@ class UserPetUpdateInput {
 
   @Field({ nullable: true })
   public lifeStyle?: string;
+
+  @Field({ nullable: true })
+  public declarativeProduct?: string;
 }
 
 const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
@@ -59,6 +62,7 @@ const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
     | "pet_neutered"
     | "pet_picture"
     | "pet_lifestyle"
+    | "pet_declarative_product"
   > = {
     pet_guid: userPetInput.guid,
     pet_name: userPetInput.name,
@@ -67,6 +71,7 @@ const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
     pet_dob: userPetInput.dob,
     pet_gender: userPetInput.gender,
     pet_lifestyle: userPetInput.lifeStyle,
+    pet_declarative_product: userPetInput.declarativeProduct,
   };
 
   if (typeof userPetInput.neutered !== "undefined") {
@@ -96,6 +101,7 @@ const fieldsMapping = {
   pet_neutered: "neutered",
   pet_picture: "pictureUrl",
   pet_lifestyle: "lifeStyle",
+  pet_declarative_product: "declarativeProduct",
 };
 
 @Resolver(() => User)

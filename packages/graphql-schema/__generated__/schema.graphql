@@ -992,6 +992,7 @@ input UserPetUpdateInput {
   bmi: UserPetBmiEntry
   weight: UserPetWeightEntry
   lifeStyle: String
+  declarativeProduct: String
 }
 
 type UserPetUpdateResult {
