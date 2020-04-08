@@ -95,8 +95,8 @@ export interface ILoyaltyTransactionHistoryStatsInput {
   shop_id?: string;
   partner_ext_id?: string;
   user_id: string;
-  starting_date?: string;
-  ending_date?: string;
+  start_date?: string;
+  end_date?: string;
   filter_null_transactions?: "1";
 }
 
@@ -325,8 +325,8 @@ export default class Loyalty extends Api {
     "shop_id",
     "partner_ext_id",
     "user_id",
-    "starting_date",
-    "ending_date",
+    "start_date",
+    "end_date",
     "filter_null_transactions",
   ])
   public transactionHistoryStats(
