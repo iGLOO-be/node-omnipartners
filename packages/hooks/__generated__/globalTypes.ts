@@ -127,6 +127,8 @@ export interface UserPetUpdateInput {
   placeOfPurchase?: string | null;
   bmi?: UserPetBmiEntry | null;
   weight?: UserPetWeightEntry | null;
+  lifeStyle?: string | null;
+  declarativeProduct?: string | null;
 }
 
 export interface UserPetWeightEntry {
