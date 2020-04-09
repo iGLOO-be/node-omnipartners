@@ -129,6 +129,21 @@ export class UserPet
     );
   }
 
+  @Field()
+  public customPictureUrl(@Ctx() ctx: Context): string {
+    if (this.type && !this.hasPicture) {
+      if (this.type === "CAT") {
+        return "https://node-omnipartners-public-assets.s3-eu-west-1.amazonaws.com/avatars/Cat.png";
+      }
+
+      if (this.type === "DOG") {
+        return "https://node-omnipartners-public-assets.s3-eu-west-1.amazonaws.com/avatars/Dog.png";
+      }
+    }
+
+    return this.pictureUrl(ctx);
+  }
+
   @Field(() => [UserPetPlaceOfPurchase])
   public async placeOfPurchase(
     @Ctx() ctx: Context,
