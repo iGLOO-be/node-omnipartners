@@ -129,6 +129,21 @@ export class UserPet
     );
   }
 
+  @Field()
+  public customPictureUrl(@Ctx() ctx: Context): string {
+    if (this.type) {
+      if (this.type === "CAT") {
+        return "https://i.ibb.co/f994xRj/Cat.png";
+      }
+
+      if (this.type === "DOG") {
+        return "https://i.ibb.co/CmDswqq/Dog.png";
+      }
+    }
+
+    return this.pictureUrl(ctx);
+  }
+
   @Field(() => [UserPetPlaceOfPurchase])
   public async placeOfPurchase(
     @Ctx() ctx: Context,

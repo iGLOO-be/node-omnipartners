@@ -947,6 +947,7 @@ type UserPet {
   lastUpdated: DateTime
   lifeStyle: String
   pictureUrl: String!
+  customPictureUrl: String!
   placeOfPurchase: [UserPetPlaceOfPurchase!]!
   weightSeries: [UserPetWeight!]!
   bmiSeries: [UserPetBmi!]!
