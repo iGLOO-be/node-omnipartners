@@ -1,4 +1,4 @@
-import { IDealProduct, ISubscribeToDealInput } from "omnipartners";
+import { ISubscribeToDealInput } from "omnipartners";
 import {
   Arg,
   Args,
@@ -6,18 +6,16 @@ import {
   Field,
   InputType,
   Mutation,
-  ObjectType,
   Query,
 } from "type-graphql";
 import { ConnectionArgs } from "../connections";
-import { Deal as DealDetails } from "../deals/Deal";
+import { Deal as DealDetails, DealProduct } from "../deals/Deal";
 import {
   DealVisiblePartnerForUserResult,
   GetVisiblePartnerInputArgs,
 } from "../deals/VisiblePartner";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { ProductCollectionDetail } from "../products/ProductCollection";
 
 @InputType()
 export class DealSubscribeInput
@@ -54,45 +52,6 @@ export class DealSubscribeInput
 
   @Field({ nullable: true })
   public child_guid?: string;
-}
-
-@ObjectType()
-class DealProduct implements Omit<IDealProduct, "collection"> {
-  @Field()
-  public ean: string;
-  @Field()
-  public id: string;
-  @Field()
-  public label: string;
-  @Field({ nullable: true })
-  public friendly_name?: string;
-  @Field()
-  public min_qty: number;
-  @Field({ nullable: true })
-  public collectionReference?: string;
-
-  constructor(data: IDealProduct) {
-    this.ean = data.ean;
-    this.id = data.id;
-    this.label = data.label;
-    this.friendly_name = data.friendly_name;
-    this.min_qty = data.min_qty;
-    this.collectionReference = data.collection.reference;
-  }
-
-  @Field(() => ProductCollectionDetail, { nullable: true })
-  public async collection(
-    @Ctx() ctx: Context,
-    @Arg("lang") lang: string,
-  ): Promise<ProductCollectionDetail | undefined> {
-    if (!this.collectionReference) {
-      return;
-    }
-    return (await ctx.omnipartners.products.getCollectionDetails({
-      collection_reference: this.collectionReference,
-      language: lang,
-    })).data;
-  }
 }
 
 export class DealResolver {

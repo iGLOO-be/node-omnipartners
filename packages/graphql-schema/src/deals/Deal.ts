@@ -1,7 +1,8 @@
-import { IDeal } from "omnipartners";
-import { Field, ObjectType } from "type-graphql";
+import { IDeal, IDealProduct } from "omnipartners";
+import { Field, ObjectType, Arg, Ctx } from "type-graphql";
 import { AnimalBreed } from "../metadata/DataAnimalBreedResolver";
 import { ProductCollectionDetail } from "../products/ProductCollection";
+import { Context } from "../types/Context";
 
 @ObjectType()
 class DealOptionOptions {
@@ -60,6 +61,46 @@ class DealTypeDetails {
   @Field(() => DealAmounts)
   public amounts!: DealAmounts;
 }
+
+@ObjectType()
+export class DealProduct implements Omit<IDealProduct, "collection"> {
+  @Field()
+  public ean: string;
+  @Field()
+  public id: string;
+  @Field()
+  public label: string;
+  @Field({ nullable: true })
+  public friendly_name?: string;
+  @Field()
+  public min_qty: number;
+  @Field({ nullable: true })
+  public collectionReference?: string;
+
+  constructor(data: IDealProduct) {
+    this.ean = data.ean;
+    this.id = data.id;
+    this.label = data.label;
+    this.friendly_name = data.friendly_name;
+    this.min_qty = data.min_qty;
+    this.collectionReference = data.collection.reference;
+  }
+
+  @Field(() => ProductCollectionDetail, { nullable: true })
+  public async collection(
+    @Ctx() ctx: Context,
+    @Arg("lang") lang: string,
+  ): Promise<ProductCollectionDetail | undefined> {
+    if (!this.collectionReference) {
+      return;
+    }
+    return (await ctx.omnipartners.products.getCollectionDetails({
+      collection_reference: this.collectionReference,
+      language: lang,
+    })).data;
+  }
+}
+
 
 @ObjectType()
 export class Deal {
@@ -171,8 +212,8 @@ export class Deal {
   public excluded_partner_groups?: string[];
   @Field(() => [String], { nullable: true })
   public deal_groups?: string[];
-  @Field(() => [ProductCollectionDetail], { nullable: true })
-  public products?: ProductCollectionDetail[];
+  @Field(() => [DealProduct], { nullable: true })
+  public products?: DealProduct[];
   @Field(() => DealTypeDetails, { nullable: true })
   public type_details?: DealTypeDetails;
 
