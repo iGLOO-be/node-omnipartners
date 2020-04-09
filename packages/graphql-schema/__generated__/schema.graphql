@@ -86,7 +86,7 @@ type Deal {
   allowed_partner_groups: [String!]
   excluded_partner_groups: [String!]
   deal_groups: [String!]
-  products: [ProductCollectionDetail!]
+  products: [DealProduct!]
   type_details: DealTypeDetails
 }
 
