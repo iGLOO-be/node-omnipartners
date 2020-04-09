@@ -247,7 +247,7 @@ type DirectCashbackRedemptionRequestURL {
 
 type DirectCashbackVoucherBenefit {
   id: String!
-  productId: String
+  productId: [String!]
   amount: String
   currency: String
 }
