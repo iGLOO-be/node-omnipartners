@@ -137,6 +137,8 @@ export class UserPetUpdateResolver {
             type: userPetInput.type || pet.type,
             neutered: userPetInput.neutered,
             lifeStyle: userPetInput.lifeStyle || pet.pet_lifestyle || "",
+            declarativeProduct:
+              userPetInput.declarativeProduct || pet.pet_declarative_product || "",
           }),
         )
       ).data;
