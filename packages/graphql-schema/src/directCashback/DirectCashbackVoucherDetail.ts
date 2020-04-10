@@ -11,8 +11,8 @@ class DirectCashbackVoucherBenefit {
   @Field()
   public id!: string;
 
-  @Field({ nullable: true })
-  public productId?: string;
+  @Field(() => [String] || String, { nullable: true })
+  public productId?: string | string[];
 
   @Field({ nullable: true })
   public amount?: string;

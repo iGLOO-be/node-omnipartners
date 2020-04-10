@@ -984,7 +984,7 @@ export interface IDeal extends IDealListItem {
     id: string;
     product: {
       ean: string;
-      id: string;
+      id: string | string[];
       label: string;
       friendly_name: string;
     };
@@ -1039,7 +1039,7 @@ export interface IDirectCashbackDealDetail {
     id: string;
     product: {
       ean: string;
-      id: string;
+      id: string | string[];
       label: string;
       friendly_name: string;
     };
@@ -1078,7 +1078,7 @@ export interface IDirectCashbackRedemptionRequestInput {
 }
 
 export interface IDirectCashbackVoucherBenefit {
-  product_id?: string;
+  product_id?: string | string[];
   amount?: string;
   currency?: string;
 }

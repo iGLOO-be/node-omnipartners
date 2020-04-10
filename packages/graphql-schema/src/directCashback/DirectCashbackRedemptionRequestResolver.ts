@@ -59,14 +59,14 @@ export class DirectCashbackRedemptionRequestResolver {
     @Args() args: ConnectionArgs,
   ): Promise<DirectCashbackRedemptionRequestConnection> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
-    const data = (await ctx.omnipartners.deals.getDirectCashbackRedemptionRequestList(
-      {
+    const data = (
+      await ctx.omnipartners.deals.getDirectCashbackRedemptionRequestList({
         user_guid,
         ...input,
         p_page: !args.page ? "0" : `${args.page - 1}`,
         p_length: args.limit ? `${args.limit}` : "10",
-      },
-    )).data;
+      })
+    ).data;
 
     const count = data.p_total;
     const limit = data.p_length;
@@ -150,7 +150,11 @@ export class DirectCashbackRedemptionRequestResolver {
       deal_data_options: ["benefits"],
     });
 
-    const benefit = benefits.find(b => b.product.id === product_id);
+    const benefit = benefits.find(b =>
+      Array.isArray(b.product.id)
+        ? b.product.id.includes(product_id)
+        : b.product.id === product_id,
+    );
 
     return benefit && benefit.id;
   };
