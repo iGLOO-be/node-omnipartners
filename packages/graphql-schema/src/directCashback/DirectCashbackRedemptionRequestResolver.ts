@@ -152,10 +152,14 @@ export class DirectCashbackRedemptionRequestResolver {
 
     const benefit = benefits.find(b =>
       Array.isArray(b.product.id)
-        ? b.product.id.includes(product_id)
-        : b.product.id === product_id,
+        ? arrForceString(b.product.id).includes(product_id)
+        : forceString(b.product.id) === product_id,
     );
 
     return benefit && benefit.id;
   };
 }
+
+const arrForceString = (arr: (string | number)[]): string[] =>
+  arr.map(forceString);
+const forceString = (v: string | number): string => `${v}`;
