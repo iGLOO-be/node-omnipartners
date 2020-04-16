@@ -39,7 +39,7 @@ class DirectCashbackVoucherDealDetail extends DirectCashbackDealDetail {
         new DirectCashbackVoucherBenefit({
           ...b,
           amount: b.value,
-          product_id: b.product.id,
+          // product_id: b.product.id,
         }),
     );
   }

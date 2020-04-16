@@ -1037,9 +1037,9 @@ export interface IDirectCashbackDealDetail {
   langs: string[];
   benefits: {
     id: string;
-    product: {
+    product?: {
       ean: string;
-      id: string | string[];
+      id: string | string[] | number | number[];
       label: string;
       friendly_name: string;
     };
