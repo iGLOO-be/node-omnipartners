@@ -155,6 +155,8 @@ export class DirectCashbackRedemptionRequestResolver {
         ? Array.isArray(b.product.id)
           ? arrForceString(b.product.id).includes(product_id)
           : forceString(b.product.id) === product_id
+        : b.products
+        ? b.products.find(p => forceString(p.id) === product_id)
         : false,
     );
 
