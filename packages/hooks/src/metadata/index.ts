@@ -5,3 +5,4 @@ export * from "./useMetadataSubscriptions";
 export * from "./useMetadataAnimalBreeds";
 export * from "./useMetadataAnimalUniverses";
 export * from "./useMetadataPartnerTypes";
+export * from "./useMetadataPlaceOfPurchase";
