@@ -1161,4 +1161,22 @@ export default class Identity extends Api {
       hashKeys: ["user_guid", "content_id"],
     });
   }
+
+  @doc("https://doc.clixray.com/index.php/Retrieve_Password_Validation_Rule")
+  @filterInput([
+    "user_guid", // Required if other identifiers not given - The guid of the user for whom the password validation rule should be retrieved.
+    "user_email", // Required if other identifiers not given - The email of the user for whom the password validation rule should be retrieved.
+    "user_username", // Required if other identifiers not given - The username of the user for whom the password validation rule should be retrieved.
+  ])
+  public getFormatPassword(data: {
+    user_guid?: string;
+    user_email?: string;
+    user_username?: string;
+  }): Promise<{
+    data: {
+      password_format: string;
+    };
+  }> {
+    return this.get("/service/account/get-password-format", data, {});
+  }
 }
