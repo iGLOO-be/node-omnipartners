@@ -653,6 +653,7 @@ type Query {
   metadataSubscriptions(lang: String): [Subscription!]!
   metadataUserTitles(lang: String): [UserTitle!]!
   metadataPartnerRelationTypes: [PartnerRelation!]!
+  metadataAccountPasswordPolicy: String!
   dealProducts(deal_ref: String!): [DealProduct!]
   dealCheckSecureCode(code: String!, deal_ref: String!): GenericValidationError
   dealVisiblePartnerForUser(

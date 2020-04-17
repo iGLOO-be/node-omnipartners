@@ -1172,7 +1172,7 @@ export default class Identity extends Api {
     user_guid?: string;
     user_email?: string;
     user_username?: string;
-  }): Promise<{
+  } = {}): Promise<{
     data: {
       password_format: string;
     };
