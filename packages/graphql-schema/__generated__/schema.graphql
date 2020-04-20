@@ -384,6 +384,7 @@ type Partner {
   lng: String
   type: String
   website: String
+  websiteShort: String
   partnerGroups: [String!]
   logo: PartnerLogo!
 }

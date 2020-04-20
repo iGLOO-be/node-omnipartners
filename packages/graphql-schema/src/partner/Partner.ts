@@ -1,5 +1,6 @@
 import { IPartnerDetails } from "omnipartners";
 import { Field, ObjectType } from "type-graphql";
+import url from "url";
 
 @ObjectType()
 export class PartnerLogo {
@@ -57,6 +58,9 @@ export class Partner {
   @Field({ nullable: true })
   public website?: string;
 
+  @Field({ nullable: true })
+  public websiteShort?: string;
+
   @Field(() => [String], { nullable: true })
   public partnerGroups?: string[];
 
@@ -85,5 +89,7 @@ export class Partner {
       large: data.partner_logo_large,
     };
     this.website = data.partner_website;
+    this.websiteShort =
+      (data.partner_website && url.parse(data.partner_website).hostname) || "";
   }
 }
