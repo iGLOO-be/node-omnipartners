@@ -1,7 +1,7 @@
 {
   "name": "@igloo-be-omnipartners/graphql-demo",
   "private": true,
-  "version": "0.44.0",
+  "version": "0.44.1",
   "scripts": {
     "build": "yarn gen:types && gatsby build",
     "start": "yarn gen:types && gatsby develop -H 0.0.0.0",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
-    "@igloo-be-omnipartners/hooks": "^0.42.0",
+    "@igloo-be-omnipartners/hooks": "^0.42.1",
     "apollo": "^2.27.0",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-cache-persist": "^0.1.1",
