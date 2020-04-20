@@ -10,7 +10,7 @@ const MetadataAccountPasswordPolicyQuery = gql`
   }
 `;
 
-export function useMetadataAccountPasswordPolicy({ skip }: { skip?: boolean }) {
+export function useMetadataAccountPasswordPolicy({ skip }: { skip?: boolean } = {}) {
   const res = useQuery<MetadataAccountPasswordPolicy>(
     MetadataAccountPasswordPolicyQuery,
     {
@@ -20,6 +20,6 @@ export function useMetadataAccountPasswordPolicy({ skip }: { skip?: boolean }) {
 
   return {
     ...res,
-    passwordPolicy: res.data,
+    passwordPolicy: res.data?.metadataAccountPasswordPolicy,
   };
 }

@@ -6,3 +6,4 @@ export * from "./useMetadataAnimalBreeds";
 export * from "./useMetadataAnimalUniverses";
 export * from "./useMetadataPartnerTypes";
 export * from "./useMetadataPlaceOfPurchase";
+export * from "./useMetadataAccountPasswordPolicy";
