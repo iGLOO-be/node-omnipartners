@@ -55,6 +55,7 @@ export class DirectCashbackRedemptionRequestInput {
           },
       receipt_image_mime_type: this.receiptImageMimeType,
       partner_ext_id: this.partnerExtId,
+      benefit_product_ean: this.eanBarcode,
     };
   }
 }
