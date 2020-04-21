@@ -195,6 +195,12 @@ export interface IDirectCashbackRedemptionRequestDetailBenefit {
   currency: string;
 }
 
+export interface IDirectCashbackDealBenefit {
+  benefit_id: string;
+  benefit_value: string;
+  benefit_type: string;
+}
+
 export interface IDirectCashbackRedemptionRequestList {
   records: IDirectCashbackRedemptionRequestListItem[];
   p_total: number;
@@ -961,17 +967,21 @@ export default class Deals extends Api {
   ): Promise<{
     data: IDirectCashbackDealDetail;
   }> {
-    return this._call("get-direct-cashback-deal-details", {
-      ...data,
-      data_options: data.data_options
-        ? Array.isArray(data.data_options)
-          ? data.data_options.join(",")
-          : data.data_options
-        : undefined,
-    }, {
-      retry: true,
-      hashKeys: undefined,
-    });
+    return this._call(
+      "get-direct-cashback-deal-details",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        retry: true,
+        hashKeys: undefined,
+      },
+    );
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_direct_cashback_voucher_list")
@@ -1024,6 +1034,23 @@ export default class Deals extends Api {
         hashKeys: undefined,
       },
     );
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Find_Benefit")
+  @filterInput([
+    "deal_ref", // (Required) Direct cashback deal reference
+    "product_ean", // (Required) EAN of the product
+  ])
+  public getDirectCashbackDealBenefit(data: {
+    product_ean: string;
+    deal_ref: string;
+  }): Promise<{
+    data: IDirectCashbackDealBenefit;
+  }> {
+    return this._call("find-benefit", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
   }
 
   @doc(
