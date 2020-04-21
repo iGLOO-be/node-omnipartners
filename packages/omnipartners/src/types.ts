@@ -1068,7 +1068,7 @@ export interface IDirectCashbackVoucherDetail {
 
 export interface IDirectCashbackRedemptionRequestInput {
   barcode: string;
-  benefit_id: string;
+  benefit_id?: string;
   receipt_date: string;
   receipt_image_mime_type: string;
   target_currency: "EUR" | "GBP";
@@ -1078,6 +1078,7 @@ export interface IDirectCashbackRedemptionRequestInput {
     account_number?: string;
   };
   partner_ext_id?: string;
+  benefit_product_ean?: string
 }
 
 export interface IDirectCashbackVoucherBenefit {

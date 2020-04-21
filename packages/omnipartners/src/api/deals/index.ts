@@ -1052,11 +1052,12 @@ export default class Deals extends Api {
   )
   @filterInput([
     "barcode", // (Required) Subscription barcode without any formattings
-    "benefit_id", // (Required) The befit id of the deal
+    "benefit_id", // (Optional) The befit id of the deal
     "receipt_date", // (Required) Date of the receipt
     "receipt_image_mime_type", // (Required) Mime type of the receipt image.
     "target_currency", // (Required) Target currency code Eg: EUR / GBP
     "payment_details", // (Required) Details of the payment, It should be a json object.
+    "benefit_product_ean", // (Optional) ean of the purchased product. This is required for the deals which are having percentage benefit amount for products.
   ])
   public createDirectCashbackRedemptionRequest(
     data: IDirectCashbackRedemptionRequestInput,
