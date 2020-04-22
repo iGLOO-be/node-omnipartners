@@ -26,6 +26,7 @@ Array [
   "useFetchUserCheckPasswordTokenValidity",
   "useLogin",
   "useLoyaltyRetrieveBalance",
+  "useMetadataAccountPasswordPolicy",
   "useMetadataAnimalBreeds",
   "useMetadataAnimalUniverses",
   "useMetadataCountries",
