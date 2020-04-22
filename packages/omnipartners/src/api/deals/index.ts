@@ -195,6 +195,12 @@ export interface IDirectCashbackRedemptionRequestDetailBenefit {
   currency: string;
 }
 
+export interface IDirectCashbackDealBenefit {
+  benefit_id: string;
+  benefit_value: string;
+  benefit_type: string;
+}
+
 export interface IDirectCashbackRedemptionRequestList {
   records: IDirectCashbackRedemptionRequestListItem[];
   p_total: number;
@@ -961,17 +967,21 @@ export default class Deals extends Api {
   ): Promise<{
     data: IDirectCashbackDealDetail;
   }> {
-    return this._call("get-direct-cashback-deal-details", {
-      ...data,
-      data_options: data.data_options
-        ? Array.isArray(data.data_options)
-          ? data.data_options.join(",")
-          : data.data_options
-        : undefined,
-    }, {
-      retry: true,
-      hashKeys: undefined,
-    });
+    return this._call(
+      "get-direct-cashback-deal-details",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        retry: true,
+        hashKeys: undefined,
+      },
+    );
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_direct_cashback_voucher_list")
@@ -1026,6 +1036,23 @@ export default class Deals extends Api {
     );
   }
 
+  @doc("https://doc.clixray.com/index.php?title=Find_Benefit")
+  @filterInput([
+    "deal_ref", // (Required) Direct cashback deal reference
+    "product_ean", // (Required) EAN of the product
+  ])
+  public getDirectCashbackDealBenefit(data: {
+    product_ean: string;
+    deal_ref: string;
+  }): Promise<{
+    data: IDirectCashbackDealBenefit;
+  }> {
+    return this._call("find-benefit", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
   @doc(
     "http://doc.omnipartners.be/index.php/Subscribe_to_a_Direct_Cashback_Deal",
   )
@@ -1052,11 +1079,12 @@ export default class Deals extends Api {
   )
   @filterInput([
     "barcode", // (Required) Subscription barcode without any formattings
-    "benefit_id", // (Required) The befit id of the deal
+    "benefit_id", // (Optional) The befit id of the deal
     "receipt_date", // (Required) Date of the receipt
     "receipt_image_mime_type", // (Required) Mime type of the receipt image.
     "target_currency", // (Required) Target currency code Eg: EUR / GBP
     "payment_details", // (Required) Details of the payment, It should be a json object.
+    "benefit_product_ean", // (Optional) ean of the purchased product. This is required for the deals which are having percentage benefit amount for products.
   ])
   public createDirectCashbackRedemptionRequest(
     data: IDirectCashbackRedemptionRequestInput,

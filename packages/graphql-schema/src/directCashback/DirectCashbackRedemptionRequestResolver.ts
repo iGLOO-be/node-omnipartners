@@ -95,20 +95,22 @@ export class DirectCashbackRedemptionRequestResolver {
     try {
       await ctx.userTokenHelper.parse(token);
 
-      input.benefitId =
-        input.benefitId ||
-        (input.eanBarcode &&
-          (await this.findBenefitIdByEAN(
-            ctx,
-            input.eanBarcode,
-            input.barcode,
-          )));
+      if (!input.eanBarcode) {
+        input.benefitId =
+          input.benefitId ||
+          (input.eanBarcode &&
+            (await this.findBenefitIdByEAN(
+              ctx,
+              input.eanBarcode,
+              input.barcode,
+            )));
 
-      if (!input.benefitId) {
-        throw new OPStatusError({
-          message: "Product ean or code required.",
-          statusCode: 1020,
-        });
+        if (!input.benefitId) {
+          throw new OPStatusError({
+            message: "Product ean or code required.",
+            statusCode: 1020,
+          });
+        }
       }
 
       const {
@@ -116,6 +118,7 @@ export class DirectCashbackRedemptionRequestResolver {
       } = await ctx.omnipartners.deals.createDirectCashbackRedemptionRequest({
         ...input.toOmnipartners(),
         benefit_id: input.benefitId,
+        benefit_product_ean: input.eanBarcode,
       });
 
       return new DirectCashbackRedemptionRequestCreateResult({
