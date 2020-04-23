@@ -264,12 +264,11 @@ export class User<T = {}> {
     const {
       data,
       p_length,
-      p_page,
       p_total,
     } = await ctx.omnipartners.deals.listVouchers({
       ...inputs,
       user_guid,
-      p_page: page,
+      p_page: page - 1,
       p_length: limit,
     });
 
@@ -281,7 +280,7 @@ export class User<T = {}> {
         count,
         limit,
         hasNextPage,
-        page: p_page,
+        page,
       },
       vouchers: data
     })
