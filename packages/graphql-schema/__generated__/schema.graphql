@@ -96,6 +96,49 @@ type DealGroup {
   group_handle: String!
 }
 
+input DealListOffersInput {
+  user_guid: String
+  pet_guid: String
+  child_guid: String
+  show: String
+  from: String
+  to: String
+  redeemed_from: String
+  redeemed_to: String
+  barcode: String
+  external_tracking_ref: String
+  partner_extid: String
+  deal_ref: String
+  deal_types: String
+  redemption_request_status: String
+  deal_data_options: String
+  data_options: String
+  coupon_id: String
+  status: String
+  inv_resend_count: String
+  sort_field: String
+  sort_order: String
+  q: String
+}
+
+type DealListVouchersResult {
+  pageInfo: PageInfo!
+  result: [DealListVouchersResultData!]!
+}
+
+type DealListVouchersResultData {
+  user_guid: String!
+  pet_guid: String
+  child_guid: String
+  ts_created: String!
+  barcode: String
+  status: String!
+  deal_ref: String!
+  ts_redeemed: String
+  subs_ts_subscribe: String
+  deal: Deal
+}
+
 type DealOptionOptions {
   id: String!
   visible: String!
@@ -742,6 +785,13 @@ type User {
   children: [UserChild!]!
   segments: [UserSegment!]!
   favourites(type: String, source: String): [UserFavourites!]!
+  dealVouchers(
+    inputs: DealListOffersInput
+
+    """Paginate limit"""
+    limit: Float
+    page: Float
+  ): DealListVouchersResult!
 }
 
 type UserAddress {
