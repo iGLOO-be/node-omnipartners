@@ -1,4 +1,5 @@
 import { Readable } from "stream";
+import { IDealProduct } from "./deal-types";
 
 type IUserDataOption =
   | "owner_details"
@@ -875,38 +876,43 @@ export interface IDealListItem {
   ref: string;
   name: string;
   type: string;
-  available_from: string;
-  available_to: string;
+  available_from?: string | null;
+  available_to?: string | null;
   is_locked: boolean;
   subscription_count: {
     REDEEMED: number;
     SUBSCRIBED: number;
     IN_PROGRESS: number;
   };
-  pet_type: string | null;
-  pet_breed: string[] | null;
-  deal_groups: string | null;
+  pet_type?: string | null;
+  pet_breed?: string[] | null;
+  deal_groups?:
+    | {
+        group_name: string;
+        group_handle: string;
+      }[]
+    | null;
 }
 export interface IDeal extends IDealListItem {
   redeem_days: string[];
   partner_visibility: string;
   restrict_registration: boolean;
-  image_url: string;
+  image_url?: string | null;
   postal_address_required: boolean;
-  delivery_address_required: "1" | "0" | null,
+  delivery_address_required: "1" | "0" | null;
   optin_options: {
     id: string;
     visible: "1" | "0";
     default_value: string;
     can_change: "1" | "0";
   }[];
-  display_on_terminal: number;
+  display_on_terminal: 1 | 0;
   redeem_duration_value: number;
   redeem_duration_unit: string;
   is_relative_redeem_dates: boolean;
-  google_tracking_id: string | null;
+  google_tracking_id?: string | null;
   status: string;
-  referrer_required: number;
+  referrer_required: 1 | 0;
   child_required: "1" | "0";
   child_gnder: string;
   child_age_limit_value: string;
@@ -915,17 +921,17 @@ export interface IDeal extends IDealListItem {
   child_age_limit_to_value: string;
   child_age_limit_to_unit: string;
   pet_required: "1" | "0";
-  pet_universe: string | null;
-  pet_age_limit_value: string | null;
-  pet_age_limit_unit: "DAY" | "WEEK" | "MONTH" | "YEAR" | null;
-  pet_age_limit_operator: "LOWER" | "EQUAL" | "HIGHER" | "BTW" | "";
-  pet_age_limit_to_value: string | null;
-  pet_age_limit_to_unit: "DAY" | "WEEK" | "MONTH" | "YEAR" | null;
+  pet_universe?: string | null;
+  pet_age_limit_value?: string | null;
+  pet_age_limit_unit?: "DAY" | "WEEK" | "MONTH" | "YEAR" | null;
+  pet_age_limit_operator?: "LOWER" | "EQUAL" | "HIGHER" | "BTW" | "";
+  pet_age_limit_to_value?: string | null;
+  pet_age_limit_to_unit?: "DAY" | "WEEK" | "MONTH" | "YEAR" | null;
   send_voucher_email: boolean;
   send_voucher_sms: boolean;
-  need_to_scan: number;
-  redeem_validity_from: string;
-  redeem_validity_to: string;
+  need_to_scan: 0 | 1;
+  redeem_validity_from?: string | null;
+  redeem_validity_to?: string | null;
   validity_message: string;
   confirmation_text: string;
   description: string;
@@ -934,52 +940,32 @@ export interface IDeal extends IDealListItem {
   site_footer: string;
   voucher_small_print: string;
   redemption_confirmation_text: string;
-  redirect_url: string | null;
+  redirect_url?: string | null;
   langs: string[];
-  logo_url: string | null;
-  css_file_url: string | null;
-  internal_barcode: string | null;
+  logo_url?: string | null;
+  css_file_url?: string | null;
+  internal_barcode?: string | null;
   presentation_images: {
-    small: { NL: string | null; FR: string | null };
-    large: { NL: string | null; FR: string | null };
+    small: { NL?: string | null; FR?: string | null };
+    large: { NL?: string | null; FR?: string | null };
   };
-  saving_end_time_value: string | null;
-  saving_end_time_unit: string | null;
-  saving_end_date: string | null;
-  allowed_partner_groups: [];
-  excluded_partner_groups: [];
+  saving_end_time_value?: string | null;
+  saving_end_time_unit?: string | null;
+  saving_end_date?: string | null;
+  allowed_partner_groups: string[];
+  excluded_partner_groups: string[];
   subscription_partner_required: number;
   subscription_referral_partner_required: number;
   referral_partner_as_subscription_partner: number;
   redemption_partner_required: number;
   redemption_referral_partner_required: number;
-  products: {
-    ean: string;
-    id: number;
-    label: string;
-    friendly_name?: string;
-    min_qty: number;
-    collection: {
-      generic_name: string;
-      reference: string;
-      name: {
-        EN: string;
-        FR: string;
-        NL: string;
-      };
-      has_image: boolean;
-      image_info: {
-        image: string;
-        image_small: string;
-        image_medium: string;
-        image_large: string;
-      };
+  products: IDealProduct[];
+  type_details: {
+    discount_type: string;
+    amounts: {
+      EUR?: number;
     };
-    qty: number;
-    label_with_qty: string;
-    coll_with_qty: string;
-  }[];
-  type_details: { discount_type: string; amounts: [] };
+  };
   benefits: {
     id: string;
     product: {

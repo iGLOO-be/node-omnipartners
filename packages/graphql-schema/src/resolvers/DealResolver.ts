@@ -9,7 +9,7 @@ import {
   Query,
 } from "type-graphql";
 import { ConnectionArgs } from "../connections";
-import { Deal as DealDetails, DealProduct } from "../deals/Deal";
+import { Deal, DealProduct } from "../deals/Deal";
 import {
   DealVisiblePartnerForUserResult,
   GetVisiblePartnerInputArgs,
@@ -60,9 +60,11 @@ export class DealResolver {
     @Ctx() ctx: Context,
     @Arg("deal_ref") deal_ref: string,
   ): Promise<DealProduct[]> {
-    const res = (await ctx.omnipartners.deals.getProductList({
-      deal_ref,
-    })).data;
+    const res = (
+      await ctx.omnipartners.deals.getProductList({
+        deal_ref,
+      })
+    ).data;
     return res.map(v => new DealProduct(v));
   }
 
@@ -133,16 +135,16 @@ export class DealResolver {
     };
   }
 
-  @Query(() => DealDetails, { nullable: true })
+  @Query(() => Deal, { nullable: true })
   public async deal(
     @Ctx() ctx: Context,
     @Arg("deal_ref") deal_ref: string,
     @Arg("default_lang", { nullable: true }) default_lang?: string,
-  ): Promise<DealDetails> {
+  ): Promise<Deal> {
     const { data } = await ctx.omnipartners.deals.getDeal({
       ref: deal_ref,
       default_lang: default_lang || "fr",
     });
-    return new DealDetails(data);
+    return new Deal(data);
   }
 }

@@ -94,8 +94,8 @@ export class ProductCollectionDetail {
   @Field({ deprecationReason: "old field nomenclature" })
   public energy_level!: number;
 
-  @Field({ deprecationReason: "old field nomenclature" })
-  public has_image!: boolean;
+  @Field(() => Number, { deprecationReason: "old field nomenclature" })
+  public has_image!: 0 | 1;
 
   @Field({ deprecationReason: "old field nomenclature" })
   public collection_reference!: string;

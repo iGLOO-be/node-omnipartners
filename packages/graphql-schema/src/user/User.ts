@@ -5,7 +5,7 @@ import {
   IUserPlaceOfPurchase,
   IUserPreferences,
 } from "omnipartners";
-import { Arg, Ctx, Field, ObjectType } from "type-graphql";
+import { Arg, Ctx, Field, ObjectType, Args } from "type-graphql";
 import { Memoize } from "typescript-memoize";
 import { Context } from "..";
 import { IUserTokenPayload } from "../lib/UserTokenHelper";
@@ -16,6 +16,8 @@ import { UserFavourites } from "./UserFavourites";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
 import { UserSegment } from "./UserSegments";
+import { DealListVouchersResult, DealListOffersInput } from "../deals/ListVouchers";
+import { ConnectionArgs } from "../connections";
 
 export interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
 
@@ -247,6 +249,41 @@ export class User<T = {}> {
     })).data;
 
     return res.map(d => new UserFavourites(d));
+  }
+
+  @Field(() => DealListVouchersResult)
+  public async dealVouchers(
+    @Ctx() ctx: Context,
+    @Args() connectioArgs: ConnectionArgs,
+    @Arg("inputs", { nullable: true }) inputs?: DealListOffersInput,
+  ): Promise<DealListVouchersResult> {
+    const user_guid = this.owner.guid
+    const limit = parseInt((connectioArgs.limit as any) || "100", 10);
+    const page = parseInt((connectioArgs.page as any) || "1", 10);
+
+    const {
+      data,
+      p_length,
+      p_total,
+    } = await ctx.omnipartners.deals.listVouchers({
+      ...inputs,
+      user_guid,
+      p_page: page - 1,
+      p_length: limit,
+    });
+
+    const count = parseInt(p_total.toString(), 10);
+    const hasNextPage = page !== Math.ceil(count / p_length);
+
+    return new DealListVouchersResult({
+      pageInfo: {
+        count,
+        limit,
+        hasNextPage,
+        page,
+      },
+      vouchers: data
+    })
   }
 }
 

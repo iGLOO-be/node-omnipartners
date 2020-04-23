@@ -1,6 +1,5 @@
 import { IDeal, IDealProduct } from "omnipartners";
 import { Field, ObjectType, Arg, Ctx } from "type-graphql";
-import { AnimalBreed } from "../metadata/DataAnimalBreedResolver";
 import { ProductCollectionDetail } from "../products/ProductCollection";
 import { Context } from "../types/Context";
 
@@ -8,33 +7,33 @@ import { Context } from "../types/Context";
 class DealOptionOptions {
   @Field()
   public id!: string;
-  @Field()
-  public visible!: string; // '0' || '1'
+  @Field(() => String)
+  public visible!: "0" | "1";
   @Field()
   public default_value!: string;
-  @Field()
-  public can_change!: string; // '0' || '1'
+  @Field(() => String)
+  public can_change!: "0" | "1";
 }
 
 @ObjectType()
 class DealStringByLang {
-  @Field({ nullable: true })
-  public FR?: string;
-  @Field({ nullable: true })
-  public NL?: string;
-  @Field({ nullable: true })
-  public EN?: string;
   @Field(() => String, { nullable: true })
-  public forLocale(locale: string) {
+  public FR?: string | null;
+  @Field(() => String, { nullable: true })
+  public NL?: string | null;
+  @Field(() => String, { nullable: true })
+  public EN?: string | null;
+  @Field(() => String, { nullable: true })
+  public forLocale?(@Arg("locale") locale: string) {
     return this[locale as keyof DealStringByLang] || this.EN;
   }
 }
 
 @ObjectType()
 class DealPresentationImages {
-  @Field()
+  @Field(() => DealStringByLang)
   public small!: DealStringByLang;
-  @Field()
+  @Field(() => DealStringByLang)
   public large!: DealStringByLang;
 }
 
@@ -74,8 +73,14 @@ export class DealProduct implements Omit<IDealProduct, "collection"> {
   public friendly_name?: string;
   @Field()
   public min_qty: number;
-  @Field({ nullable: true })
-  public collectionReference?: string;
+  @Field()
+  public collectionReference!: string;
+  @Field()
+  public qty!: number;
+  @Field()
+  public label_with_qty!: string;
+  @Field()
+  public coll_with_qty!: string;
 
   constructor(data: IDealProduct) {
     this.ean = data.ean;
@@ -90,134 +95,135 @@ export class DealProduct implements Omit<IDealProduct, "collection"> {
   public async collection(
     @Ctx() ctx: Context,
     @Arg("lang") lang: string,
-  ): Promise<ProductCollectionDetail | undefined> {
-    if (!this.collectionReference) {
-      return;
-    }
-    return (await ctx.omnipartners.products.getCollectionDetails({
-      collection_reference: this.collectionReference,
-      language: lang,
-    })).data;
+  ): Promise<ProductCollectionDetail> {
+    return (
+      await ctx.omnipartners.products.getCollectionDetails({
+        collection_reference: this.collectionReference,
+        language: lang,
+      })
+    ).data;
   }
 }
 
+@ObjectType()
+class DealGroup {
+  @Field()
+  public group_name!: string;
+  @Field()
+  public group_handle!: string;
+}
 
 @ObjectType()
-export class Deal {
+export class Deal implements Partial<Omit<IDeal, "products">> {
   @Field()
   public ref!: string;
-  @Field({ nullable: true })
-  public name?: string;
-  @Field({ nullable: true })
-  public type?: string;
+  @Field()
+  public name!: string;
+  @Field()
+  public type!: string;
+  @Field(() => [String])
+  public redeem_days!: string[];
+  @Field()
+  public is_locked!: boolean;
+  @Field()
+  public partner_visibility!: string;
+  @Field()
+  public restrict_registration!: boolean;
+  @Field(() => String, { nullable: true })
+  public image_url?: string | null;
+  @Field()
+  public postal_address_required!: boolean;
+  @Field(() => [DealOptionOptions])
+  public optin_options!: DealOptionOptions[];
+  @Field(() => Number)
+  public display_on_terminal!: 0 | 1;
+  @Field()
+  public redeem_duration_value!: number;
+  @Field()
+  public redeem_duration_unit!: string;
+  @Field()
+  public is_relative_redeem_dates!: boolean;
+  @Field(() => String, { nullable: true })
+  public google_tracking_id?: string | null;
+  @Field()
+  public status!: string;
+  @Field(() => Number)
+  public referrer_required!: 0 | 1;
+  @Field(() => String)
+  public pet_required!: "0" | "1";
+  @Field(() => String, { nullable: true })
+  public pet_type?: string | null;
+  @Field(() => String, { nullable: true })
+  public pet_universe?: string | null;
   @Field(() => [String], { nullable: true })
-  public redeem_days?: string[];
-  @Field({ nullable: true })
-  public is_locked?: boolean;
-  @Field({ nullable: true })
-  public partner_visibility?: string;
-  @Field({ nullable: true })
-  public restrict_registration?: boolean;
-  @Field({ nullable: true })
-  public image_url?: string;
-  @Field({ nullable: true })
-  public postal_address_required?: boolean;
-  @Field(() => [DealOptionOptions], { nullable: true })
-  public optin_options?: DealOptionOptions[];
-  @Field({ nullable: true })
-  public display_on_terminal?: number; // '0' || '1'
-  @Field({ nullable: true })
-  public redeem_duration_value?: number;
-  @Field({ nullable: true })
-  public redeem_duration_unit?: string;
-  @Field({ nullable: true })
-  public is_relative_redeem_dates?: boolean;
-  @Field({ nullable: true })
-  public google_tracking_id?: string;
-  @Field({ nullable: true })
-  public status?: string;
-  @Field({ nullable: true })
-  public referrer_required?: number;
-  @Field({ nullable: true })
-  public pet_required?: string;
-  @Field({ nullable: true })
-  public pet_type?: string;
-  @Field({ nullable: true })
-  public pet_universe?: string;
-  @Field(() => [AnimalBreed], { nullable: true })
-  public pet_breed?: AnimalBreed[];
-  @Field({ nullable: true })
-  public pet_age_limit_value?: string;
-  @Field({ nullable: true })
-  public pet_age_limit_unit?: string;
-  @Field({ nullable: true })
-  public pet_age_limit_operator?: string;
-  @Field({ nullable: true })
-  public pet_age_limit_to_value?: string;
-  @Field({ nullable: true })
-  public pet_age_limit_to_unit?: string;
-  @Field({ nullable: true })
-  public send_voucher_email?: boolean;
-  @Field({ nullable: true })
-  public send_voucher_sms?: boolean;
-  @Field({ nullable: true })
-  public need_to_scan?: number;
-  @Field({ nullable: true })
-  public available_from?: string;
-  @Field({ nullable: true })
-  public available_to?: string;
-  @Field({ nullable: true })
-  public redeem_validity_from?: string;
-  @Field({ nullable: true })
-  public redeem_validity_to?: string;
-  @Field({ nullable: true })
-  public validity_message?: string;
-  @Field({ nullable: true })
-  public confirmation_text?: string;
-  @Field({ nullable: true })
-  public description?: string;
-  @Field({ nullable: true })
-  public slogan?: string;
-  @Field({ nullable: true })
-  public public_name?: string;
-  @Field({ nullable: true })
-  public site_footer?: string;
-  @Field({ nullable: true })
-  public voucher_small_print?: string;
-  @Field({ nullable: true })
-  public redemption_confirmation_text?: string;
-  @Field({ nullable: true })
-  public redirect_url?: string;
+  public pet_breed?: string[] | null;
   @Field(() => [String], { nullable: true })
-  public langs?: string[];
-  @Field({ nullable: true })
-  public logo_url?: string;
-  @Field({ nullable: true })
-  public css_file_url?: string;
-  @Field({ nullable: true })
-  public internal_barcode?: string;
-  @Field(() => DealPresentationImages, { nullable: true })
-  public presentation_images?: DealPresentationImages;
-  @Field(() => DealSubscriptionCount, { nullable: true })
-  public subscription_count?: DealSubscriptionCount;
-  @Field({ nullable: true })
-  public saving_end_time_value?: string;
-  @Field({ nullable: true })
-  public saving_end_time_unit?: string;
-  @Field({ nullable: true })
-  public saving_end_date?: string;
+  public pet_age_limit_value?: string | null;
+  @Field(() => String, { nullable: true })
+  public pet_age_limit_unit?: IDeal["pet_age_limit_unit"];
+  @Field(() => String, { nullable: true })
+  public pet_age_limit_operator?: IDeal["pet_age_limit_operator"];
+  @Field(() => String, { nullable: true })
+  public pet_age_limit_to_value?: IDeal["pet_age_limit_to_value"];
+  @Field(() => String, { nullable: true })
+  public pet_age_limit_to_unit?: IDeal["pet_age_limit_to_unit"];
+  @Field()
+  public send_voucher_email!: boolean;
+  @Field()
+  public send_voucher_sms!: boolean;
+  @Field(() => Number)
+  public need_to_scan!: 0 | 1;
+  @Field(() => String, { nullable: true })
+  public available_from?: string | null;
+  @Field(() => String, { nullable: true })
+  public available_to?: string | null;
+  @Field(() => String, { nullable: true })
+  public redeem_validity_from?: string | null;
+  @Field(() => String, { nullable: true })
+  public redeem_validity_to?: string | null;
+  @Field()
+  public validity_message!: string;
+  @Field()
+  public confirmation_text!: string;
+  @Field()
+  public description!: string;
+  @Field()
+  public slogan!: string;
+  @Field()
+  public public_name!: string;
+  @Field()
+  public site_footer!: string;
+  @Field()
+  public voucher_small_print!: string;
+  @Field()
+  public redemption_confirmation_text!: string;
+  @Field(() => String, { nullable: true })
+  public redirect_url?: string | null;
+  @Field(() => [String])
+  public langs!: string[];
+  @Field(() => String, { nullable: true })
+  public logo_url?: string | null;
+  @Field(() => String, { nullable: true })
+  public css_file_url?: string | null;
+  @Field(() => String, { nullable: true })
+  public internal_barcode?: string | null;
+  @Field(() => DealPresentationImages)
+  public presentation_images!: DealPresentationImages;
+  @Field(() => DealSubscriptionCount)
+  public subscription_count!: DealSubscriptionCount;
+  @Field(() => [String])
+  public allowed_partner_groups!: string[];
+  @Field(() => [String])
+  public excluded_partner_groups!: string[];
   @Field(() => [String], { nullable: true })
-  public allowed_partner_groups?: string[];
-  @Field(() => [String], { nullable: true })
-  public excluded_partner_groups?: string[];
-  @Field(() => [String], { nullable: true })
-  public deal_groups?: string[];
-  @Field(() => [DealProduct], { nullable: true })
-  public products?: DealProduct[];
-  @Field(() => DealTypeDetails, { nullable: true })
-  public type_details?: DealTypeDetails;
+  public deal_groups?: DealGroup[] | null;
+  @Field(() => [DealProduct])
+  public products!: DealProduct[];
+  @Field(() => DealTypeDetails)
+  public type_details!: DealTypeDetails;
 
   constructor(data: IDeal) {
     Object.assign(this, data);
+    this.products = data.products.map(p => new DealProduct(p))
   }
 }

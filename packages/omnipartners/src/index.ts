@@ -18,6 +18,7 @@ export { createLogger, OmnipartnersError };
 export * from "./types";
 export * from "./data-types";
 export * from "./partner-types";
+export * from "./deal-types";
 export * from "./api/metadata";
 export * from "./api/deals";
 export * from "./api/partners";
