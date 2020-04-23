@@ -9,6 +9,7 @@ import {
   IUserDirectCashbackDealEligiblePet,
   IUserEligibleDirectCashbackDeal,
 } from "../../types";
+import { IDealProduct } from "../../deal-types";
 
 export interface IGetDealsListInput {
   partner_extid?: string;
@@ -107,22 +108,6 @@ export interface ISubscribeToDirectCashbackDealInput {
   deal_ref: string;
   pet_guid?: string;
   child_guid?: string;
-}
-
-export interface IDealProductCollection {
-  generic_name?: string;
-  reference?: string;
-  name?: { [key: string]: string };
-  has_image: boolean;
-}
-
-export interface IDealProduct {
-  ean: string;
-  id: string;
-  label: string;
-  friendly_name?: string;
-  min_qty: number;
-  collection: IDealProductCollection;
 }
 
 export interface IDealEligiblePet {
@@ -300,16 +285,22 @@ type IVoucherListInputDealTypes = DealType | DealType[];
 
 export interface IVoucherListInput {
   user_guid?: string;
+  pet_guid?: string;
+  child_guid?: string;
   show?: "basic" | "extended";
   from?: string;
   to?: string;
-  external_tracking_ref?: string;
-  deal_types?: IVoucherListInputDealTypes;
   redeemed_from?: string;
   redeemed_to?: string;
   barcode?: string;
+  external_tracking_ref?: string;
   partner_extid?: string;
   deal_ref?: string;
+  deal_types?: IVoucherListInputDealTypes;
+  redemption_request_status?: string;
+  deal_data_options?: IDealDataOptions;
+  data_options?: IDealSubscriptionDataOptions;
+  coupon_id?: string;
   status?: "INVITED" | "SUBSCRIBED" | "REDEEMED";
   inv_resend_count?: string;
   sort_field?: string;
@@ -321,17 +312,20 @@ export interface IVoucherListInput {
 
 export interface IVoucher {
   user_guid: string;
+  pet_guid: string | null;
+  child_guid: string | null;
   ts_created: string;
-  external_tracking_reference: string;
+  subs_ts_subscribe: string | null;
+  external_tracking_reference: string | null;
   barcode: string;
   subs_partner_id: number;
   coupon_id: number;
   status: string;
   deal_ref: string;
-  ts_redeemed: string;
-  restriction_code: string;
-  redeem_validity_from: string;
-  redeem_validity_to: string;
+  ts_redeemed: string | null;
+  restriction_code: string | null;
+  redeem_validity_from: string | null;
+  redeem_validity_to: string | null;
 
   product: string;
   num_invi_resend: number;
@@ -375,6 +369,7 @@ export interface IVoucher {
     child_status: string;
     child_ext_id: string;
   };
+  deal?: IDeal;
 }
 
 export interface IVoucherDetail {
@@ -756,6 +751,8 @@ export default class Deals extends Api {
   @doc("http://doc.omnipartners.be/index.php/List_vouchers")
   @filterInput([
     "user_guid", // Subscribed or invited user's GUID
+    "pet_guid", // Pet GUID of the subscription
+    "child_guid", // A Child guid of the user
     "show", // Flag to attache additional detailed to response object. Has two possible values 'basic' and 'extended'. Response object will contain 'owner' and 'pet' information for the extended
     "from", // Date time value to filter on creation date/subscription date (date is taken according to the status filter)
     "to", // Date time value to filter on creation date/subscription date (date is taken according to the status filter)
@@ -766,6 +763,10 @@ export default class Deals extends Api {
     "partner_extid", // To filter on the specified partner. Allowed only valid external-customer-id.
     "deal_ref", // Deal reference. Filter on the specified deal.
     "deal_types", // Deal Types. Filter on the specified deal types. allowed values COUPON, PRESENT, SAVING, PAYING, LOYALTY, CASHBACK, DIRECT CASHBACK
+    "redemption_request_status", // The status of the cashback receipt. allowed values ACTIVE, PENDING, PENDING_FILE, PENDING_PROCESSING, PROCESSING, REJECTED, PAYMENT_PENDING, PAYMENT_PROCESSING, PAYMENT_SENT, PAYMENT_REJECTED
+    "deal_data_options", // This defines information that is returned in the deal details node
+    "data_options", // This defines information that is returned in the deal subscription details node
+    "coupon_id", // you can use coupon_id instead of barcode if it available
     "status", // The status of the coupons subscription to filter. allowed values INVITED,SUBSCRIBED,REDEEMED.
     "inv_resend_count", // To filter on the number of invitation send
     "sort_field", // Field name to be apply the sorting. Allowed fields ts_created,subs_partner_id,coupon_id,status,num_invi_resend,ts_last_send,partner_name,user_identity

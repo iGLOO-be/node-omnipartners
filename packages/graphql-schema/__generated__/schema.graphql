@@ -33,65 +33,67 @@ scalar DateTime
 
 type Deal {
   ref: String!
-  name: String
-  type: String
-  redeem_days: [String!]
-  is_locked: Boolean
-  partner_visibility: String
-  restrict_registration: Boolean
+  name: String!
+  type: String!
+  redeem_days: [String!]!
+  is_locked: Boolean!
+  partner_visibility: String!
+  restrict_registration: Boolean!
   image_url: String
-  postal_address_required: Boolean
-  optin_options: [DealOptionOptions!]
-  display_on_terminal: Float
-  redeem_duration_value: Float
-  redeem_duration_unit: String
-  is_relative_redeem_dates: Boolean
+  postal_address_required: Boolean!
+  optin_options: [DealOptionOptions!]!
+  display_on_terminal: Float!
+  redeem_duration_value: Float!
+  redeem_duration_unit: String!
+  is_relative_redeem_dates: Boolean!
   google_tracking_id: String
-  status: String
-  referrer_required: Float
-  pet_required: String
+  status: String!
+  referrer_required: Float!
+  pet_required: String!
   pet_type: String
   pet_universe: String
-  pet_breed: [AnimalBreed!]
-  pet_age_limit_value: String
+  pet_breed: [String!]
+  pet_age_limit_value: [String!]
   pet_age_limit_unit: String
   pet_age_limit_operator: String
   pet_age_limit_to_value: String
   pet_age_limit_to_unit: String
-  send_voucher_email: Boolean
-  send_voucher_sms: Boolean
-  need_to_scan: Float
+  send_voucher_email: Boolean!
+  send_voucher_sms: Boolean!
+  need_to_scan: Float!
   available_from: String
   available_to: String
   redeem_validity_from: String
   redeem_validity_to: String
-  validity_message: String
-  confirmation_text: String
-  description: String
-  slogan: String
-  public_name: String
-  site_footer: String
-  voucher_small_print: String
-  redemption_confirmation_text: String
+  validity_message: String!
+  confirmation_text: String!
+  description: String!
+  slogan: String!
+  public_name: String!
+  site_footer: String!
+  voucher_small_print: String!
+  redemption_confirmation_text: String!
   redirect_url: String
-  langs: [String!]
+  langs: [String!]!
   logo_url: String
   css_file_url: String
   internal_barcode: String
-  presentation_images: DealPresentationImages
-  subscription_count: DealSubscriptionCount
-  saving_end_time_value: String
-  saving_end_time_unit: String
-  saving_end_date: String
-  allowed_partner_groups: [String!]
-  excluded_partner_groups: [String!]
+  presentation_images: DealPresentationImages!
+  subscription_count: DealSubscriptionCount!
+  allowed_partner_groups: [String!]!
+  excluded_partner_groups: [String!]!
   deal_groups: [String!]
-  products: [DealProduct!]
-  type_details: DealTypeDetails
+  products: [DealProduct!]!
+  type_details: DealTypeDetails!
 }
 
 type DealAmounts {
   EUR: Float
+}
+
+type DealGroup {
+  group_name: String!
+  group_handle: String!
 }
 
 type DealOptionOptions {
@@ -112,7 +114,10 @@ type DealProduct {
   label: String!
   friendly_name: String
   min_qty: Float!
-  collectionReference: String
+  collectionReference: String!
+  qty: Float!
+  label_with_qty: String!
+  coll_with_qty: String!
   collection(lang: String!): ProductCollectionDetail
 }
 
@@ -120,7 +125,7 @@ type DealStringByLang {
   FR: String
   NL: String
   EN: String
-  forLocale: String
+  forLocale(locale: String!): String
 }
 
 input DealSubscribeInput {
@@ -459,7 +464,7 @@ type ProductCollectionDetail {
   keyBenefits: [String!]
   links: [ProductCollectionLinks!]
   energy_level: Float! @deprecated(reason: "old field nomenclature")
-  has_image: Boolean! @deprecated(reason: "old field nomenclature")
+  has_image: Float! @deprecated(reason: "old field nomenclature")
   collection_reference: String! @deprecated(reason: "old field nomenclature")
   collection_generic_name: String! @deprecated(reason: "old field nomenclature")
   collection_name: String! @deprecated(reason: "old field nomenclature")

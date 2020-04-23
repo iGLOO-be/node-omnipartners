@@ -348,7 +348,7 @@ export interface ICollectionDetail {
   generic_name: string;
   name: string;
   energy_level: number;
-  has_image: boolean;
+  has_image: 0 | 1;
   contains: [];
   does_not_contain: [];
   caloric_table: null;
