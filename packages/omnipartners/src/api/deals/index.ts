@@ -483,6 +483,8 @@ export default class Deals extends Api {
     1009: { message: "Deals Service Hash not sent." },
     1010: { message: "Deals Service action not sent." },
     1024: { message: "Invalid Hash text sent with request." },
+    1034: { message: "Record is already updated." },
+    1043: { message: "Payment service communication error." },
     2021: { message: "User GUID is not found in database." },
     3020: { message: "Parameter user_guid not available in the request." },
     3022: { message: "Subscription status code is not set in request." },
@@ -1163,6 +1165,40 @@ export default class Deals extends Api {
     data: IDirectCashbackVoucherApprovalHistory;
   }> {
     return this._call("get-direct-cashback-voucher-approval-history", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Test_direct_cashback_accept_payment",
+  )
+  @filterInput([
+    "barcode", // (Required) Subscription barcode without any formatting
+  ])
+  public directCashbackPaymentAccept(data: {
+    barcode: string;
+  }): Promise<{
+    data: [];
+  }> {
+    return this._call("test-direct-cashback-accept-payment", data, {
+      retry: true,
+      hashKeys: undefined,
+    });
+  }
+
+  @doc(
+    "http://doc.omnipartners.be/index.php/Test_direct_cashback_reject_payment",
+  )
+  @filterInput([
+    "barcode", // (Required) Subscription barcode without any formatting
+  ])
+  public directCashbackPaymentReject(data: {
+    barcode: string;
+  }): Promise<{
+    data: [];
+  }> {
+    return this._call("test-direct-cashback-reject-payment", data, {
       retry: true,
       hashKeys: undefined,
     });
