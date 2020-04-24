@@ -1168,6 +1168,20 @@ export default class Deals extends Api {
     });
   }
 
+  @doc("https://doc.clixray.com/index.php/Get_Voucher_PDF")
+  @filterInput(["barcode"])
+  public getVoucherPDF(data: {
+    barcode: string;
+  }): Promise<{
+    url: string;
+    status: string;
+  }> {
+    return this._call("get-voucher-pdf-location", data, {
+      retry: true,
+      hashKeys: ["barcode"],
+    });
+  }
+
   private _call(
     action: string,
     data: IApiPostData,
