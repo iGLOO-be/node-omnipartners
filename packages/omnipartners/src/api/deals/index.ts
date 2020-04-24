@@ -308,6 +308,7 @@ export interface IVoucherListInput {
   q?: string;
   p_length?: number;
   p_page?: number;
+  default_lang?: string;
 }
 
 export interface IVoucher {
@@ -774,6 +775,7 @@ export default class Deals extends Api {
     "q", // Can apply global searching on partner name and the user identity which use to send the invitation
     "p_length", // Item per page
     "p_page", // current page. start at 0
+    "default_lang",
   ])
   public listVouchers(
     data: IVoucherListInput,
