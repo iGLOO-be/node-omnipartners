@@ -119,6 +119,7 @@ input DealListOffersInput {
   sort_field: String
   sort_order: String
   q: String
+  default_lang: String
 }
 
 type DealListVouchersResult {

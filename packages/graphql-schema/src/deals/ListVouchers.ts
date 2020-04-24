@@ -55,6 +55,8 @@ export class DealListOffersInput implements IVoucherListInput {
   public sort_order?: string;
   @Field({ nullable: true })
   public q?: string;
+  @Field({ nullable: true })
+  public default_lang?: string;
 }
 
 @ObjectType()
