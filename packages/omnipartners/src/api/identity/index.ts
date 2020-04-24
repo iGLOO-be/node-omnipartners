@@ -1168,13 +1168,16 @@ export default class Identity extends Api {
     "user_email", // Required if other identifiers not given - The email of the user for whom the password validation rule should be retrieved.
     "user_username", // Required if other identifiers not given - The username of the user for whom the password validation rule should be retrieved.
   ])
-  public getFormatPassword(data: {
-    user_guid?: string;
-    user_email?: string;
-    user_username?: string;
-  } = {}): Promise<{
+  public getFormatPassword(
     data: {
-      password_format: string;
+      user_guid?: string;
+      user_email?: string;
+      user_username?: string;
+    } = {},
+  ): Promise<{
+    data: {
+      password_format: string | null;
+      alt_password_format: string | null;
     };
   }> {
     return this.get("/service/account/get-password-format", data, {});
