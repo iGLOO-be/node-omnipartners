@@ -26,6 +26,11 @@ type Country {
   order: String
 }
 
+type DataAccountPasswordPolicy {
+  password_format: String
+  alt_password_format: String
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -702,7 +707,7 @@ type Query {
   metadataSubscriptions(lang: String): [Subscription!]!
   metadataUserTitles(lang: String): [UserTitle!]!
   metadataPartnerRelationTypes: [PartnerRelation!]!
-  metadataAccountPasswordPolicy: String!
+  metadataAccountPasswordPolicy: DataAccountPasswordPolicy
   dealProducts(deal_ref: String!): [DealProduct!]
   dealCheckSecureCode(code: String!, deal_ref: String!): GenericValidationError
   dealVisiblePartnerForUser(

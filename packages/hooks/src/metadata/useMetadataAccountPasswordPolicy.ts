@@ -6,7 +6,10 @@ export * from "./__generated__/MetadataAccountPasswordPolicy";
 
 const MetadataAccountPasswordPolicyQuery = gql`
   query MetadataAccountPasswordPolicy {
-    metadataAccountPasswordPolicy
+    metadataAccountPasswordPolicy {
+      password_format
+      alt_password_format
+    }
   }
 `;
 
