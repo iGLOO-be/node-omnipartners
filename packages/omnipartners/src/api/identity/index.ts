@@ -43,6 +43,9 @@ import {
   IUserUpdateSubscriptionsInput,
   IUsetPetDataOptions,
   IUsetPetWithOwner,
+  IUserPetDietRecommendationAddInput,
+  IUserPetDietRecommendationEntry,
+  IUserPetDietRecommendationDeleteInput,
 } from "../../types";
 
 export interface IUserGetPartnerAccountRelationsResult {
@@ -1022,6 +1025,55 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/pets/del-bmi/", data, {
       hashKeys: ["pet_guid", "date"],
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Add_diet_recommendation")
+  @filterInput([
+    "pet_guid", // (Required) The GUID of the pet.
+    "creation_date", // (Required) The creation date of the diet recommendation. Date format should be”YYYY-MM-DD”.
+    "collection_reference", // (Required) The reference to the product collection.
+    "expiration_date", // (Optional) The expiration date of the diet recommendation. Date format should be”YYYY-MM-DD”.
+    "partner_ext_id", // (Optional) The Ext ID of the partner who adds the entry.
+    "ration", // (Optional) The quantity of ration.
+    "ration_unit", // (Optional) The units of the ration.
+    "custom_logger_info", // (Optional) custom values to add as logging values. Ex. {"tag_1":"custom_tag_1", "tag_2":"custom_tag_2"}
+  ])
+  public addPetDietRecommendation(data: IUserPetDietRecommendationAddInput) {
+    return this.post("/service/pets/add-diet-recommendation", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Retrieve_diet_recommendations")
+  @filterInput([
+    "pet_guid", // (Required) The GUID of the pet.
+    "creation_date", // (Optional) The creation date of the diet recommendations.
+    "partner_ext_id", // (Optional) Ext ID of the partner who added the entries.
+  ])
+  public getPetDietRecommendation(data: {
+    pet_guid: string;
+    creation_date?: string;
+    partner_ext_id?: string;
+  }): Promise<{ data: IUserPetDietRecommendationEntry[] }> {
+    return this.post("/service/pets/get-diet-recommendations", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Delete_diet_recommendations")
+  @filterInput([
+    "pet_guid", // (Required) The GUID of the pet.
+    "creation_date", // (Optional) The creation date of the diet recommendation. The Date format should be ”YYYY-MM-DD”.
+    "collection_reference", // (Optional) The reference of the product collection.
+    "partner_ext_id", // (Optional) Ext ID of the partner who added the entry.
+    "custom_logger_info", // (Optional) custom values to add as logging values. Ex. {"tag_1":"custom_tag_1", "tag_2":"custom_tag_2"}
+  ])
+  public deletePetDietRecommendation(
+    data: IUserPetDietRecommendationDeleteInput,
+  ) {
+    return this.post("/service/pets/delete-diet-recommendations", data, {
+      hashKeys: undefined,
     });
   }
 
