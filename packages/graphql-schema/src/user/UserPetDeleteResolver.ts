@@ -20,7 +20,7 @@ class UserPetDeleteInput {
   public petDeletionCause?: string;
 }
 @InputType()
-class UserPetDeleteDietRecommendationInput
+class UserPetDietRecommendationDeleteInput
   implements IUserPetDietRecommendationDeleteInput {
   @Field()
   public pet_guid!: string;
@@ -89,13 +89,13 @@ export class UserPetDeleteResolver {
   public async userPetDeleteDietRecommendation(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
-    @Arg("userPetDeleteDietrecommendationInput")
-    userPetDeleteDietrecommendationInput: UserPetDeleteDietRecommendationInput,
+    @Arg("userPetDietRecommendationDeleteInput")
+    userPetDietRecommendationDeleteInput: UserPetDietRecommendationDeleteInput,
   ): Promise<UserPetUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     const pet = (
       await ctx.omnipartners.identity.getPet({
-        pet_guid: userPetDeleteDietrecommendationInput.pet_guid,
+        pet_guid: userPetDietRecommendationDeleteInput.pet_guid,
       })
     ).data;
 
@@ -106,11 +106,11 @@ export class UserPetDeleteResolver {
 
     try {
       await ctx.omnipartners.identity.deletePetDietRecommendation(
-        userPetDeleteDietrecommendationInput,
+        userPetDietRecommendationDeleteInput,
       );
       const updatedPet = (
         await ctx.omnipartners.identity.getPet({
-          pet_guid: userPetDeleteDietrecommendationInput.pet_guid,
+          pet_guid: userPetDietRecommendationDeleteInput.pet_guid,
         })
       ).data;
       const user = await ctx.omnipartners.identity.authenticateByGUID({

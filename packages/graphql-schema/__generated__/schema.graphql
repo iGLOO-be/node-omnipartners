@@ -403,7 +403,7 @@ type Mutation {
   userCreate(userInput: UserCreateInput!): UserUpdateResult!
   userPetCreate(userPetInput: UserPetCreateInput!, token: String!): UserPetUpdateResult!
   userPetDelete(userPetDeleteInput: UserPetDeleteInput!, token: String!): UserResult!
-  userPetDeleteDietRecommendation(userPetDeleteDietrecommendationInput: UserPetDeleteDietRecommendationInput!, token: String!): UserPetUpdateResult!
+  userPetDeleteDietRecommendation(userPetDietRecommendationDeleteInput: UserPetDietRecommendationDeleteInput!, token: String!): UserPetUpdateResult!
   userPetUpdate(userPetInput: UserPetUpdateInput!, token: String!): UserPetUpdateResult!
   userUpdate(userInput: UserUpdateInput!, token: String!): UserUpdateResult!
   userChildUpdate(userChildUpdateInput: UserChildUpdateInput!, token: String!): UserChildResult!
@@ -1043,14 +1043,6 @@ input UserPetCreateInput {
   dietRecommendation: UserPetDietRecommendationEntry
 }
 
-input UserPetDeleteDietRecommendationInput {
-  pet_guid: String!
-  creation_date: String
-  collection_reference: String
-  partner_ext_id: String
-  custom_logger_info: String
-}
-
 input UserPetDeleteInput {
   guid: String!
   petDeletionCause: String!
@@ -1063,6 +1055,14 @@ type UserPetDietRecommendation {
   partnerExtId: String
   ration: String
   rationUnit: String
+}
+
+input UserPetDietRecommendationDeleteInput {
+  pet_guid: String!
+  creation_date: String
+  collection_reference: String
+  partner_ext_id: String
+  custom_logger_info: String
 }
 
 input UserPetDietRecommendationEntry {
