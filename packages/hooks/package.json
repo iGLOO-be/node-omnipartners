@@ -1,6 +1,6 @@
 {
   "name": "@igloo-be-omnipartners/hooks",
-  "version": "0.48.0",
+  "version": "0.49.0",
   "main": "dist/index.js",
   "module": "dist/hooks.esm.js",
   "typings": "dist/index.d.ts",
