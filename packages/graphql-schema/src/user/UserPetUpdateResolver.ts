@@ -4,7 +4,11 @@ import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { UserPet } from "./UserPet";
-import { UserPetBmiEntry, UserPetWeightEntry } from "./UserPetCreateResolver";
+import {
+  UserPetBmiEntry,
+  UserPetWeightEntry,
+  UserPetDietRecommendationEntry,
+} from "./UserPetCreateResolver";
 import { UserPetUpdateResult } from "./UserPetUpdateResult";
 import { userDataOptions } from "./UserResolver";
 
@@ -46,8 +50,11 @@ class UserPetUpdateInput {
   @Field({ nullable: true })
   public lifeStyle?: string;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, deprecationReason: "Prefer diet recommendation" })
   public declarativeProduct?: string;
+
+  @Field(() => UserPetDietRecommendationEntry, { nullable: true })
+  public dietRecommendation?: UserPetDietRecommendationEntry;
 }
 
 const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
@@ -138,7 +145,9 @@ export class UserPetUpdateResolver {
             neutered: userPetInput.neutered,
             lifeStyle: userPetInput.lifeStyle || pet.pet_lifestyle || "",
             declarativeProduct:
-              userPetInput.declarativeProduct || pet.pet_declarative_product || "",
+              userPetInput.declarativeProduct ||
+              pet.pet_declarative_product ||
+              "",
           }),
         )
       ).data;
@@ -159,6 +168,11 @@ export class UserPetUpdateResolver {
           ctx.omnipartners.identity.addPetWeight({
             pet_guid: pet.guid,
             ...userPetInput.weight,
+          }),
+        userPetInput.dietRecommendation &&
+          ctx.omnipartners.identity.addPetDietRecommendation({
+            pet_guid: pet.guid,
+            ...userPetInput.dietRecommendation,
           }),
       ]);
 

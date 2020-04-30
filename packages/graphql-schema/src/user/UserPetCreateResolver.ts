@@ -2,6 +2,7 @@ import {
   IUserPetBmiEntry,
   IUserPetCreateInput,
   IUserPetWeightEntry,
+  IUserPetDietRecommendationEntry,
 } from "omnipartners";
 import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
@@ -42,6 +43,28 @@ export class UserPetWeightEntry implements IUserPetWeightEntry {
 }
 
 @InputType()
+export class UserPetDietRecommendationEntry
+  implements IUserPetDietRecommendationEntry {
+  @Field()
+  public creation_date!: string;
+
+  @Field()
+  public collection_reference!: string;
+
+  @Field({ nullable: true })
+  public expiration_date?: string;
+
+  @Field({ nullable: true })
+  public partner_ext_id?: string;
+
+  @Field({ nullable: true })
+  public ration?: string;
+
+  @Field({ nullable: true })
+  public ration_unit?: string;
+}
+
+@InputType()
 class UserPetCreateInput {
   @Field()
   public name!: string;
@@ -72,6 +95,9 @@ class UserPetCreateInput {
 
   @Field(() => UserPetWeightEntry, { nullable: true })
   public weight!: UserPetWeightEntry;
+
+  @Field(() => UserPetDietRecommendationEntry, { nullable: true })
+  public dietRecommendation!: UserPetDietRecommendationEntry;
 }
 
 const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
@@ -156,6 +182,11 @@ export class UserPetCreateResolver {
           ctx.omnipartners.identity.addPetWeight({
             pet_guid: pet.guid,
             ...userPetInput.weight,
+          }),
+        userPetInput.dietRecommendation &&
+          ctx.omnipartners.identity.addPetDietRecommendation({
+            pet_guid: pet.guid,
+            ...userPetInput.dietRecommendation,
           }),
       ]);
 

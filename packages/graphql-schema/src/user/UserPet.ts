@@ -4,6 +4,7 @@ import {
   IUserPetBreedDetail,
   IUserPetPlaceOfPurchase,
   IUserPetWeightEntry,
+  IUserPetDietRecommendationEntry,
 } from "omnipartners";
 import { Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
@@ -62,6 +63,36 @@ class UserPetBmi {
     Object.assign(this, data);
   }
 }
+
+@ObjectType()
+class UserPetDietRecommendation {
+  @Field()
+  public creationDate!: string;
+
+  @Field()
+  public collectionReference!: string;
+
+  @Field({ nullable: true })
+  public expirationDate?: string;
+
+  @Field({ nullable: true })
+  public partnerExtId?: string;
+
+  @Field({ nullable: true })
+  public ration?: string;
+
+  @Field({ nullable: true })
+  public rationUnit?: string;
+
+  constructor(data: IUserPetDietRecommendationEntry) {
+    Object.assign(this, data);
+    this.creationDate = data.creation_date;
+    this.collectionReference = data.collection_reference;
+    this.expirationDate = data.expiration_date;
+    this.partnerExtId = data.partner_ext_id;
+    this.rationUnit = data.ration_unit;
+  }
+}
 @ObjectType()
 export class UserPet
   implements
@@ -90,7 +121,7 @@ export class UserPet
   @Field()
   public profileCompletion: number;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, deprecationReason: "Prefer diet recommendation" })
   public declarativeProduct?: string;
 
   @Field()
@@ -180,5 +211,19 @@ export class UserPet
       ).data || [];
 
     return res.map(d => new UserPetBmi(d));
+  }
+
+  @Field(() => [UserPetDietRecommendation])
+  public async dietRecommendations(
+    @Ctx() ctx: Context,
+  ): Promise<UserPetDietRecommendation[]> {
+    const res =
+      (
+        await ctx.omnipartners.identity.getPetDietRecommendation({
+          pet_guid: this.guid,
+        })
+      ).data || [];
+
+    return res.map(d => new UserPetDietRecommendation(d));
   }
 }

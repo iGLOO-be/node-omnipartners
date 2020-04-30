@@ -511,6 +511,32 @@ export interface IUserPetBmiEntry {
   source: string;
 }
 
+export interface IUserPetDietRecommendationAddInput
+  extends IUserPetDietRecommendationEntry {
+  pet_guid: string;
+  custom_logger_info?: string;
+}
+
+export interface IUserPetDietRecommendationDeleteInput
+  extends Partial<
+    Pick<
+      IUserPetDietRecommendationEntry,
+      "collection_reference" | "creation_date" | "partner_ext_id"
+    >
+  > {
+  pet_guid: string;
+  custom_logger_info?: string;
+}
+
+export interface IUserPetDietRecommendationEntry {
+  creation_date: string;
+  collection_reference: string;
+  expiration_date?: string;
+  partner_ext_id?: string;
+  ration?: string;
+  ration_unit?: string;
+}
+
 export interface IUserChild {
   child_birthday: string;
   child_added_on: string;
@@ -1064,7 +1090,7 @@ export interface IDirectCashbackRedemptionRequestInput {
     account_number?: string;
   };
   partner_ext_id?: string;
-  benefit_product_ean?: string
+  benefit_product_ean?: string;
 }
 
 export interface IDirectCashbackVoucherBenefit {

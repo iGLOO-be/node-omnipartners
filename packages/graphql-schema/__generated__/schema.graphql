@@ -403,6 +403,7 @@ type Mutation {
   userCreate(userInput: UserCreateInput!): UserUpdateResult!
   userPetCreate(userPetInput: UserPetCreateInput!, token: String!): UserPetUpdateResult!
   userPetDelete(userPetDeleteInput: UserPetDeleteInput!, token: String!): UserResult!
+  userPetDeleteDietRecommendation(userPetDietRecommendationDeleteInput: UserPetDietRecommendationDeleteInput!, token: String!): UserPetUpdateResult!
   userPetUpdate(userPetInput: UserPetUpdateInput!, token: String!): UserPetUpdateResult!
   userUpdate(userInput: UserUpdateInput!, token: String!): UserUpdateResult!
   userChildUpdate(userChildUpdateInput: UserChildUpdateInput!, token: String!): UserChildResult!
@@ -1003,7 +1004,7 @@ type UserPet {
   type: String!
   breed: String!
   profileCompletion: Float!
-  declarativeProduct: String
+  declarativeProduct: String @deprecated(reason: "Prefer diet recommendation")
   breedDetails: UserBreedDetail!
   hasPicture: Boolean!
   lastUpdated: DateTime
@@ -1013,6 +1014,7 @@ type UserPet {
   placeOfPurchase: [UserPetPlaceOfPurchase!]!
   weightSeries: [UserPetWeight!]!
   bmiSeries: [UserPetBmi!]!
+  dietRecommendations: [UserPetDietRecommendation!]!
 }
 
 type UserPetBmi {
@@ -1038,11 +1040,38 @@ input UserPetCreateInput {
   placeOfPurchase: String
   bmi: UserPetBmiEntry
   weight: UserPetWeightEntry
+  dietRecommendation: UserPetDietRecommendationEntry
 }
 
 input UserPetDeleteInput {
   guid: String!
   petDeletionCause: String!
+}
+
+type UserPetDietRecommendation {
+  creationDate: String!
+  collectionReference: String!
+  expirationDate: String
+  partnerExtId: String
+  ration: String
+  rationUnit: String
+}
+
+input UserPetDietRecommendationDeleteInput {
+  pet_guid: String!
+  creation_date: String
+  collection_reference: String
+  partner_ext_id: String
+  custom_logger_info: String
+}
+
+input UserPetDietRecommendationEntry {
+  creation_date: String!
+  collection_reference: String!
+  expiration_date: String
+  partner_ext_id: String
+  ration: String
+  ration_unit: String
 }
 
 type UserPetPlaceOfPurchase {
@@ -1065,6 +1094,7 @@ input UserPetUpdateInput {
   weight: UserPetWeightEntry
   lifeStyle: String
   declarativeProduct: String
+  dietRecommendation: UserPetDietRecommendationEntry
 }
 
 type UserPetUpdateResult {
