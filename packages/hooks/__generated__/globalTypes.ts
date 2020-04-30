@@ -113,6 +113,16 @@ export interface UserPetCreateInput {
   placeOfPurchase?: string | null;
   bmi?: UserPetBmiEntry | null;
   weight?: UserPetWeightEntry | null;
+  dietRecommendation?: UserPetDietRecommendationEntry | null;
+}
+
+export interface UserPetDietRecommendationEntry {
+  creation_date: string;
+  collection_reference: string;
+  expiration_date?: string | null;
+  partner_ext_id?: string | null;
+  ration?: string | null;
+  ration_unit?: string | null;
 }
 
 export interface UserPetUpdateInput {
@@ -129,6 +139,7 @@ export interface UserPetUpdateInput {
   weight?: UserPetWeightEntry | null;
   lifeStyle?: string | null;
   declarativeProduct?: string | null;
+  dietRecommendation?: UserPetDietRecommendationEntry | null;
 }
 
 export interface UserPetWeightEntry {
