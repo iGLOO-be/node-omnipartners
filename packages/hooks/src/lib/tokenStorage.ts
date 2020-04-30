@@ -1,22 +1,42 @@
 import decode from "jwt-decode";
 
+const localStorageIsEnabled = () => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+  try {
+    const key = "test-write-local-storage/" + Date.now();
+    window.localStorage.setItem(key, "test");
+    window.localStorage.removeItem(key);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const TOKEN_STORAGE_KEY = "userToken";
-const storage = typeof window !== "undefined" ? window.localStorage : undefined;
+const storage = localStorageIsEnabled() ? window.localStorage : undefined;
 class TokenStorage {
+  private value?: string;
   public async set(env: string, token: string) {
     if (storage) {
       tryFn(() => storage.setItem(TOKEN_STORAGE_KEY + "." + env, token));
+    } else {
+      this.value = token;
     }
   }
   public async get(env: string) {
     if (storage) {
       return tryFn(() => storage.getItem(TOKEN_STORAGE_KEY + "." + env));
+    } else {
+      return this.value;
     }
-    return "";
   }
   public async remove(env: string) {
     if (storage) {
       tryFn(() => storage.removeItem(TOKEN_STORAGE_KEY + "." + env));
+    } else {
+      this.value = undefined;
     }
   }
 }
