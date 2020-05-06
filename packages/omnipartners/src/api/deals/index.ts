@@ -651,13 +651,13 @@ export default class Deals extends Api {
   ])
   public getRegisteredPartners(data: {
     deal_ref: string;
-    search_term: string;
-    p_length: number;
-    p_page: number;
-    partner_lat: number;
-    partner_lng: number;
-    radius: number;
-    partner_status: string;
+    search_term?: string;
+    p_length?: number;
+    p_page?: number;
+    partner_lat?: number;
+    partner_lng?: number;
+    radius?: number;
+    partner_status?: string;
   }) {
     return this._call("get-registered-partners", data, {
       hashKeys: ["deal_ref"],
