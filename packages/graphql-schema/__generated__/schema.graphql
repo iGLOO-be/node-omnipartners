@@ -448,6 +448,11 @@ type PartnerConnection {
   result: [PartnerListItem!]!
 }
 
+type PartnerDetailsConnection {
+  pageInfo: PageInfo!
+  result: [Partner!]!
+}
+
 type PartnerListItem {
   extId: String!
   type: String!
@@ -771,6 +776,14 @@ type Query {
     limit: Float
     page: Float
   ): PartnerConnection
+  partnerListDetails(
+    partnerListInput: PartnerListItemInput
+    token: String!
+
+    """Paginate limit"""
+    limit: Float
+    page: Float
+  ): PartnerDetailsConnection
   partnerDetails(partner_ext_id: String!): [Partner!]
 }
 

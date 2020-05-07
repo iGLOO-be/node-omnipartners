@@ -9,8 +9,13 @@ import {
 } from "type-graphql";
 import { ConnectionArgs } from "../connections";
 import { Context } from "../types/Context";
-import { PartnerConnection, PartnerListItem } from "./PartnerListItem";
+import {
+  PartnerConnection,
+  PartnerListItem,
+  PartnerDetailsConnection,
+} from "./PartnerListItem";
 import { IPartnerListItemInput } from "omnipartners";
+import { Partner } from "./Partner";
 
 @InputType()
 class PartnerListItemInput {
@@ -58,6 +63,46 @@ export class PartnerListItemResolver {
         page,
       },
       result: res.data.map((d: any) => new PartnerListItem(d)),
+    };
+  }
+
+  @Query(() => PartnerDetailsConnection, { nullable: true })
+  public async partnerListDetails(
+    @Ctx() ctx: Context,
+    @Args() args: ConnectionArgs,
+    @Arg("token") token: string,
+    @Arg("partnerListInput", { nullable: true })
+    partnerListInput?: PartnerListItemInput,
+  ): Promise<PartnerDetailsConnection> {
+    ctx.userTokenHelper.parse(token);
+
+    const res = await ctx.omnipartners.partners.listPartners({
+      page: `${args.page}`,
+      rows: `${args.limit}`,
+      ...(partnerListInput && partnerListInput.toOmnipartners()),
+    });
+
+    const count = parseInt(res.total_rows, 10);
+    const limit = parseInt(res.rows, 10);
+    const page = parseInt(res.page, 10);
+    const hasNextPage = page !== Math.ceil(count / limit);
+
+    const details = await Promise.all(
+      res.data.map(r =>
+        ctx.omnipartners.partners.partnerDetails({
+          partner_ext_id: r.partner_ext_id,
+        }),
+      ),
+    );
+
+    return {
+      pageInfo: {
+        count,
+        limit,
+        hasNextPage,
+        page,
+      },
+      result: details.map(d => new Partner(d.data[0])),
     };
   }
 }
