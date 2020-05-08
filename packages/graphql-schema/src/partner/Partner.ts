@@ -25,6 +25,9 @@ export class Partner {
   public street1?: string;
 
   @Field({ nullable: true })
+  public street2?: string;
+
+  @Field({ nullable: true })
   public streetnum?: string;
 
   @Field({ nullable: true })
@@ -67,6 +70,7 @@ export class Partner {
     Object.assign(this, data);
     this.extId = data.partner_ext_id;
     this.street1 = data.partner_inv_street1;
+    this.street2 = data.partner_inv_street2;
     this.streetnum = data.partner_inv_streetnum;
     this.postalCode = data.partner_inv_postal_code;
     this.city = data.partner_inv_city;

@@ -428,6 +428,7 @@ type PageInfo {
 type Partner {
   extId: String!
   street1: String
+  street2: String
   streetnum: String
   postalCode: String
   city: String
