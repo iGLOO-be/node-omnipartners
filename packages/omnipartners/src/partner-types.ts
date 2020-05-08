@@ -47,7 +47,6 @@ export interface IPartnerListItemInput {
   show_hidden?: string;
 }
 
-
 export interface IPartnerLocatorInput {
   partner_lat: string;
   partner_lng: string;
@@ -242,3 +241,21 @@ export interface IPartnerDeleteOpeningHoursInput {
   partner_ext_id: string;
   day: number | string;
 }
+
+export type IPartnerDetailsDataOptions =
+  | IPartnerDetailsDataOption
+  | IPartnerDetailsDataOption[];
+type IPartnerDetailsDataOption =
+  | "partner_details"
+  | "links"
+  | "activities"
+  | "services"
+  | "extended_profile"
+  | "primary_contact_details"
+  | "open_close_hours"
+  | "logo_images"
+  | "groups"
+  | "location"
+  | "translations"
+  | "show_all_translations"
+  | "partner_breed_relations";

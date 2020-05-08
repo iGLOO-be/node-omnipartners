@@ -1,6 +1,8 @@
-import { IPartnerListItem } from "omnipartners";
-import { Field, ObjectType } from "type-graphql";
+import { IPartnerListItem, IPartnerDetailsDataOptions } from "omnipartners";
+import { Field, ObjectType, Ctx, Arg } from "type-graphql";
 import { PageInfo } from "../connections";
+import { Partner } from "./Partner";
+import { Context } from "../types/Context";
 
 @ObjectType()
 export class PartnerListItem {
@@ -27,6 +29,24 @@ export class PartnerListItem {
 
   @Field({ nullable: true })
   public country: string;
+
+  @Field(() => Partner)
+  public async detail(
+    @Ctx() ctx: Context,
+    @Arg("lang", { nullable: true }) lang?: string,
+    @Arg("data_options", () => [String], { nullable: true })
+    data_options?: IPartnerDetailsDataOptions,
+  ): Promise<Partner> {
+    const data = (
+      await ctx.omnipartners.partners.partnerDetails({
+        partner_ext_id: this.extId,
+        lang,
+        data_options,
+      })
+    ).data;
+
+    return new Partner(data[0]);
+  }
 
   constructor(data: IPartnerListItem) {
     Object.assign(this, data);

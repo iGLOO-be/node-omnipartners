@@ -11,6 +11,7 @@ import {
   IPartnerLocatorInput,
   IPartnerUpdateInput,
   IPartnerListItemInput,
+  IPartnerDetailsDataOptions,
 } from "../../partner-types";
 
 export interface IPartnerGroup {
@@ -71,7 +72,9 @@ export default class Partners extends Api {
     "rows", // (Optional) The “Rows” used for pagination. Number of records per page. Its a number. The default value is 10. The maximum value is 100.
     "show_hidden", // (Optional) States whether to include the hidden partners in the result. (Valid Values: 0 OR 1) default 0
   ])
-  public listPartners(data: IPartnerListItemInput): Promise<{
+  public listPartners(
+    data: IPartnerListItemInput,
+  ): Promise<{
     data: IPartnerListItem[];
     page: string;
     total_rows: string;
@@ -118,27 +121,30 @@ export default class Partners extends Api {
     "lang", // The language used to retrieve the translated contents.If not specified generic values will be returned instead of translated contents.
     "data_options", // This defines information that is returned in the profile object. It should be a comma separated list of values. For more information please refer Data Options.
   ])
-  public partnerDetails(data: {
+  public partnerDetails({
+    data_options,
+    ...data
+  }: {
     partner_ext_id: string;
     indexed_result?: string;
     lang?: string;
-    data_options?: string;
+    data_options?: IPartnerDetailsDataOptions;
   }): Promise<{ data: IPartnerDetails[] }> {
-    const options = {
-      ...data,
-      partner_ext_id: data.partner_ext_id
-        ? data.partner_ext_id.toString()
-        : null,
-    };
-    if (data.data_options) {
-      options.data_options = Array.isArray(data.data_options)
-        ? data.data_options.join(",")
-        : data.data_options;
-    }
-    return this._call("get-partner-details", options, {
-      hashKeys: ["action", "partner_ext_id"],
-      retry: true,
-    });
+    return this._call(
+      "get-partner-details",
+      {
+        ...data,
+        data_options: data_options
+          ? Array.isArray(data_options)
+            ? data_options.join(",")
+            : data_options
+          : undefined,
+      },
+      {
+        hashKeys: ["action", "partner_ext_id"],
+        retry: true,
+      },
+    );
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Featured_Activities")
