@@ -457,7 +457,7 @@ type PartnerListItem {
   postalCode: String
   city: String
   country: String
-  detail(lang: String): Partner!
+  detail(data_options: [String!], lang: String): Partner!
 }
 
 input PartnerListItemInput {
