@@ -1185,6 +1185,17 @@ export default class Deals extends Api {
     });
   }
 
+  @doc("https://doc.clixray.com/index.php?title=Disable_voucher_redemption")
+  @filterInput(["barcode"])
+  public disableVoucherRedemption(data: {
+    barcode: string;
+  }): Promise<{}> {
+    return this._call("disable-voucher-redemption", data, {
+      retry: false,
+      hashKeys: ["barcode"],
+    });
+  }
+
   private _call(
     action: string,
     data: IApiPostData,
