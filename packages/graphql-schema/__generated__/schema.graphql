@@ -286,6 +286,7 @@ input DirectCashbackRedemptionRequestInput {
   paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail!
   eanBarcode: String
   partnerExtId: String
+  benefitProductPurchaseValue: String
 }
 
 input DirectCashbackRedemptionRequestInputPayementDetail {

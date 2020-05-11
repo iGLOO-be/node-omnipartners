@@ -38,6 +38,9 @@ export class DirectCashbackRedemptionRequestInput {
   @Field({ nullable: true })
   public partnerExtId?: string;
 
+  @Field({ nullable: true })
+  public benefitProductPurchaseValue?: string;
+
   public toOmnipartners(): SetOptional<
     IDirectCashbackRedemptionRequestInput,
     "benefit_id"
@@ -56,6 +59,7 @@ export class DirectCashbackRedemptionRequestInput {
       receipt_image_mime_type: this.receiptImageMimeType,
       partner_ext_id: this.partnerExtId,
       benefit_product_ean: this.eanBarcode,
+      benefit_product_purchase_value: this.benefitProductPurchaseValue,
     };
   }
 }

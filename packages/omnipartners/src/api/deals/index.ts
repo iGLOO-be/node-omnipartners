@@ -1088,6 +1088,7 @@ export default class Deals extends Api {
     "target_currency", // (Required) Target currency code Eg: EUR / GBP
     "payment_details", // (Required) Details of the payment, It should be a json object.
     "benefit_product_ean", // (Optional) ean of the purchased product. This is required for the deals which are having percentage benefit amount for products.
+    "benefit_product_purchase_value" // (Optional) Purchase value of the product. This is required for the deals which are having percentage benefit amount for products.
   ])
   public createDirectCashbackRedemptionRequest(
     data: IDirectCashbackRedemptionRequestInput,
