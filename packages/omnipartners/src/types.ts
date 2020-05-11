@@ -1091,6 +1091,7 @@ export interface IDirectCashbackRedemptionRequestInput {
   };
   partner_ext_id?: string;
   benefit_product_ean?: string;
+  benefit_product_purchase_value?: string;
 }
 
 export interface IDirectCashbackVoucherBenefit {
