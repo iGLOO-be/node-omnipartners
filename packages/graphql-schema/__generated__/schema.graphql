@@ -90,6 +90,28 @@ type Deal {
   deal_groups: [String!]
   products: [DealProduct!]!
   type_details: DealTypeDetails!
+  visiblePartnerForUser(
+    """Paginate limit"""
+    limit: Float
+    page: Float
+    deal_ref: String!
+    search: String
+    favorite_only: Boolean
+    partner_lat: String
+    partner_lng: String
+    radius: String
+    token: String!
+  ): DealPartnerResult!
+  registeredPartner(
+    """Paginate limit"""
+    limit: Float
+    page: Float
+    search_term: String
+    partner_lat: String
+    partner_lng: String
+    radius: String
+    token: String!
+  ): DealPartnerResult!
 }
 
 type DealAmounts {
@@ -150,6 +172,27 @@ type DealOptionOptions {
   visible: String!
   default_value: String!
   can_change: String!
+}
+
+type DealPartner {
+  id: String!
+  extid: String!
+  name: String!
+  street1: String
+  street2: String
+  streetnum: String
+  postal_code: String
+  city: String
+  region: String
+  country: String
+  lat: String
+  lng: String
+  detail(data_options: [String!], lang: String): Partner!
+}
+
+type DealPartnerResult {
+  pageInfo: PageInfo!
+  result: [DealPartner!]!
 }
 
 type DealPresentationImages {
@@ -218,8 +261,8 @@ type DealVisiblePartnerForUserResultData {
   city: String
   region: String
   country: String
-  lat: Float
-  lng: Float
+  lat: String
+  lng: String
 }
 
 type DirectCashbackDealDetail {
@@ -721,9 +764,9 @@ type Query {
     deal_ref: String!
     search: String
     favorite_only: Boolean
-    partner_lat: Float
-    partner_lng: Float
-    radius: Float
+    partner_lat: String
+    partner_lng: String
+    radius: String
     token: String!
   ): DealVisiblePartnerForUserResult
   deal(default_lang: String, deal_ref: String!): Deal

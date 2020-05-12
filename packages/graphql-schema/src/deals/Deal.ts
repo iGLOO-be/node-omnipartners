@@ -1,7 +1,16 @@
 import { IDeal, IDealProduct } from "omnipartners";
-import { Field, ObjectType, Arg, Ctx } from "type-graphql";
+import { Field, ObjectType, Arg, Ctx, Args } from "type-graphql";
 import { ProductCollectionDetail } from "../products/ProductCollection";
 import { Context } from "../types/Context";
+import {
+  GetVisiblePartnerInputArgs,
+} from "./VisiblePartner";
+import { ConnectionArgs } from "../connections";
+import {
+  GetRegisteredPartnerInputArgs,
+  DealPartner,
+  DealPartnerResult,
+} from "./DealPartner";
 
 @ObjectType()
 class DealOptionOptions {
@@ -222,8 +231,76 @@ export class Deal implements Partial<Omit<IDeal, "products">> {
   @Field(() => DealTypeDetails)
   public type_details!: DealTypeDetails;
 
+  @Field(() => DealPartnerResult)
+  public async visiblePartnerForUser(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Args() inputs: GetVisiblePartnerInputArgs,
+    @Args() connectioArgs: ConnectionArgs,
+  ): Promise<DealPartnerResult> {
+    const { user_guid } = ctx.userTokenHelper.parse(token);
+    const limit = parseInt((connectioArgs.limit as any) || "100", 10);
+    const page = parseInt((connectioArgs.page as any) || "1", 10);
+
+    const { data, p_total } = await ctx.omnipartners.deals.getVisiblePartner({
+      ...inputs,
+      user_guid,
+      deal_ref: this.ref,
+      p_page: page,
+      p_length: limit,
+    });
+
+    const count = p_total;
+    const hasNextPage = page !== Math.ceil(count / limit);
+
+    return {
+      pageInfo: {
+        count,
+        limit,
+        hasNextPage,
+        page,
+      },
+      result: data.map(d => new DealPartner(d)),
+    };
+  }
+
+  @Field(() => DealPartnerResult)
+  public async registeredPartner(
+    @Ctx() ctx: Context,
+    @Arg("token") token: string,
+    @Args() inputs: GetRegisteredPartnerInputArgs,
+    @Args() connectioArgs: ConnectionArgs,
+  ): Promise<DealPartnerResult> {
+    ctx.userTokenHelper.parse(token);
+    const limit = parseInt((connectioArgs.limit as any) || "100", 10);
+    const page = parseInt((connectioArgs.page as any) || "1", 10);
+
+    const {
+      data,
+      p_total,
+    } = await ctx.omnipartners.deals.getRegisteredPartners({
+      ...inputs,
+      deal_ref: this.ref,
+      p_page: page,
+      p_length: limit,
+    });
+
+    const count = p_total;
+    const hasNextPage = page !== Math.ceil(count / limit);
+
+    return {
+      pageInfo: {
+        count,
+        limit,
+        hasNextPage,
+        page,
+      },
+      result: data.map(d => new DealPartner(d)),
+    };
+  }
+
   constructor(data: IDeal) {
     Object.assign(this, data);
-    this.products = data.products.map(p => new DealProduct(p))
+    this.products = data.products.map(p => new DealProduct(p));
   }
 }

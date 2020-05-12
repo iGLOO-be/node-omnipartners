@@ -131,7 +131,7 @@ export class DealResolver {
       p_length: limit,
     });
 
-    const count = parseInt(p_total, 10);
+    const count = p_total;
     const hasNextPage = page !== Math.ceil(count / limit);
 
     return {

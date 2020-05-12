@@ -2,7 +2,7 @@ import { ArgsType, Field, ObjectType } from "type-graphql";
 import { PageInfo } from "../connections";
 
 @ObjectType()
-class DealVisiblePartnerForUserResultData {
+export class DealVisiblePartnerForUserResultData {
   @Field()
   public id!: string;
   @Field()
@@ -24,9 +24,9 @@ class DealVisiblePartnerForUserResultData {
   @Field({ nullable: true })
   public country?: string;
   @Field({ nullable: true })
-  public lat?: number;
+  public lat?: string;
   @Field({ nullable: true })
-  public lng?: number;
+  public lng?: string;
 }
 
 @ObjectType("DealVisiblePartnerForUserResult")
@@ -46,9 +46,9 @@ export class GetVisiblePartnerInputArgs {
   @Field({ nullable: true })
   public favorite_only?: boolean;
   @Field({ nullable: true })
-  public partner_lat?: number;
+  public partner_lat?: string;
   @Field({ nullable: true })
-  public partner_lng?: number;
+  public partner_lng?: string;
   @Field({ nullable: true })
-  public radius?: number;
+  public radius?: string;
 }
