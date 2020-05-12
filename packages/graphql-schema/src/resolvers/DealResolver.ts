@@ -1,4 +1,4 @@
-import { ISubscribeToDealInput } from "omnipartners";
+import { ISubscribeToDealInput, OPStatusError } from "omnipartners";
 import {
   Arg,
   Args,
@@ -75,10 +75,20 @@ export class DealResolver {
     @Arg("code") code: string,
   ): Promise<GenericValidationError | undefined> {
     try {
-      await ctx.omnipartners.deals.checkSecureCode({
+      const result = await ctx.omnipartners.deals.checkSecureCode({
         code,
         deal_ref,
       });
+
+      const valid =
+        result.data.is_available === true &&
+        result.data.deals.includes(deal_ref);
+      if (!valid) {
+        throw new OPStatusError({
+          status: 3045,
+          message: "Invalid secure code",
+        });
+      }
       return;
     } catch (err) {
       return new GenericValidationError(err);
