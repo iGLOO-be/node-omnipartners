@@ -126,11 +126,14 @@ export interface IDirectCashbackVoucherListInput {
   p_page?: string;
 }
 
-export interface IDirectCashbackVoucherList {
-  records: IDirectCashbackVoucherListItem[];
+interface IPageInfo {
   p_total: number;
   p_length: number;
   p_page: number;
+}
+
+export interface IDirectCashbackVoucherList extends IPageInfo {
+  records: IDirectCashbackVoucherListItem[];
 }
 
 export interface IDirectCashbackVoucherListItem {
@@ -186,11 +189,8 @@ export interface IDirectCashbackDealBenefit {
   benefit_type: string;
 }
 
-export interface IDirectCashbackRedemptionRequestList {
+export interface IDirectCashbackRedemptionRequestList extends IPageInfo {
   records: IDirectCashbackRedemptionRequestListItem[];
-  p_total: number;
-  p_length: number;
-  p_page: number;
 }
 
 export interface IDirectCashbackRedemptionRequestListItem {
@@ -408,12 +408,55 @@ export interface IGetVisiblePartnerInput {
   user_guid: string;
   search?: string;
   favorite_only?: boolean;
-  partner_lat?: number;
-  partner_lng?: number;
-  radius?: number;
+  partner_lat?: string;
+  partner_lng?: string;
+  radius?: string;
   p_page?: number;
   p_length?: number;
   limit?: number;
+}
+
+export type IRegisteredPartnerDataOptions =
+  | IRegisteredPartnerDataOption
+  | IRegisteredPartnerDataOption[];
+type IRegisteredPartnerDataOption = "public_info" | "location" | "groups";
+
+export interface IGetRegisteredPartnerInput {
+  deal_ref: string;
+  search_term?: string;
+  partner_lat?: string;
+  partner_lng?: string;
+  radius?: string;
+  p_page: number;
+  p_length?: number;
+  partner_status?: string;
+  data_options?: IRegisteredPartnerDataOptions;
+}
+
+export interface IDealPartner {
+  name: string;
+  street1?: string;
+  street2?: string;
+  streetnum?: string;
+  postal_code?: string;
+  city?: string;
+  region?: string;
+  country?: string;
+  groups?: string[];
+  id: string;
+  extid: string;
+  lat?: string;
+  lng?: string;
+  pub_name?: string;
+  pub_street1?: string;
+  pub_street2?: string;
+  pub_streetnum?: string;
+  pub_postal_code?: string;
+  pub_city?: string;
+  pub_region?: string;
+  pub_country?: string;
+  distance?: string;
+  ptn_status?: string;
 }
 
 export type ISecureCodeDataOptions =
@@ -649,16 +692,13 @@ export default class Deals extends Api {
     "radius", // (Optional) Radius in km, If not set then it set as 10km, Service will check partners located with in that "Radius"
     "partner_status", // (Optional) Used to filter results using partner status. If this is not specified, default value is "A".
   ])
-  public getRegisteredPartners(data: {
-    deal_ref: string;
-    search_term?: string;
-    p_length?: number;
-    p_page?: number;
-    partner_lat?: number;
-    partner_lng?: number;
-    radius?: number;
-    partner_status?: string;
-  }) {
+  public getRegisteredPartners(
+    data: IGetRegisteredPartnerInput,
+  ): Promise<
+    {
+      data: IDealPartner[];
+    } & IPageInfo
+  > {
     return this._call("get-registered-partners", data, {
       hashKeys: ["deal_ref"],
       retry: true,
@@ -678,7 +718,13 @@ export default class Deals extends Api {
     "p_length",
     "limit",
   ])
-  public getVisiblePartner(data: IGetVisiblePartnerInput) {
+  public getVisiblePartner(
+    data: IGetVisiblePartnerInput,
+  ): Promise<
+    {
+      data: IDealPartner[];
+    } & IPageInfo
+  > {
     return this._call("get-visible-partners-for-user", data, {
       hashKeys: ["deal_ref"],
       retry: true,
@@ -779,13 +825,12 @@ export default class Deals extends Api {
   ])
   public listVouchers(
     data: IVoucherListInput,
-  ): Promise<{
-    data: IVoucher[];
-    p_total: number;
-    p_length: number;
-    p_page: number;
-    status: string;
-  }> {
+  ): Promise<
+    {
+      data: IVoucher[];
+      status: string;
+    } & IPageInfo
+  > {
     return this._call("listoffers", data, {
       retry: true,
     });
@@ -1088,7 +1133,7 @@ export default class Deals extends Api {
     "target_currency", // (Required) Target currency code Eg: EUR / GBP
     "payment_details", // (Required) Details of the payment, It should be a json object.
     "benefit_product_ean", // (Optional) ean of the purchased product. This is required for the deals which are having percentage benefit amount for products.
-    "benefit_product_purchase_value" // (Optional) Purchase value of the product. This is required for the deals which are having percentage benefit amount for products.
+    "benefit_product_purchase_value", // (Optional) Purchase value of the product. This is required for the deals which are having percentage benefit amount for products.
   ])
   public createDirectCashbackRedemptionRequest(
     data: IDirectCashbackRedemptionRequestInput,
@@ -1187,9 +1232,7 @@ export default class Deals extends Api {
 
   @doc("https://doc.clixray.com/index.php?title=Disable_voucher_redemption")
   @filterInput(["barcode"])
-  public disableVoucherRedemption(data: {
-    barcode: string;
-  }): Promise<{}> {
+  public disableVoucherRedemption(data: { barcode: string }): Promise<{}> {
     return this._call("disable-voucher-redemption", data, {
       retry: false,
       hashKeys: ["barcode"],

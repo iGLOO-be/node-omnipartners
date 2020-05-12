@@ -113,7 +113,7 @@ export class DealResolver {
     }
   }
 
-  @Query(() => DealVisiblePartnerForUserResult, { nullable: true })
+  @Query(() => DealVisiblePartnerForUserResult, { nullable: true, deprecationReason: "Prefer version in Deal.ts" })
   public async dealVisiblePartnerForUser(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
@@ -131,7 +131,7 @@ export class DealResolver {
       p_length: limit,
     });
 
-    const count = parseInt(p_total, 10);
+    const count = p_total;
     const hasNextPage = page !== Math.ceil(count / limit);
 
     return {
