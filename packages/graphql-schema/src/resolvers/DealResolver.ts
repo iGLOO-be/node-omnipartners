@@ -113,7 +113,7 @@ export class DealResolver {
     }
   }
 
-  @Query(() => DealVisiblePartnerForUserResult, { nullable: true })
+  @Query(() => DealVisiblePartnerForUserResult, { nullable: true, deprecationReason: "Prefer version in Deal.ts" })
   public async dealVisiblePartnerForUser(
     @Ctx() ctx: Context,
     @Arg("token") token: string,
