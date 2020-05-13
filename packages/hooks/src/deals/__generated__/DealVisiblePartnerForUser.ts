@@ -30,8 +30,8 @@ export interface DealVisiblePartnerForUser_dealVisiblePartnerForUser_result {
   city: string | null;
   region: string | null;
   country: string | null;
-  lat: number | null;
-  lng: number | null;
+  lat: string | null;
+  lng: string | null;
 }
 
 export interface DealVisiblePartnerForUser_dealVisiblePartnerForUser {
