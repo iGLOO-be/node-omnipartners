@@ -240,7 +240,7 @@ export class Deal implements Partial<Omit<IDeal, "products">> {
   ): Promise<DealPartnerResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     const limit = parseInt((connectioArgs.limit as any) || "100", 10);
-    const page = parseInt((connectioArgs.page as any) || "1", 10);
+    const page = parseInt((connectioArgs.page as any) || "0", 10);
 
     const { data, p_total } = await ctx.omnipartners.deals.getVisiblePartner({
       ...inputs,
@@ -273,7 +273,7 @@ export class Deal implements Partial<Omit<IDeal, "products">> {
   ): Promise<DealPartnerResult> {
     ctx.userTokenHelper.parse(token);
     const limit = parseInt((connectioArgs.limit as any) || "100", 10);
-    const page = parseInt((connectioArgs.page as any) || "1", 10);
+    const page = parseInt((connectioArgs.page as any) || "0", 10);
 
     const {
       data,

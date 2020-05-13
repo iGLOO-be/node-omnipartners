@@ -768,7 +768,7 @@ type Query {
     partner_lng: String
     radius: String
     token: String!
-  ): DealVisiblePartnerForUserResult
+  ): DealVisiblePartnerForUserResult @deprecated(reason: "Prefer version in Deal.ts")
   deal(default_lang: String, deal_ref: String!): Deal
   productCollectionsByTargetingInfo(input: ProductCollectionsByTargetingInfoInput!): [ProductCollectionsByTargetingInfoCollection!]
   productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
