@@ -824,6 +824,7 @@ type Subscription {
   code: String!
   name: String!
   type: String!
+  consentText: String
 }
 
 type User {
