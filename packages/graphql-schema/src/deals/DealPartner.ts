@@ -1,6 +1,10 @@
 import { ArgsType, Field, ObjectType, Ctx, Arg } from "type-graphql";
 import { PageInfo } from "../connections";
-import { IDealPartner, IPartnerDetailsDataOptions } from "omnipartners";
+import {
+  IDealPartner,
+  IPartnerDetailsDataOptions,
+  IRegisteredPartnerDataOptions,
+} from "omnipartners";
 import { Partner } from "../partner/Partner";
 import { Context } from "../types/Context";
 
@@ -75,4 +79,19 @@ export class GetRegisteredPartnerInputArgs {
 
   @Field({ nullable: true })
   public radius?: string;
+
+  @Field({ nullable: true })
+  public p_page?: number;
+
+  @Field({ nullable: true })
+  public p_length?: number;
+
+  @Field({ nullable: true })
+  public partner_type?: string;
+
+  @Field({ nullable: true })
+  public partner_status?: string;
+
+  @Field(() => String, { nullable: true })
+  public data_options?: IRegisteredPartnerDataOptions;
 }

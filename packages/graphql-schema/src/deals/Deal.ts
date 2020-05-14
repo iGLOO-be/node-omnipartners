@@ -2,9 +2,7 @@ import { IDeal, IDealProduct } from "omnipartners";
 import { Field, ObjectType, Arg, Ctx, Args } from "type-graphql";
 import { ProductCollectionDetail } from "../products/ProductCollection";
 import { Context } from "../types/Context";
-import {
-  GetVisiblePartnerInputArgs,
-} from "./VisiblePartner";
+import { GetVisiblePartnerInputArgs } from "./VisiblePartner";
 import { ConnectionArgs } from "../connections";
 import {
   GetRegisteredPartnerInputArgs,

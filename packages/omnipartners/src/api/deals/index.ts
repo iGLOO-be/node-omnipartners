@@ -429,6 +429,7 @@ export interface IGetRegisteredPartnerInput {
   radius?: string;
   p_page: number;
   p_length?: number;
+  partner_type?: string;
   partner_status?: string;
   data_options?: IRegisteredPartnerDataOptions;
 }
@@ -691,6 +692,7 @@ export default class Deals extends Api {
     "partner_lng", // (Optional) longitude value of the base location of the search
     "radius", // (Optional) Radius in km, If not set then it set as 10km, Service will check partners located with in that "Radius"
     "partner_status", // (Optional) Used to filter results using partner status. If this is not specified, default value is "A".
+    "partner_type", // (Optional) Filter partners by their type. Eg: partner_type:"type1" Or partner_type:"type1,type2"
   ])
   public getRegisteredPartners(
     data: IGetRegisteredPartnerInput,

@@ -110,6 +110,11 @@ type Deal {
     partner_lat: String
     partner_lng: String
     radius: String
+    p_page: Float
+    p_length: Float
+    partner_type: String
+    partner_status: String
+    data_options: String
     token: String!
   ): DealPartnerResult!
 }
