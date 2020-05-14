@@ -69,6 +69,7 @@ export interface IMetadataSubscription {
   code: string;
   name: string;
   type: string;
+  consent_text?: string;
 }
 
 export interface IMetadataPlaceOfPurchase {

@@ -11,6 +11,13 @@ export class Subscription implements IMetadataSubscription {
   public name!: string;
   @Field()
   public type!: string;
+  @Field({ nullable: true })
+  public consentText?: string;
+
+  constructor(data: IMetadataSubscription) {
+    Object.assign(this, data);
+    this.consentText = data.consent_text;
+  }
 }
 
 @Resolver(() => Subscription)
@@ -20,8 +27,12 @@ export class DataSubscriptionResolver {
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<Subscription[]> {
-    return (await ctx.omnipartners.metadata.getSubscriptions({
-      lang,
-    })).data;
+    const subscriptions = (
+      await ctx.omnipartners.metadata.getSubscriptions({
+        lang,
+      })
+    ).data;
+
+    return subscriptions.map(sub => new Subscription(sub));
   }
 }
