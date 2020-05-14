@@ -74,6 +74,7 @@ export const useUserPets = () => {
 
   return {
     ...res,
+    error: res.error || res.data?.user?.error,
     pets:
       (res.data &&
         res.data.user &&
