@@ -1,5 +1,6 @@
 import { ArgsType, Field, ObjectType } from "type-graphql";
 import { PageInfo } from "../connections";
+import { IGetVisiblePartnerInput } from "omnipartners";
 
 @ObjectType()
 export class DealVisiblePartnerForUserResultData {
@@ -46,9 +47,21 @@ export class GetVisiblePartnerInputArgs {
   @Field({ nullable: true })
   public favorite_only?: boolean;
   @Field({ nullable: true })
-  public partner_lat?: string;
+  public partner_lat?: number;
   @Field({ nullable: true })
-  public partner_lng?: string;
+  public partner_lng?: number;
   @Field({ nullable: true })
-  public radius?: string;
+  public radius?: number;
+
+  public toOmnipartners(): Omit<
+    IGetVisiblePartnerInput,
+    "user_guid" | "p_page" | "p_length"
+  > {
+    return {
+      ...this,
+      partner_lat: `${this.partner_lat}`,
+      partner_lng: `${this.partner_lng}`,
+      radius: `${this.radius}`,
+    };
+  }
 }
