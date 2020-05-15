@@ -97,9 +97,9 @@ type Deal {
     deal_ref: String!
     search: String
     favorite_only: Boolean
-    partner_lat: String
-    partner_lng: String
-    radius: String
+    partner_lat: Float
+    partner_lng: Float
+    radius: Float
     token: String!
   ): DealPartnerResult!
   registeredPartner(
@@ -769,9 +769,9 @@ type Query {
     deal_ref: String!
     search: String
     favorite_only: Boolean
-    partner_lat: String
-    partner_lng: String
-    radius: String
+    partner_lat: Float
+    partner_lng: Float
+    radius: Float
     token: String!
   ): DealVisiblePartnerForUserResult @deprecated(reason: "Prefer version in Deal.ts")
   deal(default_lang: String, deal_ref: String!): Deal

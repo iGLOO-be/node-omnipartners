@@ -241,7 +241,7 @@ export class Deal implements Partial<Omit<IDeal, "products">> {
     const page = parseInt((connectioArgs.page as any) || "0", 10);
 
     const { data, p_total } = await ctx.omnipartners.deals.getVisiblePartner({
-      ...inputs,
+      ...inputs.toOmnipartners(),
       user_guid,
       deal_ref: this.ref,
       p_page: page,
