@@ -17,14 +17,14 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "date-fns": "^2.12.0",
+    "date-fns": "^2.13.0",
     "graphql-tag": "^2.10.3",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15"
   },
   "peerDependencies": {
     "@apollo/react-hooks": "^3.1.5",
-    "apollo-client": "^2.6.8",
+    "apollo-client": "^2.6.10",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5"
   },
@@ -32,12 +32,12 @@
     "@apollo/react-hooks": "^3.1.5",
     "@igloo-be-omnipartners/graphql-schema": "^1.70.0",
     "@types/jwt-decode": "^2.2.1",
-    "apollo": "^2.27.0",
-    "graphql": "^14.6.0",
+    "apollo": "^2.27.4",
+    "graphql": "^15.0.0",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5",
     "tsdx": "^0.13.2",
     "tsutils": "^3.17.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.2"
   }
 }
