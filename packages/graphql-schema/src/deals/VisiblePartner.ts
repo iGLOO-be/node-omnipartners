@@ -59,9 +59,9 @@ export class GetVisiblePartnerInputArgs {
   > {
     return {
       ...this,
-      partner_lat: `${this.partner_lat}`,
-      partner_lng: `${this.partner_lng}`,
-      radius: `${this.radius}`,
+      partner_lat: this.partner_lat ? `${this.partner_lat}` : undefined,
+      partner_lng: this.partner_lng ? `${this.partner_lng}` : undefined,
+      radius: this.radius ? `${this.radius}` : undefined,
     };
   }
 }
