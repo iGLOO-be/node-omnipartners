@@ -11,6 +11,7 @@ export { DataLanguageResolver } from "./metadata/DataLanguageResolver";
 export { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
 export { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
 export { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
+export { DataAnimalPathologiesResolver } from "./metadata/DataAnimalPathologyResolver";
 export * from "./metadata/DataPartnerRelationTypesResolver";
 export * from "./metadata/DataAccountPasswordPolicyResolver";
 export { DealResolver, DealSubscribeInput } from "./resolvers/DealResolver";
