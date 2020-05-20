@@ -9,6 +9,13 @@ type AnimalBreed {
   other: Boolean!
 }
 
+type AnimalPathology {
+  code: String!
+  name: String!
+  species: String
+  hasDedicatedProduct: Boolean!
+}
+
 type AnimalType {
   code: String!
   name: String
@@ -758,6 +765,7 @@ type Query {
   metadataLanguages(lang: String): [Language!]!
   metadataSubscriptions(lang: String): [Subscription!]!
   metadataUserTitles(lang: String): [UserTitle!]!
+  metadataAnimalPathologies(lang: String): [AnimalPathology!]!
   metadataPartnerRelationTypes: [PartnerRelation!]!
   metadataAccountPasswordPolicy: DataAccountPasswordPolicy
   dealProducts(deal_ref: String!): [DealProduct!]

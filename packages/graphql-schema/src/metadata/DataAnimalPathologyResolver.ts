@@ -27,7 +27,7 @@ export class AnimalPathology
 @Resolver()
 export class DataAnimalPathologiesResolver {
   @Query(() => [AnimalPathology])
-  public async metadataAnimalPathologiess(
+  public async metadataAnimalPathologies(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
   ): Promise<AnimalPathology[]> {
