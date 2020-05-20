@@ -25,28 +25,20 @@ class UserBreedDetail {
 }
 
 @ObjectType()
-class LocalizedName {
-  @Field()
-  public default!: string;
-
-  @Field({ nullable: true })
-  public fr?: string;
-}
-
-@ObjectType()
 class UserMedicalCondition {
   @Field()
-  public name!: LocalizedName;
+  public name!: string;
 
   @Field()
   public code!: string;
 
-  constructor(data: IUserPetMedicalCondition) {
+  constructor(
+    data: IUserPetMedicalCondition,
+    { locale }: { locale?: string } = {},
+  ) {
     Object.assign(this, data);
-    this.name = {
-      default: data.name,
-      fr: data.name_FR,
-    };
+    const nameKey = locale ? `name_${locale?.toUpperCase()}` : "name";
+    this.name = (data as any)[nameKey];
   }
 }
 
@@ -166,7 +158,7 @@ export class UserPet
   @Field(() => [UserMedicalCondition], { nullable: true })
   public medicalConditions?: UserMedicalCondition[];
 
-  constructor(data: IUserPet) {
+  constructor(data: IUserPet, { locale }: { locale?: string } = {}) {
     Object.assign(this, data);
     this.dob = data.pet_dob;
     this.type = data.petType;
@@ -179,7 +171,7 @@ export class UserPet
     this.breedDetails = new UserBreedDetail(data.breedDetails);
     this.lifeStyle = data.pet_lifestyle ? data.pet_lifestyle : undefined;
     this.medicalConditions = data.medicalConditions.map(
-      condition => new UserMedicalCondition(condition),
+      condition => new UserMedicalCondition(condition, { locale }),
     );
   }
 

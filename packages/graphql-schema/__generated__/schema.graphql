@@ -438,11 +438,6 @@ type LegalForm {
   url: String
 }
 
-type LocalizedName {
-  default: String!
-  fr: String
-}
-
 type LoyaltyBalance {
   user_total_points: String!
   user_guid: String!
@@ -1015,7 +1010,7 @@ type UserLegalFormsItems {
 }
 
 type UserMedicalCondition {
-  name: LocalizedName!
+  name: String!
   code: String!
 }
 
