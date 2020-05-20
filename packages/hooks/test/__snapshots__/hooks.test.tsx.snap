@@ -28,6 +28,7 @@ Array [
   "useLoyaltyRetrieveBalance",
   "useMetadataAccountPasswordPolicy",
   "useMetadataAnimalBreeds",
+  "useMetadataAnimalPathologies",
   "useMetadataAnimalUniverses",
   "useMetadataCountries",
   "useMetadataLegalForms",

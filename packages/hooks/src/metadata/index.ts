@@ -7,3 +7,4 @@ export * from "./useMetadataAnimalUniverses";
 export * from "./useMetadataPartnerTypes";
 export * from "./useMetadataPlaceOfPurchase";
 export * from "./useMetadataAccountPasswordPolicy";
+export * from "./useMetadataAnimalPathologies";
