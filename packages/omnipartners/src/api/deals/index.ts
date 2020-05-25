@@ -1241,6 +1241,19 @@ export default class Deals extends Api {
     });
   }
 
+  @doc("https://doc.clixray.com/index.php?title=Send_voucher_email")
+  @filterInput(["barcode", "email", "default_lang"])
+  public sendVoucher(data: {
+    barcode: string;
+    email?: string;
+    default_lang?: string;
+  }): Promise<{}> {
+    return this._call("sendvoucher", data, {
+      retry: false,
+      hashKeys: ["barcode"],
+    });
+  }
+
   private _call(
     action: string,
     data: IApiPostData,
