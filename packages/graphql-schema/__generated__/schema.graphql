@@ -1009,6 +1009,11 @@ type UserLegalFormsItems {
   confirmed: Boolean!
 }
 
+type UserMedicalCondition {
+  name: String!
+  code: String!
+}
+
 type UserOwner {
   guid: String!
   firstName: String
@@ -1069,6 +1074,7 @@ type UserPet {
   hasPicture: Boolean!
   lastUpdated: DateTime
   lifeStyle: String
+  medicalConditions: [UserMedicalCondition!]
   pictureUrl: String!
   customPictureUrl: String!
   placeOfPurchase: [UserPetPlaceOfPurchase!]!
@@ -1155,6 +1161,7 @@ input UserPetUpdateInput {
   lifeStyle: String
   declarativeProduct: String
   dietRecommendation: UserPetDietRecommendationEntry
+  medicalConditions: [String!]
 }
 
 type UserPetUpdateResult {

@@ -55,6 +55,9 @@ class UserPetUpdateInput {
 
   @Field(() => UserPetDietRecommendationEntry, { nullable: true })
   public dietRecommendation?: UserPetDietRecommendationEntry;
+
+  @Field(() => [String], { nullable: true })
+  public medicalConditions?: string[] | string;
 }
 
 const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
@@ -70,6 +73,7 @@ const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
     | "pet_picture"
     | "pet_lifestyle"
     | "pet_declarative_product"
+    | "pet_medical_condition"
   > = {
     pet_guid: userPetInput.guid,
     pet_name: userPetInput.name,
@@ -79,6 +83,10 @@ const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
     pet_gender: userPetInput.gender,
     pet_lifestyle: userPetInput.lifeStyle,
     pet_declarative_product: userPetInput.declarativeProduct,
+    pet_medical_condition:
+      typeof userPetInput.medicalConditions === "string"
+        ? userPetInput.medicalConditions
+        : userPetInput.medicalConditions?.join(","),
   };
 
   if (typeof userPetInput.neutered !== "undefined") {
@@ -109,6 +117,7 @@ const fieldsMapping = {
   pet_picture: "pictureUrl",
   pet_lifestyle: "lifeStyle",
   pet_declarative_product: "declarativeProduct",
+  pet_medical_condition: "medicalCondition",
 };
 
 @Resolver(() => User)
@@ -147,6 +156,12 @@ export class UserPetUpdateResolver {
             declarativeProduct:
               userPetInput.declarativeProduct ||
               pet.pet_declarative_product ||
+              "",
+            medicalConditions:
+              userPetInput.medicalConditions ||
+              pet.medicalConditions
+                .map(condition => condition.code)
+                .join(",") ||
               "",
           }),
         )

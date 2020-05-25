@@ -5,6 +5,7 @@ import {
   IUserPetPlaceOfPurchase,
   IUserPetWeightEntry,
   IUserPetDietRecommendationEntry,
+  IUserPetMedicalCondition,
 } from "omnipartners";
 import { Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
@@ -20,6 +21,24 @@ class UserBreedDetail {
   constructor(data: IUserPetBreedDetail) {
     Object.assign(this, data);
     this.universeId = data.universe_id;
+  }
+}
+
+@ObjectType()
+class UserMedicalCondition {
+  @Field()
+  public name!: string;
+
+  @Field()
+  public code!: string;
+
+  constructor(
+    data: IUserPetMedicalCondition,
+    { locale }: { locale?: string } = {},
+  ) {
+    Object.assign(this, data);
+    const nameKey = locale ? `name_${locale?.toUpperCase()}` : "name";
+    this.name = (data as any)[nameKey];
   }
 }
 
@@ -136,7 +155,10 @@ export class UserPet
   @Field({ nullable: true })
   public lifeStyle?: string;
 
-  constructor(data: IUserPet) {
+  @Field(() => [UserMedicalCondition], { nullable: true })
+  public medicalConditions?: UserMedicalCondition[];
+
+  constructor(data: IUserPet, { locale }: { locale?: string } = {}) {
     Object.assign(this, data);
     this.dob = data.pet_dob;
     this.type = data.petType;
@@ -148,6 +170,9 @@ export class UserPet
       : undefined;
     this.breedDetails = new UserBreedDetail(data.breedDetails);
     this.lifeStyle = data.pet_lifestyle ? data.pet_lifestyle : undefined;
+    this.medicalConditions = data.medicalConditions.map(
+      condition => new UserMedicalCondition(condition, { locale }),
+    );
   }
 
   @Field()

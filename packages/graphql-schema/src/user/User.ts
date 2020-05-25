@@ -16,7 +16,10 @@ import { UserFavourites } from "./UserFavourites";
 import { UserPartnerRelations } from "./UserPartnerRelations";
 import { UserPet } from "./UserPet";
 import { UserSegment } from "./UserSegments";
-import { DealListVouchersResult, DealListOffersInput } from "../deals/ListVouchers";
+import {
+  DealListVouchersResult,
+  DealListOffersInput,
+} from "../deals/ListVouchers";
 import { ConnectionArgs } from "../connections";
 
 export interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
@@ -147,13 +150,13 @@ export class User<T = {}> {
     }
 
     if (!dealPetsResult) {
-      return petsResult.data.map(d => new UserPet(d));
+      return petsResult.data.map(d => new UserPet(d, { locale }));
     }
 
     return dealPetsResult.data
       .map(pet => petsResult.data.find(p => p.guid === pet.pet_guid))
       .filter(<Z>(n?: Z): n is Z => Boolean(n))
-      .map(pet => new UserPet(pet));
+      .map(pet => new UserPet(pet, { locale }));
   }
 
   @Field(() => [UserAddress], { nullable: false })
@@ -220,18 +223,22 @@ export class User<T = {}> {
 
   @Field(() => [UserChild], { nullable: false })
   public async children(@Ctx() ctx: Context): Promise<UserChild[]> {
-    const res = (await ctx.omnipartners.identity.getChildren({
-      user_guid: this.owner.guid,
-    })).data;
+    const res = (
+      await ctx.omnipartners.identity.getChildren({
+        user_guid: this.owner.guid,
+      })
+    ).data;
 
     return res.map(d => new UserChild(d));
   }
 
   @Field(() => [UserSegment], { nullable: false })
   public async segments(@Ctx() ctx: Context): Promise<UserSegment[]> {
-    const res = (await ctx.omnipartners.identity.getUserSegments({
-      user_guid: this.owner.guid,
-    })).data;
+    const res = (
+      await ctx.omnipartners.identity.getUserSegments({
+        user_guid: this.owner.guid,
+      })
+    ).data;
 
     return res.map(s => new UserSegment(s));
   }
@@ -242,11 +249,13 @@ export class User<T = {}> {
     @Arg("source", { nullable: true }) source?: string,
     @Arg("type", { nullable: true }) type?: string,
   ): Promise<UserFavourites[]> {
-    const res = (await ctx.omnipartners.identity.getUserFavourites({
-      user_guid: this.owner.guid,
-      source,
-      type,
-    })).data;
+    const res = (
+      await ctx.omnipartners.identity.getUserFavourites({
+        user_guid: this.owner.guid,
+        source,
+        type,
+      })
+    ).data;
 
     return res.map(d => new UserFavourites(d));
   }
@@ -257,7 +266,7 @@ export class User<T = {}> {
     @Args() connectioArgs: ConnectionArgs,
     @Arg("inputs", { nullable: true }) inputs?: DealListOffersInput,
   ): Promise<DealListVouchersResult> {
-    const user_guid = this.owner.guid
+    const user_guid = this.owner.guid;
     const limit = parseInt((connectioArgs.limit as any) || "100", 10);
     const page = parseInt((connectioArgs.page as any) || "1", 10);
 
@@ -282,8 +291,8 @@ export class User<T = {}> {
         hasNextPage,
         page,
       },
-      vouchers: data
-    })
+      vouchers: data,
+    });
   }
 }
 
@@ -326,8 +335,10 @@ class UserLegalForms {
 
   @Memoize()
   private async getConfirmedLegalForms(ctx: Context) {
-    return (await ctx.omnipartners.identity.getConfirmedLegalForm({
-      user_guid: this.user.data.owner.guid,
-    })).data.map(legal => legal.legal_form_code);
+    return (
+      await ctx.omnipartners.identity.getConfirmedLegalForm({
+        user_guid: this.user.data.owner.guid,
+      })
+    ).data.map(legal => legal.legal_form_code);
   }
 }

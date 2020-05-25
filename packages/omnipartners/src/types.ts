@@ -320,6 +320,12 @@ interface IUserCard {
   added_on: string;
 }
 
+export interface IUserPetMedicalCondition {
+  code: string;
+  name: string;
+  name_FR?: string;
+}
+
 export interface IUserPet {
   guid: string;
   id: string;
@@ -360,7 +366,7 @@ export interface IUserPet {
   breedDetails: IUserPetBreedDetail;
   pet_stage: null;
   pet_feeding_stage: null;
-  medicalConditions: [];
+  medicalConditions: IUserPetMedicalCondition[];
 }
 
 export interface IUserPetBreedDetail {

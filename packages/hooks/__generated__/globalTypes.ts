@@ -140,6 +140,7 @@ export interface UserPetUpdateInput {
   lifeStyle?: string | null;
   declarativeProduct?: string | null;
   dietRecommendation?: UserPetDietRecommendationEntry | null;
+  medicalConditions?: string[] | null;
 }
 
 export interface UserPetWeightEntry {
