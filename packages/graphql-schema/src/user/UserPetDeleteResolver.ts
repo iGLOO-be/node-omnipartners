@@ -16,7 +16,7 @@ class UserPetDeleteInput {
   @Field()
   public guid!: string;
 
-  @Field()
+  @Field({ nullable: true })
   public petDeletionCause?: string;
 }
 @InputType()
