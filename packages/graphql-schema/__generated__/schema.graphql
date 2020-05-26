@@ -1111,7 +1111,7 @@ input UserPetCreateInput {
 
 input UserPetDeleteInput {
   guid: String!
-  petDeletionCause: String!
+  petDeletionCause: String
 }
 
 type UserPetDietRecommendation {
@@ -1171,6 +1171,7 @@ type UserPetUpdateResult {
 
 type UserPetWeight {
   weight: String!
+  date: String!
 }
 
 input UserPetWeightEntry {
