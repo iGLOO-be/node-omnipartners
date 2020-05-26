@@ -65,6 +65,9 @@ class UserPetWeight {
   @Field()
   public weight!: string;
 
+  @Field()
+  public date!: string;
+
   constructor(data: IUserPetWeightEntry) {
     Object.assign(this, data);
   }
