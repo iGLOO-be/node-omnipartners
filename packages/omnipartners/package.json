@@ -18,22 +18,22 @@
   "license": "ISC",
   "devDependencies": {
     "@types/depd": "^1.1.32",
-    "@types/jest": "^25.2.2",
-    "@types/lodash": "^4.14.151",
+    "@types/jest": "^25.2.3",
+    "@types/lodash": "^4.14.152",
     "@types/nock": "^11.1.0",
-    "@types/node": "^14.0.1",
+    "@types/node": "^14.0.5",
     "@types/node-fetch": "^2.5.7",
-    "@types/qs": "^6.9.2",
+    "@types/qs": "^6.9.3",
     "@types/request": "^2.48.5",
     "@types/request-promise-native": "^1.0.17",
-    "@types/sinon": "^9.0.1",
+    "@types/sinon": "^9.0.4",
     "@types/url-join": "^4.0.0",
-    "@types/uuid": "^7.0.3",
+    "@types/uuid": "^8.0.0",
     "jest": "^26.0.1",
     "nock": "^12.0.3",
     "sinon": "^9.0.2",
-    "ts-jest": "^25.5.1",
-    "typescript": "^3.9.2"
+    "ts-jest": "^26.0.0",
+    "typescript": "^3.9.3"
   },
   "dependencies": {
     "depd": "^2.0.0",
@@ -44,7 +44,7 @@
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
     "url-join": "^4.0.1",
-    "uuid": "^8.0.0",
+    "uuid": "^8.1.0",
     "winston": "^3.2.1"
   }
 }
