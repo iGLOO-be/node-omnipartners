@@ -1,13 +1,15 @@
 import { useUserIsLogged } from "@igloo-be-omnipartners/hooks";
 import { navigate } from "gatsby";
+import { useEffect } from "react";
 
 export const UserRouteValidator = props => {
   const isLogged = useUserIsLogged();
 
-  if (!isLogged) {
-    navigate("/");
-    return null;
-  }
+  useEffect(() => {
+    if (!isLogged) {
+      navigate("/");
+    }
+  }, [isLogged]);
 
-  return props.children;
+  return isLogged ? props.children : null;
 };

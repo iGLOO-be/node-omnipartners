@@ -12,8 +12,6 @@ const Login = () => {
     }
   }, [isLogged]);
 
-  console.log(isLogged);
-
   return (
     <div>
       <h1>Login</h1>
