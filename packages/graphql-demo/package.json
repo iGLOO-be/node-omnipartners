@@ -3,10 +3,10 @@
   "private": true,
   "version": "0.59.2",
   "scripts": {
-    "build": "yarn gen:types && gatsby build",
+    "build": "yarn gen:types",
     "start": "yarn gen:types && gatsby develop -H 0.0.0.0",
     "gen:types": "apollo client:codegen --target typescript --includes \"src/**/*.{ts,tsx}\"",
-    "test": "yarn gen:types && tsc --noEmit"
+    "test": "yarn build && tsc --noEmit"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",

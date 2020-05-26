@@ -1,10 +1,10 @@
-const proxy = require("http-proxy-middleware");
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = {
   developMiddleware: app => {
     app.use(
       "/graphql",
-      proxy({
+      createProxyMiddleware({
         target: "http://localhost:4001",
       }),
     );
