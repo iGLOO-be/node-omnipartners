@@ -1237,7 +1237,7 @@ export default class Deals extends Api {
   public disableVoucherRedemption(data: { barcode: string }): Promise<{}> {
     return this._call("disable-voucher-redemption", data, {
       retry: false,
-      hashKeys: ["barcode"],
+      hashKeys: undefined,
     });
   }
 
