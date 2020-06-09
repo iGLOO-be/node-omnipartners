@@ -47,6 +47,7 @@ export interface ISubscribeToDealInput {
   referral_code_type?: string;
   delivery_address_id?: string;
   child_guid?: string;
+  lang?: string;
 }
 
 interface ISubscribeToDealReturnPartner {
@@ -787,6 +788,7 @@ export default class Deals extends Api {
     "referral_code_type", // Referral code type of the referring partner. Valid values are 'referral_code' or 'ext_id'. Default value is 'referral_code'.
     "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
     "child_guid", // A Child guid of the user. This is required if the deal restricted for child limitations. Otherwise it can be empty.
+    "lang"
   ])
   public subscribeToDeal(
     data: ISubscribeToDealInput,
