@@ -24,6 +24,7 @@ export interface IGetDealsListInput {
   deal_visibility?: "all" | "public";
   active_only?: 0 | 1;
   deal_group_handle?: string;
+  excl_deal_group_handle?: string;
 }
 
 interface IUpdateSecureCodePropertiesInput {
@@ -643,7 +644,7 @@ export default class Deals extends Api {
     },
   };
 
-  @doc("http://doc.omnipartners.be/index.php/Get_deals_list")
+  @doc("https://doc.clixray.com/index.php?title=Get_deals_list")
   @filterInput([
     "partner_extid",
     "saving_product_ean",
@@ -657,6 +658,7 @@ export default class Deals extends Api {
     "deal_visibility",
     "active_only",
     "deal_group_handle",
+    "excl_deal_group_handle",
   ])
   public getDealsList(
     data: IGetDealsListInput,
@@ -788,7 +790,7 @@ export default class Deals extends Api {
     "referral_code_type", // Referral code type of the referring partner. Valid values are 'referral_code' or 'ext_id'. Default value is 'referral_code'.
     "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
     "child_guid", // A Child guid of the user. This is required if the deal restricted for child limitations. Otherwise it can be empty.
-    "lang"
+    "lang",
   ])
   public subscribeToDeal(
     data: ISubscribeToDealInput,
