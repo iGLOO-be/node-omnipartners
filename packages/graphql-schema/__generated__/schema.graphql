@@ -608,7 +608,7 @@ type ProductCollectionPetRation {
   energyValueUnit: String!
   rationValueUnit: String!
   approximationCodes: [String!]!
-  rationInCupsPerDay: String!
+  rationInCupsPerDay: String
 }
 
 type ProductCollectionPetRationDebug {

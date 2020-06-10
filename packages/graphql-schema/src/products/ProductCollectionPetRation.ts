@@ -1,8 +1,13 @@
 import { InputType, Field, ObjectType } from "type-graphql";
-import { IGetCollectionPetRationInput, ApproximationCodes, ICollectionPetRation } from "omnipartners";
+import {
+  IGetCollectionPetRationInput,
+  ApproximationCodes,
+  ICollectionPetRation,
+} from "omnipartners";
 
 @InputType()
-export class ProductCollectionPetRationInput implements IGetCollectionPetRationInput {
+export class ProductCollectionPetRationInput
+  implements IGetCollectionPetRationInput {
   @Field()
   public pet_guid!: string;
 
@@ -53,8 +58,8 @@ export class ProductCollectionPetRation {
   @Field(() => [String])
   public approximationCodes: ApproximationCodes[];
 
-  @Field()
-  public rationInCupsPerDay: string;
+  @Field({ nullable: true })
+  public rationInCupsPerDay?: string;
 
   constructor(data: ICollectionPetRation) {
     Object.assign(this, data);
