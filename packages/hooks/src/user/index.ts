@@ -22,3 +22,4 @@ export * from "./useUserLoginByPublicToken";
 export * from "./useUserCheckPasswordTokenValidity";
 export * from "./useUserUpdateRecoveredPassword";
 export * from "./useUserDeleteSelf";
+export * from "./useUserUpdateToken";

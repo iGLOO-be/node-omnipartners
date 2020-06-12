@@ -19,6 +19,7 @@ const UserTokenProvider = ({
   children,
   env = "default",
   refreshTokenAfter,
+  userTokenStorage = tokenStorage,
 }: {
   children: JSX.Element;
 } & IUserProviderOptions) => {
@@ -26,7 +27,7 @@ const UserTokenProvider = ({
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    tokenStorage.get(env).then(v => {
+    userTokenStorage.get(env).then(v => {
       setToken(v);
       setReady(true);
     });
@@ -40,9 +41,9 @@ const UserTokenProvider = ({
         setToken: (value: string | undefined) => {
           setToken(value);
           if (!value) {
-            tokenStorage.remove(env);
+            userTokenStorage.remove(env);
           } else {
-            tokenStorage.set(env, value);
+            userTokenStorage.set(env, value);
           }
         },
       }}
