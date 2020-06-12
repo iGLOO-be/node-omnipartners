@@ -16,7 +16,14 @@ const localStorageIsEnabled = () => {
 
 const TOKEN_STORAGE_KEY = "userToken";
 const storage = localStorageIsEnabled() ? window.localStorage : undefined;
-class TokenStorage {
+
+export interface ITokenStorage {
+  set(env: string, token: string): Promise<void>;
+  get(env: string): Promise<string | null | undefined>;
+  remove(env: string): Promise<void>;
+}
+
+class TokenStorage implements ITokenStorage {
   private value?: string;
   public async set(env: string, token: string) {
     if (storage) {
