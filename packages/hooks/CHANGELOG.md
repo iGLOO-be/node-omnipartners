@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.58.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.57.7...@igloo-be-omnipartners/hooks@0.58.0) (2020-06-12)
+
+
+### Bug Fixes
+
+* export useUserUpdateToken ([250451d](https://github.com/iGLOO-be/node-omnipartners/commit/250451da894c85e200783d88e399c5ac46e6d0cd))
+
+
+### Features
+
+* hooks: UserProvider accept custom storage ([cf0209d](https://github.com/iGLOO-be/node-omnipartners/commit/cf0209d1e0fe7e5e8660ac6c83e5f0414c364f60))
+
+
+
+
+
 ## [0.57.7](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.57.6...@igloo-be-omnipartners/hooks@0.57.7) (2020-06-10)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/hooks
