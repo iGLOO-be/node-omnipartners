@@ -422,7 +422,10 @@ export default class Loyalty extends Api {
   ): Promise<{
     status: number;
   }> {
-    return this._call("activatecard", data);
+    return this._call("activatecard", data, {
+      hashKey: "sigid",
+      hashKeys: ["mobile_no", "program_id", "card_no"],
+    });
   }
 
   @doc("https://doc.clixray.com/index.php?title=Product_purchase")
@@ -445,6 +448,8 @@ export default class Loyalty extends Api {
   ): Promise<{
     status: number;
   }> {
-    return this._call("purchase", data);
+    return this._call("purchase", data, {
+      hashKey: "sigid",
+    });
   }
 }
