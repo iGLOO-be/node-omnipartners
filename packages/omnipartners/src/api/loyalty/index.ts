@@ -100,7 +100,7 @@ export interface ILoyaltyTransactionHistoryStatsInput {
   filter_null_transactions?: "1";
 }
 
-export interface ILoyaltyCardActivationInput {
+export interface ILoyaltyActivateCardInput {
   source: string;
   program_id?: string;
   card_no?: string;
@@ -116,7 +116,7 @@ export interface ILoyaltyCardActivationInput {
   init_stamps?: string;
 }
 
-export interface ILoyaltyCardActivationResult {
+export interface ILoyaltyActivateCardResult {
   status: string;
   user_guid: string;
   message: string;
@@ -417,8 +417,8 @@ export default class Loyalty extends Api {
     "init_points", // (Optional)
     "init_stamps", // (Optional)
   ])
-  public cardActivation(
-    data: ILoyaltyCardActivationInput,
+  public activateCard(
+    data: ILoyaltyActivateCardInput,
   ): Promise<{
     status: number;
   }> {
