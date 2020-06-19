@@ -129,6 +129,27 @@ export interface ILoyaltyCardActivationResult {
   card_number: string;
 }
 
+export interface ILoyaltyPurchaseProductInput {
+  source: string;
+  user_id: string;
+  program_id?: string;
+  card_no?: string;
+  mobile_no?: string;
+  user_email?: string;
+  user_guid?: string;
+  shop_id?: string;
+  type?: "terminal" | "extid";
+  user_language?: string;
+  transaction_ext_id?: string;
+  transaction_ext_origin?: string;
+  init_points?: string;
+  init_stamps?: string;
+  auth_type?: "user_guid" | "card_no" | "mobile_no";
+  product_codes: string;
+  transaction_value: string;
+  transaction_points: string;
+}
+
 export default class Loyalty extends Api {
   public defaultHost = "https://rewards.clixray.io/points";
 
@@ -397,11 +418,33 @@ export default class Loyalty extends Api {
     "init_stamps", // (Optional)
   ])
   public cardActivation(
-    data: ILoyaltyTransactionHistoryStatsInput,
+    data: ILoyaltyCardActivationInput,
   ): Promise<{
     status: number;
-    data: ILoyaltyCardActivationResult;
   }> {
     return this._call("activatecard", data);
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Product_purchase")
+  @filterInput([
+    "program_id", // (Required)
+    "user_id", // (Required)
+    "shop_id", // (Required)
+    "auth_type", // (Optional)
+    "type", // (Optional)
+    "product_codes", // (Optional)
+    "transaction_value", // (Optional)
+    "transaction_points", // (Optional)
+    "mobile_no", // (Optional)
+    "user_email", // (Optional)
+    "transaction_ext_id", // (Optional)
+    "transaction_ext_origin", // (Optional)
+  ])
+  public purchaseProduct(
+    data: ILoyaltyPurchaseProductInput,
+  ): Promise<{
+    status: number;
+  }> {
+    return this._call("purchase", data);
   }
 }
