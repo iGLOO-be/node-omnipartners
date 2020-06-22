@@ -167,12 +167,27 @@ export default class Loyalty extends Api {
       message:
         "Error on performing user points data logging in deduction action",
     },
+    1003: { message: "Database access error in Activity Process Action" },
     1004: {
       message: "Points Service Secret is not available for that key.",
     },
     1005: { message: "Points Service Secret key retrieve error" },
     1006: {
       message: "Unauthorized user access, input secret key might be invalid.",
+    },
+    1008: { message: "Error on performing product purchase action." },
+    1009: {
+      message:
+        "Error on extended logic rule activity process action – Points offerer selection.",
+    },
+    1010: { message: "Error on performing extended logic rule activities" },
+    1011: { message: "Error on performing user points data logging" },
+    1012: {
+      message:
+        "Error on performing instant discount deal - extended rule - Partner currency not set",
+    },
+    1014: {
+      message: "Error on performing instant discount deal - extended rule",
     },
     1025: { message: "Invalid Key" },
     1026: { message: "Key retrieve error" },
@@ -185,6 +200,7 @@ export default class Loyalty extends Api {
     1045: { message: "Resolve the Card Number - Card not found" },
     1046: { message: "Resolve the Card Number - Card expired" },
     1047: { message: "Resolve the Card Number - Card inactive" },
+    1049: { message: "Card-No / Mobile Number - User Record already exist" },
     1051: { message: "Partner terminal map records not found" },
     1053: {
       message:
@@ -197,6 +213,7 @@ export default class Loyalty extends Api {
     1056: { message: "Required fields are not found in service request" },
     1058: { message: "Multiple programs exist for that user" },
     1059: { message: "Internal error - Account Database access error" },
+    1060: { message: "Resolve the user - Invalid user_guid sent." },
     1061: { message: "Invalid reason" },
     1062: { message: "Card number does not belong to the partner / group" },
     1063: { message: "Card number does not belong to any program." },
@@ -210,8 +227,30 @@ export default class Loyalty extends Api {
     1070: { message: "program_id required" },
     1071: { message: "Internal error - Program id resolution for the card" },
     1072: { message: "User Guid not found for that partner ext id" },
+    1073: { message: "Internal error - Check product status" },
+    1075: { message: "This phone number is not a valid Mobile Phone number." },
+    1076: { message: "Internal error - Strict mobile phone validation error." },
+    1089: { message: "Invalid User E-Mail address." },
     1091: { message: "Default program is not set in control center." },
+    1092: { message: 'Invalid "Transaction Value" sent in request.' },
+    1093: { message: 'Invalid "Transaction Points" sent in request.' },
     1094: { message: "Invalid parameter values sent in request." },
+    2000: { message: "Internal error - no more cards available in the range." },
+    2001: { message: "Internal error - no virtual card range specified" },
+    2002: {
+      message:
+        "Internal error - Card number you sent with partner/group card range restriction. So partner is required to specify in request.",
+    },
+    2003: {
+      message:
+        "Invalid init_points parameter value sent in the request. It should be a number.",
+    },
+    2004: {
+      message:
+        "Invalid init_stamps parameter value sent in the request. It should be a number.",
+    },
+    2005: { message: "Anonymous cards activation not allowed." },
+    3001: { message: "Internal error." },
   };
 
   @doc("http://doc.omnipartners.be/index.php/Retrieve_balance")
@@ -219,7 +258,7 @@ export default class Loyalty extends Api {
     "program_id", // (Required) Request sender specify the “program Id” related to the loyalty points program here
     "card_program_id", // (Optional) This is used to specify the program which the card belong to.
     "auth_type", // (Optinal) One of "card_no" | "mobile_no" | "partner_ext_id"
-    "user_id", // (Required) 	Service request sender needs to set user GUID information / Card Number / Mobile Number / partner_ext_id information here.
+    "user_id", // (Required) : { message: "Service request sender needs to set user GUID information / Card Number / Mobile Number / partner_ext_id information here."},
   ])
   public retrieveBalance(
     data: ILoyaltyRetrieveBalanceInput,
