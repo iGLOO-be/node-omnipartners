@@ -358,6 +358,7 @@ export interface IGetArticlesByTargetingInformationInput {
   pet_health_context?: string[];
   language?: string;
   data_options?: IArticlesDataOptions;
+  user_guid?: string;
 }
 
 export interface IGetArticlesByTargetingInformation {
@@ -917,11 +918,12 @@ export default class Products extends Api {
     "pet_health_context", // (Optional)
     "language", // (Optional)
     "data_options", // (Optional)
+    "user_guid",
   ])
   public getArticlesByTargetingInformation(
     data?: IGetArticlesByTargetingInformationInput,
   ): Promise<{
-    data: IGetArticlesByTargetingInformation;
+    data: IGetArticlesByTargetingInformation[];
   }> {
     return this._call("get-articles-by-targeting-info", data, {
       errorMap: {},
