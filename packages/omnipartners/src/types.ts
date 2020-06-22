@@ -171,9 +171,13 @@ type ICollectionDataOption =
   // Information about the constraints of each field in collection targeting data. This option will be allowed only if targeting information are requested.
   // Please refer "targeting_constraints" property here .
   | "targeting_constraints";
+
 export type ICollectionDataOptions =
   | ICollectionDataOption[]
   | ICollectionDataOption;
+
+type IArticlesDataOption = "content" | "targeting" | "targeting_constraints";
+export type IArticlesDataOptions = IArticlesDataOption[] | IArticlesDataOption;
 
 export interface IUserPartial {
   statusCode: 0;
