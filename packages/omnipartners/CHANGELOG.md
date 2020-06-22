@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.61.6](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.61.5...omnipartners@2.61.6) (2020-06-22)
+
+
+### Bug Fixes
+
+* omnipartners: products: add missing error map ([f208785](https://github.com/iGLOO-be/node-omnipartners/commit/f2087853f5a932561828df1b9be4408e6a5d2fed))
+
+
+
+
+
 ## [2.61.5](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.61.4...omnipartners@2.61.5) (2020-06-15)
 
 
