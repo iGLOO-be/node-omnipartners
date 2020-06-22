@@ -429,9 +429,18 @@ export default class Products extends Api {
     1004: { message: "Hash not available." },
     1005: { message: "Invalid hash." },
     1006: { message: "Access denied." },
+    1008: { message: "Invalid partner_ext_id." },
+    1009: { message: "Invalid partner_group_handle." },
+    1014: { message: "Invalid language." },
+    1015: { message: "Pet GUID not available." },
+    1016: { message: "Invalid Pet GUID." },
+    1017: { message: "Inactive pet." },
     1021: { message: "Internal error." },
     1023: { message: "Invalid Request." },
+    1058: { message: "Invalid Terminal Id." },
     1030: { message: "Missing required fields." },
+    1034: { message: "Pet owner not found." },
+    1035: { message: "Pet owner not active." },
     1939: {
       message: "Invalid Data Provided (Ration value cannot be calculated).",
     },
@@ -473,6 +482,7 @@ export default class Products extends Api {
     1991: { message: "Invalid Value for pet's predicted adult weight." },
     1992: { message: "Invalid Value supplied for energy level." },
     1989: { message: "Empty pet weight." },
+    2005: { message: "Invalid Component sort order field found." },
   };
 
   public _call(action: string, data: any, options: IApiFetchOptions = {}) {
