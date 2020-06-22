@@ -16,6 +16,12 @@ type AnimalPathology {
   hasDedicatedProduct: Boolean!
 }
 
+type AnimalStage {
+  species: String!
+  code: String!
+  name: String!
+}
+
 type AnimalType {
   code: String!
   name: String
@@ -831,6 +837,7 @@ type Query {
     page: Float
   ): PartnerConnection
   partnerDetails(partner_ext_id: String!): [Partner!]
+  metadataAnimalStages(type: String, lang: String): [AnimalStage!]!
 }
 
 type Subscription {
