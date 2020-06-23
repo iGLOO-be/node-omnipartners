@@ -423,6 +423,12 @@ export interface IGetArticlesByTargetingInformation {
   };
 }
 
+export interface IGetArticleInput {
+  reference: string;
+  language: string;
+  data_options?: IArticlesDataOptions;
+}
+
 export interface IGetCollectionsByTargetingInfoCollection {
   reference: string;
   generic_name: string;
@@ -930,13 +936,52 @@ export default class Products extends Api {
     "user_guid",
   ])
   public getArticlesByTargetingInformation(
-    data?: IGetArticlesByTargetingInformationInput,
+    data: IGetArticlesByTargetingInformationInput,
   ): Promise<{
     data: IGetArticlesByTargetingInformation[];
   }> {
-    return this._call("get-articles-by-targeting-info", data, {
-      errorMap: {},
-      retry: true,
-    });
+    return this._call(
+      "get-articles-by-targeting-info",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        errorMap: {},
+        retry: true,
+      },
+    );
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Get_Article_Details")
+  @filterInput([
+    "article_reference", // (Required) This will hold the Reference of the article.
+    "language", // (Required) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
+    "data_options", // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
+  ])
+  public getArticle(
+    data: IGetArticleInput,
+  ): Promise<{
+    data: IGetArticlesByTargetingInformation[];
+  }> {
+    return this._call(
+      "get-article-details",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        errorMap: {},
+        retry: true,
+      },
+    );
   }
 }
