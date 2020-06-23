@@ -966,7 +966,7 @@ export default class Products extends Api {
   public getArticle(
     data: IGetArticleInput,
   ): Promise<{
-    data: IGetArticlesByTargetingInformation[];
+    data: IGetArticlesByTargetingInformation;
   }> {
     return this._call(
       "get-article-details",
