@@ -424,7 +424,7 @@ export interface IGetArticlesByTargetingInformation {
 }
 
 export interface IGetArticleInput {
-  reference: string;
+  article_reference: string;
   language: string;
   data_options?: IArticlesDataOptions;
 }
