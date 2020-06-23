@@ -373,7 +373,7 @@ export interface IGetArticlesByTargetingInformation {
   max_score: number;
 
   // data_options content
-  content: {
+  content?: {
     content_type?: string;
     type: string;
     type_picture_url: string;
@@ -386,7 +386,7 @@ export interface IGetArticlesByTargetingInformation {
   };
 
   // data_options targeting
-  targeting: {
+  targeting?: {
     pathologies: string;
     pet_stage: { code: string }[];
     pet_gender: string;
@@ -407,7 +407,7 @@ export interface IGetArticlesByTargetingInformation {
   };
 
   // data_options targeting_constraints
-  targeting_constraints: {
+  targeting_constraints?: {
     pet_stage_constraint: string;
     pet_gender_constraint: string;
     pet_neutered_constraint: string;
