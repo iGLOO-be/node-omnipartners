@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.62.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.61.6...omnipartners@2.62.0) (2020-06-22)
+
+
+### Bug Fixes
+
+* omnipartners: loyalty: add missing errors ([431da1c](https://github.com/iGLOO-be/node-omnipartners/commit/431da1c10c4e17bcf4b0ab7abb7fef105a769ea1))
+
+
+### Features
+
+* omnipartners: loyalty: introduce `cardActivation` ([6f2a276](https://github.com/iGLOO-be/node-omnipartners/commit/6f2a276d87f6f7b5b8666309c1f3dccf376e60c1))
+
+
+
+
+
+## [2.61.6](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.61.5...omnipartners@2.61.6) (2020-06-22)
+
+
+### Bug Fixes
+
+* omnipartners: products: add missing error map ([f208785](https://github.com/iGLOO-be/node-omnipartners/commit/f2087853f5a932561828df1b9be4408e6a5d2fed))
+
+
+
+
+
 ## [2.61.5](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.61.4...omnipartners@2.61.5) (2020-06-15)
 
 
