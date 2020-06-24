@@ -374,9 +374,9 @@ export interface IGetArticlesByTargetingInformation {
 
   // data_options content
   content?: {
-    content_type?: string;
-    type: string;
-    type_picture_url: string;
+    category: string;
+    category_picture_url: string;
+    type?: string;
     header: string;
     body: string;
     link: string;
