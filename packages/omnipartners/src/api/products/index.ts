@@ -429,6 +429,18 @@ export interface IGetArticleInput {
   data_options?: IArticlesDataOptions;
 }
 
+export interface IGetArticleByPetGuidInput {
+  pet_guid: string;
+  language?: string;
+  data_options?: IArticlesDataOptions;
+}
+
+export interface IGetArticleByUserGuidInput {
+  user_guid: string;
+  language?: string;
+  data_options?: IArticlesDataOptions;
+}
+
 export interface IGetCollectionsByTargetingInfoCollection {
   reference: string;
   generic_name: string;
@@ -942,6 +954,63 @@ export default class Products extends Api {
   }> {
     return this._call(
       "get-articles-by-targeting-info",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        errorMap: {},
+        retry: true,
+      },
+    );
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=List_Articles_By_Pet_GUID")
+  @filterInput([
+    "pet_guid", // (Required) Pet's GUID
+    "language", // (Optional) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
+    "data_options", // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
+  ])
+  public getArticlesByPetGuid(
+    data: IGetArticleByPetGuidInput,
+  ): Promise<{
+    data: IGetArticlesByTargetingInformation[];
+  }> {
+    return this._call(
+      "get-articles-by-pet-guid",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        errorMap: {},
+        retry: true,
+      },
+    );
+  }
+
+  // not yet implemented
+  @doc("https://doc.clixray.com/index.php?title=List_Articles_By_User_GUID")
+  @filterInput([
+    "user_guid", // (Required) User's GUID
+    "language", // (Optional) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
+    "data_options", // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
+  ])
+  public getArticlesByUserGuid(
+    data: IGetArticleByUserGuidInput,
+  ): Promise<{
+    data: IGetArticlesByTargetingInformation[];
+  }> {
+    return this._call(
+      "get-articles-by-user-guid",
       {
         ...data,
         data_options: data.data_options
