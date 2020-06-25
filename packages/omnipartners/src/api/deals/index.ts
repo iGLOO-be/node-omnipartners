@@ -11,6 +11,12 @@ import {
 } from "../../types";
 import { IDealProduct } from "../../deal-types";
 
+export interface IRedeemWithReceiptInput {
+  barcode: string; // Subscription barcode without any formattings
+  receipt_date: string; // Date of the receipt
+  mime_type: string; // Mime type of the receipt image.
+}
+
 export interface IGetDealsListInput {
   partner_extid?: string;
   saving_product_ean?: string;
@@ -611,6 +617,7 @@ export default class Deals extends Api {
     1040: { message: "Invalid customer details." },
     1042: { message: "Voucher cannot redeem." },
     3025: { message: "Subscription was expired, so cannot redeem it." },
+    3048: { message: "Already redeemed coupon." },
     3062: { message: "Missing required parameter." },
     3094: { message: "Invalid receipt date." },
     3096: { message: "Invalid image mime type." },
@@ -1150,8 +1157,11 @@ export default class Deals extends Api {
   }> {
     return this._call("create-direct-cashback-redemption-request", data, {
       retry: true,
-      hashKeys: d =>
-        ["key", ...Object.keys(d).filter(k => k !== "payment_details")].sort(),
+      hashKeys: (d) =>
+        [
+          "key",
+          ...Object.keys(d).filter((k) => k !== "payment_details"),
+        ].sort(),
     });
   }
 
@@ -1253,6 +1263,21 @@ export default class Deals extends Api {
     default_lang?: string;
   }): Promise<{}> {
     return this._call("sendvoucher", data, {
+      retry: false,
+      hashKeys: ["barcode"],
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Redeem_with_Receipt")
+  @filterInput(["barcode", "receipt_date", "mime_type"])
+  public redeemWithReceipt(
+    data: IRedeemWithReceiptInput,
+  ): Promise<{
+    data: {
+      presigned_url: string;
+    };
+  }> {
+    return this._call("redeem-with-receipt", data, {
       retry: false,
       hashKeys: ["barcode"],
     });
