@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.65.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.64.0...omnipartners@2.65.0) (2020-06-25)
+
+
+### Features
+
+* omnipartners + graphql-schema: get stage for pet ([ff7c106](https://github.com/iGLOO-be/node-omnipartners/commit/ff7c106bda279c51a8e6c4f719dabf56fb821a68))
+
+
+
+
+
 # [2.64.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.63.0...omnipartners@2.64.0) (2020-06-25)
 
 
