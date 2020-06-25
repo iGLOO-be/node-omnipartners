@@ -30,7 +30,9 @@ export const useUserLoginByPublicToken = (
   const [loginByPublicToken, res] = useBetterLazyQuery<
     UserLoginByPublicToken,
     UserLoginByPublicTokenVariables
-  >(UserLoginByPublicTokenQuery);
+  >(UserLoginByPublicTokenQuery, {
+    fetchPolicy: "no-cache",
+  });
   const fetchUser = useFetchUser();
   const { setToken } = useUserContext();
 
