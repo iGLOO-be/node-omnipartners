@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.64.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.63.0...omnipartners@2.64.0) (2020-06-25)
+
+
+### Features
+
+* omnipartners: deals: add `redeemWithReceipt` ([c2d6ea8](https://github.com/iGLOO-be/node-omnipartners/commit/c2d6ea886494597bf092728248e26ec769850b83))
+
+
+
+
+
 # [2.63.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.62.0...omnipartners@2.63.0) (2020-06-25)
 
 
