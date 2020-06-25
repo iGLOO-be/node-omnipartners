@@ -33,7 +33,9 @@ export const useUserLoginByAccessToken = (
   const [loginByAccessToken, res] = useBetterLazyQuery<
     UserLoginByAccessToken,
     UserLoginByAccessTokenVariables
-  >(UserLoginByAccessTokenQuery);
+  >(UserLoginByAccessTokenQuery, {
+    fetchPolicy: "no-cache",
+  });
   const fetchUser = useFetchUser();
   const { setToken } = useUserContext();
 
