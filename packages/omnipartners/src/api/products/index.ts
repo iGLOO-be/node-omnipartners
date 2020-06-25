@@ -1,6 +1,10 @@
 import Api, { IApiFetchOptions } from "../../lib/Api";
 import { doc, filterInput } from "../../lib/apiDecorators";
-import { ICollectionDataOptions, IProductDataOptions } from "../../types";
+import {
+  ICollectionDataOptions,
+  IProductDataOptions,
+  IArticlesDataOptions,
+} from "../../types";
 
 export interface IProduct {
   product_id: string;
@@ -228,6 +232,215 @@ export interface IGetCollectionsByTargetingInfoInput {
   ration_predicted_weight?: string;
 }
 
+export type IGetArticlesByTargetingInfoInputFilterByAll =
+  | {
+      filter_type: "SPECIES";
+      species_type?: string;
+      univers?: string;
+      breed?: string;
+    }
+  | {
+      filter_type: "NEUTERED";
+      neutered: "YES" | "NO";
+    }
+  | {
+      filter_type: "GENDER";
+      gender: "M" | "F";
+    }
+  | {
+      filter_type: "AGE";
+      unit?: "WEEK" | "MONTH" | "YEAR";
+      age?: string;
+      age_from?: string;
+      age_to?: string;
+    }
+  | {
+      filter_type: "PATHOLOGIES";
+      pathologies?: string[];
+      operator?: "All" | "Any";
+    }
+  | {
+      filter_type: "LIFESTYLE";
+      lifestyle?: string[];
+      operator?: "All" | "Any";
+    }
+  | {
+      filter_type: "PET_BCS";
+      pet_bcs: number;
+    }
+  | {
+      filter_type: "PET_STAGES";
+      pet_stages: string[];
+    }
+  | {
+      filter_type: "PET_ALLERGENS";
+      pet_allergens: string[];
+    }
+  | {
+      filter_type: "PET_HEALTH_CONTEXT";
+      pet_health_context: string[];
+    };
+
+export interface IGetArticlesByTargetingInfoInputFilterByAllSimple {
+  filter_type:
+    | "SPECIES"
+    | "NEUTERED"
+    | "GENDER"
+    | "AGE"
+    | "PATHOLOGIES"
+    | "LIFESTYLE"
+    | "PET_BCS"
+    | "PET_STAGES"
+    | "PET_ALLERGENS"
+    | "PET_HEALTH_CONTEXT";
+
+  // SPECIES
+  species_type?: string;
+  universe?: string;
+  breed?: string;
+
+  // NEUTERED
+  neutered?: boolean;
+
+  // GENDER
+  gender?: "M" | "F";
+
+  // AGE
+  unit?: "WEEK" | "MONTH" | "YEAR";
+  age?: string;
+  age_from?: string;
+  age_to?: string;
+
+  // PATHOLOGIES
+  pathologies?: string[];
+
+  // LIFESTYLE
+  lifestyle?: string[];
+
+  // PATHOLOGIES / LIFESTYLE
+  operator?: "All" | "Any";
+
+  // PET_BCS
+  pet_bcs?: number;
+
+  // PET_STAGES
+  pet_stages?: string[];
+
+  // PET_ALLERGENS
+  pet_allergens?: string[];
+
+  // PET_HEALTH_CONTEXT
+  pet_health_context?: string[];
+}
+
+export interface IGetArticlesByTargetingInformationInput {
+  filter_by_all:
+    | IGetArticlesByTargetingInfoInputFilterByAllSimple[]
+    | IGetArticlesByTargetingInfoInputFilterByAll[];
+  pet_guid?: string;
+  filter_type?: string;
+  species_type?: string;
+  universe?: string;
+  breed?: string;
+  neutered?: string;
+  gender?: string;
+  unit?: string;
+  age?: string;
+  age_from?: string;
+  age_to?: string;
+  dob?: string;
+  pathologies?: string[];
+  lifestyle?: string[];
+  operator?: string;
+  pet_bcs?: number;
+  pet_stages?: string[];
+  pet_allergens?: string[];
+  pet_health_context?: string[];
+  language?: string;
+  data_options?: IArticlesDataOptions;
+  user_guid?: string;
+}
+
+export interface IGetArticlesByTargetingInformation {
+  reference: string;
+  generic_name: string;
+  name: string;
+  description: string; // if no language set => {locale: string}
+  introduction: string;
+  id: string;
+  score: number;
+  secondary_sorting_weight: string;
+  max_score: number;
+
+  // data_options content
+  content?: {
+    category: string;
+    category_picture_url: string;
+    type?: string;
+    header: string;
+    body: string;
+    link: string;
+    link_text: string;
+    picture_url: string;
+    picture_target_link: string;
+  };
+
+  // data_options targeting
+  targeting?: {
+    pathologies: string;
+    pet_stage: { code: string }[];
+    pet_gender: string;
+    pet_neutered: string;
+    pet_lifestyle_code: { code: string }[];
+    sort_weight: string;
+    pet_species: string[];
+    pet_universe: string;
+    pet_breed: string;
+    pet_allergens: string;
+    pet_health_context: string;
+    pet_bcs_operator: string;
+    pet_bcs_start: string;
+    pet_bcs_end: string;
+    pet_age_from: string;
+    pet_age_to: string;
+    pet_age_unit: string;
+  };
+
+  // data_options targeting_constraints
+  targeting_constraints?: {
+    pet_stage_constraint: string;
+    pet_gender_constraint: string;
+    pet_neutered_constraint: string;
+    pet_lifestyle_constraint: string;
+    pet_species_constraint: string;
+    pet_universe_constraint: string;
+    pet_breed_constraint: string;
+    pet_bcs_constraint: string;
+    pet_health_context_constraint: string;
+    pet_allergen_constraint: string;
+    pet_age_constraint: string;
+    special_needs_constraint: boolean;
+  };
+}
+
+export interface IGetArticleInput {
+  article_reference: string;
+  language: string;
+  data_options?: IArticlesDataOptions;
+}
+
+export interface IGetArticleByPetGuidInput {
+  pet_guid: string;
+  language?: string;
+  data_options?: IArticlesDataOptions;
+}
+
+export interface IGetArticleByUserGuidInput {
+  user_guid: string;
+  language?: string;
+  data_options?: IArticlesDataOptions;
+}
+
 export interface IGetCollectionsByTargetingInfoCollection {
   reference: string;
   generic_name: string;
@@ -429,9 +642,13 @@ export default class Products extends Api {
     1004: { message: "Hash not available." },
     1005: { message: "Invalid hash." },
     1006: { message: "Access denied." },
+    1014: { message: "Invalid language." },
+    1024: { message: "Invalid criteria filter type usage." },
+    1027: { message: "Input filter type parameters are required." },
+    1028: { message: "Invalid criteria filter type." },
+    1060: { message: "Invalid Value for Filter type Pet's BCS." },
     1008: { message: "Invalid partner_ext_id." },
     1009: { message: "Invalid partner_group_handle." },
-    1014: { message: "Invalid language." },
     1015: { message: "Pet GUID not available." },
     1016: { message: "Invalid Pet GUID." },
     1017: { message: "Inactive pet." },
@@ -698,5 +915,142 @@ export default class Products extends Api {
       errorMap: {},
       retry: true,
     });
+  }
+  /*
+    Manage advices
+  */
+  @doc(
+    "https://doc.clixray.com/index.php?title=List_Articles_By_Targeting_Information",
+  )
+  @filterInput([
+    "filter_by_all", // (Required)
+    "pet_guid", // (Optional)
+    "filter_type", // (Optional)
+    "species_type", // (Optional
+    "universe", // (Optional)
+    "breed", // (Optional)
+    "neutered", // (Optional)
+    "gender", // (Optional)
+    "unit", // (Optional)
+    "age", // (Optional)
+    "age_from", // (Optional)
+    "age_to", // (Optional)
+    "dob", // (Optional
+    "pathologies", // (Optional)
+    "lifestyle", // (Optional)
+    "operator", // (Optional)
+    "pet_bcs", // (Optional)
+    "pet_stages", // (Optional)
+    "pet_allergens", // (Optional)
+    "pet_health_context", // (Optional)
+    "language", // (Optional)
+    "data_options", // (Optional)
+    "user_guid",
+  ])
+  public getArticlesByTargetingInformation(
+    data: IGetArticlesByTargetingInformationInput,
+  ): Promise<{
+    data: IGetArticlesByTargetingInformation[];
+  }> {
+    return this._call(
+      "get-articles-by-targeting-info",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        errorMap: {},
+        retry: true,
+      },
+    );
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=List_Articles_By_Pet_GUID")
+  @filterInput([
+    "pet_guid", // (Required) Pet's GUID
+    "language", // (Optional) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
+    "data_options", // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
+  ])
+  public getArticlesByPetGuid(
+    data: IGetArticleByPetGuidInput,
+  ): Promise<{
+    data: IGetArticlesByTargetingInformation[];
+  }> {
+    return this._call(
+      "get-articles-by-pet-guid",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        errorMap: {},
+        retry: true,
+      },
+    );
+  }
+
+  // not yet implemented
+  @doc("https://doc.clixray.com/index.php?title=List_Articles_By_User_GUID")
+  @filterInput([
+    "user_guid", // (Required) User's GUID
+    "language", // (Optional) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
+    "data_options", // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
+  ])
+  public getArticlesByUserGuid(
+    data: IGetArticleByUserGuidInput,
+  ): Promise<{
+    data: IGetArticlesByTargetingInformation[];
+  }> {
+    return this._call(
+      "get-articles-by-user-guid",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        errorMap: {},
+        retry: true,
+      },
+    );
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Get_Article_Details")
+  @filterInput([
+    "article_reference", // (Required) This will hold the Reference of the article.
+    "language", // (Required) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
+    "data_options", // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
+  ])
+  public getArticle(
+    data: IGetArticleInput,
+  ): Promise<{
+    data: IGetArticlesByTargetingInformation;
+  }> {
+    return this._call(
+      "get-article-details",
+      {
+        ...data,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+      },
+      {
+        errorMap: {},
+        retry: true,
+      },
+    );
   }
 }

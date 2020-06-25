@@ -38,6 +38,7 @@ import { UserUpdateResolver } from "./user/UserUpdateResolver";
 import { ProductCollectionResolver } from "./products/ProductCollectionResolver";
 import { DataAccountPasswordPolicyResolver } from "./metadata/DataAccountPasswordPolicyResolver";
 import { DataAnimalPathologiesResolver } from "./metadata/DataAnimalPathologyResolver";
+import { DataAnimalStageResolver } from "./metadata/DataAnimalStageResolver";
 
 export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
   typeGraphqlBuildschema({
@@ -75,7 +76,8 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       UserFavouritesDeleteResolver,
       DataPartnerTypeResolver,
       DataAccountPasswordPolicyResolver,
-      DataAnimalPathologiesResolver
+      DataAnimalPathologiesResolver,
+      DataAnimalStageResolver
     ],
     ...options,
   });
