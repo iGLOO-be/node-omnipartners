@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.63.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.62.0...omnipartners@2.63.0) (2020-06-25)
+
+
+### Features
+
+* omnipartners: introduce: getArticlesByTargetingInformation ([d304278](https://github.com/iGLOO-be/node-omnipartners/commit/d30427868547cd4c2506089b52a35a705417e50e))
+
+
+
+
+
 # [2.62.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.61.6...omnipartners@2.62.0) (2020-06-22)
 
 

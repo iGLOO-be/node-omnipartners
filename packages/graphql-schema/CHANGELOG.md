@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.75.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.74.10...@igloo-be-omnipartners/graphql-schema@1.75.0) (2020-06-25)
+
+
+### Features
+
+* DataAnimalStageResolver and useMetadataAnimalStages ([bdbd231](https://github.com/iGLOO-be/node-omnipartners/commit/bdbd23164527adbe108162aa1db4348f518d3018))
+
+
+
+
+
 ## [1.74.10](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.74.9...@igloo-be-omnipartners/graphql-schema@1.74.10) (2020-06-22)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
