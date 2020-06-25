@@ -161,6 +161,9 @@ export class UserPet
   @Field(() => [UserMedicalCondition], { nullable: true })
   public medicalConditions?: UserMedicalCondition[];
 
+  @Field({ nullable: true })
+  public stage?: string;
+
   constructor(data: IUserPet, { locale }: { locale?: string } = {}) {
     Object.assign(this, data);
     this.dob = data.pet_dob;
@@ -174,8 +177,9 @@ export class UserPet
     this.breedDetails = new UserBreedDetail(data.breedDetails);
     this.lifeStyle = data.pet_lifestyle ? data.pet_lifestyle : undefined;
     this.medicalConditions = data.medicalConditions.map(
-      condition => new UserMedicalCondition(condition, { locale }),
+      (condition) => new UserMedicalCondition(condition, { locale }),
     );
+    this.stage = data.pet_stage;
   }
 
   @Field()
@@ -214,7 +218,7 @@ export class UserPet
         })
       ).data || [];
 
-    return res.map(d => new UserPetPlaceOfPurchase(d));
+    return res.map((d) => new UserPetPlaceOfPurchase(d));
   }
 
   @Field(() => [UserPetWeight])
@@ -226,7 +230,7 @@ export class UserPet
         })
       ).data || [];
 
-    return res.map(d => new UserPetWeight(d));
+    return res.map((d) => new UserPetWeight(d));
   }
 
   @Field(() => [UserPetBmi])
@@ -238,7 +242,7 @@ export class UserPet
         })
       ).data || [];
 
-    return res.map(d => new UserPetBmi(d));
+    return res.map((d) => new UserPetBmi(d));
   }
 
   @Field(() => [UserPetDietRecommendation])
@@ -252,6 +256,6 @@ export class UserPet
         })
       ).data || [];
 
-    return res.map(d => new UserPetDietRecommendation(d));
+    return res.map((d) => new UserPetDietRecommendation(d));
   }
 }

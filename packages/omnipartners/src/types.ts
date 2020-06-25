@@ -368,8 +368,8 @@ export interface IUserPet {
   pet_origin: null;
   kcNumber: string;
   breedDetails: IUserPetBreedDetail;
-  pet_stage: null;
-  pet_feeding_stage: null;
+  pet_stage?: string;
+  pet_feeding_stage?: string;
   medicalConditions: IUserPetMedicalCondition[];
 }
 
