@@ -40,6 +40,7 @@ import { DataAccountPasswordPolicyResolver } from "./metadata/DataAccountPasswor
 import { DataAnimalPathologiesResolver } from "./metadata/DataAnimalPathologyResolver";
 import { DataAnimalStageResolver } from "./metadata/DataAnimalStageResolver";
 import { DataAnimalSpecialNeedResolver } from "./metadata/DataAnimalSpecialNeedResolver";
+import { DataAnimalLifestyleResolver } from "./metadata/DataAnimalLifestyleResolver";
 
 export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
   typeGraphqlBuildschema({
@@ -80,6 +81,7 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       DataAnimalPathologiesResolver,
       DataAnimalStageResolver,
       DataAnimalSpecialNeedResolver,
+      DataAnimalLifestyleResolver
     ],
     ...options,
   });

@@ -9,6 +9,12 @@ type AnimalBreed {
   other: Boolean!
 }
 
+type AnimalLifestyle {
+  code: String!
+  name: String!
+  species: String
+}
+
 type AnimalPathology {
   code: String!
   name: String!
@@ -846,6 +852,7 @@ type Query {
   partnerDetails(partner_ext_id: String!): [Partner!]
   metadataAnimalStages(type: String, lang: String): [AnimalStage!]!
   metadataAnimalSpecialNeeds(lang: String): [AnimalSpecialNeed!]!
+  metadataAnimalLifestyles(lang: String): [AnimalLifestyle!]!
 }
 
 type Subscription {

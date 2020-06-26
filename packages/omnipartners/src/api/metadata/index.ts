@@ -364,9 +364,9 @@ export default class Metadata extends Api {
   @doc("http://doc.omnipartners.be/index.php/Get_Animal_Lifestyles")
   @filterInput(["type", "lang", "indexed"])
   public getAnimalLifestyles(data?: {
-    type: string;
-    lang: string;
-    indexed: string;
+    type?: string;
+    lang?: string;
+    indexed?: string;
   }): Promise<{ data: IMetadataAnimalLifestyle[] }> {
     return this._call("get-animal-lifestyles", data);
   }
