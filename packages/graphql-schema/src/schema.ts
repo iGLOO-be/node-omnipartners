@@ -39,6 +39,7 @@ import { ProductCollectionResolver } from "./products/ProductCollectionResolver"
 import { DataAccountPasswordPolicyResolver } from "./metadata/DataAccountPasswordPolicyResolver";
 import { DataAnimalPathologiesResolver } from "./metadata/DataAnimalPathologyResolver";
 import { DataAnimalStageResolver } from "./metadata/DataAnimalStageResolver";
+import { DataAnimalSpecialNeedResolver } from "./metadata/DataAnimalSpecialNeedResolver";
 
 export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
   typeGraphqlBuildschema({
@@ -77,7 +78,8 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       DataPartnerTypeResolver,
       DataAccountPasswordPolicyResolver,
       DataAnimalPathologiesResolver,
-      DataAnimalStageResolver
+      DataAnimalStageResolver,
+      DataAnimalSpecialNeedResolver,
     ],
     ...options,
   });
