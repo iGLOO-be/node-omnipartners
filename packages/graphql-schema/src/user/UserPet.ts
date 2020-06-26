@@ -6,9 +6,17 @@ import {
   IUserPetWeightEntry,
   IUserPetDietRecommendationEntry,
   IUserPetMedicalCondition,
+  IUsetPetDataOptions,
 } from "omnipartners";
 import { Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
+
+export const userPetDataOptions: IUsetPetDataOptions = [
+  "basic_details",
+  "special_needs",
+  "breed_details",
+  "medical_conditions",
+];
 
 @ObjectType()
 class UserBreedDetail {
@@ -40,6 +48,15 @@ class UserMedicalCondition {
     const nameKey = locale ? `name_${locale?.toUpperCase()}` : "name";
     this.name = (data as any)[nameKey];
   }
+}
+
+@ObjectType()
+class UserPetSpecialNeed {
+  @Field()
+  public name!: string;
+
+  @Field()
+  public code!: string;
 }
 
 @ObjectType()
@@ -161,6 +178,9 @@ export class UserPet
   @Field(() => [UserMedicalCondition], { nullable: true })
   public medicalConditions?: UserMedicalCondition[];
 
+  @Field(() => [UserPetSpecialNeed], { nullable: true })
+  public specialNeeds?: UserPetSpecialNeed[];
+
   @Field({ nullable: true })
   public stage?: string;
 
@@ -179,6 +199,7 @@ export class UserPet
     this.medicalConditions = data.medicalConditions.map(
       (condition) => new UserMedicalCondition(condition, { locale }),
     );
+    this.specialNeeds = data.special_needs || [];
     this.stage = data.pet_stage;
   }
 
