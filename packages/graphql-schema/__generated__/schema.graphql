@@ -1095,7 +1095,7 @@ type UserPet {
   breedDetails: UserBreedDetail!
   hasPicture: Boolean!
   lastUpdated: DateTime
-  lifeStyle: String
+  lifestyle: String
   medicalConditions: [UserMedicalCondition!]
   specialNeeds: [UserPetSpecialNeed!]
   stage: String
@@ -1187,7 +1187,7 @@ input UserPetUpdateInput {
   placeOfPurchase: String
   bmi: UserPetBmiEntry
   weight: UserPetWeightEntry
-  lifeStyle: String
+  lifestyle: String
   specialNeeds: [String!]
   declarativeProduct: String
   dietRecommendation: UserPetDietRecommendationEntry

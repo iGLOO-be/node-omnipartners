@@ -174,7 +174,7 @@ export class UserPet
   public lastUpdated?: Date;
 
   @Field({ nullable: true })
-  public lifeStyle?: string;
+  public lifestyle?: string;
 
   @Field(() => [UserMedicalCondition], { nullable: true })
   public medicalConditions?: UserMedicalCondition[];
@@ -196,7 +196,7 @@ export class UserPet
       ? new Date(data.lastUpdated)
       : undefined;
     this.breedDetails = new UserBreedDetail(data.breedDetails);
-    this.lifeStyle = data.pet_lifestyle ? data.pet_lifestyle : undefined;
+    this.lifestyle = data.pet_lifestyle ? data.pet_lifestyle : undefined;
     this.medicalConditions = data.medicalConditions.map(
       (condition) => new UserMedicalCondition(condition, { locale }),
     );

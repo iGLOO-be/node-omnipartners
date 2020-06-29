@@ -48,7 +48,7 @@ class UserPetUpdateInput {
   public weight?: UserPetWeightEntry;
 
   @Field({ nullable: true })
-  public lifeStyle?: string;
+  public lifestyle?: string;
 
   @Field(() => [String], { nullable: true })
   public specialNeeds?: string[] | string;
@@ -85,7 +85,7 @@ const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
     pet_breed: userPetInput.breed,
     pet_dob: userPetInput.dob,
     pet_gender: userPetInput.gender,
-    pet_lifestyle: userPetInput.lifeStyle,
+    pet_lifestyle: userPetInput.lifestyle,
     pet_declarative_product: userPetInput.declarativeProduct,
     pet_medical_condition:
       typeof userPetInput.medicalConditions === "string"
@@ -161,7 +161,7 @@ export class UserPetUpdateResolver {
             gender: userPetInput.gender || pet.gender,
             type: userPetInput.type || pet.type,
             neutered: userPetInput.neutered,
-            lifeStyle: userPetInput.lifeStyle || pet.pet_lifestyle || "",
+            lifestyle: userPetInput.lifestyle || pet.pet_lifestyle || "",
             declarativeProduct:
               userPetInput.declarativeProduct ||
               pet.pet_declarative_product ||
