@@ -1097,6 +1097,7 @@ type UserPet {
   lastUpdated: DateTime
   lifeStyle: String
   medicalConditions: [UserMedicalCondition!]
+  specialNeeds: [UserPetSpecialNeed!]
   stage: String
   pictureUrl: String!
   customPictureUrl: String!
@@ -1169,6 +1170,11 @@ type UserPetPlaceOfPurchase {
   placeRatedOn: DateTime
 }
 
+type UserPetSpecialNeed {
+  name: String!
+  code: String!
+}
+
 input UserPetUpdateInput {
   guid: String!
   name: String!
@@ -1182,6 +1188,7 @@ input UserPetUpdateInput {
   bmi: UserPetBmiEntry
   weight: UserPetWeightEntry
   lifeStyle: String
+  specialNeeds: [String!]
   declarativeProduct: String
   dietRecommendation: UserPetDietRecommendationEntry
   medicalConditions: [String!]

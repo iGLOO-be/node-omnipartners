@@ -174,7 +174,7 @@ export class UserPetUpdateResolver {
               "",
             specialNeeds:
               userPetInput.specialNeeds ||
-              pet.special_needs && pet.special_needs
+              pet.pet_special_needs && pet.pet_special_needs
                 .map(need => need.code)
                 .join(",") ||
               "",

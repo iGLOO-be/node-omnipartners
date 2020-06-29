@@ -200,7 +200,7 @@ export class UserPet
     this.medicalConditions = data.medicalConditions.map(
       (condition) => new UserMedicalCondition(condition, { locale }),
     );
-    this.specialNeeds = data.special_needs || [];
+    this.specialNeeds = data.pet_special_needs || [];
     this.stage = data.pet_stage;
   }
 
