@@ -852,7 +852,7 @@ type Query {
   partnerDetails(partner_ext_id: String!): [Partner!]
   metadataAnimalStages(type: String, lang: String): [AnimalStage!]!
   metadataAnimalSpecialNeeds(lang: String): [AnimalSpecialNeed!]!
-  metadataAnimalLifestyles(lang: String): [AnimalLifestyle!]!
+  metadataAnimalLifestyles(type: String, lang: String): [AnimalLifestyle!]!
 }
 
 type Subscription {

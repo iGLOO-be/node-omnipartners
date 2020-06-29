@@ -8,8 +8,8 @@ import {
 export * from "./__generated__/MetadataAnimalLifestyles";
 
 const MetadataAnimalLifestylesQuery = gql`
-  query MetadataAnimalLifestyles($lang: String!) {
-    metadataAnimalLifestyles(lang: $lang) {
+  query MetadataAnimalLifestyles($lang: String, $type: String) {
+    metadataAnimalLifestyles(lang: $lang, type: $type) {
       code
       name
       species
@@ -22,27 +22,30 @@ export const useMetadataAnimalLifestyles = (
     | string
     | {
         lang: string;
+        type?: string;
         skip?: boolean;
       },
 ) => {
   const lang =
     typeof optionsOrLang === "object" ? optionsOrLang.lang : optionsOrLang;
   const skip = typeof optionsOrLang === "object" ? optionsOrLang.skip : false;
+  const type = typeof optionsOrLang === "object" ? optionsOrLang.type : null;
 
-  const res = useQuery<MetadataAnimalLifestyles, MetadataAnimalLifestylesVariables>(
-    MetadataAnimalLifestylesQuery,
-    {
-      variables: {
-        lang,
-      },
-      skip,
+  const res = useQuery<
+    MetadataAnimalLifestyles,
+    MetadataAnimalLifestylesVariables
+  >(MetadataAnimalLifestylesQuery, {
+    variables: {
+      lang,
+      type,
     },
-  );
+    skip,
+  });
 
   const items =
     (res.data &&
       res.data.metadataAnimalLifestyles &&
-      res.data.metadataAnimalLifestyles.map(d => ({
+      res.data.metadataAnimalLifestyles.map((d) => ({
         label: d.name,
         value: d.code,
       }))) ||

@@ -19,5 +19,6 @@ export interface MetadataAnimalLifestyles {
 }
 
 export interface MetadataAnimalLifestylesVariables {
-  lang: string;
+  lang?: string | null;
+  type?: string | null;
 }

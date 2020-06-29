@@ -19,10 +19,12 @@ export class DataAnimalLifestyleResolver {
   public async metadataAnimalLifestyles(
     @Ctx() ctx: Context,
     @Arg("lang", { nullable: true }) lang?: string,
+    @Arg("type", { nullable: true }) type?: string,
   ): Promise<AnimalLifestyle[]> {
     return (
       await ctx.omnipartners.metadata.getAnimalLifestyles({
         lang,
+        type,
       })
     ).data;
   }
