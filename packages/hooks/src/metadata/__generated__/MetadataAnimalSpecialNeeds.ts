@@ -19,5 +19,5 @@ export interface MetadataAnimalSpecialNeeds {
 }
 
 export interface MetadataAnimalSpecialNeedsVariables {
-  lang: string;
+  lang?: string | null;
 }

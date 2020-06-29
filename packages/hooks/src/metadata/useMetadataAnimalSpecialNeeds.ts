@@ -8,7 +8,7 @@ import {
 export * from "./__generated__/MetadataAnimalSpecialNeeds";
 
 const MetadataAnimalSpecialNeedsQuery = gql`
-  query MetadataAnimalSpecialNeeds($lang: String!) {
+  query MetadataAnimalSpecialNeeds($lang: String) {
     metadataAnimalSpecialNeeds(lang: $lang) {
       reference
       name
