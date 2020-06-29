@@ -34,6 +34,8 @@ type IUsetPetDataOption =
   | "breed_details"
   // Detailed information of pet pathologies under the pet details.
   | "pet_medical_condition_details"
+  // Special needs of the pet.
+  | "special_needs"
   // The stage information of the pet
   | "stage"
   // Pathologies of the pet.
@@ -330,6 +332,11 @@ export interface IUserPetMedicalCondition {
   name_FR?: string;
 }
 
+export interface IUserPetSpecialNeed {
+  code: string;
+  name: string;
+}
+
 export interface IUserPet {
   guid: string;
   id: string;
@@ -371,6 +378,9 @@ export interface IUserPet {
   pet_stage?: string;
   pet_feeding_stage?: string;
   medicalConditions: IUserPetMedicalCondition[];
+
+  // dataOptions: special_needs
+  pet_special_needs?: IUserPetSpecialNeed[];
 }
 
 export interface IUserPetBreedDetail {
@@ -455,6 +465,8 @@ export interface IUserPetUpdateInput {
   // The medical conditions for the pet. Multiple values (see metadata page) can be sent mimicking the submission behavior of check boxes in a html form. Please refer <b><a href="/index.php/Animal_medical_conditions_list" title="Animal medical conditions list">Animal medical conditions list</a></b> for valid values.
   pet_medical_condition?: string;
   // The lifestyle of the pet. Please refer <b><a href="/index.php/Animal_lifestyles_list" title="Animal lifestyles list">Animal lifestyles list</a></b> for valid values.
+  pet_special_needs?: string;
+  // The special need references for the pet.Multiple values could be specified by mimicking the submission behavior of check boxes in an html form. Please refer Get_Animal_Special_Needs for valid values.
   pet_lifestyle?: string;
   // The brand products given to the pet. Please refer <b><a href="/index.php/Brands_list" title="Brands list">Brands list</a></b> for valid values. Required if <i>pet_declarative_product</i> is specified.
   pet_brand?: string;

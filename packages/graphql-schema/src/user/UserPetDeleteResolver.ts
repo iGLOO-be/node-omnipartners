@@ -8,7 +8,7 @@ import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
 import { userDataOptions } from "./UserResolver";
 import { UserResult } from "./UserResult";
-import { UserPet } from "./UserPet";
+import { UserPet, userPetDataOptions } from "./UserPet";
 import { UserPetUpdateResult } from "./UserPetUpdateResult";
 
 @InputType()
@@ -59,6 +59,7 @@ export class UserPetDeleteResolver {
     const pet = (
       await ctx.omnipartners.identity.getPet({
         pet_guid: userPetDeleteInput.guid,
+        data_options: userPetDataOptions,
       })
     ).data;
 
@@ -96,6 +97,7 @@ export class UserPetDeleteResolver {
     const pet = (
       await ctx.omnipartners.identity.getPet({
         pet_guid: userPetDietRecommendationDeleteInput.pet_guid,
+        data_options: userPetDataOptions,
       })
     ).data;
 
@@ -111,6 +113,7 @@ export class UserPetDeleteResolver {
       const updatedPet = (
         await ctx.omnipartners.identity.getPet({
           pet_guid: userPetDietRecommendationDeleteInput.pet_guid,
+          data_options: userPetDataOptions,
         })
       ).data;
       const user = await ctx.omnipartners.identity.authenticateByGUID({

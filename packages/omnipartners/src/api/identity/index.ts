@@ -742,32 +742,51 @@ export default class Identity extends Api {
     data: { user_guid: string; data_options?: IUsetPetDataOptions },
     options?: { locale?: string },
   ): Promise<{ data: IUserPet[] }> {
-    return this.get("/service/pets/get", data, {
-      hashNoKey: true,
-      hashKeys: ["user_guid"],
-      retry: true,
-      ...(options &&
-        options.locale && {
-          headers: {
-            "X-LANGUAGE": options.locale,
-          },
-        }),
-    });
+    return this.get(
+      "/service/pets/get",
+      {
+        ...data,
+        data_options: Array.isArray(data.data_options)
+          ? data.data_options.join(",")
+          : data.data_options,
+      },
+      {
+        hashNoKey: true,
+        hashKeys: ["user_guid"],
+        retry: true,
+        ...(options &&
+          options.locale && {
+            headers: {
+              "X-LANGUAGE": options.locale,
+            },
+          }),
+      },
+    );
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_information_by_pet_guid")
-  @filterInput(["pet_guid"])
+  @filterInput(["pet_guid", "data_options"])
   public getPet(data: {
     pet_guid: string;
     data_options?: IUsetPetDataOptions;
   }): Promise<{ data: IUsetPetWithOwner }> {
-    return this.get("/service/pets/get-pet", data, {
-      errorMap: {
-        9: { message: "Pet not found in the system." },
+    return this.get(
+      "/service/pets/get-pet",
+      {
+        ...data,
+        data_options: Array.isArray(data.data_options)
+          ? data.data_options.join(",")
+          : data.data_options,
       },
-      hashNoKey: true,
-      retry: true,
-    });
+      {
+        errorMap: {
+          9: { message: "Pet not found in the system." },
+        },
+        hashNoKey: true,
+        hashKeys: ["pet_guid"],
+        retry: true,
+      },
+    );
   }
 
   @doc("http://doc.omnipartners.be/index.php/Add_new_pet")
@@ -850,6 +869,7 @@ export default class Identity extends Api {
     "kc_number",
     "pet_picture",
     "pet_ext_id",
+    "pet_special_needs"
   ])
   public updatePet(data: IUserPetUpdateInput): Promise<{ data: IUserPet }> {
     return this.post("/service/pets/update", data, {

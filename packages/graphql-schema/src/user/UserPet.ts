@@ -6,9 +6,18 @@ import {
   IUserPetWeightEntry,
   IUserPetDietRecommendationEntry,
   IUserPetMedicalCondition,
+  IUsetPetDataOptions,
 } from "omnipartners";
 import { Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
+
+export const userPetDataOptions: IUsetPetDataOptions = [
+  "basic_details",
+  "special_needs",
+  "breed_details",
+  "medical_conditions",
+  "extended_details"
+];
 
 @ObjectType()
 class UserBreedDetail {
@@ -40,6 +49,15 @@ class UserMedicalCondition {
     const nameKey = locale ? `name_${locale?.toUpperCase()}` : "name";
     this.name = (data as any)[nameKey];
   }
+}
+
+@ObjectType()
+class UserPetSpecialNeed {
+  @Field()
+  public name!: string;
+
+  @Field()
+  public code!: string;
 }
 
 @ObjectType()
@@ -156,10 +174,13 @@ export class UserPet
   public lastUpdated?: Date;
 
   @Field({ nullable: true })
-  public lifeStyle?: string;
+  public lifestyle?: string;
 
   @Field(() => [UserMedicalCondition], { nullable: true })
   public medicalConditions?: UserMedicalCondition[];
+
+  @Field(() => [UserPetSpecialNeed], { nullable: true })
+  public specialNeeds?: UserPetSpecialNeed[];
 
   @Field({ nullable: true })
   public stage?: string;
@@ -175,10 +196,11 @@ export class UserPet
       ? new Date(data.lastUpdated)
       : undefined;
     this.breedDetails = new UserBreedDetail(data.breedDetails);
-    this.lifeStyle = data.pet_lifestyle ? data.pet_lifestyle : undefined;
+    this.lifestyle = data.pet_lifestyle ? data.pet_lifestyle : undefined;
     this.medicalConditions = data.medicalConditions.map(
       (condition) => new UserMedicalCondition(condition, { locale }),
     );
+    this.specialNeeds = data.pet_special_needs || [];
     this.stage = data.pet_stage;
   }
 

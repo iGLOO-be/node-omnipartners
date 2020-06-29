@@ -13,7 +13,7 @@ import {
 } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
-import { UserPet } from "../user/UserPet";
+import { UserPet, userPetDataOptions } from "../user/UserPet";
 
 @InputType()
 export class DirectCashbackDealSubscribeInput {
@@ -133,9 +133,11 @@ export class DirectCashbackResolver {
     @Ctx() ctx: Context,
     @Arg("ref") ref: string,
   ): Promise<DirectCashbackDealDetail> {
-    const res = (await ctx.omnipartners.deals.getDirectCashbackDealDetail({
-      ref,
-    })).data;
+    const res = (
+      await ctx.omnipartners.deals.getDirectCashbackDealDetail({
+        ref,
+      })
+    ).data;
 
     return new DirectCashbackDealDetail(res);
   }
@@ -153,9 +155,11 @@ export class DirectCashbackResolver {
       res.data.map(
         async ({ ref }) =>
           new DirectCashbackDealDetail(
-            (await ctx.omnipartners.deals.getDirectCashbackDealDetail({
-              ref,
-            })).data,
+            (
+              await ctx.omnipartners.deals.getDirectCashbackDealDetail({
+                ref,
+              })
+            ).data,
           ),
       ),
     );
@@ -168,18 +172,23 @@ export class DirectCashbackResolver {
     @Arg("deal_ref") deal_ref: string,
   ): Promise<UserPet[]> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
-    const res = (await ctx.omnipartners.deals.listDirectCashbackEligiblePets({
-      user_guid,
-      deal_ref,
-    })).data;
+    const res = (
+      await ctx.omnipartners.deals.listDirectCashbackEligiblePets({
+        user_guid,
+        deal_ref,
+      })
+    ).data;
 
     const s = await Promise.all(
       res.map(({ pet_guid }) => {
-        return ctx.omnipartners.identity.getPet({ pet_guid });
+        return ctx.omnipartners.identity.getPet({
+          pet_guid,
+          data_options: userPetDataOptions,
+        });
       }),
     );
 
-    return s.map(d => new UserPet(d.data));
+    return s.map((d) => new UserPet(d.data));
   }
 
   @Mutation(() => GenericValidationError, { nullable: true })
