@@ -13,7 +13,7 @@
     "start": "tsdx watch",
     "gen:types": "apollo client:codegen --target typescript --includes \"src/**/*.{ts,tsx}\"",
     "build": "yarn gen:types && tsdx build",
-    "test": "tsdx lint ./src && tsdx test && yarn build",
+    "test": "tsdx lint ./src && tsdx test && yarn build && git diff --quiet ./__generated__/",
     "prepare": "yarn build"
   },
   "dependencies": {
