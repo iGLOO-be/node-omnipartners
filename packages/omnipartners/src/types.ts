@@ -380,7 +380,7 @@ export interface IUserPet {
   medicalConditions: IUserPetMedicalCondition[];
 
   // dataOptions: special_needs
-  special_needs?: IUserPetSpecialNeed[];
+  pet_special_needs?: IUserPetSpecialNeed[];
 }
 
 export interface IUserPetBreedDetail {
