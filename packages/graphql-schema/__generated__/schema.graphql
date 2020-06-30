@@ -9,11 +9,24 @@ type AnimalBreed {
   other: Boolean!
 }
 
+type AnimalLifestyle {
+  code: String!
+  name: String!
+  species: String
+}
+
 type AnimalPathology {
   code: String!
   name: String!
   species: String
   hasDedicatedProduct: Boolean!
+}
+
+type AnimalSpecialNeed {
+  reference: String!
+  name: String!
+  genericName: String!
+  pathologies: [String!]!
 }
 
 type AnimalStage {
@@ -838,6 +851,8 @@ type Query {
   ): PartnerConnection
   partnerDetails(partner_ext_id: String!): [Partner!]
   metadataAnimalStages(type: String, lang: String): [AnimalStage!]!
+  metadataAnimalSpecialNeeds(lang: String): [AnimalSpecialNeed!]!
+  metadataAnimalLifestyles(type: String, lang: String): [AnimalLifestyle!]!
 }
 
 type Subscription {
@@ -1080,8 +1095,9 @@ type UserPet {
   breedDetails: UserBreedDetail!
   hasPicture: Boolean!
   lastUpdated: DateTime
-  lifeStyle: String
+  lifestyle: String
   medicalConditions: [UserMedicalCondition!]
+  specialNeeds: [UserPetSpecialNeed!]
   stage: String
   pictureUrl: String!
   customPictureUrl: String!
@@ -1154,6 +1170,11 @@ type UserPetPlaceOfPurchase {
   placeRatedOn: DateTime
 }
 
+type UserPetSpecialNeed {
+  name: String!
+  code: String!
+}
+
 input UserPetUpdateInput {
   guid: String!
   name: String!
@@ -1166,7 +1187,8 @@ input UserPetUpdateInput {
   placeOfPurchase: String
   bmi: UserPetBmiEntry
   weight: UserPetWeightEntry
-  lifeStyle: String
+  lifestyle: String
+  specialNeeds: [String!]
   declarativeProduct: String
   dietRecommendation: UserPetDietRecommendationEntry
   medicalConditions: [String!]

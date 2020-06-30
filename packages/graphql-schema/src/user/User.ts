@@ -14,7 +14,7 @@ import { UserAddress } from "./UserAddress";
 import { UserChild } from "./UserChild";
 import { UserFavourites } from "./UserFavourites";
 import { UserPartnerRelations } from "./UserPartnerRelations";
-import { UserPet } from "./UserPet";
+import { UserPet, userPetDataOptions } from "./UserPet";
 import { UserSegment } from "./UserSegments";
 import {
   DealListVouchersResult,
@@ -134,6 +134,7 @@ export class User<T = {}> {
       ctx.omnipartners.identity.getPets(
         {
           user_guid: this.owner.guid,
+          data_options: userPetDataOptions,
         },
         { locale },
       ),
@@ -150,13 +151,13 @@ export class User<T = {}> {
     }
 
     if (!dealPetsResult) {
-      return petsResult.data.map(d => new UserPet(d, { locale }));
+      return petsResult.data.map((d) => new UserPet(d, { locale }));
     }
 
     return dealPetsResult.data
-      .map(pet => petsResult.data.find(p => p.guid === pet.pet_guid))
+      .map((pet) => petsResult.data.find((p) => p.guid === pet.pet_guid))
       .filter(<Z>(n?: Z): n is Z => Boolean(n))
-      .map(pet => new UserPet(pet, { locale }));
+      .map((pet) => new UserPet(pet, { locale }));
   }
 
   @Field(() => [UserAddress], { nullable: false })
@@ -164,7 +165,7 @@ export class User<T = {}> {
     const res = await ctx.omnipartners.identity.listUserAddress({
       user_guid: this.owner.guid,
     });
-    return res.data.map(d => new UserAddress(d));
+    return res.data.map((d) => new UserAddress(d));
   }
 
   @Field(() => UserPreferences, { nullable: false })
@@ -197,9 +198,11 @@ export class User<T = {}> {
     } else {
       const partners: IUserGetPartnerAccountRelationsResult = {
         clientof: res.data.clientof.filter(
-          relation => relation.ptn_status === "A",
+          (relation) => relation.ptn_status === "A",
         ),
-        partof: res.data.partof.filter(relation => relation.ptn_status === "A"),
+        partof: res.data.partof.filter(
+          (relation) => relation.ptn_status === "A",
+        ),
       };
 
       return new UserPartnerRelations(partners);
@@ -215,7 +218,7 @@ export class User<T = {}> {
     });
 
     if (res.data) {
-      return res.data.map(d => new UserPlaceOfPurchase(d));
+      return res.data.map((d) => new UserPlaceOfPurchase(d));
     } else {
       return [];
     }
@@ -229,7 +232,7 @@ export class User<T = {}> {
       })
     ).data;
 
-    return res.map(d => new UserChild(d));
+    return res.map((d) => new UserChild(d));
   }
 
   @Field(() => [UserSegment], { nullable: false })
@@ -240,7 +243,7 @@ export class User<T = {}> {
       })
     ).data;
 
-    return res.map(s => new UserSegment(s));
+    return res.map((s) => new UserSegment(s));
   }
 
   @Field(() => [UserFavourites], { nullable: false })
@@ -257,7 +260,7 @@ export class User<T = {}> {
       })
     ).data;
 
-    return res.map(d => new UserFavourites(d));
+    return res.map((d) => new UserFavourites(d));
   }
 
   @Field(() => DealListVouchersResult)
@@ -313,7 +316,7 @@ class UserLegalForms {
       legal_form_codes: this.codes,
     });
     return !legalForms.data.some(
-      legal => !userConfirmedLegalForms.includes(legal.code),
+      (legal) => !userConfirmedLegalForms.includes(legal.code),
     );
   }
 
@@ -327,7 +330,7 @@ class UserLegalForms {
       legal_form_codes: this.codes,
       lang,
     });
-    return legalForms.data.map(legalForm => ({
+    return legalForms.data.map((legalForm) => ({
       legalForm,
       confirmed: userConfirmedLegalForms.includes(legalForm.code),
     }));
@@ -339,6 +342,6 @@ class UserLegalForms {
       await ctx.omnipartners.identity.getConfirmedLegalForm({
         user_guid: this.user.data.owner.guid,
       })
-    ).data.map(legal => legal.legal_form_code);
+    ).data.map((legal) => legal.legal_form_code);
   }
 }

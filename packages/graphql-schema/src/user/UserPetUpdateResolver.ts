@@ -3,7 +3,7 @@ import { Arg, Ctx, Field, InputType, Mutation, Resolver } from "type-graphql";
 import { Context } from "../types/Context";
 import { GenericValidationError } from "../types/GenericValidationError";
 import { User } from "./User";
-import { UserPet } from "./UserPet";
+import { UserPet, userPetDataOptions } from "./UserPet";
 import {
   UserPetBmiEntry,
   UserPetWeightEntry,
@@ -48,7 +48,10 @@ class UserPetUpdateInput {
   public weight?: UserPetWeightEntry;
 
   @Field({ nullable: true })
-  public lifeStyle?: string;
+  public lifestyle?: string;
+
+  @Field(() => [String], { nullable: true })
+  public specialNeeds?: string[] | string;
 
   @Field({ nullable: true, deprecationReason: "Prefer diet recommendation" })
   public declarativeProduct?: string;
@@ -72,6 +75,7 @@ const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
     | "pet_neutered"
     | "pet_picture"
     | "pet_lifestyle"
+    | "pet_special_needs"
     | "pet_declarative_product"
     | "pet_medical_condition"
   > = {
@@ -81,12 +85,16 @@ const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
     pet_breed: userPetInput.breed,
     pet_dob: userPetInput.dob,
     pet_gender: userPetInput.gender,
-    pet_lifestyle: userPetInput.lifeStyle,
+    pet_lifestyle: userPetInput.lifestyle,
     pet_declarative_product: userPetInput.declarativeProduct,
     pet_medical_condition:
       typeof userPetInput.medicalConditions === "string"
         ? userPetInput.medicalConditions
         : userPetInput.medicalConditions?.join(","),
+    pet_special_needs:
+      typeof userPetInput.specialNeeds === "string"
+        ? userPetInput.specialNeeds
+        : userPetInput.specialNeeds?.join(","),
   };
 
   if (typeof userPetInput.neutered !== "undefined") {
@@ -133,6 +141,7 @@ export class UserPetUpdateResolver {
       const pet = (
         await ctx.omnipartners.identity.getPet({
           pet_guid: userPetInput.guid,
+          data_options: userPetDataOptions,
         })
       ).data;
 
@@ -152,7 +161,7 @@ export class UserPetUpdateResolver {
             gender: userPetInput.gender || pet.gender,
             type: userPetInput.type || pet.type,
             neutered: userPetInput.neutered,
-            lifeStyle: userPetInput.lifeStyle || pet.pet_lifestyle || "",
+            lifestyle: userPetInput.lifestyle || pet.pet_lifestyle || "",
             declarativeProduct:
               userPetInput.declarativeProduct ||
               pet.pet_declarative_product ||
@@ -161,6 +170,12 @@ export class UserPetUpdateResolver {
               userPetInput.medicalConditions ||
               pet.medicalConditions
                 .map(condition => condition.code)
+                .join(",") ||
+              "",
+            specialNeeds:
+              userPetInput.specialNeeds ||
+              pet.pet_special_needs && pet.pet_special_needs
+                .map(need => need.code)
                 .join(",") ||
               "",
           }),

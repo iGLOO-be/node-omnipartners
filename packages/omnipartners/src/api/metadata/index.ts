@@ -163,6 +163,13 @@ export interface IMetadataAnimalStage {
   feeding_stage: string;
 }
 
+export interface IMetadataAnimalSpecialNeeds {
+  reference: string;
+  generic_name: string;
+  name: string;
+  pathologies: string[];
+}
+
 export interface IMetadataDiagnosticCode {
   diagnostic_code: string;
   generic_name: string;
@@ -357,9 +364,9 @@ export default class Metadata extends Api {
   @doc("http://doc.omnipartners.be/index.php/Get_Animal_Lifestyles")
   @filterInput(["type", "lang", "indexed"])
   public getAnimalLifestyles(data?: {
-    type: string;
-    lang: string;
-    indexed: string;
+    type?: string;
+    lang?: string;
+    indexed?: string;
   }): Promise<{ data: IMetadataAnimalLifestyle[] }> {
     return this._call("get-animal-lifestyles", data);
   }
@@ -394,6 +401,12 @@ export default class Metadata extends Api {
     data?: IBaseInput,
   ): Promise<{ data: IMetadataAnimalStage[] }> {
     return this._call("get-animal-universes-stages", data);
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Get_Animal_Special_Needs")
+  @filterInput(["lang", "indexed"])
+  public getAnimalSpecialNeeds(data?: IBaseInput): Promise<{ data: IMetadataAnimalSpecialNeeds[] }> {
+    return this._call("get-animal-special-needs", data);
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_Diagnostic_Codes")
