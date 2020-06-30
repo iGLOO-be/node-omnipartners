@@ -137,7 +137,7 @@ export interface UserPetUpdateInput {
   placeOfPurchase?: string | null;
   bmi?: UserPetBmiEntry | null;
   weight?: UserPetWeightEntry | null;
-  lifeStyle?: string | null;
+  lifestyle?: string | null;
   specialNeeds?: string[] | null;
   declarativeProduct?: string | null;
   dietRecommendation?: UserPetDietRecommendationEntry | null;
