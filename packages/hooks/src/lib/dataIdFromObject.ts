@@ -45,6 +45,14 @@ export const dataIdFromObject = (value: any) => {
     }
   }
 
+  if (__typename === "AnimalType") {
+    if (value.extId) {
+      return `${__typename}:${value.code}`;
+    } else {
+      console.warn("Missing `code` in `AnimalType`");
+    }
+  }
+
   if (__typename === "LoyaltyBalance") {
     if (value.user_guid) {
       return `${__typename}:${value.user_guid}`;
