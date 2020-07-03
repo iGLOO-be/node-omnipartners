@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.77.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.76.1...@igloo-be-omnipartners/graphql-schema@1.77.0) (2020-07-03)
+
+
+### Features
+
+* UserPetCreateResolver: add some field to pet creation ([72c5ef9](https://github.com/iGLOO-be/node-omnipartners/commit/72c5ef98048457c0691c8f54f827131eff388d45))
+
+
+
+
+
 ## [1.76.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.76.0...@igloo-be-omnipartners/graphql-schema@1.76.1) (2020-06-30)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema

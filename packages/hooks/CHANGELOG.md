@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.60.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.59.6...@igloo-be-omnipartners/hooks@0.60.0) (2020-07-03)
+
+
+### Features
+
+* UserPetCreateResolver: add some field to pet creation ([72c5ef9](https://github.com/iGLOO-be/node-omnipartners/commit/72c5ef98048457c0691c8f54f827131eff388d45))
+
+
+
+
+
 ## [0.59.6](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.59.5...@igloo-be-omnipartners/hooks@0.59.6) (2020-07-02)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/hooks
