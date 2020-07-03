@@ -1128,6 +1128,9 @@ input UserPetCreateInput {
   gender: String
   pictureUrl: String
   placeOfPurchase: String
+  insured: Boolean
+  tattooNumber: String
+  chipNumber: String
   bmi: UserPetBmiEntry
   weight: UserPetWeightEntry
   dietRecommendation: UserPetDietRecommendationEntry
