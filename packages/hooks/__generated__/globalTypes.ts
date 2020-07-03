@@ -111,6 +111,9 @@ export interface UserPetCreateInput {
   gender?: string | null;
   pictureUrl?: string | null;
   placeOfPurchase?: string | null;
+  insured?: boolean | null;
+  tattooNumber?: string | null;
+  chipNumber?: string | null;
   bmi?: UserPetBmiEntry | null;
   weight?: UserPetWeightEntry | null;
   dietRecommendation?: UserPetDietRecommendationEntry | null;

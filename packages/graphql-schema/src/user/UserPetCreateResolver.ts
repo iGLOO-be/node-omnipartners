@@ -90,6 +90,15 @@ class UserPetCreateInput {
   @Field({ nullable: true })
   public placeOfPurchase!: string;
 
+  @Field({ nullable: true })
+  public insured?: boolean;
+
+  @Field({ nullable: true })
+  public tattooNumber?: string;
+
+  @Field({ nullable: true })
+  public chipNumber?: string;
+
   @Field(() => UserPetBmiEntry, { nullable: true })
   public bmi!: UserPetBmiEntry;
 
@@ -110,16 +119,25 @@ const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
     | "pet_neutered"
     | "pet_gender"
     | "pet_picture"
+    | "chip_number"
+    | "pet_insured"
+    | "tattoo_number"
   > = {
     pet_name: userPetInput.name,
     pet_type: userPetInput.type,
     pet_breed: userPetInput.breed,
     pet_dob: userPetInput.dob,
     pet_gender: userPetInput.gender,
+    chip_number: userPetInput.chipNumber,
+    tattoo_number: userPetInput.tattooNumber,
   };
 
   if (typeof userPetInput.neutered !== "undefined") {
     result.pet_neutered = userPetInput.neutered ? "Y" : "N";
+  }
+
+  if (typeof userPetInput.insured !== "undefined") {
+    result.pet_insured = userPetInput.insured ? "Y" : "N";
   }
 
   if (userPetInput.pictureUrl) {
@@ -143,6 +161,9 @@ const fieldsMapping = {
   pet_neutered: "neutered",
   pet_gender: "gender",
   pet_picture: "pictureUrl",
+  pet_insured: "insured",
+  chip_number: "chipNumber",
+  tattoo_number: "tattooNumber",
 };
 
 @Resolver(() => User)
