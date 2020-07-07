@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.77.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.77.0...@igloo-be-omnipartners/graphql-schema@1.77.1) (2020-07-07)
+
+
+### Bug Fixes
+
+* graphql-schema: userPetCreate: don't send certain undefined fields ([e9366f6](https://github.com/iGLOO-be/node-omnipartners/commit/e9366f670b7147153c55f5cef0e0c702f6baf135))
+
+
+
+
+
 # [1.77.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.76.1...@igloo-be-omnipartners/graphql-schema@1.77.0) (2020-07-03)
 
 
