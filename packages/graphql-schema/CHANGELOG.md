@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.77.2](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.77.1...@igloo-be-omnipartners/graphql-schema@1.77.2) (2020-07-08)
+
+
+### Bug Fixes
+
+* graphql-schema: UserPetCreate: fix gender/chip_number ([de1a0ce](https://github.com/iGLOO-be/node-omnipartners/commit/de1a0ceca5a77bdb6f062bf45d6f5abf6a55af42))
+
+
+
+
+
 ## [1.77.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.77.0...@igloo-be-omnipartners/graphql-schema@1.77.1) (2020-07-07)
 
 
