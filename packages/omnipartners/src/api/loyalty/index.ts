@@ -485,6 +485,7 @@ export default class Loyalty extends Api {
   }> {
     return this._call("purchase", data, {
       hashKey: "sigid",
+      hashKeys: ["shop_id", "user_id", "action"]
     });
   }
 }
