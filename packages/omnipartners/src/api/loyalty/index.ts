@@ -133,21 +133,17 @@ export interface ILoyaltyPurchaseProductInput {
   source: string;
   user_id: string;
   program_id?: string;
-  card_no?: string;
-  mobile_no?: string;
-  user_email?: string;
   user_guid?: string;
   shop_id?: string;
   type?: "terminal" | "extid";
-  user_language?: string;
+  auth_type?: "user_guid" | "card_no" | "mobile_no";
+  product_codes?: string;
+  transaction_value?: string;
+  transaction_points?: string;
+  mobile_no?: string;
+  user_email?: string;
   transaction_ext_id?: string;
   transaction_ext_origin?: string;
-  init_points?: string;
-  init_stamps?: string;
-  auth_type?: "user_guid" | "card_no" | "mobile_no";
-  product_codes: string;
-  transaction_value: string;
-  transaction_points: string;
 }
 
 export default class Loyalty extends Api {
@@ -489,6 +485,7 @@ export default class Loyalty extends Api {
   }> {
     return this._call("purchase", data, {
       hashKey: "sigid",
+      hashKeys: ["shop_id", "user_id", "action"]
     });
   }
 }
