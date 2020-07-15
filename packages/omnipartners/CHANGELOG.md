@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.65.2](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.65.1...omnipartners@2.65.2) (2020-07-15)
+
+
+### Bug Fixes
+
+* omnipartners: product purchase typings ([9bfa5e4](https://github.com/iGLOO-be/node-omnipartners/commit/9bfa5e4413a04a6caf61f25f0747629348a5609b))
+
+
+
+
+
 ## [2.65.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.65.0...omnipartners@2.65.1) (2020-06-30)
 
 **Note:** Version bump only for package omnipartners
