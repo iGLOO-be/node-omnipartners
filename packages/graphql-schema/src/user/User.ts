@@ -48,6 +48,8 @@ class UserOwner {
   public country?: string | null;
   @Field(() => String, { nullable: true })
   public postalCode?: string | null;
+  @Field(() => String, { nullable: true })
+  public status?: string | null;
   @Field()
   public confirmed?: boolean;
   @Field({ nullable: true })
