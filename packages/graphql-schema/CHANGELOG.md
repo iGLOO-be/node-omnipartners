@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.77.4](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.77.3...@igloo-be-omnipartners/graphql-schema@1.77.4) (2020-08-05)
+
+
+### Bug Fixes
+
+* User: expose status ([5db2a2e](https://github.com/iGLOO-be/node-omnipartners/commit/5db2a2e9f300c21f136986cfdf0a2cec9bd868a0))
+
+
+
+
+
 ## [1.77.3](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.77.2...@igloo-be-omnipartners/graphql-schema@1.77.3) (2020-07-15)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
