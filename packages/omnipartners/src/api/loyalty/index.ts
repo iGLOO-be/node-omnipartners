@@ -116,6 +116,13 @@ export interface ILoyaltyActivateCardInput {
   init_stamps?: string;
 }
 
+export interface ILoyaltyGetCardStatusInput {
+  program_id: string;
+  card_no: string;
+  shop_id?: string;
+  type?: "terminal" | "extid";
+}
+
 export interface ILoyaltyActivateCardResult {
   status: string;
   user_guid: string;
@@ -463,6 +470,30 @@ export default class Loyalty extends Api {
     });
   }
 
+  @doc("https://doc.clixray.com/index.php?title=Get_Card_Status")
+  @filterInput([
+    "program_id", // (Required)
+    "card_no", // (Required)
+    "shop_id", // (Optional)
+    "type", // (Optional)
+  ])
+  public getCardStatus(
+    data: ILoyaltyGetCardStatusInput,
+  ): Promise<{
+    status: number;
+    data: {
+      partner_extid: string;
+      activation_date: string;
+      member_status: string;
+      has_email: string;
+      has_mobile_phone: string;
+    };
+  }> {
+    return this._call("get-card-status", data, {
+      hashKeys: ["program_id", "card_no"],
+    });
+  }
+
   @doc("https://doc.clixray.com/index.php?title=Product_purchase")
   @filterInput([
     "program_id", // (Required)
@@ -485,7 +516,7 @@ export default class Loyalty extends Api {
   }> {
     return this._call("purchase", data, {
       hashKey: "sigid",
-      hashKeys: ["shop_id", "user_id", "action"]
+      hashKeys: ["shop_id", "user_id", "action"],
     });
   }
 }
