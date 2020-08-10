@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.66.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.65.2...omnipartners@2.66.0) (2020-08-10)
+
+
+### Features
+
+* omnipartners: api: introduce `getCardStatus` ([eb2b5b9](https://github.com/iGLOO-be/node-omnipartners/commit/eb2b5b97e46f5059353c13ced5204c0e733adc88))
+
+
+
+
+
 ## [2.65.2](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.65.1...omnipartners@2.65.2) (2020-07-15)
 
 
