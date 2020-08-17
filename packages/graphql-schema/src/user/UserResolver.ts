@@ -57,11 +57,11 @@ class UserUpdatePlacesOfPurchaseInput
 @InputType()
 class UserUpdateSubscriptionsInput
   implements
-    Omit<IUserUpdateSubscriptionsInput, "user_guid" | "subscriptions"> {
+    Omit<IUserUpdateSubscriptionsInput, "user_guid" | "subscriptions" | "interests"> {
   @Field({ nullable: true })
   public com_prefs?: string;
-  @Field({ nullable: true })
-  public interests?: string;
+  @Field(() => [String], { nullable: true })
+  public interests?: string | string[];
   @Field(() => [String], { nullable: true })
   public subscriptions?: string | string[];
 }
@@ -301,6 +301,9 @@ export class UserResolver {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     const data: IUserUpdateSubscriptionsInput = {
       ...updateSubscriptionsInput,
+      interests: Array.isArray(updateSubscriptionsInput.interests)
+        ? updateSubscriptionsInput.interests.join(",")
+        : updateSubscriptionsInput.interests,
       subscriptions: Array.isArray(updateSubscriptionsInput.subscriptions)
         ? updateSubscriptionsInput.subscriptions.join(",")
         : updateSubscriptionsInput.subscriptions,

@@ -174,7 +174,7 @@ export interface UserUpdateInput {
 
 export interface UserUpdateSubscriptionsInput {
   com_prefs?: string | null;
-  interests?: string | null;
+  interests?: string[] | null;
   subscriptions?: string[] | null;
 }
 

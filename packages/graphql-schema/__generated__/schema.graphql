@@ -434,6 +434,11 @@ type GenericValidationError {
   validationErrors: [FieldValidationError!]
 }
 
+type Interest {
+  name: String!
+  code: String!
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -781,6 +786,7 @@ type Query {
   metadataAnimalUniverses(lang: String): [AnimalUniverse!]!
   metadataCountries(lang: String): [Country!]!
   metadataPlaceOfPurchase(lang: String): [PlaceOfPurchase!]!
+  metadataInterest(lang: String): [Interest!]!
   metadataLanguages(lang: String): [Language!]!
   metadataSubscriptions(lang: String): [Subscription!]!
   metadataUserTitles(lang: String): [UserTitle!]!
@@ -1273,7 +1279,7 @@ type UserUpdateResult {
 
 input UserUpdateSubscriptionsInput {
   com_prefs: String
-  interests: String
+  interests: [String!]
   subscriptions: [String!]
 }
 

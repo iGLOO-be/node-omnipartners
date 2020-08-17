@@ -7,6 +7,7 @@ export { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
 export { DataAnimalUniverseResolver } from "./metadata/DataAnimalUniverseResolver";
 export { DataCountryResolver } from "./metadata/DataCountryResolver";
 export { DataPlaceOfPurchaseResolver } from "./metadata/DataPlaceOfPurchaseResolver";
+export { DataInterestResolver } from "./metadata/DataInterestResolver";
 export { DataLanguageResolver } from "./metadata/DataLanguageResolver";
 export { DataLegalFormResolver } from "./metadata/DataLegalFormResolver";
 export { DataSubscriptionResolver } from "./metadata/DataSubscriptionResolver";
