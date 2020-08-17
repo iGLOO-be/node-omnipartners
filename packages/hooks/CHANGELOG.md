@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.61.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.60.5...@igloo-be-omnipartners/hooks@0.61.0) (2020-08-17)
+
+
+### Features
+
+* UserResolver: treat interests like an array ([dcd9e07](https://github.com/iGLOO-be/node-omnipartners/commit/dcd9e070f1e0ffc581cfc8fd137f96ee1b60c53d))
+
+
+
+
+
 ## [0.60.5](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.60.4...@igloo-be-omnipartners/hooks@0.60.5) (2020-08-10)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/hooks

@@ -1,6 +1,6 @@
 {
   "name": "@igloo-be-omnipartners/hooks",
-  "version": "0.60.5",
+  "version": "0.61.0",
   "main": "dist/index.js",
   "module": "dist/hooks.esm.js",
   "typings": "dist/index.d.ts",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@apollo/react-hooks": "^3.1.5",
-    "@igloo-be-omnipartners/graphql-schema": "^1.77.5",
+    "@igloo-be-omnipartners/graphql-schema": "^1.78.0",
     "@types/jwt-decode": "^2.2.1",
     "apollo": "^2.28.0",
     "graphql": "^15.0.0",

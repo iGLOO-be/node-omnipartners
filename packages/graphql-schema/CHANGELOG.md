@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.78.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.77.5...@igloo-be-omnipartners/graphql-schema@1.78.0) (2020-08-17)
+
+
+### Features
+
+* graphql-schema: expose metadata interests ([dca7a73](https://github.com/iGLOO-be/node-omnipartners/commit/dca7a73a2cadefb8894c3ba26ec657d340baaead))
+* UserResolver: treat interests like an array ([dcd9e07](https://github.com/iGLOO-be/node-omnipartners/commit/dcd9e070f1e0ffc581cfc8fd137f96ee1b60c53d))
+
+
+
+
+
 ## [1.77.5](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.77.4...@igloo-be-omnipartners/graphql-schema@1.77.5) (2020-08-10)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
