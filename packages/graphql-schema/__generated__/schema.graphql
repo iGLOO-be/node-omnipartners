@@ -1279,7 +1279,7 @@ type UserUpdateResult {
 
 input UserUpdateSubscriptionsInput {
   com_prefs: String
-  interests: String
+  interests: [String!]
   subscriptions: [String!]
 }
 
