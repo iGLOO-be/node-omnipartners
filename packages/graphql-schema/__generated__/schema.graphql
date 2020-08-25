@@ -488,6 +488,7 @@ type Mutation {
   userUpdate(userInput: UserUpdateInput!, token: String!): UserUpdateResult!
   userChildUpdate(userChildUpdateInput: UserChildUpdateInput!, token: String!): UserChildResult!
   userChildCreate(userChildCreateInput: UserChildCreateInput!, token: String!): UserChildResult!
+  userPublicSubscriptionsUpdate(input: UserPublicSubscriptionsUpdateInput!, userEmail: String!, userGuid: String!): GenericValidationError
   userFavouritesCreate(userFavouritesCreateInput: UserFavouritesCreateInput!, token: String!): UserFavouritesResult!
   userFavouritesDelete(id: String!, token: String!): UserFavouritesResult!
   directCashbackDealSubscribe(input: DirectCashbackDealSubscribeInput!, token: String!): GenericValidationError
@@ -820,6 +821,7 @@ type Query {
   userCreateAuthCode(ttl: Float!, value: String!, type: String!): GenericError
   userLoginByCode(auth_code: String!): UserResult
   userCheckPasswordTokenValidity(token: String!): Boolean
+  userPublicSubscriptions(userEmail: String!, userGuid: String!): UserPublicSubscriptionsResult
   findPartners(partnerLocatorInput: PartnerLocatorInput!): [Partner!]
   loyaltyRetrieveBalance(card_program_id: String, program_id: String!, token: String!): LoyaltyBalance!
   directCashbackDealDetail(ref: String!): DirectCashbackDealDetail
@@ -1229,6 +1231,19 @@ type UserPlaceOfPurchase {
 type UserPreferences {
   communicationPreferences: [String!]!
   interests: [String!]!
+  subscriptions: [String!]!
+}
+
+type UserPublicSubscriptionsResult {
+  error: GenericError
+  result: UserPublicSubscriptionsUser
+}
+
+input UserPublicSubscriptionsUpdateInput {
+  subscriptions: [String!]!
+}
+
+type UserPublicSubscriptionsUser {
   subscriptions: [String!]!
 }
 

@@ -154,6 +154,10 @@ export interface UserPetWeightEntry {
   source: string;
 }
 
+export interface UserPublicSubscriptionsUpdateInput {
+  subscriptions: string[];
+}
+
 export interface UserUpdateInput {
   title?: string | null;
   firstName?: string | null;
