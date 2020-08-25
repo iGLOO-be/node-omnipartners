@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.79.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.78.0...@igloo-be-omnipartners/graphql-schema@1.79.0) (2020-08-25)
+
+
+### Features
+
+* GraphQL: introduce "UserPublicSubscriptions" ([2838dcb](https://github.com/iGLOO-be/node-omnipartners/commit/2838dcb4d8e7223fedb404af8611723c53d539d2))
+
+
+
+
+
 # [1.78.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.77.5...@igloo-be-omnipartners/graphql-schema@1.78.0) (2020-08-17)
 
 
