@@ -65,6 +65,8 @@ Array [
   "useUserPets",
   "useUserPetsCreate",
   "useUserPetsUpdate",
+  "useUserPublicSubscriptions",
+  "useUserPublicSubscriptionsUpdate",
   "useUserRecoverPassword",
   "useUserSegments",
   "useUserSubscriptions",
