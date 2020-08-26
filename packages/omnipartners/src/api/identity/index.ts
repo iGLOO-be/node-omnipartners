@@ -869,7 +869,7 @@ export default class Identity extends Api {
     "kc_number",
     "pet_picture",
     "pet_ext_id",
-    "pet_special_needs"
+    "pet_special_needs",
   ])
   public updatePet(data: IUserPetUpdateInput): Promise<{ data: IUserPet }> {
     return this.post("/service/pets/update", data, {
@@ -1253,5 +1253,16 @@ export default class Identity extends Api {
     };
   }> {
     return this.get("/service/account/get-password-format", data, {});
+  }
+
+  /*
+    Manage tags
+  */
+  @doc("https://doc.clixray.com/index.php?title=Get_User_Tags")
+  @filterInput(["user_guid"])
+  public getUserTags(data: { user_guid: string }): Promise<{ data: string[] }> {
+    return this.post("/service/user-tags/get-tags", data, {
+      hashKeys: ["user_guid"],
+    });
   }
 }
