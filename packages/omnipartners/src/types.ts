@@ -684,6 +684,7 @@ export interface IUser {
   };
   segments: IUserSegment[];
   stamps_count: number | null;
+  user_tags: string[];
 }
 
 export interface IUserUpdateInput extends IBaseUserInput {
