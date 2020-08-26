@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.67.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.66.0...omnipartners@2.67.0) (2020-08-26)
+
+
+### Features
+
+* omnpiartners: add `user_tags` to User and introduce `getUserTags` ([06c7f77](https://github.com/iGLOO-be/node-omnipartners/commit/06c7f77b38f0e84d7a35f3dfba802395c67f2645))
+
+
+
+
+
 # [2.66.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.65.2...omnipartners@2.66.0) (2020-08-10)
 
 
