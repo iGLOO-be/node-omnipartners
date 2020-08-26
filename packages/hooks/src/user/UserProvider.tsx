@@ -31,7 +31,7 @@ const UserTokenProvider = ({
       setToken(v);
       setReady(true);
     });
-  }, [env]);
+  }, [userTokenStorage, env]);
 
   return (
     <userTokenContext.Provider

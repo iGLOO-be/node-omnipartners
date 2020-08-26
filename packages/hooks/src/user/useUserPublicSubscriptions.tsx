@@ -55,7 +55,11 @@ const UserPublicSubscriptionsUpdateMutation = gql`
     $userGuid: String!
     $userEmail: String!
   ) {
-    userPublicSubscriptionsUpdate(input: $input, userGuid: $userGuid, userEmail: $userEmail) {
+    userPublicSubscriptionsUpdate(
+      input: $input
+      userGuid: $userGuid
+      userEmail: $userEmail
+    ) {
       message
       code
       validationErrors {

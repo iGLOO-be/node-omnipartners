@@ -45,7 +45,7 @@ export const useMetadataAnimalLifestyles = (
   const items =
     (res.data &&
       res.data.metadataAnimalLifestyles &&
-      res.data.metadataAnimalLifestyles.map((d) => ({
+      res.data.metadataAnimalLifestyles.map(d => ({
         label: d.name,
         value: d.code,
       }))) ||

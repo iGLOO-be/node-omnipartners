@@ -33,6 +33,8 @@
     "@igloo-be-omnipartners/graphql-schema": "^1.79.2",
     "@types/jwt-decode": "^2.2.1",
     "apollo": "^2.28.3",
+    "babel-jest": "^26.3.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "graphql": "^15.0.0",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5",

@@ -35,7 +35,7 @@
     "concurrently": "^5.2.0",
     "execa": "^4.0.3",
     "fs-extra": "^9.0.1",
-    "graphql": "^14.5.8",
+    "graphql": "^14",
     "jest": "^26.0.1",
     "omnipartners": "^2.67.1",
     "p-debounce": "^2.1.0",

@@ -29,15 +29,15 @@ export const useMetadataAnimalSpecialNeeds = (
     typeof optionsOrLang === "object" ? optionsOrLang.lang : optionsOrLang;
   const skip = typeof optionsOrLang === "object" ? optionsOrLang.skip : false;
 
-  const res = useQuery<MetadataAnimalSpecialNeeds, MetadataAnimalSpecialNeedsVariables>(
-    MetadataAnimalSpecialNeedsQuery,
-    {
-      variables: {
-        lang,
-      },
-      skip,
+  const res = useQuery<
+    MetadataAnimalSpecialNeeds,
+    MetadataAnimalSpecialNeedsVariables
+  >(MetadataAnimalSpecialNeedsQuery, {
+    variables: {
+      lang,
     },
-  );
+    skip,
+  });
 
   const items =
     (res.data &&
