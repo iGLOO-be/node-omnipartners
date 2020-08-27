@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.67.3](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.67.2...omnipartners@2.67.3) (2020-08-27)
+
+
+### Bug Fixes
+
+* graphql-schema: DealProduct: collection should be undefined ([cfd14f5](https://github.com/iGLOO-be/node-omnipartners/commit/cfd14f59545d01fc43d2944deed2120912924b66))
+
+
+
+
+
 ## [2.67.2](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.67.1...omnipartners@2.67.2) (2020-08-27)
 
 **Note:** Version bump only for package omnipartners
