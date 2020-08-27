@@ -45,10 +45,10 @@ export const useMetadataAnimalUniverses = (
   const data = (res.data && res.data.metadataAnimalUniverses) || [];
 
   const temp = !!type
-    ? data.filter(d => d.species.toLowerCase().match(type || ""))
+    ? data.filter((d) => d.species.toLowerCase().match(type || ""))
     : data;
 
-  const items = temp.map(d => ({
+  const items = temp.map((d) => ({
     label: d.name,
     value: d.id,
   }));

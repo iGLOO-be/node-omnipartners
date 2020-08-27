@@ -27,11 +27,11 @@ const UserTokenProvider = ({
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    userTokenStorage.get(env).then(v => {
+    userTokenStorage.get(env).then((v) => {
       setToken(v);
       setReady(true);
     });
-  }, [env]);
+  }, [userTokenStorage, env]);
 
   return (
     <userTokenContext.Provider

@@ -41,7 +41,7 @@ export function useMetadataUserTitles(
   const items =
     (res.data &&
       res.data.metadataUserTitles &&
-      res.data.metadataUserTitles.map(d => ({
+      res.data.metadataUserTitles.map((d) => ({
         label: d.name,
         value: d.code,
       }))) ||

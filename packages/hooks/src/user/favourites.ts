@@ -208,10 +208,12 @@ export const useUserFavouritesDelete = ({
             result: {
               user: {
                 owner: {
-                  guid: `${userFavouritesData &&
+                  guid: `${
+                    userFavouritesData &&
                     userFavouritesData.user &&
                     userFavouritesData.user.result &&
-                    userFavouritesData.user.result.owner.guid}`,
+                    userFavouritesData.user.result.owner.guid
+                  }`,
                   __typename: "UserOwner",
                 },
                 favourites:
@@ -219,7 +221,7 @@ export const useUserFavouritesDelete = ({
                     userFavouritesData.user &&
                     userFavouritesData.user.result &&
                     userFavouritesData.user.result.favourites.filter(
-                      v => v.id !== id,
+                      (v) => v.id !== id,
                     )) ||
                   [],
                 __typename: "User",

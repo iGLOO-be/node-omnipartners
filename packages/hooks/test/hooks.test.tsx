@@ -1,7 +1,7 @@
-import * as hooks from '../src';
+import * as hooks from "../src";
 
-describe('hooks', () => {
-  it('exports', () => {
-    expect(Object.keys(hooks).sort()).toMatchSnapshot()
+describe("hooks", () => {
+  it("exports", () => {
+    expect(Object.keys(hooks).sort()).toMatchSnapshot();
   });
 });
