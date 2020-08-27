@@ -12,7 +12,7 @@ export interface IDealProduct {
   label: string;
   friendly_name?: string;
   min_qty: number;
-  collection: IDealProductCollection;
+  collection?: IDealProductCollection;
   qty: number;
   label_with_qty: string;
   coll_with_qty: string;

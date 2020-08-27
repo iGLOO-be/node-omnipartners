@@ -237,7 +237,7 @@ type DealProduct {
   label: String!
   friendly_name: String
   min_qty: Float!
-  collectionReference: String!
+  collectionReference: String
   qty: Float!
   label_with_qty: String!
   coll_with_qty: String!
