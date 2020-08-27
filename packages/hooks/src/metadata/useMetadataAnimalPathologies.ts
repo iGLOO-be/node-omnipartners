@@ -41,7 +41,7 @@ export const useMetadataAnimalPathologies = (
     ...res,
     items:
       (res.data &&
-        res.data.metadataAnimalPathologies.map(pathology => ({
+        res.data.metadataAnimalPathologies.map((pathology) => ({
           value: pathology.code,
           label: pathology.name,
         }))) ||

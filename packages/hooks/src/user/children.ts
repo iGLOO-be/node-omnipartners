@@ -70,12 +70,12 @@ export const useUserChildren = () => {
       res.data.user &&
       res.data.user.result &&
       res.data.user.result.children &&
-      res.data.user.result.children.map(child => ({
+      res.data.user.result.children.map((child) => ({
         ...child,
         firstName: child.firstName === "--" ? "" : child.firstName,
       }))) ||
       [],
-    [child => child.birthday],
+    [(child) => child.birthday],
   ).reverse();
 
   return {

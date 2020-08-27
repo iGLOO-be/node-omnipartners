@@ -147,7 +147,7 @@ export function useBetterLazyQuery<
   const queryLazily = useCallback(
     ({ variables }: QueryLazyOptions<TVariables> = {}) => {
       execute({ variables });
-      return new Promise<QueryResult<TData, TVariables>>(resolve => {
+      return new Promise<QueryResult<TData, TVariables>>((resolve) => {
         resolveRef.current = resolve;
       });
     },

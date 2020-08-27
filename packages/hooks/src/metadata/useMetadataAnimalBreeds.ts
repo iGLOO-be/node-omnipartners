@@ -46,7 +46,7 @@ export const useMetadataAnimalBreeds = (
   const items =
     (res.data &&
       res.data.metadataAnimalBreeds &&
-      res.data.metadataAnimalBreeds.map(d => ({
+      res.data.metadataAnimalBreeds.map((d) => ({
         label: d.name,
         value: d.id,
         isOther: d.other,

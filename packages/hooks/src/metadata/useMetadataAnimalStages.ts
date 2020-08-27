@@ -46,7 +46,7 @@ export const useMetadataAnimalStages = (
   const items =
     (res.data &&
       res.data.metadataAnimalStages &&
-      res.data.metadataAnimalStages.map(d => ({
+      res.data.metadataAnimalStages.map((d) => ({
         label: d.name,
         value: d.code,
       }))) ||

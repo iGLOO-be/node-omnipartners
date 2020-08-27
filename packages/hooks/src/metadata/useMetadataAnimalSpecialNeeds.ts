@@ -42,7 +42,7 @@ export const useMetadataAnimalSpecialNeeds = (
   const items =
     (res.data &&
       res.data.metadataAnimalSpecialNeeds &&
-      res.data.metadataAnimalSpecialNeeds.map(d => ({
+      res.data.metadataAnimalSpecialNeeds.map((d) => ({
         label: d.name,
         value: d.reference,
       }))) ||

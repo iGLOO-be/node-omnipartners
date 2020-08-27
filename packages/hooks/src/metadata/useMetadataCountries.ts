@@ -41,7 +41,7 @@ export const useMetadataCountries = (
     ...res,
     items:
       (res.data &&
-        res.data.metadataCountries.map(country => ({
+        res.data.metadataCountries.map((country) => ({
           value: country.code,
           label: country.name,
         }))) ||
