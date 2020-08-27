@@ -80,8 +80,8 @@ export class DealProduct implements Omit<IDealProduct, "collection"> {
   public friendly_name?: string;
   @Field()
   public min_qty: number;
-  @Field()
-  public collectionReference!: string;
+  @Field({ nullable: true })
+  public collectionReference?: string;
   @Field()
   public qty!: number;
   @Field()
@@ -95,14 +95,17 @@ export class DealProduct implements Omit<IDealProduct, "collection"> {
     this.label = data.label;
     this.friendly_name = data.friendly_name;
     this.min_qty = data.min_qty;
-    this.collectionReference = data.collection.reference;
+    this.collectionReference = data.collection?.reference;
   }
 
   @Field(() => ProductCollectionDetail, { nullable: true })
   public async collection(
     @Ctx() ctx: Context,
     @Arg("lang") lang: string,
-  ): Promise<ProductCollectionDetail> {
+  ): Promise<ProductCollectionDetail | undefined> {
+    if (!this.collectionReference) {
+      return;
+    }
     return (
       await ctx.omnipartners.products.getCollectionDetails({
         collection_reference: this.collectionReference,
@@ -258,7 +261,7 @@ export class Deal implements Partial<Omit<IDeal, "products">> {
         hasNextPage,
         page,
       },
-      result: data.map(d => new DealPartner(d)),
+      result: data.map((d) => new DealPartner(d)),
     };
   }
 
@@ -293,12 +296,12 @@ export class Deal implements Partial<Omit<IDeal, "products">> {
         hasNextPage,
         page,
       },
-      result: data.map(d => new DealPartner(d)),
+      result: data.map((d) => new DealPartner(d)),
     };
   }
 
   constructor(data: IDeal) {
     Object.assign(this, data);
-    this.products = data.products.map(p => new DealProduct(p));
+    this.products = data.products.map((p) => new DealProduct(p));
   }
 }
