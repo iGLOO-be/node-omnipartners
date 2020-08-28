@@ -24,12 +24,12 @@ const PartnerDetailsQuery = gql`
   }
 `;
 
-export const usePartnerDetails = ({ extId }: { extId: string }) => {
+export const usePartnerDetails = ({ extId }: { extId?: string }) => {
   const { data, ...res } = useQuery<PartnerDetails, PartnerDetailsVariables>(
     PartnerDetailsQuery,
     {
       variables: {
-        extId,
+        extId: extId || "",
       },
       skip: !extId,
     },
