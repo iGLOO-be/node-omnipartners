@@ -806,7 +806,9 @@ export default class Products extends Api {
     "data_options",
     "component_sort_order",
   ])
-  public findProductCollection(data: IFindProductCollectionInput) {
+  public findProductCollection(
+    data: IFindProductCollectionInput,
+  ): Promise<{ data: ICollectionDetail }> {
     return this._call(
       "find-product-collection",
       { "resolve-by": data.resolve_by, ...data },
