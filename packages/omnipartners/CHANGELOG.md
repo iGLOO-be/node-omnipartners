@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.67.5](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.67.4...omnipartners@2.67.5) (2020-08-31)
+
+
+### Bug Fixes
+
+* omnipartners: api: products: getCollectionWithProducts ([a9eace8](https://github.com/iGLOO-be/node-omnipartners/commit/a9eace882e78b4086cd7d1d41c6263a2f53887d6))
+
+
+
+
+
 ## [2.67.4](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.67.3...omnipartners@2.67.4) (2020-08-31)
 
 **Note:** Version bump only for package omnipartners

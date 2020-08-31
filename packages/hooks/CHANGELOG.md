@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.62.8](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.62.7...@igloo-be-omnipartners/hooks@0.62.8) (2020-08-31)
+
+**Note:** Version bump only for package @igloo-be-omnipartners/hooks
+
+
+
+
+
 ## [0.62.7](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.62.6...@igloo-be-omnipartners/hooks@0.62.7) (2020-08-31)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/hooks
