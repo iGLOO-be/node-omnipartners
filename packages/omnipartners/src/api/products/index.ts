@@ -508,6 +508,39 @@ export interface IGetCollectionByPetGUIDInput {
   ignore_old_format?: string;
 }
 
+export interface IGetCollectionWithProductsInput {
+  use_https_urls?: 0 | 1;
+  collection_reference?: string;
+  product_group_handle?: string;
+  add_product_details?: string;
+  add_product_groups?: string;
+  lang?: string;
+}
+
+export interface IGetCollectionWithProducts {
+  collection_reference: string;
+  collection_generic_name: string;
+  collection_name: string;
+  collection_range_reference: string;
+  collection_range_family_reference: string;
+  has_image: 0 | 1;
+  collection_image?: string;
+  collection_image_small?: string;
+  collection_image_medium?: string;
+  collection_image_large?: string;
+  products: {
+    product_label: string;
+    product_friendly_name?: null;
+    product_recommended_retail_price?: null;
+    product_weight: string;
+    product_ean: string;
+    product_code: string;
+    product_groups: string[];
+    pro_range: string;
+    pro_range_name: string;
+  }[];
+}
+
 export interface IGetCollectionByPetGUID {
   reference: string;
   generic_name: string;
@@ -878,6 +911,24 @@ export default class Products extends Api {
     data: IGetCollectionByPetGUIDInput,
   ): Promise<{ data: IGetCollectionByPetGUID[] }> {
     return this._call("get-collections-by-pet-guid", data, {
+      errorMap: {},
+      retry: true,
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=List_Collections_With_Products")
+  @filterInput([
+    "use_https_urls", // (Optional) States whether returned URLs should be secured or not. Valid values are 0 and 1. Default value is 0.
+    "collection_reference", // (Optional) Specify the collection reference
+    "product_group_handle", // (Optional) Specify the product group handle. This will filter the collections by the product group handle.
+    "add_product_details", // (Optional) State whether to add product details to the response. Valid values are 0 and 1. Default value is 1
+    "add_product_groups", // (Optional) State whether to add product groups to the response. Valid values are 0 and 1. Default value is 0. This is only effective if add_product_details is 1.
+    "lang", // (Optional) The language which translations should be provided.
+  ])
+  public getCollectionsWithProducts(
+    data?: IGetCollectionWithProductsInput,
+  ): Promise<{ data: IGetCollectionWithProducts[] }> {
+    return this._call("get-collections", data, {
       errorMap: {},
       retry: true,
     });
