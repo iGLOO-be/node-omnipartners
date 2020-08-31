@@ -128,7 +128,7 @@ const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
     pet_breed: userPetInput.breed,
     pet_dob: userPetInput.dob,
 
-    ...(typeof userPetInput.gender !== "undefined" && { gender: userPetInput.gender }),
+    ...(typeof userPetInput.gender !== "undefined" && { pet_gender: userPetInput.gender }),
     ...(typeof userPetInput.tattooNumber !== "undefined" && { chip_number: userPetInput.tattooNumber }),
     ...(typeof userPetInput.chipNumber !== "undefined" && { chip_number: userPetInput.chipNumber }),
   };
