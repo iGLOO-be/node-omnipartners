@@ -512,8 +512,8 @@ export interface IGetCollectionWithProductsInput {
   use_https_urls?: 0 | 1;
   collection_reference?: string;
   product_group_handle?: string;
-  add_product_details?: string;
-  add_product_groups?: string;
+  add_product_details?: 0 | 1;
+  add_product_groups?: 0 | 1;
   lang?: string;
 }
 
@@ -530,8 +530,8 @@ export interface IGetCollectionWithProducts {
   collection_image_large?: string;
   products: {
     product_label: string;
-    product_friendly_name?: null;
-    product_recommended_retail_price?: null;
+    product_friendly_name?: string;
+    product_recommended_retail_price?: string;
     product_weight: string;
     product_ean: string;
     product_code: string;
