@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.79.9](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.79.8...@igloo-be-omnipartners/graphql-schema@1.79.9) (2020-09-18)
+
+
+### Bug Fixes
+
+* graphql-schema: Deal: fix DealProduct.collection ([7ea6f44](https://github.com/iGLOO-be/node-omnipartners/commit/7ea6f44ebb7a4c5503743b678d298ab88419e2f0))
+
+
+
+
+
 ## [1.79.8](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.79.7...@igloo-be-omnipartners/graphql-schema@1.79.8) (2020-08-31)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
