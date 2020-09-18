@@ -106,12 +106,14 @@ export class DealProduct implements Omit<IDealProduct, "collection"> {
     if (!this.collectionReference) {
       return;
     }
-    return (
-      await ctx.omnipartners.products.getCollectionDetails({
-        collection_reference: this.collectionReference,
-        language: lang,
-      })
-    ).data;
+    return new ProductCollectionDetail(
+      (
+        await ctx.omnipartners.products.getCollectionDetails({
+          collection_reference: this.collectionReference,
+          language: lang,
+        })
+      ).data,
+    );
   }
 }
 
