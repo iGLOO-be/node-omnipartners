@@ -817,7 +817,7 @@ export default class Products extends Api {
   ])
   public findProductCollection(
     data: IFindProductCollectionInput,
-  ): Promise<{ data: ICollectionDetail }> {
+  ): Promise<{ data: [ICollectionDetail] }> {
     return this._call(
       "find-product-collection",
       {
