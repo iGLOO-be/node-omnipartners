@@ -626,8 +626,15 @@ export interface IFindProductCollectionInput {
   resolve_by: string;
   value: string;
   language?: string;
-  data_options?: string;
+  data_options?: ICollectionDataOptions;
   component_sort_order?: string;
+  ignore_old_format?: 0 | 1;
+  search_mode?:
+    | "exact"
+    | "sounds_like"
+    | "looks_like"
+    | "partial_string"
+    | "partial_words";
 }
 
 export type ApproximationCodes =
@@ -805,13 +812,24 @@ export default class Products extends Api {
     "language",
     "data_options",
     "component_sort_order",
+    "ignore_old_format", // Ignore the old format of the response.Valid values are 0 and 1. Default value is 0.
+    "search_mode", // Search mode of the searching value. Valid values are "exact", "sounds_like", "looks_like", "partial_string" and "partial_words". Default value is "exact". This parameter is valid for "collection_name", "collection_reference" and "collection_ranges" resolve-by values only.
   ])
   public findProductCollection(
     data: IFindProductCollectionInput,
   ): Promise<{ data: ICollectionDetail }> {
     return this._call(
       "find-product-collection",
-      { "resolve-by": data.resolve_by, ...data },
+      {
+        "resolve-by": data.resolve_by,
+        data_options: data.data_options
+          ? Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options
+          : undefined,
+        ...data,
+      },
+
       {
         errorMap: {
           1011: { message: "resolve-by field can not be empty." },
