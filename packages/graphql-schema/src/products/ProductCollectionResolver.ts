@@ -47,7 +47,7 @@ export class ProductCollectionResolver {
       })
     ).data;
 
-    return res.map(d => new ProductCollectionsByPetGUID(d));
+    return res.map((d) => new ProductCollectionsByPetGUID(d));
   }
 
   @Query(() => ProductCollectionPetRation, {
@@ -57,16 +57,24 @@ export class ProductCollectionResolver {
     @Ctx() ctx: Context,
     @Arg("input") input: ProductCollectionPetRationInput,
     @Arg("token") token: string,
-  ): Promise<ProductCollectionPetRation> {
+  ): Promise<ProductCollectionPetRation | null> {
     ctx.userTokenHelper.parse(token);
 
-    const res = (
-      await ctx.omnipartners.products.getCollectionPetRation({
-        ...input,
-      })
-    ).data;
+    try {
+      const res = (
+        await ctx.omnipartners.products.getCollectionPetRation({
+          ...input,
+        })
+      ).data;
 
-    return new ProductCollectionPetRation(res);
+      return new ProductCollectionPetRation(res);
+    } catch (err) {
+      if (err.isOmnipartnersError && err.code === "OP/OPStatusError/1984") {
+        return null;
+      }
+
+      throw err;
+    }
   }
 
   @Query(() => ProductCollectionDetail, {
