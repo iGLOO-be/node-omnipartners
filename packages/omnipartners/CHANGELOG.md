@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.67.10](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.67.9...omnipartners@2.67.10) (2020-10-02)
+
+
+### Bug Fixes
+
+* ProductCollection: fix images ([6b0bd72](https://github.com/iGLOO-be/node-omnipartners/commit/6b0bd727d9226354e11342f83620ba06c4e31329))
+
+
+
+
+
 ## [2.67.9](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.67.8...omnipartners@2.67.9) (2020-09-28)
 
 **Note:** Version bump only for package omnipartners
