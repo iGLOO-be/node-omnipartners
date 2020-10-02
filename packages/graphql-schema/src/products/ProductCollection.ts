@@ -143,9 +143,12 @@ export class ProductCollectionDetail {
     Object.assign(this, data);
     this.tagLine = data.collection_tag_line;
     this.description = data.collection_description;
-    this.imageSmall = data.collection_image_small;
-    this.imageMedium = data.collection_image_medium;
-    this.imageLarge = data.collection_image_large;
+    this.imageSmall =
+      data.collection_image_small || data.images?.image_small || undefined;
+    this.imageMedium =
+      data.collection_image_medium || data.images?.image_medium || undefined;
+    this.imageLarge =
+      data.collection_image_large || data.images?.image_large || undefined;
     this.keyBenefits = data.key_benefits;
   }
 }
