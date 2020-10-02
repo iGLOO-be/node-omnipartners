@@ -614,6 +614,12 @@ export interface ICollectionDetail {
   collection_image_medium?: string;
   collection_image_large?: string;
   collection_caloric_table: null;
+  images?: {
+    image?: string | null;
+    image_small?: string | null;
+    image_medium?: string | null;
+    image_large?: string | null;
+  };
 }
 
 export interface IProductGroupListItem {
