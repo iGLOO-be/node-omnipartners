@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.68.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.68.0...omnipartners@2.68.1) (2020-10-09)
+
+
+### Bug Fixes
+
+* omnipartners: metadata: `getFeaturedServices`: fix types ([f6e9801](https://github.com/iGLOO-be/node-omnipartners/commit/f6e9801e6c29a78ea13332170363786d7db71847))
+
+
+
+
+
 # [2.68.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.67.10...omnipartners@2.68.0) (2020-10-09)
 
 
