@@ -405,7 +405,9 @@ export default class Metadata extends Api {
 
   @doc("https://doc.clixray.com/index.php?title=Get_Animal_Special_Needs")
   @filterInput(["lang", "indexed"])
-  public getAnimalSpecialNeeds(data?: IBaseInput): Promise<{ data: IMetadataAnimalSpecialNeeds[] }> {
+  public getAnimalSpecialNeeds(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataAnimalSpecialNeeds[] }> {
     return this._call("get-animal-special-needs", data);
   }
 
@@ -493,9 +495,30 @@ export default class Metadata extends Api {
     return this._call("get-featured-activities", data);
   }
 
+  @doc("https://doc.clixray.com/index.php?title=Get_Featured_Services_List")
+  @filterInput(["lang", "indexed"])
+  public getFeaturedServices(
+    data?: IBaseInput,
+  ): Promise<
+    {
+      code: string;
+      generic_name: string;
+      name: string;
+      description: {
+        EN: string;
+        FR: string;
+        NL: string;
+      };
+    }[]
+  > {
+    return this._call("get-featured-services", data);
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Get_Partner_Relation_Types_List")
   @filterInput(["lang", "indexed"])
-  public getPartnerRelationTypes(data?: IBaseInput): Promise<{ data: IMetadataPartnerRelationType[] }> {
+  public getPartnerRelationTypes(
+    data?: IBaseInput,
+  ): Promise<{ data: IMetadataPartnerRelationType[] }> {
     return this._call("get-partner-relation-types", data);
   }
 }
