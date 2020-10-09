@@ -499,8 +499,8 @@ export default class Metadata extends Api {
   @filterInput(["lang", "indexed"])
   public getFeaturedServices(
     data?: IBaseInput,
-  ): Promise<
-    {
+  ): Promise<{
+    data: {
       code: string;
       generic_name: string;
       name: string;
@@ -509,8 +509,8 @@ export default class Metadata extends Api {
         FR: string;
         NL: string;
       };
-    }[]
-  > {
+    }[];
+  }> {
     return this._call("get-featured-services", data);
   }
 
