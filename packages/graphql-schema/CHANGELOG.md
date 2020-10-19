@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.79.18](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.79.17...@igloo-be-omnipartners/graphql-schema@1.79.18) (2020-10-19)
+
+
+### Bug Fixes
+
+* omnipartners: api: deals:  extends data options of `getDeal` ([26d2b48](https://github.com/iGLOO-be/node-omnipartners/commit/26d2b486063c5a04dd45548b6c7e33021fb303ec))
+
+
+
+
+
 ## [1.79.17](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.79.16...@igloo-be-omnipartners/graphql-schema@1.79.17) (2020-10-19)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema

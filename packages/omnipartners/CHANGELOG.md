@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.68.3](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.68.2...omnipartners@2.68.3) (2020-10-19)
+
+
+### Bug Fixes
+
+* omnipartners: api: deals:  extends data options of `getDeal` ([26d2b48](https://github.com/iGLOO-be/node-omnipartners/commit/26d2b486063c5a04dd45548b6c7e33021fb303ec))
+
+
+
+
+
 ## [2.68.2](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.68.1...omnipartners@2.68.2) (2020-10-19)
 
 **Note:** Version bump only for package omnipartners
