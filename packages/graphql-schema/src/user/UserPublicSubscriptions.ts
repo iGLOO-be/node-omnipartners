@@ -51,15 +51,21 @@ export class UserPublicSubscriptions {
   @Query(() => UserPublicSubscriptionsResult, { nullable: true })
   public async userPublicSubscriptions(
     @Ctx() ctx: Context,
-    @Arg("userGuid") userGuid: string,
+    @Arg("publicToken") publicToken: string,
     @Arg("userEmail") userEmail: string,
   ): Promise<UserPublicSubscriptionsResult> {
-    await this.identify(ctx, userGuid, userEmail);
+    const { user_guid } = (
+      await ctx.omnipartners.identity.findAccountByPublicToken({
+        token: publicToken,
+      })
+    ).data;
+
+    await this.identify(ctx, user_guid, userEmail);
 
     try {
       const subscriptions = await ctx.omnipartners.identity.retrieveUserSubscriptions(
         {
-          user_guid: userGuid,
+          user_guid,
         },
       );
 
@@ -78,17 +84,24 @@ export class UserPublicSubscriptions {
   @Mutation(() => GenericValidationError, { nullable: true })
   public async userPublicSubscriptionsUpdate(
     @Ctx() ctx: Context,
-    @Arg("userGuid") userGuid: string,
+    @Arg("publicToken") publicToken: string,
     @Arg("userEmail") userEmail: string,
     @Arg("input")
     input: UserPublicSubscriptionsUpdateInput,
   ): Promise<GenericValidationError | undefined> {
-    await this.identify(ctx, userGuid, userEmail);
+    const { user_guid } = (
+      await ctx.omnipartners.identity.findAccountByPublicToken({
+        token: publicToken,
+      })
+    ).data;
+
+    await this.identify(ctx, user_guid, userEmail);
 
     const data: IUserUpdateSubscriptionsInput = {
       subscriptions: input.subscriptions.join(","),
-      user_guid: userGuid,
+      user_guid,
     };
+
     try {
       await ctx.omnipartners.identity.updateSubscriptions(data);
       return;
