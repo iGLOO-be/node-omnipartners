@@ -114,7 +114,7 @@ export default class Partners extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Get_Partners_Details")
+  @doc("https://doc.clixray.com/index.php/Get_Partners_Details")
   @filterInput([
     "partner_ext_id", // (Required) The “Partner Ext Id” used to filter the partners using Partner Ext Id. If you need to filter the partners with multiple ext_ids, then its value should be comma separated.
     "indexed_result", // (Optional) The “Indexed Result” used get result indexed with partner_ext_id. Possible values are TRUE/FALSE
@@ -122,10 +122,11 @@ export default class Partners extends Api {
     "data_options", // This defines information that is returned in the profile object. It should be a comma separated list of values. For more information please refer Data Options.
   ])
   public partnerDetails({
+    partner_ext_id,
     data_options,
     ...data
   }: {
-    partner_ext_id: string;
+    partner_ext_id: string | readonly string[];
     indexed_result?: string;
     lang?: string;
     data_options?: IPartnerDetailsDataOptions;
@@ -134,6 +135,9 @@ export default class Partners extends Api {
       "get-partner-details",
       {
         ...data,
+        partner_ext_id: Array.isArray(partner_ext_id)
+          ? partner_ext_id.join(",")
+          : partner_ext_id,
         data_options: data_options
           ? Array.isArray(data_options)
             ? data_options.join(",")

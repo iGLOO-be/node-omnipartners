@@ -454,6 +454,7 @@ export interface IDealPartner {
   groups?: string[];
   id: string;
   extid: string;
+  type: string;
   lat?: string;
   lng?: string;
   pub_name?: string;
