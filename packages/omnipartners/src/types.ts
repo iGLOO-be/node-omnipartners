@@ -1001,6 +1001,8 @@ export interface IDeal extends IDealListItem {
   saving_end_time_value?: string | null;
   saving_end_time_unit?: string | null;
   saving_end_date?: string | null;
+  pet_stages_included?: string[] | null;
+  pet_stages_excluded?: string[] | null;
   allowed_partner_groups: string[];
   excluded_partner_groups: string[];
   subscription_partner_required: number;
