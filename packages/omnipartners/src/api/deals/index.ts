@@ -272,8 +272,22 @@ export type IDealDataOptions = IDealDataOption | IDealDataOption[];
 type IDealDataOption =
   | "collection_association"
   | "basic_details"
+  | "products"
+  | "product_collections"
+  | "product_collection_images"
+  | "product_quantity_details"
   | "benefits"
-  | "benefit_product_detail";
+  | "benefit_product_details"
+  | "benefit_products"
+  | "benefit_product_collections"
+  | "benefit_product_collection_images"
+  | "partner_restriction_detail"
+  | "partner_restrictions"
+  | "groups"
+  | "pet_restrictions"
+  | "loyalty_reward"
+  | "pet_tags"
+  | "pet_stages";
 
 export type IDealSubscriptionDataOptions =
   | IDealSubscriptionDataOption
@@ -690,15 +704,29 @@ export default class Deals extends Api {
     "default_lang", // (Optional) Language code.
     "data_options", // This defines information that is returned in the deal details object. Multiple values should be comma separated. For more information please refer Deal Data Options.
   ])
-  public getDeal(data: {
+  public getDeal({
+    data_options,
+    ...data
+  }: {
     ref: string;
     default_lang: string;
     data_options?: IDealDataOptions;
   }): Promise<{ data: IDeal }> {
-    return this._call("get-deal-details", data, {
-      hashKeys: ["ref"],
-      retry: true,
-    });
+    return this._call(
+      "get-deal-details",
+      {
+        ...data,
+        data_options: data_options
+          ? Array.isArray(data_options)
+            ? data_options.join(",")
+            : data_options
+          : undefined,
+      },
+      {
+        hashKeys: ["ref"],
+        retry: true,
+      },
+    );
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_registered_partners")

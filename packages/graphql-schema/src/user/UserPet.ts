@@ -16,7 +16,8 @@ export const userPetDataOptions: IUsetPetDataOptions = [
   "special_needs",
   "breed_details",
   "medical_conditions",
-  "extended_details"
+  "extended_details",
+  "stage",
 ];
 
 @ObjectType()
