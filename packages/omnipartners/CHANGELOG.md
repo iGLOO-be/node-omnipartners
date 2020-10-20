@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.68.4](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.68.3...omnipartners@2.68.4) (2020-10-20)
+
+**Note:** Version bump only for package omnipartners
+
+
+
+
+
 ## [2.68.3](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.68.2...omnipartners@2.68.3) (2020-10-19)
 
 
