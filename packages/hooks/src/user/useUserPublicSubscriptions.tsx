@@ -12,8 +12,8 @@ import {
 export * from "./__generated__/UserPublicSubscriptions";
 
 const UserPublicSubscriptionsQuery = gql`
-  query UserPublicSubscriptions($userGuid: String!, $userEmail: String!) {
-    userPublicSubscriptions(userGuid: $userGuid, userEmail: $userEmail) {
+  query UserPublicSubscriptions($publicToken: String!, $userEmail: String!) {
+    userPublicSubscriptions(publicToken: $publicToken, userEmail: $userEmail) {
       result {
         subscriptions
       }
@@ -26,19 +26,19 @@ const UserPublicSubscriptionsQuery = gql`
 `;
 
 export const useUserPublicSubscriptions = ({
-  userGuid,
+  publicToken,
   userEmail,
 }: {
-  userGuid?: string;
+  publicToken?: string;
   userEmail?: string;
 }) => {
   const res = useQuery<
     UserPublicSubscriptions,
     UserPublicSubscriptionsVariables
   >(UserPublicSubscriptionsQuery, {
-    skip: !(userGuid || userEmail),
+    skip: !(publicToken || userEmail),
     variables: {
-      userGuid: userGuid || "",
+      publicToken: publicToken || "",
       userEmail: userEmail || "",
     },
   });
@@ -52,12 +52,12 @@ export const useUserPublicSubscriptions = ({
 const UserPublicSubscriptionsUpdateMutation = gql`
   mutation UserPublicSubscriptionsUpdate(
     $input: UserPublicSubscriptionsUpdateInput!
-    $userGuid: String!
+    $publicToken: String!
     $userEmail: String!
   ) {
     userPublicSubscriptionsUpdate(
       input: $input
-      userGuid: $userGuid
+      publicToken: $publicToken
       userEmail: $userEmail
     ) {
       message
@@ -74,10 +74,10 @@ const UserPublicSubscriptionsUpdateMutation = gql`
 `;
 
 export const useUserPublicSubscriptionsUpdate = ({
-  userGuid,
+  publicToken,
   userEmail,
 }: {
-  userGuid: string;
+  publicToken: string;
   userEmail: string;
 }) => {
   const [updateSubscriptions, mutationResult] = useMutation<
@@ -107,14 +107,14 @@ export const useUserPublicSubscriptionsUpdate = ({
           {
             query: UserPublicSubscriptionsQuery,
             variables: {
-              userGuid,
+              publicToken,
               userEmail,
             },
           },
         ],
         awaitRefetchQueries: true,
         variables: {
-          userGuid,
+          publicToken,
           userEmail,
           input: {
             subscriptions,

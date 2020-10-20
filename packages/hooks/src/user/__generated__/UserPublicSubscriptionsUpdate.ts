@@ -34,6 +34,6 @@ export interface UserPublicSubscriptionsUpdate {
 
 export interface UserPublicSubscriptionsUpdateVariables {
   input: UserPublicSubscriptionsUpdateInput;
-  userGuid: string;
+  publicToken: string;
   userEmail: string;
 }

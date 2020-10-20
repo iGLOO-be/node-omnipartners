@@ -29,6 +29,6 @@ export interface UserPublicSubscriptions {
 }
 
 export interface UserPublicSubscriptionsVariables {
-  userGuid: string;
+  publicToken: string;
   userEmail: string;
 }
