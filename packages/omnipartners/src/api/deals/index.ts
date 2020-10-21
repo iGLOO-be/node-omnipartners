@@ -453,6 +453,8 @@ export interface IGetRegisteredPartnerInput {
   p_length?: number;
   partner_type?: string;
   partner_status?: string;
+  partner_group?: string;
+  partner_mode?: "subscription" | "redemption" | "referral";
   data_options?: IRegisteredPartnerDataOptions;
 }
 
@@ -729,7 +731,7 @@ export default class Deals extends Api {
     );
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Get_registered_partners")
+  @doc("https://doc.clixray.com/index.php?title=Get_registered_partners")
   @filterInput([
     "deal_ref", // (Required) Deal reference
     "search_term", // (Optional) Search term of the partner. This could be "Partner invoice name", "Partner public name" or "Partner email"
@@ -738,20 +740,35 @@ export default class Deals extends Api {
     "partner_lat", // (Optional) latitude value of the base location of the search
     "partner_lng", // (Optional) longitude value of the base location of the search
     "radius", // (Optional) Radius in km, If not set then it set as 10km, Service will check partners located with in that "Radius"
-    "partner_status", // (Optional) Used to filter results using partner status. If this is not specified, default value is "A".
     "partner_type", // (Optional) Filter partners by their type. Eg: partner_type:"type1" Or partner_type:"type1,type2"
+    "partner_group", // (Optional) Filter partners by their partner group handle. Eg: partner_group:"handle_1" Or partner_group:"handle_1,handle_2"
+    "partner_mode", // (Optional) Filter partners by subscription,redemption or referral. Valid values are "subscription","redemption" or "referral". Default value is "subscription"
+    "partner_status", // (Optional) Used to filter results using partner status. If this is not specified, default value is "A".
+    "data_options", // (Optional) This defines the partner information that is returned in the result. For more information please refer Deal Partner Data Options.
   ])
-  public getRegisteredPartners(
-    data: IGetRegisteredPartnerInput,
-  ): Promise<
+  public getRegisteredPartners({
+    data_options,
+    ...data
+  }: IGetRegisteredPartnerInput): Promise<
     {
       data: IDealPartner[];
     } & IPageInfo
   > {
-    return this._call("get-registered-partners", data, {
-      hashKeys: ["deal_ref"],
-      retry: true,
-    });
+    return this._call(
+      "get-registered-partners",
+      {
+        ...data,
+        data_options: data_options
+          ? Array.isArray(data_options)
+            ? data_options.join(",")
+            : data_options
+          : undefined,
+      },
+      {
+        hashKeys: ["deal_ref"],
+        retry: true,
+      },
+    );
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_visible_partners")
