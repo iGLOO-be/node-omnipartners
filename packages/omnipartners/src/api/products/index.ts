@@ -538,6 +538,12 @@ export interface IGetCollectionWithProducts {
     product_groups: string[];
     pro_range: string;
     pro_range_name: string;
+    pro_member_price?: string;
+    pro_rank?: string;
+    pro_stock?: string;
+    pro_stock_location?: string;
+    pro_url_fr?: string;
+    pro_url_nl?: string;
   }[];
 }
 
