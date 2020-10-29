@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.79.22](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.79.21...@igloo-be-omnipartners/graphql-schema@1.79.22) (2020-10-29)
+
+**Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
+
+
+
+
+
 ## [1.79.21](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.79.20...@igloo-be-omnipartners/graphql-schema@1.79.21) (2020-10-28)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
