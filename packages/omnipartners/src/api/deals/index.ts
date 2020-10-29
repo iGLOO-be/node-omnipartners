@@ -441,7 +441,11 @@ export interface IGetVisiblePartnerInput {
 export type IRegisteredPartnerDataOptions =
   | IRegisteredPartnerDataOption
   | IRegisteredPartnerDataOption[];
-type IRegisteredPartnerDataOption = "public_info" | "location" | "groups";
+type IRegisteredPartnerDataOption =
+  | "public_info"
+  | "location"
+  | "groups"
+  | "logo";
 
 export interface IGetRegisteredPartnerInput {
   deal_ref: string;
@@ -467,7 +471,6 @@ export interface IDealPartner {
   city?: string;
   region?: string;
   country?: string;
-  groups?: string[];
   id: string;
   extid: string;
   type: string;
@@ -483,6 +486,14 @@ export interface IDealPartner {
   pub_country?: string;
   distance?: string;
   ptn_status?: string;
+  // data_options: groups
+  groups?: string[];
+  // data_options: logo
+  has_logo?: 0 | 1;
+  logo?: string | null;
+  logo_small?: string | null;
+  logo_medium?: string | null;
+  logo_large?: string | null;
 }
 
 export type ISecureCodeDataOptions =
