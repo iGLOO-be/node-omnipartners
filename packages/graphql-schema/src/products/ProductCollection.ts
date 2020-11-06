@@ -6,10 +6,7 @@ import {
 } from "omnipartners";
 
 @InputType()
-export class ProductCollectionsDetailInput {
-  @Field()
-  public collectionReference!: string;
-
+export class ProductsCollectionsDetailInput {
   @Field()
   public language!: string;
 
@@ -25,14 +22,29 @@ export class ProductCollectionsDetailInput {
   @Field({ nullable: true })
   public ignoreOld_Format?: string;
 
-  public toOmnipartners(): IGetCollectionDetailsInput {
+  public toOmnipartners(): Omit<
+    IGetCollectionDetailsInput,
+    "collection_reference"
+  > {
     return {
-      collection_reference: this.collectionReference,
       component_sort_order: this.componentSortOrder,
       data_options: this.dataOptions,
       ignore_old_format: this.ignoreOld_Format,
       language: this.language,
       use_https_urls: this.useHttpUrls ? 1 : 0,
+    };
+  }
+}
+
+@InputType()
+export class ProductCollectionsDetailInput extends ProductsCollectionsDetailInput {
+  @Field()
+  public collectionReference!: string;
+
+  public toOmnipartners(): IGetCollectionDetailsInput {
+    return {
+      collection_reference: this.collectionReference,
+      language: this.language,
     };
   }
 }
