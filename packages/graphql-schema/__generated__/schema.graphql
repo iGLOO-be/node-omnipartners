@@ -772,7 +772,15 @@ input ProductCollectionsByTargetingInfoInput {
 }
 
 input ProductCollectionsDetailInput {
+  language: String!
+  useHttpUrls: Boolean
+  dataOptions: [String!]
+  componentSortOrder: String
+  ignoreOld_Format: String
   collectionReference: String!
+}
+
+input ProductsCollectionsDetailInput {
   language: String!
   useHttpUrls: Boolean
   dataOptions: [String!]
@@ -813,6 +821,7 @@ type Query {
   productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
   productCollectionPetRation(token: String!, input: ProductCollectionPetRationInput!): ProductCollectionPetRation
   productCollectionDetail(token: String!, input: ProductCollectionsDetailInput!): ProductCollectionDetail
+  productCollectionsDetail(token: String!, input: ProductsCollectionsDetailInput!, collectionsReference: [String!]!): [ProductCollectionDetail!]
   user(token: String!): UserResult
   userLogin(userContextData: JSON, password: String!, identifier: String!): UserResult!
   userLoginByAccessToken(userContextData: JSON, access_token: String!): UserResult!
