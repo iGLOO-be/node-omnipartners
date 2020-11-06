@@ -3,6 +3,7 @@ import { Context } from "../types/Context";
 import {
   ProductCollectionsDetailInput,
   ProductCollectionDetail,
+  ProductsCollectionsDetailInput,
 } from "./ProductCollection";
 import {
   ProductCollectionsByTargetingInfoCollection,
@@ -94,5 +95,31 @@ export class ProductCollectionResolver {
     ).data;
 
     return new ProductCollectionDetail(res);
+  }
+
+  @Query(() => [ProductCollectionDetail], {
+    nullable: true,
+  })
+  public async productCollectionsDetail(
+    @Ctx() ctx: Context,
+    @Arg("collectionsReference", () => [String]) collectionsReference: string[],
+    @Arg("input") input: ProductsCollectionsDetailInput,
+    @Arg("token") token: string,
+  ): Promise<ProductCollectionDetail[]> {
+    ctx.userTokenHelper.parse(token);
+
+    const res = await Promise.all(
+      collectionsReference.map(
+        async (collectionReference) =>
+          (
+            await ctx.omnipartners.products.getCollectionDetails({
+              ...input.toOmnipartners(),
+              collection_reference: collectionReference,
+            })
+          ).data,
+      ),
+    );
+
+    return res.map((r) => new ProductCollectionDetail(r));
   }
 }
