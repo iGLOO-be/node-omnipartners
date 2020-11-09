@@ -44,7 +44,11 @@ export class ProductCollectionsDetailInput extends ProductsCollectionsDetailInpu
   public toOmnipartners(): IGetCollectionDetailsInput {
     return {
       collection_reference: this.collectionReference,
+      component_sort_order: this.componentSortOrder,
+      data_options: this.dataOptions,
+      ignore_old_format: this.ignoreOld_Format,
       language: this.language,
+      use_https_urls: this.useHttpUrls ? 1 : 0,
     };
   }
 }
@@ -59,6 +63,22 @@ class ProductCollectionDetailBenefits {
   public description?: string;
   @Field({ nullable: true })
   public image?: string;
+}
+
+@ObjectType()
+class ProductCollectionDetailProduct {
+  @Field()
+  public ean!: string;
+  @Field()
+  public code!: string;
+  @Field()
+  public label!: string;
+  @Field(() => String, { nullable: true })
+  public weight?: string | null;
+  @Field(() => String, { nullable: true })
+  public netWeight?: string | null;
+  @Field(() => String, { nullable: true })
+  public grossWeight?: string | null;
 }
 
 @ObjectType()
@@ -93,6 +113,10 @@ export class ProductCollectionDetail {
   // input: data_options === "benefits" && language is set
   @Field(() => [ProductCollectionDetailBenefits], { nullable: true })
   public benefits?: ProductCollectionDetailBenefits[];
+
+  // input: data_options === "products" && language is set
+  @Field(() => [ProductCollectionDetailProduct], { nullable: true })
+  public products?: ProductCollectionDetailProduct[];
 
   // input: data_options === "key_benefits" && language is set
   @Field(() => [String], { nullable: true })
@@ -162,6 +186,13 @@ export class ProductCollectionDetail {
     this.imageLarge =
       data.collection_image_large || data.images?.image_large || undefined;
     this.keyBenefits = data.key_benefits;
+    this.products = data.products
+      ? data.products.map((product) => ({
+          ...product,
+          grossWeight: product.gross_weight,
+          netWeight: product.net_weight,
+        }))
+      : [];
   }
 }
 
