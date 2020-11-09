@@ -73,7 +73,6 @@ const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
     | "pet_dob"
     | "pet_gender"
     | "pet_neutered"
-    | "pet_picture"
     | "pet_lifestyle"
     | "pet_special_needs"
     | "pet_declarative_product"
@@ -99,15 +98,6 @@ const mapClixrayFields = (userPetInput: UserPetUpdateInput) => {
 
   if (typeof userPetInput.neutered !== "undefined") {
     result.pet_neutered = userPetInput.neutered ? "Y" : "N";
-  }
-
-  if (userPetInput.pictureUrl) {
-    result.pet_picture = {
-      value: Buffer.from(userPetInput.pictureUrl, "base64"),
-      options: {
-        filename: "foo",
-      },
-    };
   }
 
   return result;
@@ -169,20 +159,29 @@ export class UserPetUpdateResolver {
             medicalConditions:
               userPetInput.medicalConditions ||
               pet.medicalConditions
-                .map(condition => condition.code)
+                .map((condition) => condition.code)
                 .join(",") ||
               "",
             specialNeeds:
               userPetInput.specialNeeds ||
-              pet.pet_special_needs && pet.pet_special_needs
-                .map(need => need.code)
-                .join(",") ||
+              (pet.pet_special_needs &&
+                pet.pet_special_needs.map((need) => need.code).join(",")) ||
               "",
           }),
         )
       ).data;
 
       await Promise.all([
+        userPetInput.pictureUrl &&
+          ctx.omnipartners.identity.updatePetPicture({
+            pet_guid: pet.guid,
+            pet_picture: {
+              value: Buffer.from(userPetInput.pictureUrl, "base64"),
+              options: {
+                filename: "image.jpg",
+              },
+            },
+          }),
         userPetInput.placeOfPurchase &&
           ctx.omnipartners.identity.updatePetPlaceOfPurchase({
             pet_guid: pet.guid,

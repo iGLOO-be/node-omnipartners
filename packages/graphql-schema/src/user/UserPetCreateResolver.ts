@@ -118,7 +118,6 @@ const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
     | "pet_dob"
     | "pet_neutered"
     | "pet_gender"
-    | "pet_picture"
     | "chip_number"
     | "pet_insured"
     | "tattoo_number"
@@ -139,15 +138,6 @@ const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
 
   if (typeof userPetInput.insured !== "undefined") {
     result.pet_insured = userPetInput.insured ? "Y" : "N";
-  }
-
-  if (userPetInput.pictureUrl) {
-    result.pet_picture = {
-      value: Buffer.from(userPetInput.pictureUrl, "base64"),
-      options: {
-        filename: "foo",
-      },
-    };
   }
 
   return result;
@@ -189,6 +179,16 @@ export class UserPetCreateResolver {
       });
 
       await Promise.all([
+        userPetInput.pictureUrl &&
+          ctx.omnipartners.identity.updatePetPicture({
+            pet_guid: pet.guid,
+            pet_picture: {
+              value: Buffer.from(userPetInput.pictureUrl, "base64"),
+              options: {
+                filename: "image.jpg",
+              },
+            },
+          }),
         userPetInput.placeOfPurchase &&
           ctx.omnipartners.identity.updatePetPlaceOfPurchase({
             pet_guid: pet.guid,
