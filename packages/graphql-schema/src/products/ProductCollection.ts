@@ -82,6 +82,14 @@ class ProductCollectionDetailProduct {
 }
 
 @ObjectType()
+class ProductCollectionDetailRelatedCollection {
+  @Field()
+  public reference!: string;
+  @Field()
+  public type!: string;
+}
+
+@ObjectType()
 export class ProductCollectionDetail {
   @Field()
   public reference!: string;
@@ -117,6 +125,10 @@ export class ProductCollectionDetail {
   // input: data_options === "products" && language is set
   @Field(() => [ProductCollectionDetailProduct], { nullable: true })
   public products?: ProductCollectionDetailProduct[];
+
+  // input: data_options === "related_collections" && language is set
+  @Field(() => [ProductCollectionDetailRelatedCollection], { nullable: true })
+  public relatedCollections?: ProductCollectionDetailRelatedCollection[];
 
   // input: data_options === "key_benefits" && language is set
   @Field(() => [String], { nullable: true })
@@ -193,6 +205,7 @@ export class ProductCollectionDetail {
           netWeight: product.net_weight,
         }))
       : [];
+    this.relatedCollections = data.related_collections || [];
   }
 }
 
