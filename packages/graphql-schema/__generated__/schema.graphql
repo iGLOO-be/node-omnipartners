@@ -595,6 +595,7 @@ type ProductCollectionDetail {
   imageLarge: String
   benefits: [ProductCollectionDetailBenefits!]
   products: [ProductCollectionDetailProduct!]
+  relatedCollections: [ProductCollectionDetailRelatedCollection!]
   keyBenefits: [String!]
   links: [ProductCollectionLinks!]
   energy_level: Float! @deprecated(reason: "old field nomenclature")
@@ -628,6 +629,11 @@ type ProductCollectionDetailProduct {
   weight: String
   netWeight: String
   grossWeight: String
+}
+
+type ProductCollectionDetailRelatedCollection {
+  reference: String!
+  type: String!
 }
 
 type ProductCollectionLinks {

@@ -603,6 +603,10 @@ export interface ICollectionDetailProduct {
   net_weight?: string | null;
   gross_weight?: string | null;
 }
+export interface ICollectionDetailRelatedCollection {
+  reference: string;
+  type: string;
+}
 
 export interface ICollectionDetail {
   reference: string;
@@ -636,6 +640,7 @@ export interface ICollectionDetail {
     image_large?: string | null;
   };
   products?: ICollectionDetailProduct[];
+  related_collections?: ICollectionDetailRelatedCollection[];
 }
 
 export interface IProductGroupListItem {
