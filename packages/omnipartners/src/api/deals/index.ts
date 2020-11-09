@@ -652,6 +652,7 @@ export default class Deals extends Api {
     1039: { message: "Invalid payment detail parameters sent." },
     1040: { message: "Invalid customer details." },
     1042: { message: "Voucher cannot redeem." },
+    1047: { message: "Issue in refund service connection." },
     3025: { message: "Subscription was expired, so cannot redeem it." },
     3048: { message: "Already redeemed coupon." },
     3062: { message: "Missing required parameter." },
