@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.70.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.69.1...omnipartners@2.70.0) (2020-11-09)
+
+
+### Features
+
+* graphql-schema: add related_collections to Collection detail ([5505321](https://github.com/iGLOO-be/node-omnipartners/commit/55053216001878ba05dcf21dc355d025eb1d9886))
+
+
+
+
+
 ## [2.69.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.69.0...omnipartners@2.69.1) (2020-11-09)
 
 **Note:** Version bump only for package omnipartners
