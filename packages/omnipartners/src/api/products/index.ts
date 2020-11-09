@@ -595,6 +595,15 @@ export interface ICollectionDetailBenefit {
   image: string;
 }
 
+export interface ICollectionDetailProduct {
+  ean: string;
+  code: string;
+  label: string;
+  weight?: string | null;
+  net_weight?: string | null;
+  gross_weight?: string | null;
+}
+
 export interface ICollectionDetail {
   reference: string;
   generic_name: string;
@@ -626,6 +635,7 @@ export interface ICollectionDetail {
     image_medium?: string | null;
     image_large?: string | null;
   };
+  products?: ICollectionDetailProduct[];
 }
 
 export interface IProductGroupListItem {
