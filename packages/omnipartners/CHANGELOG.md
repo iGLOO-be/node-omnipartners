@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.69.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.68.7...omnipartners@2.69.0) (2020-11-09)
+
+
+### Features
+
+* omnipartners: deals: add error code ([4645b2f](https://github.com/iGLOO-be/node-omnipartners/commit/4645b2f6e45d23625b3c9355083a24fc5196adcf))
+
+
+
+
+
 ## [2.68.7](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.68.6...omnipartners@2.68.7) (2020-10-29)
 
 **Note:** Version bump only for package omnipartners

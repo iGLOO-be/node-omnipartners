@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.80.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.80.0...@igloo-be-omnipartners/graphql-schema@1.80.1) (2020-11-09)
+
+
+### Bug Fixes
+
+* graphql-schema: UserPet: use separate call for update pet picture ([0450f75](https://github.com/iGLOO-be/node-omnipartners/commit/0450f755cffe700f8abd35945d7320cb3d6a555a))
+
+
+
+
+
 # [1.80.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.79.22...@igloo-be-omnipartners/graphql-schema@1.80.0) (2020-11-06)
 
 
