@@ -650,6 +650,7 @@ type ProductCollectionPetRation {
   rationValueUnit: String!
   approximationCodes: [String!]!
   rationInCupsPerDay: String
+  numberOfCupsPerDay: String
 }
 
 type ProductCollectionPetRationDebug {
