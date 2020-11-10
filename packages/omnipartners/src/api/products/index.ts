@@ -696,6 +696,7 @@ export interface ICollectionPetRation {
   ration_value_unit: string;
   approximation_codes: ApproximationCodes[];
   ration_in_cups_per_day: string;
+  number_of_cups_per_day: string;
 }
 
 export default class Products extends Api {

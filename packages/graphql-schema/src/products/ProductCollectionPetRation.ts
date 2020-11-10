@@ -61,6 +61,9 @@ export class ProductCollectionPetRation {
   @Field({ nullable: true })
   public rationInCupsPerDay?: string;
 
+  @Field({ nullable: true })
+  public numberOfCupsPerDay?: string;
+
   constructor(data: ICollectionPetRation) {
     Object.assign(this, data);
     this.energyValue = data.energy_value;
@@ -70,5 +73,6 @@ export class ProductCollectionPetRation {
     this.rationValueUnit = data.ration_value_unit;
     this.approximationCodes = data.approximation_codes;
     this.rationInCupsPerDay = data.ration_in_cups_per_day;
+    this.numberOfCupsPerDay = data.number_of_cups_per_day;
   }
 }
