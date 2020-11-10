@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.82.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.81.0...@igloo-be-omnipartners/graphql-schema@1.82.0) (2020-11-10)
+
+
+### Features
+
+* omnipartners + graphql-schema: pet ration: add `number_of_cups_per_day` ([32ae60a](https://github.com/iGLOO-be/node-omnipartners/commit/32ae60aeb30bb6cdf9c4de8eb57eb409f91213b5))
+
+
+
+
+
 # [1.81.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.80.2...@igloo-be-omnipartners/graphql-schema@1.81.0) (2020-11-09)
 
 
