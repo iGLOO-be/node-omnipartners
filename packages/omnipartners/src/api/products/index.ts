@@ -536,6 +536,7 @@ export interface IGetCollectionWithProducts {
     product_ean: string;
     product_code: string;
     product_groups: string[];
+    pro_brand_label?: string;
     pro_range: string;
     pro_range_name: string;
     pro_member_price?: string;
