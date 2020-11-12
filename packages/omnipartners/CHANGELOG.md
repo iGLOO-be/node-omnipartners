@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.73.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.72.0...omnipartners@2.73.0) (2020-11-12)
+
+
+### Features
+
+* omnipartners: deals: add error 3144 ([f5621f5](https://github.com/iGLOO-be/node-omnipartners/commit/f5621f5c86fac302d95c9732cca98711c886e66a))
+
+
+
+
+
 # [2.72.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.71.0...omnipartners@2.72.0) (2020-11-10)
 
 
