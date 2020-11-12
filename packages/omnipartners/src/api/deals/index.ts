@@ -635,6 +635,7 @@ export default class Deals extends Api {
     },
     3112: { message: "Doesn't have any address associated with the user." },
     3113: { message: "Invalid delivery address ID." },
+    3144: { message: "Subscription failure due to secure code expiry." },
     5000: { message: "Internal Error." },
 
     1023: { message: "Input barcode is not set." },
