@@ -598,6 +598,7 @@ type ProductCollectionDetail {
   relatedCollections: [ProductCollectionDetailRelatedCollection!]
   keyBenefits: [String!]
   links: [ProductCollectionLinks!]
+  range: ProductCollectionRange
   energy_level: Float! @deprecated(reason: "old field nomenclature")
   has_image: Float! @deprecated(reason: "old field nomenclature")
   collection_reference: String! @deprecated(reason: "old field nomenclature")
@@ -666,6 +667,14 @@ input ProductCollectionPetRationInput {
   energy_level: String
   collection_reference: String
   language: String
+}
+
+type ProductCollectionRange {
+  reference: String
+  priority: String
+  name: String
+  tagLine: String
+  description: String
 }
 
 type ProductCollectionsByPetGUID {

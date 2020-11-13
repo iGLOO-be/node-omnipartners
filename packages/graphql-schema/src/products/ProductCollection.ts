@@ -90,6 +90,30 @@ class ProductCollectionDetailRelatedCollection {
 }
 
 @ObjectType()
+export class ProductCollectionRange {
+  @Field({ nullable: true })
+  public reference?: string;
+
+  @Field({ nullable: true })
+  public priority?: string;
+
+  @Field({ nullable: true })
+  public name?: string;
+
+  @Field({ nullable: true })
+  public tagLine?: string;
+
+  @Field({ nullable: true })
+  public description?: string;
+
+  constructor(data: ICollectionDetail["range"]) {
+    Object.assign(this, data);
+    console.log("---", data);
+    this.tagLine = data?.tag_line;
+  }
+}
+
+@ObjectType()
 export class ProductCollectionDetail {
   @Field()
   public reference!: string;
@@ -137,6 +161,10 @@ export class ProductCollectionDetail {
   // input: data_options === "links" && language is set
   @Field(() => [ProductCollectionLinks], { nullable: true })
   public links?: ProductCollectionLinks[];
+
+  // input: data_options === "range" && language is set
+  @Field(() => ProductCollectionRange, { nullable: true })
+  public range?: ProductCollectionRange;
 
   // legacy fields
   @Field({ deprecationReason: "old field nomenclature" })
@@ -206,6 +234,7 @@ export class ProductCollectionDetail {
         }))
       : [];
     this.relatedCollections = data.related_collections || [];
+    this.range = new ProductCollectionRange(data.range);
   }
 }
 
