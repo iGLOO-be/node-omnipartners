@@ -523,6 +523,7 @@ type Partner {
   website: String
   partnerGroups: [String!]
   logo: PartnerLogo!
+  shortDescription: String
 }
 
 type PartnerConnection {
@@ -1102,6 +1103,7 @@ type UserPartnerRelation {
   extId: String!
   type: String!
   roles: [String!]!
+  shortDescription: String
   partner: Partner!
 }
 

@@ -66,6 +66,9 @@ export class Partner {
   @Field(() => PartnerLogo)
   public logo?: PartnerLogo;
 
+  @Field({ nullable: true })
+  public shortDescription?: string;
+
   constructor(data: IPartnerDetails) {
     Object.assign(this, data);
     this.extId = data.partner_ext_id;
@@ -89,5 +92,6 @@ export class Partner {
       large: data.partner_logo_large,
     };
     this.website = data.partner_website;
+    this.shortDescription = data.partner_short_description;
   }
 }
