@@ -687,6 +687,7 @@ type ProductCollectionsByPetGUID {
   imageSmall: String
   imageMedium: String
   imageLarge: String
+  range: ProductCollectionRange
   links: [ProductCollectionLinks!]
 }
 
