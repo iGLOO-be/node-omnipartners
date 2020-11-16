@@ -108,7 +108,6 @@ export class ProductCollectionRange {
 
   constructor(data: ICollectionDetail["range"]) {
     Object.assign(this, data);
-    console.log("---", data);
     this.tagLine = data?.tag_line;
   }
 }
