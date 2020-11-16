@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.83.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.82.5...@igloo-be-omnipartners/graphql-schema@1.83.0) (2020-11-16)
+
+
+### Features
+
+* graphql-schema: add short description to partner ([25f2c8f](https://github.com/iGLOO-be/node-omnipartners/commit/25f2c8fcb48b3c6126eb2f6030f5cd3aab837db1))
+
+
+
+
+
 ## [1.82.5](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.82.4...@igloo-be-omnipartners/graphql-schema@1.82.5) (2020-11-16)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
