@@ -572,6 +572,20 @@ export interface IGetCollectionByPetGUID {
   secondary_sorting_weight: string;
   pf_tracking_reference: string;
   criteria_source_reference: string;
+  range?: {
+    reference: string;
+    generic_name: string;
+    priority: string;
+    name: string;
+    tag_line: string;
+    description: string;
+    targeting: {
+        incl_partner_groups: string[];
+        excl_partner_groups: string[];
+        incl_places_purchase: string[];
+        excl_places_purchase: string[];
+    };
+};
 }
 
 export interface IGetCollectionDetailsInput {

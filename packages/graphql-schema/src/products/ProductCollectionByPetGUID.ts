@@ -1,6 +1,6 @@
 import { InputType, Field, ObjectType } from "type-graphql";
 import { IGetCollectionByPetGUIDInput, IGetCollectionByPetGUID } from "omnipartners";
-import { ProductCollectionLinks } from "./ProductCollection";
+import { ProductCollectionLinks, ProductCollectionRange } from "./ProductCollection";
 
 @InputType()
 export class ProductCollectionsByPetGUIDInput
@@ -77,6 +77,10 @@ export class ProductCollectionsByPetGUID {
   @Field({ nullable: true })
   public imageLarge: string;
 
+  // input: data_options === "range" && language is set
+  @Field(() => ProductCollectionRange, { nullable: true })
+  public range?: ProductCollectionRange;
+
   // input: data_options === "links" && language is set
   @Field(() => [ProductCollectionLinks], { nullable: true })
   public links?: ProductCollectionLinks[];
@@ -87,6 +91,7 @@ export class ProductCollectionsByPetGUID {
     this.imageSmall = data.image_small;
     this.imageMedium = data.image_medium;
     this.imageLarge = data.image_large;
+    this.range = new ProductCollectionRange(data.range);
   }
 }
 
