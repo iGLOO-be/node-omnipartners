@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.82.4](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.82.3...@igloo-be-omnipartners/graphql-schema@1.82.4) (2020-11-16)
+
+
+### Bug Fixes
+
+* graphql-schema: product: remove log ([70b1513](https://github.com/iGLOO-be/node-omnipartners/commit/70b1513f4dc79f0ee262e8d904a42c2dabe77f04))
+
+
+
+
+
 ## [1.82.3](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.82.2...@igloo-be-omnipartners/graphql-schema@1.82.3) (2020-11-16)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema

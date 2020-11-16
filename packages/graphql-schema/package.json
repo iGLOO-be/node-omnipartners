@@ -1,6 +1,6 @@
 {
   "name": "@igloo-be-omnipartners/graphql-schema",
-  "version": "1.82.3",
+  "version": "1.82.4",
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
