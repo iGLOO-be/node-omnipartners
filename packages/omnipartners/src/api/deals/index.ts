@@ -157,6 +157,17 @@ export interface IDirectCashbackVoucherListItem {
   benefit_currency?: string;
   benefit_product_id?: string;
   redemption_request_in_progress: 0 | 1;
+  subs_ts_subscribe: string;
+  external_tracking_reference?: string;
+  subs_partner_id?: string;
+  coupon_id: number;
+  ts_redeemed?: string;
+  restriction_code?: string;
+  redeem_validity_from: string;
+  redeem_validity_to: string;
+  num_invi_resend: number;
+  ts_last_send?: string;
+  invt_link?: string;
 }
 
 export interface IDirectCashbackRedemptionRequestListInput {
