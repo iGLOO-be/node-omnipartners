@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.73.3](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.73.2...omnipartners@2.73.3) (2020-11-17)
+
+
+### Bug Fixes
+
+* omnipartners: IDirectCashbackVoucherListItem: complete typing ([d4f1ef7](https://github.com/iGLOO-be/node-omnipartners/commit/d4f1ef766a891d95de594855fe66a346afd856da))
+
+
+
+
+
 ## [2.73.2](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.73.1...omnipartners@2.73.2) (2020-11-16)
 
 **Note:** Version bump only for package omnipartners
