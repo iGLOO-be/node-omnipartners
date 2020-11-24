@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.74.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.73.3...omnipartners@2.74.0) (2020-11-24)
+
+
+### Features
+
+* redeem with receipt typing ([29dd971](https://github.com/iGLOO-be/node-omnipartners/commit/29dd9715408d71ae567b7b80da8d4e5aece18b33))
+
+
+
+
+
 ## [2.73.3](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.73.2...omnipartners@2.73.3) (2020-11-17)
 
 
