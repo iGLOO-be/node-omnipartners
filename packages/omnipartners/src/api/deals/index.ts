@@ -15,6 +15,8 @@ export interface IRedeemWithReceiptInput {
   barcode: string; // Subscription barcode without any formattings
   receipt_date: string; // Date of the receipt
   mime_type: string; // Mime type of the receipt image.
+  product_ean_code?: string; // EAN code of the product.
+  redemption_partner_ext_id?: string; // external-customer-id of the redemption partner.
 }
 
 export interface IGetDealsListInput {
@@ -1347,7 +1349,13 @@ export default class Deals extends Api {
   }
 
   @doc("https://doc.clixray.com/index.php?title=Redeem_with_Receipt")
-  @filterInput(["barcode", "receipt_date", "mime_type"])
+  @filterInput([
+    "barcode",
+    "receipt_date",
+    "mime_type",
+    "product_ean_code",
+    "redemption_partner_ext_id",
+  ])
   public redeemWithReceipt(
     data: IRedeemWithReceiptInput,
   ): Promise<{
