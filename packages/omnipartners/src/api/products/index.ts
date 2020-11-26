@@ -798,6 +798,7 @@ export default class Products extends Api {
     1992: { message: "Invalid Value supplied for energy level." },
     1989: { message: "Empty pet weight." },
     2005: { message: "Invalid Component sort order field found." },
+    2010: { message: "No pets found for the user." },
   };
 
   public _call(action: string, data: any, options: IApiFetchOptions = {}) {
