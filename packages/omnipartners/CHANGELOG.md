@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.76.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.75.0...omnipartners@2.76.0) (2020-11-30)
+
+
+### Features
+
+* omnipartners: products: introduce `getCollectionAvailablePackage` ([ccb73fa](https://github.com/iGLOO-be/node-omnipartners/commit/ccb73fab24e5c8326dbe8108b4baa95954389774))
+
+
+
+
+
 # [2.75.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.74.1...omnipartners@2.75.0) (2020-11-30)
 
 
