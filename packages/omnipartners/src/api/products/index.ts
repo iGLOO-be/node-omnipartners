@@ -441,7 +441,7 @@ export interface IGetArticleByUserGuidInput {
   data_options?: IArticlesDataOptions;
 }
 
-interface ICollectionAvailablePackage {
+export interface ICollectionAvailablePackage {
   ean: string;
   label: string;
   weight: string;
@@ -1053,7 +1053,7 @@ export default class Products extends Api {
     use_https_urls?: 0 | 1;
     language?: string;
   }): Promise<{
-    data: { reference: string; products: ICollectionAvailablePackage[] };
+    data: { reference: string; products: ICollectionAvailablePackage[] }[];
   }> {
     return this._call("get-available-packaging-info", data, {
       errorMap: {},

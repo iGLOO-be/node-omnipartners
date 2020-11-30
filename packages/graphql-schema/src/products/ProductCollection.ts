@@ -1,9 +1,10 @@
-import { Field, ObjectType, InputType } from "type-graphql";
+import { Field, ObjectType, InputType, Arg, Ctx } from "type-graphql";
 import {
   ICollectionDetail,
   ICollectionDataOptions,
   IGetCollectionDetailsInput,
 } from "omnipartners";
+import { Context } from "../types/Context";
 
 @InputType()
 export class ProductsCollectionsDetailInput {
@@ -198,9 +199,33 @@ export class ProductCollectionDetail {
   @Field(() => ProductCollectionRange, { nullable: true })
   public range?: ProductCollectionRange;
 
-  // input: data_options === "range" && language is set
   @Field(() => [ProductCollectionAvailablePackage], { nullable: true })
-  public availablePackages?: ProductCollectionAvailablePackage[];
+  public async availablePackages(
+    @Ctx() ctx: Context,
+    @Arg("show_public_products_only") show_public_products_only: 0 | 1,
+    @Arg("language", { nullable: true }) language?: string,
+    @Arg("use_https_urls", { nullable: true }) use_https_urls?: 0 | 1,
+  ) {
+    const {
+      data,
+    } = await ctx.omnipartners.products.getCollectionAvailablePackage({
+      collection_reference: this.reference,
+      show_public_products_only,
+      language,
+      use_https_urls,
+    });
+
+    return data[0].products.map((product) => ({
+      ...product,
+      grossWeight: product.gross_weight,
+      netWeight: product.net_weight,
+      weight: product.weight,
+      containerTypeInfo: product.container_type_info,
+      packagingUnits: product.packaging_units,
+      packagingValue: product.packaging_value,
+      packagingGrossWeight: product.packaging_gross_weight,
+    }));
+  }
 
   // legacy fields
   @Field({ deprecationReason: "old field nomenclature" })
@@ -271,18 +296,6 @@ export class ProductCollectionDetail {
       : [];
     this.relatedCollections = data.related_collections || [];
     this.range = new ProductCollectionRange(data.range);
-    this.availablePackages = data.available_packages
-      ? data.available_packages.map((availablePackage) => ({
-          ...availablePackage,
-          grossWeight: availablePackage.gross_weight,
-          netWeight: availablePackage.net_weight,
-          weight: availablePackage.weight,
-          containerTypeInfo: availablePackage.container_type_info,
-          packagingUnits: availablePackage.packaging_units,
-          packagingValue: availablePackage.packaging_value,
-          packagingGrossWeight: availablePackage.packaging_gross_weight,
-        }))
-      : [];
   }
 }
 
