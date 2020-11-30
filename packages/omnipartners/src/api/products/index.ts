@@ -441,6 +441,26 @@ export interface IGetArticleByUserGuidInput {
   data_options?: IArticlesDataOptions;
 }
 
+interface ICollectionAvailablePackage {
+  ean: string;
+  label: string;
+  weight: string;
+  net_weight: string;
+  gross_weight: null;
+  packaging_units: string;
+  packaging_value: string;
+  packaging_gross_weight: string | null;
+  container_type_info: {
+    code: string;
+    generic_name: string;
+    tranlated_name: {
+      fr: string;
+    };
+    measure_type: string;
+    measure_unit: string;
+  };
+}
+
 export interface IGetCollectionsByTargetingInfoCollection {
   reference: string;
   generic_name: string;
@@ -470,25 +490,7 @@ export interface IGetCollectionsByTargetingInfoCollection {
   product_groups?: string[];
 
   // Depends on data_options = available_packages
-  available_packages?: {
-    ean: string;
-    label: string;
-    weight: string;
-    net_weight: string;
-    gross_weight: null;
-    packaging_units: string;
-    packaging_value: string;
-    packaging_gross_weight: string | null;
-    container_type_info: {
-      code: string;
-      generic_name: string;
-      tranlated_name: {
-        fr: string;
-      };
-      measure_type: string;
-      measure_unit: string;
-    };
-  }[];
+  available_packages?: ICollectionAvailablePackage[];
 }
 
 export interface IGetCollectionByPetGUIDInput {
@@ -1033,6 +1035,27 @@ export default class Products extends Api {
     group_handle?: string;
   }): Promise<{ data: IProductGroupListItem[] }> {
     return this._call("list-product-groups", data, {
+      errorMap: {},
+      retry: true,
+    });
+  }
+
+  @doc("http://doc.omnipartners.be/index.php/Get_Product_Group_List")
+  @filterInput([
+    "use_https_urls", // States whether returned URLs should be secured or not. Valid values are 0 and 1. Default value is 0.
+    "collection_reference", // Required	Reference of the Collection .
+    "show_public_products_only", // Required	Parameter to show only public products . If the value is set to 1 it will only return products which are publicly available . Valid values are 0 and 1. Default value is 1.
+    "language", // Optional	Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list . The language used to retrieve the translated names of the container type. If not specified , it will return all the translated names.
+  ])
+  public getCollectionAvailablePackage(data?: {
+    collection_reference: string;
+    show_public_products_only: 0 | 1;
+    use_https_urls?: 0 | 1;
+    language?: string;
+  }): Promise<{
+    data: { reference: string; products: ICollectionAvailablePackage[] };
+  }> {
+    return this._call("get-available-packaging-info", data, {
       errorMap: {},
       retry: true,
     });
