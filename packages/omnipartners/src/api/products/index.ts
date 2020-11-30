@@ -1049,7 +1049,7 @@ export default class Products extends Api {
   ])
   public getCollectionAvailablePackage(data?: {
     collection_reference: string;
-    show_public_products_only: 0 | 1;
+    show_public_products_only?: 0 | 1;
     use_https_urls?: 0 | 1;
     language?: string;
   }): Promise<{

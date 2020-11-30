@@ -202,7 +202,8 @@ export class ProductCollectionDetail {
   @Field(() => [ProductCollectionAvailablePackage], { nullable: true })
   public async availablePackages(
     @Ctx() ctx: Context,
-    @Arg("show_public_products_only") show_public_products_only: 0 | 1,
+    @Arg("show_public_products_only", { nullable: true })
+    show_public_products_only?: 0 | 1,
     @Arg("language", { nullable: true }) language?: string,
     @Arg("use_https_urls", { nullable: true }) use_https_urls?: 0 | 1,
   ) {
