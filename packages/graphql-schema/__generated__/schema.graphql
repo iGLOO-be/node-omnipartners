@@ -613,7 +613,7 @@ type ProductCollectionDetail {
   keyBenefits: [String!]
   links: [ProductCollectionLinks!]
   range: ProductCollectionRange
-  availablePackages: [ProductCollectionAvailablePackage!]
+  availablePackages(use_https_urls: Float, language: String, show_public_products_only: Float): [ProductCollectionAvailablePackage!]
   energy_level: Float! @deprecated(reason: "old field nomenclature")
   has_image: Float! @deprecated(reason: "old field nomenclature")
   collection_reference: String! @deprecated(reason: "old field nomenclature")
