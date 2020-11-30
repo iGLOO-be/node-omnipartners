@@ -580,12 +580,12 @@ export interface IGetCollectionByPetGUID {
     tag_line: string;
     description: string;
     targeting: {
-        incl_partner_groups: string[];
-        excl_partner_groups: string[];
-        incl_places_purchase: string[];
-        excl_places_purchase: string[];
+      incl_partner_groups: string[];
+      excl_partner_groups: string[];
+      incl_places_purchase: string[];
+      excl_places_purchase: string[];
     };
-};
+  };
 }
 
 export interface IGetCollectionDetailsInput {
@@ -671,6 +671,18 @@ export interface ICollectionDetail {
       excl_places_purchase: string[];
     };
   };
+  available_packages?: {
+    ean: string;
+    code: string;
+    label: string;
+    weight?: string;
+    net_weight?: string;
+    gross_weight?: string;
+    packaging_units?: string;
+    packaging_value?: string;
+    packaging_gross_weight?: string;
+    container_type_info?: string;
+  }[];
 }
 
 export interface IProductGroupListItem {
