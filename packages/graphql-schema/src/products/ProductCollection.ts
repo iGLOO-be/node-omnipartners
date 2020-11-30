@@ -113,6 +113,39 @@ export class ProductCollectionRange {
 }
 
 @ObjectType()
+export class ProductCollectionAvailablePackage {
+  @Field()
+  public ean!: string;
+
+  @Field()
+  public code!: string;
+
+  @Field()
+  public label!: string;
+
+  @Field({ nullable: true })
+  public weight?: string;
+
+  @Field({ nullable: true })
+  public netWeight?: string;
+
+  @Field({ nullable: true })
+  public grossWeight?: string;
+
+  @Field({ nullable: true })
+  public packagingUnits?: string;
+
+  @Field({ nullable: true })
+  public packagingValue?: string;
+
+  @Field({ nullable: true })
+  public packagingGrossWeight?: string;
+
+  @Field({ nullable: true })
+  public containerTypeInfo?: string;
+}
+
+@ObjectType()
 export class ProductCollectionDetail {
   @Field()
   public reference!: string;
@@ -164,6 +197,10 @@ export class ProductCollectionDetail {
   // input: data_options === "range" && language is set
   @Field(() => ProductCollectionRange, { nullable: true })
   public range?: ProductCollectionRange;
+
+  // input: data_options === "range" && language is set
+  @Field(() => [ProductCollectionAvailablePackage], { nullable: true })
+  public availablePackages?: ProductCollectionAvailablePackage[];
 
   // legacy fields
   @Field({ deprecationReason: "old field nomenclature" })
@@ -234,6 +271,18 @@ export class ProductCollectionDetail {
       : [];
     this.relatedCollections = data.related_collections || [];
     this.range = new ProductCollectionRange(data.range);
+    this.availablePackages = data.available_packages
+      ? data.available_packages.map((availablePackage) => ({
+          ...availablePackage,
+          grossWeight: availablePackage.gross_weight,
+          netWeight: availablePackage.net_weight,
+          weight: availablePackage.weight,
+          containerTypeInfo: availablePackage.container_type_info,
+          packagingUnits: availablePackage.packaging_units,
+          packagingValue: availablePackage.packaging_value,
+          packagingGrossWeight: availablePackage.packaging_gross_weight,
+        }))
+      : [];
   }
 }
 

@@ -584,6 +584,19 @@ type PlaceOfPurchase {
   code: String!
 }
 
+type ProductCollectionAvailablePackage {
+  ean: String!
+  code: String!
+  label: String!
+  weight: String
+  netWeight: String
+  grossWeight: String
+  packagingUnits: String
+  packagingValue: String
+  packagingGrossWeight: String
+  containerTypeInfo: String
+}
+
 type ProductCollectionDetail {
   reference: String!
   name: String
@@ -600,6 +613,7 @@ type ProductCollectionDetail {
   keyBenefits: [String!]
   links: [ProductCollectionLinks!]
   range: ProductCollectionRange
+  availablePackages: [ProductCollectionAvailablePackage!]
   energy_level: Float! @deprecated(reason: "old field nomenclature")
   has_image: Float! @deprecated(reason: "old field nomenclature")
   collection_reference: String! @deprecated(reason: "old field nomenclature")
