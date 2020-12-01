@@ -216,16 +216,18 @@ export class ProductCollectionDetail {
       use_https_urls,
     });
 
-    return data[0].products.map((product) => ({
-      ...product,
-      grossWeight: product.gross_weight,
-      netWeight: product.net_weight,
-      weight: product.weight,
-      containerTypeInfo: product.container_type_info,
-      packagingUnits: product.packaging_units,
-      packagingValue: product.packaging_value,
-      packagingGrossWeight: product.packaging_gross_weight,
-    }));
+    return data[0] && data[0].products
+      ? data[0].products.map((product) => ({
+          ...product,
+          grossWeight: product.gross_weight,
+          netWeight: product.net_weight,
+          weight: product.weight,
+          containerTypeInfo: product.container_type_info,
+          packagingUnits: product.packaging_units,
+          packagingValue: product.packaging_value,
+          packagingGrossWeight: product.packaging_gross_weight,
+        }))
+      : [];
   }
 
   // legacy fields
