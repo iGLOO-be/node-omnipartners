@@ -16,7 +16,7 @@ export interface IRedeemWithReceiptInput {
   receipt_date: string; // Date of the receipt
   mime_type: string; // Mime type of the receipt image.
   product_ean_code?: string; // EAN code of the product.
-  redemption_partner_ext_id?: string; // external-customer-id of the redemption partner.
+  redemption_partner_extid?: string; // external-customer-id of the redemption partner.
 }
 
 export interface IGetDealsListInput {
@@ -1354,7 +1354,7 @@ export default class Deals extends Api {
     "receipt_date",
     "mime_type",
     "product_ean_code",
-    "redemption_partner_ext_id",
+    "redemption_partner_extid",
   ])
   public redeemWithReceipt(
     data: IRedeemWithReceiptInput,
