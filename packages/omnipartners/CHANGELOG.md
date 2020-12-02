@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.76.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.76.0...omnipartners@2.76.1) (2020-12-02)
+
+
+### Bug Fixes
+
+* redeem-with-receipt: redemption_partner_extid param name ([ef7dc7b](https://github.com/iGLOO-be/node-omnipartners/commit/ef7dc7ba1548de835b7ca1cef4bad8bfb2d97529))
+
+
+
+
+
 # [2.76.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.75.0...omnipartners@2.76.0) (2020-11-30)
 
 
