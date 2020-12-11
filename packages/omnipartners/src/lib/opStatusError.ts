@@ -37,6 +37,18 @@ const errorMap: IErrorMap = {
   37: {
     message: "An email address with the specified domain is not allowed.",
   },
+  53: {
+    message: "External sso service returned unknown response or totally inaccessible",
+  },
+  54: {
+    message: "Member authentication through external sso service failed because of invalid credentials or missing credentials",
+  },
+  55	: {
+    message: "External sso service failed with unknown status code or does not provide details about the failure",
+  },
+  56: {
+    message: "External sso service failed during request to access the service (OAuth failure)",
+  },
 };
 
 export function findOpStatus({
