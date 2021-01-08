@@ -5,7 +5,7 @@ import {
   IPartnerAccountRelationCreateInput,
   IPartnerAccountRelationDeleteInput,
   IGetUserPartnerAccountRelationsInput,
-  UserPartnerAccountRelation,
+  IUserPartnerAccountRelation,
 } from "../../partner-types";
 import {
   IPartnerDataOptions,
@@ -759,7 +759,7 @@ export default class Identity extends Api {
   public getUserPartnerAccountRelations(
     data: IGetUserPartnerAccountRelationsInput,
   ): Promise<{
-    data: UserPartnerAccountRelation[];
+    data: IUserPartnerAccountRelation[];
     page: string;
     recordsPerPage: string;
     totalRecordCount: string;
