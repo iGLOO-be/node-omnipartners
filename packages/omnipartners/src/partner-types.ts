@@ -25,7 +25,7 @@ export interface IGetUserPartnerAccountRelationsInput {
   data_options?: string;
 }
 
-export interface UserPartnerAccountRelation {
+export interface IUserPartnerAccountRelation {
   user_guid: string;
   user_status: string;
   partner_relationship_is_explicit: string;
