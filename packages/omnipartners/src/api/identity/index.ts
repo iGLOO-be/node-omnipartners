@@ -758,7 +758,16 @@ export default class Identity extends Api {
   ])
   public getUserPartnerAccountRelations(
     data: IGetUserPartnerAccountRelationsInput,
-  ): Promise<{ data: UserPartnerAccountRelation[] }> {
+  ): Promise<{
+    data: UserPartnerAccountRelation[];
+    page: string;
+    recordsPerPage: string;
+    totalRecordCount: string;
+    totalPages: number;
+    records_per_page: string;
+    total_record_count: string;
+    total_pages: number;
+  }> {
     return this.get("/service/partners/get-users/", data, {
       hashKeys: undefined,
     });
