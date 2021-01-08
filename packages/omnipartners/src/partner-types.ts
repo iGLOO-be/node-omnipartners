@@ -12,6 +12,38 @@ export interface IPartnerAccountRelationDeleteInput {
   partner_relationship: string;
 }
 
+export interface IGetUserPartnerAccountRelationsInput {
+  partner_ext_id: string;
+  partner_relationship: string;
+  show_not_accepted?: string;
+  active_users_only?: "1" | "0";
+  role?: string;
+  customer_group?: string;
+  group_results_by_status?: "1" | "0";
+  page: number;
+  records_per_page: number;
+  data_options?: string;
+}
+
+export interface UserPartnerAccountRelation {
+  user_guid: string;
+  user_status: string;
+  partner_relationship_is_explicit: string;
+  partner_added_on: string;
+  partner_updated_on: string;
+
+  // data_options: owner_details
+  user_first_name?: string;
+  user_last_name?: string;
+  user_email?: string;
+  user_mobile_phone?: string;
+  user_title?: string;
+  user_language?: string;
+  user_country?: string;
+  user_phonetic_first_name?: string;
+  user_phonetic_last_name?: string;
+}
+
 export interface IPartnerListItem {
   partner_name: string;
   partner_ext_id: string;

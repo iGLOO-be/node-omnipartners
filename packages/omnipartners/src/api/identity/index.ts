@@ -4,6 +4,8 @@ import { doc, filterInput } from "../../lib/apiDecorators";
 import {
   IPartnerAccountRelationCreateInput,
   IPartnerAccountRelationDeleteInput,
+  IGetUserPartnerAccountRelationsInput,
+  UserPartnerAccountRelation,
 } from "../../partner-types";
 import {
   IPartnerDataOptions,
@@ -736,6 +738,29 @@ export default class Identity extends Api {
         19: { message: "Partner not found." },
       },
       hashKeys: ["user_guid", "partner_ext_id", "partner_relationship"],
+    });
+  }
+
+  @doc(
+    "https://doc.clixray.com/index.php?title=Get_users_of_partner_-_account_relations",
+  )
+  @filterInput([
+    "partner_ext_id", // (Required)	The Ext ID of the partner.
+    "partner_relationship", // (Required)	The relationship between the partner and the account. Valid values are “clientof” and “partof”.
+    "show_not_accepted", // (Optional)	Sates whether to include the relationships that are not in accepted state.
+    "active_users_only", // (Optional)	Sates whether to include the users that are in active state only. Valid values are “1” and “0”. When 1 is specified only the active users will be included. When 0 is specified active and temporary users will be included. If the this parameter is omitted from the request all users will there in the result including the deleted ones.
+    "role", // (Optional)	The role associated to the partner-user relationship.
+    "customer_group", // (Optional)	The customer group of the users associated to the partner.
+    "group_results_by_status", // (Optional)	States whether to group the results by the relationship status. Valid values are “1” and “0”. Default values is “1”.
+    "page", // (Required)	The page number to be retrieved.
+    "records_per_page", // (Required)	The number of records per page. Minimum value is 10 and maximum is 200.
+    "data_options", // (Optional)	This defines information that is returned in the result. At the moment only owner_details option is valid. For more information please refer Data Options.
+  ])
+  public getUserPartnerAccountRelations(
+    data: IGetUserPartnerAccountRelationsInput,
+  ): Promise<{ data: UserPartnerAccountRelation[] }> {
+    return this.get("/service/partners/get-users/", data, {
+      hashKeys: undefined,
     });
   }
 
