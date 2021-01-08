@@ -759,7 +759,7 @@ export default class Identity extends Api {
   public getUserPartnerAccountRelations(
     data: IGetUserPartnerAccountRelationsInput,
   ): Promise<{
-    data: IUserPartnerAccountRelation[];
+    data: { records: { accepted: IUserPartnerAccountRelation[] } };
     page: string;
     recordsPerPage: string;
     totalRecordCount: string;
