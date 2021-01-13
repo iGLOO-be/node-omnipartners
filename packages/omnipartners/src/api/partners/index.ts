@@ -313,7 +313,9 @@ export default class Partners extends Api {
       return allowKeys.indexOf(key) >= 0 || rgxFieldCustom.test(key);
     });
   })
-  public updatePartner(data: IPartnerUpdateInput) {
+  public updatePartner(
+    data: IPartnerUpdateInput,
+  ): Promise<{ data: IPartnerDetails }> {
     return this._call("update-partner", data, {
       hashKeys: ["action", "partner_ext_id"],
     });
