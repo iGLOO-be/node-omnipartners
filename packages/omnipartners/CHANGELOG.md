@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.76.7](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.76.6...omnipartners@2.76.7) (2021-01-13)
+
+
+### Bug Fixes
+
+* omnipartners: updatePartner: return type ([2d25ce2](https://github.com/iGLOO-be/node-omnipartners/commit/2d25ce29c8001ae0cab0a9d62d6a434c9f1c421d))
+
+
+
+
+
 ## [2.76.6](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.76.5...omnipartners@2.76.6) (2021-01-08)
 
 **Note:** Version bump only for package omnipartners
