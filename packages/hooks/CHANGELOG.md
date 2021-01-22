@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.63.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.62.47...@igloo-be-omnipartners/hooks@0.63.0) (2021-01-22)
+
+
+### Features
+
+* hooks: introduce `useUserPetsDelete` ([2d79c54](https://github.com/iGLOO-be/node-omnipartners/commit/2d79c544fa2d4525fbcab8872ab669cab493e8aa))
+
+
+
+
+
 ## [0.62.47](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.62.46...@igloo-be-omnipartners/hooks@0.62.47) (2021-01-13)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/hooks
