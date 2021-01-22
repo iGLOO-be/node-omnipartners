@@ -119,6 +119,11 @@ export interface UserPetCreateInput {
   dietRecommendation?: UserPetDietRecommendationEntry | null;
 }
 
+export interface UserPetDeleteInput {
+  guid: string;
+  petDeletionCause?: string | null;
+}
+
 export interface UserPetDietRecommendationEntry {
   creation_date: string;
   collection_reference: string;
