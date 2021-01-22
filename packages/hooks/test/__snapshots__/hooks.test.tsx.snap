@@ -64,6 +64,7 @@ Array [
   "useUserLogout",
   "useUserPets",
   "useUserPetsCreate",
+  "useUserPetsDelete",
   "useUserPetsUpdate",
   "useUserPublicSubscriptions",
   "useUserPublicSubscriptionsUpdate",

@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import {
   UserPetCreateInput,
   UserPetUpdateInput,
+  UserPetDeleteInput,
 } from "../../__generated__/globalTypes";
 import { UserPets, UserPetsVariables } from "./__generated__/UserPets";
 import {
@@ -14,6 +15,10 @@ import {
   UserPetsUpdateVariables,
 } from "./__generated__/UserPetsUpdate";
 import { useUserToken } from "./tokenContext";
+import {
+  UserPetsDelete,
+  UserPetsDeleteVariables,
+} from "./__generated__/UserPetsDelete";
 
 export * from "./__generated__/UserPets";
 export * from "./__generated__/UserPetsCreate";
@@ -190,6 +195,54 @@ export const useUserPetsUpdate = () => {
       });
 
       return data && data.userPetUpdate;
+    },
+  };
+};
+
+const UserPetsDeleteMutation = gql`
+  mutation UserPetsDelete(
+    $token: String!
+    $userPetDeleteInput: UserPetDeleteInput!
+  ) {
+    userPetDelete(token: $token, userPetDeleteInput: $userPetDeleteInput) {
+      result {
+        ...UserPetsFragment
+      }
+      error {
+        message
+        code
+      }
+    }
+  }
+
+  ${UserPetsFragment}
+`;
+
+// ------------
+// DELETE
+// ------------
+
+export const useUserPetsDelete = () => {
+  const token = useUserToken();
+  const [userPetsDelete, mutationResult] = useMutation<
+    UserPetsDelete,
+    UserPetsDeleteVariables
+  >(UserPetsDeleteMutation);
+
+  return {
+    ...mutationResult,
+    error:
+      mutationResult.error ||
+      (mutationResult.data && mutationResult.data.userPetDelete.error),
+    userPetsDelete: async (userPetDeleteInput: UserPetDeleteInput) => {
+      const { data } = await userPetsDelete({
+        variables: {
+          token,
+          userPetDeleteInput,
+        },
+      });
+
+      return data && data.userPetDelete;
     },
   };
 };
