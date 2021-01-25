@@ -53,10 +53,13 @@ export const useUserUpdate = ({
     error:
       mutationResult.error ||
       (mutationResult.data && mutationResult.data.userUpdate.error),
-    userUpdate: async (userInput: UserUpdateInput) => {
+    userUpdate: async (
+      userInput: UserUpdateInput,
+      { token: givenToken }: { token?: string },
+    ) => {
       const { data } = await userUpdate({
         variables: {
-          token,
+          token: givenToken || token,
           userInput,
         },
         ...(optimistic && {

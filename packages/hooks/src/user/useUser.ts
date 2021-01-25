@@ -40,8 +40,9 @@ export const useFetchUser = () => {
     });
 };
 
-export const useUser = () => {
-  const token = useUserToken();
+export const useUser = ({ token: givenToken }: { token?: string } = {}) => {
+  const userToken = useUserToken();
+  const token = givenToken || userToken;
   const res = useQuery<User, UserVariables>(UserQuery, {
     skip: !token,
     variables: {
