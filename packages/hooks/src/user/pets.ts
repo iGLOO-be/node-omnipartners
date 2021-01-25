@@ -68,8 +68,9 @@ export const UserPetsQuery = gql`
   ${UserPetsFragment}
 `;
 
-export const useUserPets = () => {
-  const token = useUserToken();
+export const useUserPets = ({ token: givenToken }: { token?: string } = {}) => {
+  const userToken = useUserToken();
+  const token = givenToken || userToken;
   const res = useQuery<UserPets, UserPetsVariables>(UserPetsQuery, {
     skip: !token,
     variables: {
@@ -118,12 +119,15 @@ const UserPetsCreateMutation = gql`
   ${UserPetsFragment}
 `;
 
-export const useUserPetsCreate = () => {
+export const useUserPetsCreate = ({
+  token: givenToken,
+}: { token?: string } = {}) => {
+  const _userToken = useUserToken();
+  const userToken = givenToken || _userToken;
   const [createPet, mutationResult] = useMutation<
     UserPetsCreate,
     UserPetsCreateVariables
   >(UserPetsCreateMutation);
-  const userToken = useUserToken();
 
   return {
     ...mutationResult,
@@ -174,8 +178,11 @@ const UserPetsUpdateMutation = gql`
 // UPDATE
 // ------------
 
-export const useUserPetsUpdate = () => {
-  const token = useUserToken();
+export const useUserPetsUpdate = ({
+  token: givenToken,
+}: { token?: string } = {}) => {
+  const userToken = useUserToken();
+  const token = givenToken || userToken;
   const [userPetsUpdate, mutationResult] = useMutation<
     UserPetsUpdate,
     UserPetsUpdateVariables
@@ -222,8 +229,11 @@ const UserPetsDeleteMutation = gql`
 // DELETE
 // ------------
 
-export const useUserPetsDelete = () => {
-  const token = useUserToken();
+export const useUserPetsDelete = ({
+  token: givenToken,
+}: { token?: string } = {}) => {
+  const userToken = useUserToken();
+  const token = givenToken || userToken;
   const [userPetsDelete, mutationResult] = useMutation<
     UserPetsDelete,
     UserPetsDeleteVariables

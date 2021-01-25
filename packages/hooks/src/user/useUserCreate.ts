@@ -31,7 +31,7 @@ const UserCreateMutation = gql`
   }
 `;
 
-export const useUserCreate = () => {
+export const useUserCreate = ({ autoLogin = true } = {}) => {
   const [userCreate, mutationResult] = useMutation<
     UserCreate,
     UserCreateVariables
@@ -52,6 +52,7 @@ export const useUserCreate = () => {
       });
 
       if (
+        autoLogin &&
         data &&
         data.userCreate &&
         data.userCreate.result &&
