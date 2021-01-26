@@ -51,6 +51,7 @@ export const useMetadataAnimalBreeds = (
         label: d.name,
         value: d.id,
         isOther: d.other,
+        type: d.type,
       }))) ||
     [];
 
