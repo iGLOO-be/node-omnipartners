@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.85.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.84.9...@igloo-be-omnipartners/graphql-schema@1.85.0) (2021-01-26)
+
+
+### Features
+
+* graphql-schema: expose type on metadataAnimalBreeds ([eb74c8c](https://github.com/iGLOO-be/node-omnipartners/commit/eb74c8c3519f48e56caa5f34972d9df88dc73d96))
+
+
+
+
+
 ## [1.84.9](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.84.8...@igloo-be-omnipartners/graphql-schema@1.84.9) (2021-01-13)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema

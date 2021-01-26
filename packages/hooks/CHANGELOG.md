@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.64.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.63.1...@igloo-be-omnipartners/hooks@0.64.0) (2021-01-26)
+
+
+### Features
+
+* graphql-schema: expose type on metadataAnimalBreeds ([eb74c8c](https://github.com/iGLOO-be/node-omnipartners/commit/eb74c8c3519f48e56caa5f34972d9df88dc73d96))
+
+
+
+
+
 ## [0.63.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.63.0...@igloo-be-omnipartners/hooks@0.63.1) (2021-01-25)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/hooks
