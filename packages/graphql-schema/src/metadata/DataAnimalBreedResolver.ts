@@ -11,6 +11,9 @@ export class AnimalBreed implements Pick<IMetadataAnimalBreed, "id" | "name"> {
   @Field()
   public name: string;
 
+  @Field()
+  public type: string;
+
   @Field(() => Boolean)
   public get other() {
     return yn(this.data.other);
@@ -22,6 +25,7 @@ export class AnimalBreed implements Pick<IMetadataAnimalBreed, "id" | "name"> {
     this.data = data;
     this.id = data.id;
     this.name = data.name;
+    this.type = data.species;
   }
 }
 
@@ -33,9 +37,11 @@ export class DataAnimalBreedResolver {
     @Arg("lang", { nullable: true }) lang?: string,
     @Arg("type", { nullable: true }) type?: string,
   ): Promise<AnimalBreed[]> {
-    return (await ctx.omnipartners.metadata.getAnimalBreeds({
-      lang,
-      type,
-    })).data.map(data => new AnimalBreed(data));
+    return (
+      await ctx.omnipartners.metadata.getAnimalBreeds({
+        lang,
+        type,
+      })
+    ).data.map((data) => new AnimalBreed(data));
   }
 }

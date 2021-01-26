@@ -13,6 +13,7 @@ const MetadataAnimalBreedsQuery = gql`
       id
       name
       other
+      type
     }
   }
 `;
