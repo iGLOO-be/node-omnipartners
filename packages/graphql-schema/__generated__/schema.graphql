@@ -6,6 +6,7 @@
 type AnimalBreed {
   id: String!
   name: String!
+  type: String!
   other: Boolean!
 }
 
