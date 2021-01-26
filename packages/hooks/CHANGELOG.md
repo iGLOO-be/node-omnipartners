@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.64.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.64.0...@igloo-be-omnipartners/hooks@0.64.1) (2021-01-26)
+
+
+### Bug Fixes
+
+* useMetadataAnmialBreeds ([b4e0cce](https://github.com/iGLOO-be/node-omnipartners/commit/b4e0cce72e6b2300084eaee25bf79f7d481c3775))
+
+
+
+
+
 # [0.64.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.63.1...@igloo-be-omnipartners/hooks@0.64.0) (2021-01-26)
 
 
