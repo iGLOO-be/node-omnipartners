@@ -168,6 +168,9 @@ const UserPetsUpdateMutation = gql`
         user {
           ...UserPetsFragment
         }
+        pet {
+          ...UserPetFragment
+        }
       }
       error {
         message
@@ -184,6 +187,7 @@ const UserPetsUpdateMutation = gql`
   }
 
   ${UserPetsFragment}
+  ${UserPetFragment}
 `;
 
 // ------------
