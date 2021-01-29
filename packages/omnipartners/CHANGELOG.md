@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.77.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.77.0...omnipartners@2.77.1) (2021-01-29)
+
+
+### Bug Fixes
+
+* omnipartners: api: findAccountByPhone ([b02a61b](https://github.com/iGLOO-be/node-omnipartners/commit/b02a61bdf1c6b6db269118842327027cb5c180b5))
+
+
+
+
+
 # [2.77.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.76.7...omnipartners@2.77.0) (2021-01-29)
 
 
