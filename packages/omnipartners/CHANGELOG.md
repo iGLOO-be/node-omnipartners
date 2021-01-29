@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.77.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.76.7...omnipartners@2.77.0) (2021-01-29)
+
+
+### Features
+
+* omnipartners: partner logo urls ([747a583](https://github.com/iGLOO-be/node-omnipartners/commit/747a583d9f344288d3757e3ce27b4f8963a2f113))
+
+
+
+
+
 ## [2.76.7](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.76.6...omnipartners@2.76.7) (2021-01-13)
 
 
