@@ -25,7 +25,7 @@ export * from "./__generated__/UserPetsCreate";
 export * from "./__generated__/UserPetsUpdate";
 
 export const UserPetFragment = gql`
-  fragment UserPetFragment on User {
+  fragment UserPetFragment on UserPet {
     guid
     name
     gender
