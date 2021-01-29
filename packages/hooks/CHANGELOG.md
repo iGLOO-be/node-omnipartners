@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.65.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.64.1...@igloo-be-omnipartners/hooks@0.65.0) (2021-01-29)
+
+
+### Bug Fixes
+
+* fix `UserPet` ([d852b72](https://github.com/iGLOO-be/node-omnipartners/commit/d852b72b47d8f7f20231d0ccfa821d7095e34816))
+
+
+### Features
+
+* hooks: pets: useUserPetsCreate: get created pet ([3de11f4](https://github.com/iGLOO-be/node-omnipartners/commit/3de11f4380292af02a8b29d0ab11702a58798448))
+* hooks: pets: useUserPetsUpdate: get updated pet ([324ad47](https://github.com/iGLOO-be/node-omnipartners/commit/324ad47e806f49fefb3db29314866c27bfdf930a))
+
+
+
+
+
 ## [0.64.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.64.0...@igloo-be-omnipartners/hooks@0.64.1) (2021-01-26)
 
 
