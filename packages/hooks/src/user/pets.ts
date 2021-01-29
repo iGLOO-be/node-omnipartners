@@ -24,25 +24,33 @@ export * from "./__generated__/UserPets";
 export * from "./__generated__/UserPetsCreate";
 export * from "./__generated__/UserPetsUpdate";
 
+export const UserPetFragment = gql`
+  fragment UserPetFragment on UserPet {
+    guid
+    name
+    gender
+    dob
+    neutered
+    type
+    breed
+    breedDetails {
+      name
+    }
+    pictureUrl
+  }
+`;
+
 export const UserPetsFragment = gql`
   fragment UserPetsFragment on User {
     owner {
       guid
     }
     pets {
-      guid
-      name
-      gender
-      dob
-      neutered
-      type
-      breed
-      breedDetails {
-        name
-      }
-      pictureUrl
+      ...UserPetFragment
     }
   }
+
+  ${UserPetFragment}
 `;
 
 // ------------
@@ -101,6 +109,9 @@ const UserPetsCreateMutation = gql`
         user {
           ...UserPetsFragment
         }
+        pet {
+          ...UserPetFragment
+        }
       }
       error {
         message
@@ -117,6 +128,7 @@ const UserPetsCreateMutation = gql`
   }
 
   ${UserPetsFragment}
+  ${UserPetFragment}
 `;
 
 export const useUserPetsCreate = ({
@@ -156,6 +168,9 @@ const UserPetsUpdateMutation = gql`
         user {
           ...UserPetsFragment
         }
+        pet {
+          ...UserPetFragment
+        }
       }
       error {
         message
@@ -172,6 +187,7 @@ const UserPetsUpdateMutation = gql`
   }
 
   ${UserPetsFragment}
+  ${UserPetFragment}
 `;
 
 // ------------
