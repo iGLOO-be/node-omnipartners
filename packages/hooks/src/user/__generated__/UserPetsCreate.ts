@@ -38,9 +38,28 @@ export interface UserPetsCreate_userPetCreate_result_user {
   pets: UserPetsCreate_userPetCreate_result_user_pets[];
 }
 
+export interface UserPetsCreate_userPetCreate_result_pet_breedDetails {
+  __typename: "UserBreedDetail";
+  name: string;
+}
+
+export interface UserPetsCreate_userPetCreate_result_pet {
+  __typename: "UserPet";
+  guid: string;
+  name: string;
+  gender: string | null;
+  dob: string | null;
+  neutered: boolean;
+  type: string;
+  breed: string;
+  breedDetails: UserPetsCreate_userPetCreate_result_pet_breedDetails;
+  pictureUrl: string;
+}
+
 export interface UserPetsCreate_userPetCreate_result {
   __typename: "UserAndPet";
   user: UserPetsCreate_userPetCreate_result_user;
+  pet: UserPetsCreate_userPetCreate_result_pet;
 }
 
 export interface UserPetsCreate_userPetCreate_error_validationErrors_errors {
