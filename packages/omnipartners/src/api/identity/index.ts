@@ -110,6 +110,7 @@ export default class Identity extends Api {
     include_loyalty_cards?: boolean;
   }) {
     return this.get("/service/user/resolve-by-mobile-number", data, {
+      hashKeys: ["mobile_no"],
       retry: true,
     });
   }
