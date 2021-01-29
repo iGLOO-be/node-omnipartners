@@ -420,6 +420,24 @@ export default class Partners extends Api {
     });
   }
 
+  @doc("https://doc.clixray.com/index.php?title=Retrieve_Partner_Logo_URLs")
+  @filterInput(["partner_ext_id"])
+  public getLogoURLs(data: {
+    partner_ext_id: string;
+  }): Promise<{
+    statusCode: number;
+    data: {
+      partner_logo: string | null;
+      partner_logo_small: string | null;
+      partner_logo_medium: string | null;
+      partner_logo_large: string | null;
+    };
+  }> {
+    return this._call("get-partner-logo-urls", data, {
+      hashKeys: ["action", "partner_ext_id"],
+    });
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Add_Partner_Opening_Hours")
   @filterInput(["partner_ext_id", "data"])
   public addOpeningHours(
