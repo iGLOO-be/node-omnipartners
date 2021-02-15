@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.79.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.78.0...omnipartners@2.79.0) (2021-02-15)
+
+
+### Features
+
+* omnipartners: createDirectCashbackRedemptionRequest: add `tier_purchase_receipt_image_mime_type` ([263bd10](https://github.com/iGLOO-be/node-omnipartners/commit/263bd10dc9169d82a623cd2e6e4ede69e3a0a01e))
+* omnipartners: createDirectCashbackRedemptionRequest: add `tier_purchase_receipt_image_mime_type` in return ([25e8b54](https://github.com/iGLOO-be/node-omnipartners/commit/25e8b54e6e8b031ba9b28455153d3c0ec58e714b))
+* omnipartners: IDeal: benefits: add `communications` ([0544f5b](https://github.com/iGLOO-be/node-omnipartners/commit/0544f5ba1e659b6a9a429987edb3592b3be2e53b))
+* omnipartners: IDirectCashbackRedemptionRequestInput: add `tier_purchase_receipt_image_mime_type` ([4121541](https://github.com/iGLOO-be/node-omnipartners/commit/41215412ec99204f00b998347cb26889faf9dd79))
+
+
+
+
+
 # [2.78.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.77.1...omnipartners@2.78.0) (2021-02-15)
 
 
