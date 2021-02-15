@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.78.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.77.1...omnipartners@2.78.0) (2021-02-15)
+
+
+### Features
+
+* omnipartners: IDeal: add `benefit_type` ([1fd5736](https://github.com/iGLOO-be/node-omnipartners/commit/1fd5736293768c81b08dc556ef0e38f894f671ef))
+
+
+
+
+
 ## [2.77.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.77.0...omnipartners@2.77.1) (2021-01-29)
 
 
