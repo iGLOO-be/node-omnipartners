@@ -984,6 +984,11 @@ export interface IDeal extends IDealListItem {
   validity_message: string;
   confirmation_text: string;
   description: string;
+  benefit_type:
+    | "FIXED_PRODUCT" //  Fixed refund on purchase of product
+    | "FIXED_TIER" //  Fixed refund on tier purchase
+    | "PERCENTAGE_PRODUCT" //  Variable refund on purchase of product
+    | "PERCENTAGE_TIER"; //  Variable refund on tier purchase
   slogan: string;
   public_name: string;
   site_footer: string;
