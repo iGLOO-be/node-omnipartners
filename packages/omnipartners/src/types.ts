@@ -1024,7 +1024,7 @@ export interface IDeal extends IDealListItem {
   };
   benefits: {
     id: string;
-    product: {
+    product?: {
       ean: string;
       id: string | string[];
       label: string;
@@ -1032,6 +1032,11 @@ export interface IDeal extends IDealListItem {
     };
     value: string;
     currency: string;
+    communications?: {
+      tier_purchase_label?: { [k: string]: string };
+      tier_purchase_proof_label?: { [k: string]: string };
+      validity_text?: { [k: string]: string };
+    };
   }[];
 }
 
@@ -1122,6 +1127,7 @@ export interface IDirectCashbackRedemptionRequestInput {
   partner_ext_id?: string;
   benefit_product_ean?: string;
   benefit_product_purchase_value?: string;
+  tier_purchase_receipt_image_mime_type?: string;
 }
 
 export interface IDirectCashbackVoucherBenefit {

@@ -1227,12 +1227,14 @@ export default class Deals extends Api {
     "payment_details", // (Required) Details of the payment, It should be a json object.
     "benefit_product_ean", // (Optional) ean of the purchased product. This is required for the deals which are having percentage benefit amount for products.
     "benefit_product_purchase_value", // (Optional) Purchase value of the product. This is required for the deals which are having percentage benefit amount for products.
+    "tier_purchase_receipt_image_mime_type", // Mime type of the non product purchased receipt image to verify the purchase. This is required if the purchase is non product based.
   ])
   public createDirectCashbackRedemptionRequest(
     data: IDirectCashbackRedemptionRequestInput,
   ): Promise<{
     data: {
       presigned_url: string;
+      tier_purchase_receipt_image_mime_type?: string;
     };
   }> {
     return this._call("create-direct-cashback-redemption-request", data, {
