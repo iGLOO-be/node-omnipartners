@@ -32,6 +32,9 @@ export interface IUserPartnerAccountRelation {
   partner_added_on: string;
   partner_updated_on: string;
 
+  // Available only if role parameter is not specified
+  partner_relationship_roles?: string[];
+
   // data_options: owner_details
   user_first_name?: string;
   user_last_name?: string;

@@ -212,7 +212,7 @@ export interface IUserPartnerRelation {
   partner_ext_id: string;
   partner_type: string;
   updated_on: string;
-  partner_relationship_roles: [];
+  partner_relationship_roles: string[];
   partner_relationship_status: string;
   partner_relationship_is_explicit: string;
   partner_relationship_deleted: string;
@@ -305,7 +305,7 @@ export interface IUserPartnerRelationFromGet {
   links?: [];
   partner_short_description_generic?: string;
   ptn_user_guid?: string;
-  partner_relationship_roles?: [];
+  partner_relationship_roles?: string[];
   partner_relationship_status?: string;
   updated_on?: string;
   partner_relationship_is_explicit?: string;
