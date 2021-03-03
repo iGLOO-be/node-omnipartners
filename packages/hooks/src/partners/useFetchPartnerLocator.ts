@@ -1,5 +1,4 @@
-import gql from "graphql-tag";
-import { useApolloClient } from "react-apollo";
+import { gql, useApolloClient } from "@apollo/client";
 import {
   PartnerLocator,
   PartnerLocatorVariables,

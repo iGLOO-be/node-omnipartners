@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/client";
 import { DealSubscribeInput } from "../../__generated__/globalTypes";
 import { useUserToken } from "../user/tokenContext";
 import {

@@ -23,13 +23,11 @@
     "lodash": "^4.17.20"
   },
   "peerDependencies": {
-    "@apollo/react-hooks": "^3.1.5",
-    "apollo-client": "^2.6.10",
-    "react": "^16.13.1",
-    "react-apollo": "^3.1.5"
+    "@apollo/client": "^3.3.11",
+    "react": "^16.13.1"
   },
   "devDependencies": {
-    "@apollo/react-hooks": "^3.1.5",
+    "@apollo/client": "^3.3.11",
     "@igloo-be-omnipartners/graphql-schema": "^1.85.5",
     "@types/jwt-decode": "^2.2.1",
     "apollo": "^2.28.3",
@@ -37,7 +35,6 @@
     "eslint-plugin-prettier": "^3.1.4",
     "graphql": "^15.0.0",
     "react": "^16.13.1",
-    "react-apollo": "^3.1.5",
     "tsdx": "^0.13.3",
     "tsutils": "^3.17.1",
     "typescript": "^3.9.7"

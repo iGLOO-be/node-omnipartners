@@ -1,12 +1,14 @@
 import {
   LazyQueryHookOptions,
+  LazyQueryResult,
+  OperationVariables,
   QueryLazyOptions,
+  QueryResult,
   useLazyQuery,
-} from "@apollo/react-hooks";
+} from "@apollo/client";
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 import { useCallback, useEffect, useRef } from "react";
-import { OperationVariables, QueryResult } from "react-apollo";
 import {
   UserLogin,
   UserLogin_userLogin_result,
@@ -117,7 +119,7 @@ type LazyQueryTuple<TData, TVariables> = [
   (
     options?: QueryLazyOptions<TVariables>,
   ) => Promise<QueryResult<TData, TVariables>>,
-  QueryResult<TData, TVariables>,
+  LazyQueryResult<TData, TVariables>,
 ];
 
 export function useBetterLazyQuery<
@@ -131,7 +133,7 @@ export function useBetterLazyQuery<
 
   const resolveRef = useRef<
     (
-      value?:
+      value:
         | QueryResult<TData, TVariables>
         | PromiseLike<QueryResult<TData, TVariables>>,
     ) => void

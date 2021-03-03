@@ -1,7 +1,7 @@
 import chokidar from "chokidar";
 import execa from "execa";
 import fs from "fs-extra";
-import pDebounce from "p-debounce";
+// import pDebounce from "p-debounce";
 import path from "path";
 import { buildFullSchema } from "../src";
 
@@ -16,12 +16,12 @@ const write = async () => {
 };
 
 const watch = async () => {
-  const debouncedWrite = pDebounce(() => {
+  const debouncedWrite = () => {
     const [command, ...args] = process.argv;
     execa(command, args.filter(arg => arg !== "--watch"), {
       stdout: "inherit",
     });
-  }, 500);
+  }
   chokidar
     .watch("**/**.ts", {
       cwd: path.join(__dirname, "../src"),

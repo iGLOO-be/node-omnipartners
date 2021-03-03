@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { useMutation, useQuery } from "react-apollo";
+import { useMutation, useQuery } from "@apollo/client";
 import { UserFavouritesCreateInput } from "../../__generated__/globalTypes";
 import {
   UserFavourites,

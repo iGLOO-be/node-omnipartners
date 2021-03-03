@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import { useUserToken } from "@igloo-be-omnipartners/hooks";
 import gql from "graphql-tag";
 import React from "react";
