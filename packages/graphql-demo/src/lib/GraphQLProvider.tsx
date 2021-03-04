@@ -1,31 +1,14 @@
-import { ApolloProvider } from "@apollo/react-hooks";
 import {
+  ApolloProvider,
   defaultDataIdFromObject,
   InMemoryCache,
   NormalizedCacheObject,
-} from "apollo-cache-inmemory";
-import { persistCache } from "apollo-cache-persist";
-import { ApolloClient } from "apollo-client";
-import { ApolloLink } from "apollo-link";
-import { BatchHttpLink } from "apollo-link-batch-http";
-import { onError } from "apollo-link-error";
-import { RetryLink } from "apollo-link-retry";
-import fetch from "isomorphic-fetch";
-import localforage from "localforage";
+  ApolloClient,
+} from "@apollo/client";
 import React, { useEffect, useState } from "react";
 
 const createClient = async () => {
   const uri = process.env.GRAPHQL_ENDPOINT;
-  const onErrorLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      console.error("graphQL Errors", graphQLErrors);
-    }
-
-    if (networkError) {
-      console.error("network errors", networkError);
-    }
-  });
-
   const cache = new InMemoryCache({
     dataIdFromObject: (value: any) => {
       const { __typename } = value;
@@ -64,25 +47,9 @@ const createClient = async () => {
     },
   });
 
-  // await before instantiating ApolloClient, else queries might run before the cache is persisted
-  await persistCache({
-    cache,
-    storage: localforage as any,
-  });
-
-  const link = ApolloLink.from([
-    onErrorLink,
-    new RetryLink(),
-    new BatchHttpLink({
-      fetch,
-      headers: {},
-      uri,
-    }),
-  ]);
-
   return new ApolloClient({
     cache,
-    link,
+    uri,
   });
 };
 
@@ -94,7 +61,7 @@ export const GraphQLProvider = ({
   const [client, setClient] = useState<ApolloClient<NormalizedCacheObject>>();
 
   useEffect(() => {
-    createClient().then(c => {
+    createClient().then((c) => {
       setClient(c);
     });
   }, []);

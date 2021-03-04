@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { differenceInDays, getTime } from "date-fns";
 import gql from "graphql-tag";
 import { useEffect } from "react";

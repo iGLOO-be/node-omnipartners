@@ -1,12 +1,14 @@
 import {
   LazyQueryHookOptions,
+  LazyQueryResult,
+  OperationVariables,
   QueryLazyOptions,
+  QueryResult,
   useLazyQuery,
-} from "@apollo/react-hooks";
+} from "@apollo/client";
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 import { useCallback, useEffect, useRef } from "react";
-import { OperationVariables, QueryResult } from "react-apollo";
 import {
   UserLogin,
   UserLogin_userLogin_result,
@@ -42,15 +44,20 @@ const UserLoginQuery = gql`
   }
 `;
 
-export const useUserLogin = ({
+export const useUserLogin = <
+  QUserLogin extends UserLogin = UserLogin,
+  QUserLoginVariables extends UserLoginVariables = UserLoginVariables
+>({
+  query,
   updateToken,
   beforeSetToken,
 }: {
+  query?: DocumentNode;
   updateToken?: boolean;
   beforeSetToken?: (userResult: UserLogin_userLogin_result) => Promise<void>;
 } = {}) => {
-  const [login, res] = useBetterLazyQuery<UserLogin, UserLoginVariables>(
-    UserLoginQuery,
+  const [login, res] = useBetterLazyQuery<QUserLogin, QUserLoginVariables>(
+    query || UserLoginQuery,
     {
       fetchPolicy: "no-cache",
     },
@@ -64,21 +71,9 @@ export const useUserLogin = ({
     ...res,
     error: res.error || (res.data && res.data.userLogin.error),
     data: res.data && res.data.userLogin,
-    userLogin: async ({
-      identifier,
-      password,
-      userContextData,
-    }: {
-      identifier: string;
-      password: string;
-      userContextData?: any;
-    }) => {
+    userLogin: async (variables: QUserLoginVariables) => {
       const { data } = await login({
-        variables: {
-          identifier,
-          password,
-          userContextData,
-        },
+        variables,
       });
 
       if (
@@ -117,7 +112,7 @@ type LazyQueryTuple<TData, TVariables> = [
   (
     options?: QueryLazyOptions<TVariables>,
   ) => Promise<QueryResult<TData, TVariables>>,
-  QueryResult<TData, TVariables>,
+  LazyQueryResult<TData, TVariables>,
 ];
 
 export function useBetterLazyQuery<
@@ -131,7 +126,7 @@ export function useBetterLazyQuery<
 
   const resolveRef = useRef<
     (
-      value?:
+      value:
         | QueryResult<TData, TVariables>
         | PromiseLike<QueryResult<TData, TVariables>>,
     ) => void

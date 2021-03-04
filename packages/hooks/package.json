@@ -17,29 +17,29 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "date-fns": "^2.14.0",
-    "graphql-tag": "^2.10.4",
-    "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.20"
+    "date-fns": "^2.18.0",
+    "graphql-tag": "^2.11.0",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21"
   },
   "peerDependencies": {
-    "@apollo/react-hooks": "^3.1.5",
-    "apollo-client": "^2.6.10",
-    "react": "^16.13.1",
-    "react-apollo": "^3.1.5"
+    "@apollo/client": "^3.3.11",
+    "react": "^17.0.1"
   },
   "devDependencies": {
-    "@apollo/react-hooks": "^3.1.5",
+    "@apollo/client": "^3.3.11",
     "@igloo-be-omnipartners/graphql-schema": "^1.85.5",
     "@types/jwt-decode": "^2.2.1",
-    "apollo": "^2.28.3",
-    "babel-jest": "^26.3.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "graphql": "^15.0.0",
-    "react": "^16.13.1",
-    "react-apollo": "^3.1.5",
-    "tsdx": "^0.13.3",
-    "tsutils": "^3.17.1",
-    "typescript": "^3.9.7"
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "apollo": "^2.32.5",
+    "babel-jest": "^26.6.3",
+    "eslint-config-prettier": "^7",
+    "eslint-plugin-prettier": "^3.3.1",
+    "graphql": "^15.5.0",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
+    "tsdx": "^0.14.1",
+    "tsutils": "^3.20.0",
+    "typescript": "^4.2.2"
   }
 }

@@ -1,5 +1,4 @@
-import { useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
+import { useQuery, ApolloError } from "@apollo/client";
 import gql from "graphql-tag";
 import { useEffect } from "react";
 import { User_user_error } from "./__generated__/User";

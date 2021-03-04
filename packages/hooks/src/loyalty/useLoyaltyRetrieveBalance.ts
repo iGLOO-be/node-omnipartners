@@ -1,5 +1,4 @@
-import { useApolloClient, useQuery } from "@apollo/react-hooks";
-import { QueryOptions } from "apollo-client";
+import { useApolloClient, useQuery, QueryOptions } from "@apollo/client";
 import gql from "graphql-tag";
 import { useUserToken } from "../user";
 import {
