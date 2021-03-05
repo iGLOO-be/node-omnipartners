@@ -1234,7 +1234,7 @@ export default class Deals extends Api {
   ): Promise<{
     data: {
       presigned_url: string;
-      tier_purchase_receipt_image_mime_type?: string;
+      tier_purchase_image_presigned_url?: string;
     };
   }> {
     return this._call("create-direct-cashback-redemption-request", data, {
