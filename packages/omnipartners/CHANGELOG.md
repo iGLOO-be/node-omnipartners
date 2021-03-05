@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.80.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.80.0...omnipartners@2.80.1) (2021-03-05)
+
+
+### Bug Fixes
+
+* omnipartners: deal: createDirectCashbackRedemptionRequest: fix typo in presigned url ([84bb061](https://github.com/iGLOO-be/node-omnipartners/commit/84bb0618157cef514f3d101aaddcb65fcc0e6e17))
+
+
+
+
+
 # [2.80.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.79.2...omnipartners@2.80.0) (2021-03-04)
 
 
