@@ -74,7 +74,7 @@ export class DirectCashbackRedemptionRequestResolver {
     const hasNextPage = limit * page < count;
 
     return {
-      result: data.records.map(d => new DirectCashbackRedemptionRequest(d)),
+      result: data.records.map((d) => new DirectCashbackRedemptionRequest(d)),
       pageInfo: {
         count,
         hasNextPage,
@@ -119,11 +119,15 @@ export class DirectCashbackRedemptionRequestResolver {
         ...input.toOmnipartners(),
         benefit_id: input.benefitId,
         benefit_product_ean: input.eanBarcode,
+        // See rc-et-moi#512
+        benefit_product_purchase_value:
+          input.benefitProductPurchaseValue || "0",
       });
 
       return new DirectCashbackRedemptionRequestCreateResult({
         result: {
           url: data.presigned_url,
+          tierPurchaseURL: data.tier_purchase_image_presigned_url,
         },
       });
     } catch (err) {
@@ -153,13 +157,13 @@ export class DirectCashbackRedemptionRequestResolver {
       deal_data_options: ["benefits"],
     });
 
-    const benefit = benefits.find(b =>
+    const benefit = benefits.find((b) =>
       b.product
         ? Array.isArray(b.product.id)
           ? arrForceString(b.product.id).includes(product_id)
           : forceString(b.product.id) === product_id
         : b.products
-        ? b.products.find(p => forceString(p.id) === product_id)
+        ? b.products.find((p) => forceString(p.id) === product_id)
         : false,
     );
 
