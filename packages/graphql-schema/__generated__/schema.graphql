@@ -357,6 +357,7 @@ input DirectCashbackRedemptionRequestInput {
   benefitId: String
   receiptDate: String!
   receiptImageMimeType: String!
+  tierPurchaseReceiptImageMimeType: String
   targetCurrency: String!
   paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail!
   eanBarcode: String

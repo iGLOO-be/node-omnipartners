@@ -26,6 +26,9 @@ export class DirectCashbackRedemptionRequestInput {
   @Field()
   public receiptImageMimeType!: string;
 
+  @Field({ nullable: true })
+  public tierPurchaseReceiptImageMimeType!: string;
+
   @Field()
   public targetCurrency!: "EUR" | "GBP";
 
@@ -60,6 +63,8 @@ export class DirectCashbackRedemptionRequestInput {
       partner_ext_id: this.partnerExtId,
       benefit_product_ean: this.eanBarcode,
       benefit_product_purchase_value: this.benefitProductPurchaseValue,
+      tier_purchase_receipt_image_mime_type: this
+        .tierPurchaseReceiptImageMimeType,
     };
   }
 }
