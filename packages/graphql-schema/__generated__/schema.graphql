@@ -374,6 +374,9 @@ input DirectCashbackRedemptionRequestInputPayementDetail {
 type DirectCashbackRedemptionRequestURL {
   """URL to upload the ticket image"""
   url: String!
+
+  """URL to upload the ticket image"""
+  tierPurchaseURL: String
 }
 
 type DirectCashbackVoucherBenefit {
