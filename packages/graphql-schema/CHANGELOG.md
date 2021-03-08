@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.86.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.85.8...@igloo-be-omnipartners/graphql-schema@1.86.0) (2021-03-08)
+
+
+### Features
+
+* graphql-schema: add `tierPurchaseReceiptImageMimeType` ([40644ba](https://github.com/iGLOO-be/node-omnipartners/commit/40644ba5906c047854b8bd4fc79c01db6aa6310d))
+
+
+
+
+
 ## [1.85.8](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.85.7...@igloo-be-omnipartners/graphql-schema@1.85.8) (2021-03-05)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema

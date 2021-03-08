@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.59.88](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-demo@0.59.87...@igloo-be-omnipartners/graphql-demo@0.59.88) (2021-03-08)
+
+**Note:** Version bump only for package @igloo-be-omnipartners/graphql-demo
+
+
+
+
+
 ## [0.59.87](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-demo@0.59.86...@igloo-be-omnipartners/graphql-demo@0.59.87) (2021-03-05)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-demo
