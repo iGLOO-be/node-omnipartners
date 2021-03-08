@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.87.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.86.0...@igloo-be-omnipartners/graphql-schema@1.87.0) (2021-03-08)
+
+
+### Bug Fixes
+
+* graphql-schema: build ([a318adf](https://github.com/iGLOO-be/node-omnipartners/commit/a318adf32e445f3a7dc81fd06f0bf77cec3f8f8a))
+
+
+### Features
+
+* graphql-schema: DirectCashbackResolver: add tier purchase url to result ([dacac9f](https://github.com/iGLOO-be/node-omnipartners/commit/dacac9f66dcffbf90658b968ff7daaf3aec68b80))
+
+
+
+
+
 # [1.86.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.85.8...@igloo-be-omnipartners/graphql-schema@1.86.0) (2021-03-08)
 
 
