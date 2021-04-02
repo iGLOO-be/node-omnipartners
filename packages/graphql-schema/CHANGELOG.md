@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.87.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.87.0...@igloo-be-omnipartners/graphql-schema@1.87.1) (2021-04-02)
+
+
+### Bug Fixes
+
+* partner: use public address field instead of invoices ([9ff851f](https://github.com/iGLOO-be/node-omnipartners/commit/9ff851f7fa0a41b93c9555ba5ccf59c7bdeb5e69))
+
+
+
+
+
 # [1.87.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.86.0...@igloo-be-omnipartners/graphql-schema@1.87.0) (2021-03-08)
 
 
