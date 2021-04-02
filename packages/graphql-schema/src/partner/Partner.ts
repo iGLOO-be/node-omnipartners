@@ -72,10 +72,10 @@ export class Partner {
   constructor(data: IPartnerDetails) {
     Object.assign(this, data);
     this.extId = data.partner_ext_id;
-    this.street1 = data.partner_inv_street1;
-    this.street2 = data.partner_inv_street2;
-    this.streetnum = data.partner_inv_streetnum;
-    this.postalCode = data.partner_inv_postal_code;
+    this.street1 = data.partner_pub_street1;
+    this.street2 = data.partner_pub_street2;
+    this.streetnum = data.partner_pub_streetnum;
+    this.postalCode = data.partner_pub_postal_code;
     this.city = data.partner_inv_city;
     this.country = data.partner_inv_country;
     this.email = data.partner_email;
