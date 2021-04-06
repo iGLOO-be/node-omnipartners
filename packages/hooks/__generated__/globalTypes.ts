@@ -11,14 +11,16 @@ export interface DealSubscribeInput {
   ref: string;
   partner_extid?: string | null;
   ean_code?: string | null;
+  collection_ref?: string | null;
   secure_code?: string | null;
   pet_guid?: string | null;
+  child_guid?: string | null;
+  external_tracking_ref?: string | null;
   iban?: string | null;
   bic?: string | null;
   referral_code?: string | null;
   referral_code_type?: string | null;
   delivery_address_id?: string | null;
-  child_guid?: string | null;
 }
 
 export interface PartnerLocatorInput {

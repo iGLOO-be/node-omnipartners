@@ -256,14 +256,16 @@ input DealSubscribeInput {
   ref: String!
   partner_extid: String
   ean_code: String
+  collection_ref: String
   secure_code: String
   pet_guid: String
+  child_guid: String
+  external_tracking_ref: String
   iban: String
   bic: String
   referral_code: String
   referral_code_type: String
   delivery_address_id: String
-  child_guid: String
 }
 
 type DealSubscriptionCount {
