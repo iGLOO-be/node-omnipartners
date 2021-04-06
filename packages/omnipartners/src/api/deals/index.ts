@@ -48,14 +48,16 @@ export interface ISubscribeToDealInput {
   ref: string;
   partner_extid?: string;
   ean_code?: string;
+  collection_ref?: string;
   secure_code?: string;
   pet_guid?: string;
+  child_guid?: string;
+  external_tracking_ref?: string;
   iban?: string;
   bic?: string;
   referral_code?: string;
   referral_code_type?: string;
   delivery_address_id?: string;
-  child_guid?: string;
   lang?: string;
 }
 
@@ -869,14 +871,16 @@ export default class Deals extends Api {
     "ref", // (Required) deal reference code
     "partner_extid", // (Required) external-customer-id of the partner, user can only redeem on that partner
     "ean_code", // (Optional) EAN code of the product, This is required if the deal restricted to a certain product or product group. Otherwise it can be empty.
+    "collection_ref", // Reference to a collection which will be stored along with the subscription
     "secure_code", // (Required for locked deals) available secure code for the deal
     "pet_guid", // (Optional) A Pet guid of the user. If omitted, the system will try to get a applicable pet from the user's pets. If pet is not required for the deal, no pet is assigned for the subscription.
+    "child_guid", // A Child guid of the user. This is required if the deal restricted for child limitations. Otherwise it can be empty.
+    "external_tracking_ref", // External tracking reference code.
     "iban", // (Required for "CASHBACK" deals) International Bank Account Number for cashback deal. IBAN needs to be between 15 and 34 alphanumeric characters long.
     "bic", // (Optional) BIC number. This needs to be maximum 12 alphanumeric characters long.
     "referral_code", // (Optional) Referral code of the referring partner
     "referral_code_type", // Referral code type of the referring partner. Valid values are 'referral_code' or 'ext_id'. Default value is 'referral_code'.
     "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
-    "child_guid", // A Child guid of the user. This is required if the deal restricted for child limitations. Otherwise it can be empty.
     "lang",
   ])
   public subscribeToDeal(

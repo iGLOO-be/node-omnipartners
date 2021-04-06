@@ -30,10 +30,19 @@ export class DealSubscribeInput
   public ean_code?: string;
 
   @Field({ nullable: true })
+  public collection_ref?: string;
+
+  @Field({ nullable: true })
   public secure_code?: string;
 
   @Field({ nullable: true })
   public pet_guid?: string;
+
+  @Field({ nullable: true })
+  public child_guid?: string;
+
+  @Field({ nullable: true })
+  public external_tracking_ref?: string;
 
   @Field({ nullable: true })
   public iban?: string;
@@ -49,9 +58,6 @@ export class DealSubscribeInput
 
   @Field({ nullable: true })
   public delivery_address_id?: string;
-
-  @Field({ nullable: true })
-  public child_guid?: string;
 }
 
 export class DealResolver {
@@ -65,7 +71,7 @@ export class DealResolver {
         deal_ref,
       })
     ).data;
-    return res.map(v => new DealProduct(v));
+    return res.map((v) => new DealProduct(v));
   }
 
   @Query(() => GenericValidationError, { nullable: true })
