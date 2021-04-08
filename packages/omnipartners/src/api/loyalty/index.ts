@@ -568,6 +568,36 @@ export default class Loyalty extends Api {
     data: ILoyaltyPurchaseInput,
   ): Promise<{
     status: number;
+    log_id: number;
+    transaction_id: number;
+    ruleids: string[];
+    logicids: string[];
+    product_count: number;
+    transactionpoints: number;
+    transactionstamps: number;
+    newtotalpoints: string;
+    new_total_all_stamps: string;
+    new_total_partner_stamps: string;
+    simple_rules_new_points: number;
+    extended_rules_new_points: number;
+    instant_discount_point_deduction_execution: number;
+    product_codes_warning: string;
+    message: string;
+    extended_rule_messages: string[];
+    instant_discount_confirmation_message: string[];
+    saving_deals_status: string[];
+    saving_deals_received: string[];
+    vouchers: string[];
+    deal_vouchers: string[];
+    user_hold_points: number;
+    user_profile: {
+      user_status: string;
+      has_email: "Y" | "N";
+      has_mobile_phone: "Y" | "N";
+      user_email_status: string;
+    };
+    time: number;
+    user_guid: string;
   }> {
     return this._call(
       "rewards-transaction",
