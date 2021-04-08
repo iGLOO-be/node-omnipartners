@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.81.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.80.2...omnipartners@2.81.0) (2021-04-08)
+
+
+### Features
+
+* omnipartners: introduce loylaty `purchase`, replacing deprecated `product-purchase` ([618cd7d](https://github.com/iGLOO-be/node-omnipartners/commit/618cd7d08899c3c711be0eede03bf5098624f287))
+
+
+
+
+
 ## [2.80.2](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.80.1...omnipartners@2.80.2) (2021-04-06)
 
 **Note:** Version bump only for package omnipartners
