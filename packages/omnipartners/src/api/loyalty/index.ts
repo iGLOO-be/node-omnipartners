@@ -153,6 +153,31 @@ export interface ILoyaltyPurchaseProductInput {
   transaction_ext_origin?: string;
 }
 
+export interface ILoyaltyPurchaseInput {
+  user_id: string;
+  partner_id: string;
+  /** required if user_id_type !== user_loyalty_card_number */
+  program_reference?: string;
+  user_id_type?:
+    | "user_guid"
+    | "user_loyalty_card_number"
+    | "user_mobile"
+    | "partner_ext_id";
+  partner_id_type?: "terminal" | "partner_ext_id";
+  product_codes?: string;
+  transaction_value?: string;
+  /** ex: EUR, GBP */
+  transaction_currency_code?: string;
+  transaction_points?: string;
+  user_mobile?: string;
+  user_email?: string;
+  transaction_ext_id?: string;
+  transaction_ext_origin?: string;
+  /** Format: YYYY-MM-DD  */
+  transaction_date?: string;
+  custom_logger_info?: string;
+}
+
 export default class Loyalty extends Api {
   public defaultHost = "https://rewards.clixray.io/points";
 
@@ -518,5 +543,71 @@ export default class Loyalty extends Api {
       hashKey: "sigid",
       hashKeys: ["shop_id", "user_id", "action"],
     });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Purchase")
+  @filterInput([
+    "transaction_type", // (Required) Constant defining the transaction_type “purchase”.
+    "program_reference", // (Required) Unique identifier of the loyalty program. It is used to evaluate points and rules, access and restrictions, and set balances.
+    "user_id", // (Required) Unique identifier of the person receiving points.
+    "user_id_type", // (Optional) Used to specify the type of unique identifier provided.
+    "partner_id", // (Required) Unique identifier of the partner where the transaction takes place. This is used to create automatic implicit tripartite relationships.
+    "partner_id_type", // (Optional) Used to specify the type of unique partner identifier provided.
+    "product_codes", // (Optional) Specify user product information with quantity purchase by user.
+    "transaction_value", // (Optional) Purchase value of the transaction used to calculate point according to the conversion factor set in the program settings.
+    "transaction_currency_code", // (Optional) This should be a valid currency code (Eg: EUR, GBP)
+    "transaction_points", // (Optional) Fix number of points added for the transaction.
+    "user_mobile", // (Optional) User mobile number specified to automatically activate a new non anonymous card in a purchase transaction. This requires a feature to be activated at the program level (see below / "Automatic Card Activation").
+    "user_email", // (Optional) User email address specified to automatically activate a new non anonymous card in a purchase transaction. This requires a feature to be activated at the program level (see below / "Automatic Card Activation").
+    "transaction_ext_id", // (Optional) 0 chars	External reference of the transaction. If request sender sending 'transaction_ext_origin' then this is required
+    "transaction_ext_origin", // (Optional) 0 chars	Free text containing Origin of the transaction. If request sender sending 'transaction_ext_id' then this is required
+    "transaction_date", // (Optional) Valid Date value in text. Format: YYYY-MM-DD Eg: "2018-12-29" This value will override the transaction date picked by the system
+    "custom_logger_info", // (Optional) Custom values to add as logging values. Ex. {"tag_1":"custom_tag_1", "tag_2":"custom_tag_2"}
+  ])
+  public purchase(
+    data: ILoyaltyPurchaseInput,
+  ): Promise<{
+    status: number;
+    log_id: number;
+    transaction_id: number;
+    ruleids: string[];
+    logicids: string[];
+    product_count: number;
+    transactionpoints: number;
+    transactionstamps: number;
+    newtotalpoints: string;
+    new_total_all_stamps: string;
+    new_total_partner_stamps: string;
+    simple_rules_new_points: number;
+    extended_rules_new_points: number;
+    instant_discount_point_deduction_execution: number;
+    product_codes_warning: string;
+    message: string;
+    extended_rule_messages: string[];
+    instant_discount_confirmation_message: string[];
+    saving_deals_status: string[];
+    saving_deals_received: string[];
+    vouchers: string[];
+    deal_vouchers: string[];
+    user_hold_points: number;
+    user_profile: {
+      user_status: string;
+      has_email: "Y" | "N";
+      has_mobile_phone: "Y" | "N";
+      user_email_status: string;
+    };
+    time: number;
+    user_guid: string;
+  }> {
+    return this._call(
+      "rewards-transaction",
+      {
+        transaction_type: "purchase",
+        ...data,
+      },
+      {
+        hashKeys: undefined,
+      },
+    );
   }
 }
