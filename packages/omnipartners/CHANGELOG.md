@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.81.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.81.0...omnipartners@2.81.1) (2021-04-13)
+
+
+### Bug Fixes
+
+* loyalty: purchase: return type ([edce0f1](https://github.com/iGLOO-be/node-omnipartners/commit/edce0f1d77c988139642e994ad285f73bbc2c9cd))
+
+
+
+
+
 # [2.81.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.80.2...omnipartners@2.81.0) (2021-04-08)
 
 
