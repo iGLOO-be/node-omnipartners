@@ -8,6 +8,7 @@ import {
   ILoyaltyTransactionHistory,
   ILoyaltyUserProfile,
 } from "../../types";
+import { IVoucherDetail } from "../deals";
 
 export interface ILoyaltyRetrieveBalanceInput {
   program_id: string;
@@ -587,8 +588,8 @@ export default class Loyalty extends Api {
     instant_discount_confirmation_message: string[];
     saving_deals_status: string[];
     saving_deals_received: string[];
-    vouchers: string[];
-    deal_vouchers: string[];
+    vouchers: IVoucherDetail[];
+    deal_vouchers: IVoucherDetail[];
     user_hold_points: number;
     user_profile: {
       user_status: string;
