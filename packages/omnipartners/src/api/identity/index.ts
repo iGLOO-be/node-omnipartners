@@ -575,6 +575,56 @@ export default class Identity extends Api {
     });
   }
 
+  @doc(
+    "https://doc.clixray.com/index.php?title=Retrieve_Profile_Using_User_External_Id_ONLY",
+  )
+  @filterInput([
+    "user_ext_id", // (Required)	External Id of the account.
+    "data_options", // (Optional)	This defines information that is returned in the profile object. For more information please refer Data Options.
+    "pet_data_options", // (Optional)	This defines information that is returned in the pet object. For more information please refer Pet Data Options.
+    "partner_data_options", // (Optional)	This defines information that is returned in the partner profiles for the related partners. For more information please refer Partner Data Options.
+    "pet_partner_type", // (Optional)	Pet's partner type code. Please refer http://doc.omnipartners.be/index.php/Get_Partner_Types_List for the codes of the types.
+    "related_partners_filter_xxxx", // (Optional)	A set of filters that could be used to filter partner relationships. For more information please refer Partner Relationship Filter.
+  ])
+  public authenticateByExternalId({
+    data_options,
+    partner_data_options,
+    pet_data_options,
+    ...data
+  }: {
+    user_ext_id: string;
+    data_options?: IUserDataOptions;
+    pet_data_options?: IUsetPetDataOptions;
+    partner_data_options?: IPartnerDataOptions;
+    pet_partner_type?: string;
+    related_partners_filter_xxxx?: string;
+  }): Promise<IUser> {
+    return this.get(
+      "/service/auth/user-ext-id",
+      {
+        ...data,
+        data_options: data_options
+          ? Array.isArray(data_options)
+            ? data_options.join(",")
+            : data_options
+          : undefined,
+        partner_data_options: partner_data_options
+          ? Array.isArray(data_options)
+            ? data_options.join(",")
+            : data_options
+          : undefined,
+        pet_data_options: pet_data_options
+          ? Array.isArray(data_options)
+            ? data_options.join(",")
+            : data_options
+          : undefined,
+      },
+      {
+        retry: true,
+      },
+    );
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Create_Auth_Code")
   @filterInput(["type", "value", "ttl"])
   public createAuthCode(data: {
