@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.82.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.81.1...omnipartners@2.82.0) (2021-05-12)
+
+
+### Features
+
+* omnipartners: api: identity: introduce `authenticateByExternalId` ([05e5d06](https://github.com/iGLOO-be/node-omnipartners/commit/05e5d0679fc19f716bf24c360e62da0ea1c2e749))
+
+
+
+
+
 ## [2.81.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.81.0...omnipartners@2.81.1) (2021-04-13)
 
 
