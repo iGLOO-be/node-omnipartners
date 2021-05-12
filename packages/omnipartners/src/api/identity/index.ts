@@ -598,7 +598,7 @@ export default class Identity extends Api {
     partner_data_options?: IPartnerDataOptions;
     pet_partner_type?: string;
     related_partners_filter_xxxx?: string;
-  }) {
+  }): Promise<IUser> {
     return this.get(
       "/service/auth/user-ext-id",
       {
