@@ -4,6 +4,7 @@ import {
   IDeal,
   IDealListItem,
   IDirectCashbackDealDetail,
+  IDirectCashbackRedemptionInput,
   IDirectCashbackRedemptionRequestInput,
   IDirectCashbackVoucherDetail,
   IUserDirectCashbackDealEligiblePet,
@@ -1248,6 +1249,25 @@ export default class Deals extends Api {
           "key",
           ...Object.keys(d).filter((k) => k !== "payment_details"),
         ].sort(),
+    });
+  }
+
+  @doc(
+    "https://doc.clixray.com/index.php?title=Create_direct_cashback_redemption",
+  )
+  @filterInput([
+    "barcode", // (Required) Subscription barcode without any formatting
+    "transaction_id", // (Required) Transaction id of the reward purchase transaction
+    "payment_details", // (Required) Details of the payment, It should be a json object.
+  ])
+  public createDirectCashbackRedemption(
+    data: IDirectCashbackRedemptionInput,
+  ): Promise<{
+    statusCode: string;
+  }> {
+    return this._call("create-direct-cashback-redemption", data, {
+      retry: true,
+      hashKeys: ["barcode", "transaction_id"],
     });
   }
 

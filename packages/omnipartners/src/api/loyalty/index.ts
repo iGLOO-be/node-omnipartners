@@ -179,6 +179,17 @@ export interface ILoyaltyPurchaseInput {
   custom_logger_info?: string;
 }
 
+export interface ILoyaltyListPurchasesInput {
+  program_id: string;
+  user_guid: string;
+  partner_ext_id?: string;
+  starting_record?: string;
+  record_count?: string;
+  start_date?: string;
+  end_date?: string;
+  sort?: string;
+}
+
 export default class Loyalty extends Api {
   public defaultHost = "https://rewards.clixray.io/points";
 
@@ -610,5 +621,36 @@ export default class Loyalty extends Api {
         hashKeys: undefined,
       },
     );
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=List_purchases")
+  @filterInput([
+    "program_id", // (Required)This is a required field and it cannot be null / ignored. Request sender needs to specify the “program code” related to the loyalty points program here. Its data type is TEXT. A unique value for each program will be provided during the set-up of the service.
+    "partner_ext_id", // (Optional)This is not required and it can be null / ignored. Request sender need to specify the shop related partner ext Id here. Its data type is TEXT. If this is set then service will return partner related transaction history.
+    "user_guid", // (Required)This is required and it cannot be null / ignored. Service request sender needs to set user GUID information here. Then service will return user related transaction history.
+    "starting_record", // (Optional)It can be null / ignored. If Request sender needs to filter few records then he need to specify starting record index value here. Its type is TEXT. If this is keep empty then no need to set record_count value as well.
+    "record_count", // (Optional)It can be null / ignored. If request sender needs to filter the result, then he needs to specify max number of transactions here, then starting_record field value also need to be set.
+    "start_date", // (Optional)It can be null / ignored. This will used to filter the transaction information within this date value range. If it is set then service request sender needs to set end_date as well. Then service will filter and return the result within that date range.
+    "end_date", // (Optional)It can be null / ignored. This will used to filter the transaction information within this date value range. If it is set then service request sender needs to set start_date as well. Then service will filter and return the result within that date range.
+    "sort", // (Optional)This field contains array of string specifying the sort fields and direction.
+  ])
+  public listPurchases(
+    data: ILoyaltyListPurchasesInput,
+  ): Promise<{
+    data: {
+      transaction_id: string;
+      partner_ext_id: string;
+      partner_id: string;
+      program_id: string;
+      user_guid: string;
+      purchase_date: string;
+    }[];
+    total_records: number;
+    selected_records: number;
+    status: string;
+  }> {
+    return this._call("list-purchases", data, {
+      hashKeys: ["program_id", "user_guid"],
+    });
   }
 }
