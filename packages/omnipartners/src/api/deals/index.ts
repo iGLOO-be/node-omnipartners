@@ -1266,8 +1266,11 @@ export default class Deals extends Api {
     statusCode: string;
   }> {
     return this._call("create-direct-cashback-redemption", data, {
-      retry: true,
-      hashKeys: ["barcode", "transaction_id"],
+      hashKeys: (d) =>
+        [
+          "key",
+          ...Object.keys(d).filter((k) => k !== "payment_details"),
+        ].sort(),
     });
   }
 

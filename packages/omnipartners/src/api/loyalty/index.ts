@@ -650,7 +650,7 @@ export default class Loyalty extends Api {
     status: string;
   }> {
     return this._call("list-purchases", data, {
-      hashKeys: ["program_id", "user_guid"],
+      hashKeys: ["action", "program_id", "user_guid"],
     });
   }
 }
