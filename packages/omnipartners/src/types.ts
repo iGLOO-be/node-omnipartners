@@ -1132,6 +1132,14 @@ export interface IDirectCashbackRedemptionRequestInput {
   tier_purchase_receipt_image_mime_type?: string;
 }
 
+export interface IDirectCashbackRedemptionInput {
+  barcode: string;
+  transaction_id: string;
+  payment_details: {
+    iban: string;
+  };
+}
+
 export interface IDirectCashbackVoucherBenefit {
   product_id?: string | string[];
   amount?: string;
