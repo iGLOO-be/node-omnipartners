@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.83.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.82.0...omnipartners@2.83.0) (2021-05-18)
+
+
+### Features
+
+* omnipartners: api: fine tune `loyalty.listPurchases` and `createDirectCashbackRedemption` ([4762917](https://github.com/iGLOO-be/node-omnipartners/commit/47629174fd06e058e936085085417d5371260ff8))
+* omnipartners: api: introduce `loyalty.listPurchases` and `createDirectCashbackRedemption` ([2558c24](https://github.com/iGLOO-be/node-omnipartners/commit/2558c241d2fa5a5d7e0ec26f8447ece8180756a0))
+
+
+
+
+
 # [2.82.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.81.1...omnipartners@2.82.0) (2021-05-12)
 
 
