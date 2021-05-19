@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.83.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.83.0...omnipartners@2.83.1) (2021-05-19)
+
+
+### Bug Fixes
+
+* omnipartners: api: deals: complete IVoucherDetail ([b6d84d1](https://github.com/iGLOO-be/node-omnipartners/commit/b6d84d10e089123641b9f49e264863560246f2b6))
+
+
+
+
+
 # [2.83.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.82.0...omnipartners@2.83.0) (2021-05-18)
 
 
