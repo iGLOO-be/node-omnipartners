@@ -423,6 +423,17 @@ export interface IVoucherDetail {
   redeem_validity_from: string;
   redeem_validity_to: string;
   deal: IDeal;
+  ts_created: string;
+  secure_code?: string;
+  subs_partner_id?: string;
+  coupon_id: number;
+  is_in_redeemable_status: 0 | 1;
+  is_redeemed: boolean;
+  pet_status: string;
+  redeem_partner_id?: string;
+  redeem_partner: string[];
+  barcode_url?: string;
+  product_id: string;
 
   // deal_data_options: `benefits`
   benefit: IVoucherBenefit;
