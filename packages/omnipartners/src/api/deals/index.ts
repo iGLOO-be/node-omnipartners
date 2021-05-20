@@ -668,7 +668,9 @@ export default class Deals extends Api {
     1023: { message: "Input barcode is not set." },
     1025: { message: "Input barcode is not valid." },
     1027: { message: "Maximum redemption request limit reached." },
-    1029: { message: "Benefit Id not set." },
+    1029: {
+      message: "Benefit Id not set. / Invalid Benefit type define in the deal",
+    },
     1030: {
       message: "Already redeemed voucher subscription or its in progress.",
     },
@@ -681,9 +683,24 @@ export default class Deals extends Api {
     1040: { message: "Invalid customer details." },
     1042: { message: "Voucher cannot redeem." },
     1047: { message: "Issue in refund service connection." },
+    1046: { message: "Already paid IBAN is used." },
+    1048: {
+      message: "Maximum number of payment count for the selected IBAN reached.",
+    },
+    1049: {
+      message: "Maximum date for submitting the redemption request exceed.",
+    },
+    1050: { message: "Reward purchase transaction id not sent." },
+    1051: { message: "Reward purchase transaction id not found." },
+    1052: {
+      message: "Invalid purchase amount get from reward purchase transaction.",
+    },
+    1053: { message: "Reward purchase transaction id already used." },
     3025: { message: "Subscription was expired, so cannot redeem it." },
-    3048: { message: "Already redeemed coupon." },
+    3050: { message: "Invalid subscription." },
     3062: { message: "Missing required parameter." },
+    3124: { message: "Invalid benefit amount." },
+    3048: { message: "Already redeemed coupon." },
     3094: { message: "Invalid receipt date." },
     3096: { message: "Invalid image mime type." },
     3115: { message: "Subscription failure due to user status." },
