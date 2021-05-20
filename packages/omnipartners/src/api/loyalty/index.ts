@@ -229,6 +229,8 @@ export default class Loyalty extends Api {
     1014: {
       message: "Error on performing instant discount deal - extended rule",
     },
+    1023: { message: "Transaction history records not found" },
+    1024: { message: "Transaction history records retrieve error" },
     1025: { message: "Invalid Key" },
     1026: { message: "Key retrieve error" },
     1027: { message: "Invalid Secret Key" },
