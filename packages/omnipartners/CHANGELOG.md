@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.83.2](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.83.1...omnipartners@2.83.2) (2021-05-20)
+
+
+### Bug Fixes
+
+* omnipartners: api : add errors ([6bfbd5b](https://github.com/iGLOO-be/node-omnipartners/commit/6bfbd5bec0d32e691d5190063be450b0b56b5763))
+
+
+
+
+
 ## [2.83.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.83.0...omnipartners@2.83.1) (2021-05-19)
 
 
