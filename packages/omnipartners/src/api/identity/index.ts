@@ -719,16 +719,15 @@ export default class Identity extends Api {
     );
   }
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Add_new_partner_-_account_relation",
-  )
+  @doc("https://doc.clixray.com/index.php/Add_new_partner_-_account_relation")
   @filterInput([
     "user_guid", // (Required) The GUID of the user.
     "partner_ext_id", // (Required) The external id of the partner.
     "partner_relationship", // (Required) The relationship between the partner and the account. Valid values are “clientof” and “partof”.
     "partner_roles", // (Optional) The roles assigned to this relationship. If empty the default roles configured for this instance of CIS will be automatically assigned.
-    "partner_status", // (Required) The status of the relationship between the partner and user. Valid status values are submitted, accepted, pending and refused.
+    "is_primary_contact", // Flag used to indicate that the this particular user is the primary contact of the partner indicated in the request. Valid values are "1" or "0". Default is "0".
     "notify", // Flag used to determine if the preset notification email has to be sent to the user. If the value is "1" then the email is sent.
+    "partner_status", // (Deprecated) The status of the relationship between the partner and user. Valid status values are submitted, accepted, pending and refused.
   ])
   public createPartnerAccountRelation(
     data: IPartnerAccountRelationCreateInput,

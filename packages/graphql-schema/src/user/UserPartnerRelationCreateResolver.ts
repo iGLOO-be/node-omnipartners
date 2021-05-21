@@ -11,8 +11,8 @@ export class UserPartnerRelationCreateInput {
   @Field()
   public extId!: string;
 
-  @Field()
-  public relationship!: string;
+  @Field(() => String)
+  public relationship!: "clientof" | "partof";
 
   @Field()
   public roles?: string;
