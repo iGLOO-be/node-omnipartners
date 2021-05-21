@@ -1,10 +1,11 @@
 export interface IPartnerAccountRelationCreateInput {
   user_guid: string;
   partner_ext_id: string;
-  partner_relationship: string;
+  partner_relationship: "clientof" | "partof";
   partner_roles?: string;
-  partner_status: string;
-  notify?: boolean;
+  is_primary_contact?: "1" | "0";
+  notify?: "1" | "0";
+  partner_status?: string; // Deprecated
 }
 export interface IPartnerAccountRelationDeleteInput {
   user_guid: string;
