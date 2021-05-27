@@ -91,7 +91,7 @@ export interface IPartnerLocatorInput {
   partner_group_handle?: string;
   excl_partner_group_handle?: string;
   collection_ref?: string;
-  stock_level?: string;
+  stock_level?: string | number;
   search_term?: string;
   radius?: number;
   limit?: number;

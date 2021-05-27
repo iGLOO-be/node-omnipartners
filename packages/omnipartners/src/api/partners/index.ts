@@ -83,7 +83,7 @@ export default class Partners extends Api {
     return this._call("get-partners", data, { retry: true });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Find_Partners")
+  @doc("https://doc.clixray.com/index.php?title=Find_Partners")
   @filterInput([
     "partner_lat",
     "partner_lng",
