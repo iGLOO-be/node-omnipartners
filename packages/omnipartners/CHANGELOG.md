@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.83.4](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.83.3...omnipartners@2.83.4) (2021-05-27)
+
+
+### Bug Fixes
+
+* find-partners inputs typing ([be5e7c7](https://github.com/iGLOO-be/node-omnipartners/commit/be5e7c7eca373332eb398a0a92e5eb8b858507aa))
+
+
+
+
+
 ## [2.83.3](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.83.2...omnipartners@2.83.3) (2021-05-21)
 
 **Note:** Version bump only for package omnipartners
