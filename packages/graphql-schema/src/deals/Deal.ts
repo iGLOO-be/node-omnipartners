@@ -107,12 +107,10 @@ export class DealProduct implements Omit<IDealProduct, "collection"> {
       return;
     }
     return new ProductCollectionDetail(
-      (
-        await ctx.omnipartners.products.getCollectionDetails({
-          collection_reference: this.collectionReference,
-          language: lang,
-        })
-      ).data,
+      await ctx.productsDataLoader.getCollectionDetails({
+        collection_reference: this.collectionReference,
+        language: lang,
+      }),
     );
   }
 }
