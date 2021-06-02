@@ -12,6 +12,7 @@ import {
   IPartnerUpdateInput,
   IPartnerListItemInput,
   IPartnerDetailsDataOptions,
+  IPartnerLocatorLocateInput,
 } from "../../partner-types";
 
 export interface IPartnerGroup {
@@ -110,6 +111,40 @@ export default class Partners extends Api {
         1031: { message: "Invalid partner type." },
       },
       hashKeys: ["action", "partner_lat", "partner_lng"],
+      retry: true,
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Locate_Partners")
+  @filterInput([
+    "partner_lat", // (Optional)latitude value of the base location of the search. This is required if the radius parameter is provided.
+    "partner_lng", // (Optional)longitude value of the base location of the search. This is required if the radius parameter is provided.
+    "indexed_result", // (Optional)The “Indexed Result” used get result indexed with partner_ext_id. Possible values are TRUE/FALSE
+    "partner_type", // (Optional)The “Partner Type” used to filter and retrieve partners information relative to the types. Eg: "shops,vets,suppliers"
+    "partner_group_handle", // (Optional)The “Partner Group Handle” used to filter the partners with that partner group handle's. Eg: "handle_1,handle_2"
+    "excl_partner_group_handle", // (Optional)This is used to exclude the partners belonging to the specified partner group handles. Eg: "handle_1,handle_2" .
+    "collection_ref", // (Optional)Collection reference to which the stock level is associated. Required if "stock_level" is provided.
+    "stock_level", // (Optional)Stock level which is a value between 0 and 10. The comparison will be done as ">= stock_level".
+    "search_term", // (Optional)The “Search Term” used to filter and retrieve partners information relative to the searched term text. It will check that term exists in partner invoice name, partner public name or email information.
+    "radius", // (Optional)Radius in km, Service will check partners located with in that "Radius".
+    "show_hidden", // (Optional)States whether to include the hidden partners in the result. (Valid Values: 0 OR 1) default 0
+    "partner_status", // (Optional)Used to filter results using partner status. Valid values are "A" and "I" (A: active, I: inactive). If this is not specified, default value is "A". The value "ANY" could be used to retrieve partners having any of the statuses.
+    "deal_ref", // (Optional)Deal reference to filter partners
+    "partner_mode", // (Optional)Filter partners by subscription,redemption or referral. Valid values are "subscription","redemption" or "referral". Default value is "subscription"
+    "page", // (Optional)The “Page” used for pagination. Page number of the result. Its a number. The default value is 1.
+    "records_per_page", // (Optional)The “records_per_page” used for pagination. Number of records per page. Its a number. The default value is 10. The maximum value is 100.
+    "data_options", // (Optional)This defines information that is returned in the profile object. It should be a comma separated list of values. For more information please refer Data Options. Default value contains groups and location. It's recommended to use minimal set of data_options to improve performance. It's recommended to use minimal set of data_options to improve performance.
+  ])
+  public locatePartners(
+    data: IPartnerLocatorLocateInput = {},
+  ): Promise<{ data: IPartnerDetails[] }> {
+    return this._call("locate-partners", data, {
+      errorMap: {
+        1008: { message: "Missing required fields" },
+        1030: { message: "Invalid partner group handle." },
+        1031: { message: "Invalid partner type." },
+      },
+      hashKeys: undefined,
       retry: true,
     });
   }

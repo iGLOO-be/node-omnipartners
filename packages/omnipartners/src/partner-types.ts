@@ -100,6 +100,26 @@ export interface IPartnerLocatorInput {
   partner_status?: string;
 }
 
+export interface IPartnerLocatorLocateInput {
+  partner_lat?: string;
+  partner_lng?: string;
+  indexed_result?: string;
+  partner_type?: string;
+  partner_group_handle?: string;
+  excl_partner_group_handle?: string;
+  collection_ref?: string;
+  stock_level?: number;
+  search_term?: string;
+  radius?: number;
+  show_hidden?: 0 | 1;
+  partner_status?: string;
+  deal_ref?: string;
+  partner_mode?: string;
+  page?: string;
+  records_per_page?: number;
+  data_options?: IPartnerDetailsDataOptions;
+}
+
 export interface IPartnerLink {
   link_id: number;
   contents: {
