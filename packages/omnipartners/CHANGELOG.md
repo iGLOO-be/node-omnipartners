@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.84.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.83.4...omnipartners@2.84.0) (2021-06-03)
+
+
+### Features
+
+* omnipartners: introduce `locatePartners` ([e4deac5](https://github.com/iGLOO-be/node-omnipartners/commit/e4deac5a22109abf95c563bda171fea3f56ebb52))
+
+
+
+
+
 ## [2.83.4](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.83.3...omnipartners@2.83.4) (2021-05-27)
 
 
