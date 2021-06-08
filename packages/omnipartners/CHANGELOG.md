@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.84.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.84.0...omnipartners@2.84.1) (2021-06-08)
+
+
+### Bug Fixes
+
+* omnipartners: don't hide `key` ([bca5cf9](https://github.com/iGLOO-be/node-omnipartners/commit/bca5cf9597bb74c55eb9509708fb1f0d7dbacf8e))
+
+
+
+
+
 # [2.84.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.83.4...omnipartners@2.84.0) (2021-06-03)
 
 
