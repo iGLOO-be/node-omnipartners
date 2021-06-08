@@ -24,7 +24,7 @@ export interface IRequestOptions {
 }
 
 export default class Request extends EventEmitter {
-  public protectedKeys = ["key", "hash"];
+  public protectedKeys = ["hash"];
 
   public readonly uuid: string;
   public readonly method?: string;
