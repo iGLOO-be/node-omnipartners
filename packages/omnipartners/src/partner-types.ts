@@ -90,6 +90,7 @@ export interface IPartnerLocatorInput {
   partner_type?: string;
   partner_group_handle?: string;
   excl_partner_group_handle?: string;
+  product_ean?: string;
   collection_ref?: string;
   stock_level?: string | number;
   search_term?: string;
@@ -228,6 +229,7 @@ export interface IPartnerDetails {
   partner_short_description_generic?: string;
   partner_opening_hours?: IPartnerOpeningHours | null;
   partner_breed_relations?: IPartnerBreedRelation[] | null;
+  stock_level?: string; // This will be returned only if stock level parameter is provided along with "product_ean" or "collection_ref"
 }
 
 export interface IPartnerUpdateInput {

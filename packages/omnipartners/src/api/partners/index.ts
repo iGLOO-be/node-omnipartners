@@ -92,6 +92,7 @@ export default class Partners extends Api {
     "partner_type",
     "partner_group_handle",
     "excl_partner_group_handle",
+    "product_ean",
     "collection_ref",
     "stock_level",
     "search_term",
@@ -494,6 +495,29 @@ export default class Partners extends Api {
   ): Promise<{ statusCode: number }> {
     return this._call("delete-partner-opening-hours", data, {
       hashKeys: ["action", "partner_ext_id", "day"],
+      retry: true,
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Update_Partner_Stock")
+  @filterInput([
+    "partner_ext_id",
+    "product_ean",
+    "stock_level", // Stock level which is a value between 0 and 10. If this parameter is omitted from the request the stock level will be updated as null.
+  ])
+  public updatePartnerStock(data: {
+    partner_ext_id: string;
+    product_ean: string;
+    stock_level?: number | string;
+  }): Promise<{ statusCode: number }> {
+    return this._call("update-partner-stock", data, {
+      hashKeys: [
+        "action",
+        "key",
+        "partner_ext_id",
+        "product_ean",
+        "stock_level",
+      ],
       retry: true,
     });
   }
