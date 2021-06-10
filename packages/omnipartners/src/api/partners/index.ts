@@ -124,6 +124,7 @@ export default class Partners extends Api {
     "partner_type", // (Optional)The “Partner Type” used to filter and retrieve partners information relative to the types. Eg: "shops,vets,suppliers"
     "partner_group_handle", // (Optional)The “Partner Group Handle” used to filter the partners with that partner group handle's. Eg: "handle_1,handle_2"
     "excl_partner_group_handle", // (Optional)This is used to exclude the partners belonging to the specified partner group handles. Eg: "handle_1,handle_2" .
+    "product_ean", // (Optional)Product EAN to which the stock level is associated. Required if "stock_level" is provided and "collection_ref" is not provided.
     "collection_ref", // (Optional)Collection reference to which the stock level is associated. Required if "stock_level" is provided.
     "stock_level", // (Optional)Stock level which is a value between 0 and 10. The comparison will be done as ">= stock_level".
     "search_term", // (Optional)The “Search Term” used to filter and retrieve partners information relative to the searched term text. It will check that term exists in partner invoice name, partner public name or email information.
@@ -136,18 +137,30 @@ export default class Partners extends Api {
     "records_per_page", // (Optional)The “records_per_page” used for pagination. Number of records per page. Its a number. The default value is 10. The maximum value is 100.
     "data_options", // (Optional)This defines information that is returned in the profile object. It should be a comma separated list of values. For more information please refer Data Options. Default value contains groups and location. It's recommended to use minimal set of data_options to improve performance. It's recommended to use minimal set of data_options to improve performance.
   ])
-  public locatePartners(
-    data: IPartnerLocatorLocateInput = {},
-  ): Promise<{ data: IPartnerDetails[] }> {
-    return this._call("locate-partners", data, {
-      errorMap: {
-        1008: { message: "Missing required fields" },
-        1030: { message: "Invalid partner group handle." },
-        1031: { message: "Invalid partner type." },
+  public locatePartners({
+    data_options,
+    ...data
+  }: IPartnerLocatorLocateInput = {}): Promise<{ data: IPartnerDetails[] }> {
+    return this._call(
+      "locate-partners",
+      {
+        ...data,
+        data_options: data_options
+          ? Array.isArray(data_options)
+            ? data_options.join(",")
+            : data_options
+          : undefined,
       },
-      hashKeys: undefined,
-      retry: true,
-    });
+      {
+        errorMap: {
+          1008: { message: "Missing required fields" },
+          1030: { message: "Invalid partner group handle." },
+          1031: { message: "Invalid partner type." },
+        },
+        hashKeys: undefined,
+        retry: true,
+      },
+    );
   }
 
   @doc("https://doc.clixray.com/index.php/Get_Partners_Details")
