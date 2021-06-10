@@ -108,15 +108,16 @@ export interface IPartnerLocatorLocateInput {
   partner_type?: string;
   partner_group_handle?: string;
   excl_partner_group_handle?: string;
+  product_ean?: string;
   collection_ref?: string;
   stock_level?: number;
   search_term?: string;
   radius?: number;
   show_hidden?: 0 | 1;
-  partner_status?: string;
+  partner_status?: "A" | "I" | "ANY";
   deal_ref?: string;
-  partner_mode?: string;
-  page?: string;
+  partner_mode?: "subscription" | "redemption" | "referral";
+  page?: number;
   records_per_page?: number;
   data_options?: IPartnerDetailsDataOptions;
 }
