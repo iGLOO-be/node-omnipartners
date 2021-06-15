@@ -970,6 +970,7 @@ input UserAddressCreateInput {
   postalCode: String!
   city: String!
   country: String
+  isDefault: Boolean
 }
 
 input UserAddressUpdateInput {
@@ -980,6 +981,7 @@ input UserAddressUpdateInput {
   postalCode: String!
   city: String!
   country: String
+  isDefault: Boolean
   id: String!
 }
 
