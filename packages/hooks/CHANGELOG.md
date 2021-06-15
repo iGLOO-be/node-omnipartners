@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.66.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.65.25...@igloo-be-omnipartners/hooks@0.66.0) (2021-06-15)
+
+
+### Features
+
+* introduce isDefault at adress creation ([45982cf](https://github.com/iGLOO-be/node-omnipartners/commit/45982cf9d1e067f5711c9f61be46337e7a992f6c))
+
+
+
+
+
 ## [0.65.25](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.65.24...@igloo-be-omnipartners/hooks@0.65.25) (2021-06-10)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/hooks

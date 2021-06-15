@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.88.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.87.15...@igloo-be-omnipartners/graphql-schema@1.88.0) (2021-06-15)
+
+
+### Features
+
+* introduce isDefault at adress creation ([45982cf](https://github.com/iGLOO-be/node-omnipartners/commit/45982cf9d1e067f5711c9f61be46337e7a992f6c))
+
+
+
+
+
 ## [1.87.15](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.87.14...@igloo-be-omnipartners/graphql-schema@1.87.15) (2021-06-10)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
