@@ -152,13 +152,15 @@ export const useUserAddressCreate = ({
                   addresses: [
                     {
                       __typename: "UserAddress",
-                      isDefault: false,
                       name: "",
                       street1: "",
                       street2: "",
                       country: "",
                       streetnum: "",
                       ...userAddressCreateInput,
+                      isDefault: userAddressCreateInput.isDefault
+                        ? true
+                        : false,
                       id: -1,
                     },
                   ],

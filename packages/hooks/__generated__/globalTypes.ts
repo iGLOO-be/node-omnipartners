@@ -45,6 +45,7 @@ export interface UserAddressCreateInput {
   postalCode: string;
   city: string;
   country?: string | null;
+  isDefault?: boolean | null;
 }
 
 export interface UserAddressUpdateInput {
@@ -55,6 +56,7 @@ export interface UserAddressUpdateInput {
   postalCode: string;
   city: string;
   country?: string | null;
+  isDefault?: boolean | null;
   id: string;
 }
 
