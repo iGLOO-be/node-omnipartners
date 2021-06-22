@@ -86,7 +86,7 @@ export interface IPartnerListItemInput {
 export interface IPartnerLocatorInput {
   partner_lat: string;
   partner_lng: string;
-  indexed_result?: 0;
+  indexed_result?: boolean;
   partner_type?: string;
   partner_group_handle?: string;
   excl_partner_group_handle?: string;
@@ -96,9 +96,10 @@ export interface IPartnerLocatorInput {
   search_term?: string;
   radius?: number;
   limit?: number;
-  show_hidden?: 0;
-  add_cis_guid?: 1;
+  show_hidden?: 0 | 1;
+  add_cis_guid?: 0 | 1;
   partner_status?: string;
+  include_unknown_stock_level?: 0 | 1;
 }
 
 export interface IPartnerLocatorLocateInput {

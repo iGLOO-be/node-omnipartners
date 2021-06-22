@@ -101,6 +101,7 @@ export default class Partners extends Api {
     "show_hidden",
     "add_cis_guid",
     "partner_status",
+    "include_unknown_stock_level",
   ])
   public findPartners(
     data: IPartnerLocatorInput,
