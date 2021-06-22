@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.84.4](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.84.3...omnipartners@2.84.4) (2021-06-22)
+
+
+### Bug Fixes
+
+* find partner include_unknown_stock_level ([19a0f56](https://github.com/iGLOO-be/node-omnipartners/commit/19a0f565e27eb4c7305a803135b37aaa8959e800))
+
+
+
+
+
 ## [2.84.3](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.84.2...omnipartners@2.84.3) (2021-06-10)
 
 **Note:** Version bump only for package omnipartners
