@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.85.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.84.4...omnipartners@2.85.0) (2021-06-23)
+
+
+### Features
+
+* omnipartners: api: identity: add and delete user tags ([b255740](https://github.com/iGLOO-be/node-omnipartners/commit/b255740103ec1e8c4b5980481432f5f5297abf92))
+
+
+
+
+
 ## [2.84.4](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.84.3...omnipartners@2.84.4) (2021-06-22)
 
 
