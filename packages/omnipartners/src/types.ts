@@ -1216,3 +1216,16 @@ export interface ILoyaltyPointDeduction {
   user_guid: string;
   user_profile: ILoyaltyUserProfile;
 }
+
+export interface IAddUserTagsInput {
+  user_guid: string;
+  user_tags: string;
+  replace_existing_tags?: string;
+  custom_logger_info?: { [key: string]: string };
+}
+
+export interface IDeleteUserTagsInput {
+  user_guid: string;
+  user_tags: string;
+  custom_logger_info?: { [key: string]: string };
+}
