@@ -48,6 +48,8 @@ import {
   IUserPetDietRecommendationAddInput,
   IUserPetDietRecommendationEntry,
   IUserPetDietRecommendationDeleteInput,
+  IAddUserTagsInput,
+  IDeleteUserTagsInput,
 } from "../../types";
 
 export interface IUserGetPartnerAccountRelationsResult {
@@ -1353,6 +1355,33 @@ export default class Identity extends Api {
   @filterInput(["user_guid"])
   public getUserTags(data: { user_guid: string }): Promise<{ data: string[] }> {
     return this.post("/service/user-tags/get-tags", data, {
+      hashKeys: ["user_guid"],
+    });
+  }
+  @doc("https://doc.clixray.com/index.php?title=Get_User_Tags")
+  @filterInput([
+    "user_guid", // (Required) GUID of the tag adding user.
+    "user_tags", // (Required) Tag which is going to add for the user. Multiple values can be used for this by separating each by a comma. Each tag should contain only a-z A-Z _ characters.
+    "replace_existing_tags", // (Optional) Flag used to determine whether existing tags have to be replaced by the given list or not. If the value is "1" or "yes" then the existing tags will be removed.
+    "custom_logger_info", // (Optional) custom values to add as logging values. Ex. {"tag_1":"custom_tag_1", "tag_2":"custom_tag_2"}
+  ])
+  public addUserTags(
+    data: IAddUserTagsInput,
+  ): Promise<{ data: { added_tags: string[] } }> {
+    return this.post("/service/user-tags/add-tag", data, {
+      hashKeys: ["user_guid"],
+    });
+  }
+  @doc("https://doc.clixray.com/index.php?title=Get_User_Tags")
+  @filterInput([
+    "user_guid", // (Required) GUID of the tag adding user.
+    "user_tags", // (Required) Tag which is going to delete from the user. Multiple values can be used for this by separating each by a comma. If this parameter is not sent or empty value is sent, all tags which are relate to the user will be deleted.
+    "custom_logger_info", // (Optional) custom values to add as logging values. Ex. {"tag_1":"custom_tag_1", "tag_2":"custom_tag_2"}
+  ])
+  public deleteUserTags(
+    data: IDeleteUserTagsInput,
+  ): Promise<{ data: { statusCode: number } }> {
+    return this.post("/service/user-tags/delete-tag", data, {
       hashKeys: ["user_guid"],
     });
   }
