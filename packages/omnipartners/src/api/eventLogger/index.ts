@@ -55,7 +55,7 @@ export default class EventLogger extends Api {
     user_guid: string;
     event_source: string;
     event_name: string;
-    event_ts: string;
+    event_ts: string | number;
     clixray_instance_id: string;
     partner_ext_id?: string;
     partner_type?: string;
