@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.86.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.85.1...omnipartners@2.86.0) (2021-06-25)
+
+
+### Features
+
+* partners add-missing-stock-item ([9e694b5](https://github.com/iGLOO-be/node-omnipartners/commit/9e694b5b0f91db858739b7a3cf251473566b8077))
+
+
+
+
+
 ## [2.85.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.85.0...omnipartners@2.85.1) (2021-06-24)
 
 
