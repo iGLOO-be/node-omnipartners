@@ -535,4 +535,30 @@ export default class Partners extends Api {
       retry: true,
     });
   }
+
+  @doc("https://doc.clixray.com/index.php?title=Add_Missing_Stock_Item")
+  @filterInput(["partner_ext_id", "product_ean", "collection_ref", "user_guid"])
+  public addMissingStockItem(data: {
+    partner_ext_id: string;
+    product_ean?: string;
+    collection_ref?: string;
+    user_guid?: string;
+  }): Promise<{
+    statusCode: number;
+    data?: {
+      existing_records: { products: string[] };
+    };
+  }> {
+    return this._call("add-missing-stock-item", data, {
+      hashKeys: [
+        "action",
+        "collection_ref",
+        "key",
+        "partner_ext_id",
+        "product_ean",
+        "user_guid",
+      ],
+      retry: true,
+    });
+  }
 }
