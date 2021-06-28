@@ -55,7 +55,7 @@ export default class EventLogger extends Api {
     user_guid: string;
     event_source: string;
     event_name: string;
-    event_ts: string | number;
+    event_ts: number;
     clixray_instance_id: string;
     partner_ext_id?: string;
     partner_type?: string;
@@ -67,7 +67,11 @@ export default class EventLogger extends Api {
   }) {
     return this.post(
       "/tracker",
-      { ...data, ...custom_fields },
+      {
+        ...data,
+        event_ts: Math.round(data.event_ts), // integer
+        ...custom_fields,
+      },
       {
         errorMap: {
           1003: {
