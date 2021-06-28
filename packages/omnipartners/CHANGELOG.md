@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.86.1](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.86.0...omnipartners@2.86.1) (2021-06-28)
+
+
+### Bug Fixes
+
+* event logger force timestamp as integer ([251e9a8](https://github.com/iGLOO-be/node-omnipartners/commit/251e9a8c3ba785ba9d53c5be0bec4a2492431926))
+
+
+
+
+
 # [2.86.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.85.1...omnipartners@2.86.0) (2021-06-25)
 
 
