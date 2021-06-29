@@ -303,7 +303,8 @@ type IDealDataOption =
   | "pet_restrictions"
   | "loyalty_reward"
   | "pet_tags"
-  | "pet_stages";
+  | "pet_stages"
+  | "subscription_limit";
 
 export type IDealSubscriptionDataOptions =
   | IDealSubscriptionDataOption
