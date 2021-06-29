@@ -1018,6 +1018,12 @@ export interface IDeal extends IDealListItem {
   redemption_partner_required: number;
   redemption_referral_partner_required: number;
   products: IDealProduct[];
+  limitations: {
+    max_payments_per_iban: string; // Only for Direct Cashback deals
+    max_subscription_per_delivery_address: string;
+    max_subscription_limit: number; // only with 'subscription_limit' data option
+    remaining_subscription_count: number; // only with 'subscription_limit' data option
+  };
   type_details: {
     discount_type: string;
     amounts: {
