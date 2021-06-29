@@ -1,7 +1,7 @@
 {
   "name": "@igloo-be-omnipartners/graphql-demo",
   "private": true,
-  "version": "0.59.110",
+  "version": "0.59.111",
   "scripts": {
     "build": "yarn gen:types",
     "start": "yarn gen:types && gatsby develop -H 0.0.0.0",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
-    "@igloo-be-omnipartners/hooks": "^0.66.5",
+    "@igloo-be-omnipartners/hooks": "^0.66.6",
     "apollo": "^2.32.5",
     "formik": "^2.2.6",
     "gatsby": "^3.0.0",
