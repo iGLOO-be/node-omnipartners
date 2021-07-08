@@ -50,6 +50,9 @@ import {
   IUserPetDietRecommendationDeleteInput,
   IAddUserTagsInput,
   IDeleteUserTagsInput,
+  ISocialNetwork,
+  ISocialNetworkInput,
+  ISocialNetworkDeleteInput,
 } from "../../types";
 
 export interface IUserGetPartnerAccountRelationsResult {
@@ -1383,6 +1386,65 @@ export default class Identity extends Api {
   ): Promise<{ data: { statusCode: number } }> {
     return this.post("/service/user-tags/delete-tag", data, {
       hashKeys: ["user_guid"],
+    });
+  }
+
+  /*
+     Manage User Socials Network
+   */
+  @doc("https://doc.clixray.com/index.php?title=Get_User_Social_Networks")
+  @filterInput([
+    "user_guid", // (Required) GUID of the user.
+  ])
+  public getUserSocialNetwork(data: {
+    user_guid: string;
+  }): Promise<{ data: ISocialNetwork[] }> {
+    return this.post("/service/social-network/list", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Add_User_Social_Network")
+  @filterInput([
+    "user_guid", // (Required) GUID of the user.
+    "social_network", // (Required) The social network. Please refer Get_Social_Networks for valid values.
+    "username", // (Required) The username in the social network.
+    "follower_count", // (Optional) Number of followers in the social network.
+  ])
+  public addUserSocialNetwork(
+    data: ISocialNetworkInput,
+  ): Promise<{ data: { statusCode: 0 } }> {
+    return this.post("/service/social-network/add", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Update_User_Social_Network")
+  @filterInput([
+    "user_guid", // (Required) GUID of the user.
+    "social_network", // (Required) The social network. Please refer Get_Social_Networks for valid values.
+    "username", // (Required) The username in the social network.
+    "follower_count", // (Optional) Number of followers in the social network.
+  ])
+  public updateUserSocialNetwork(
+    data: ISocialNetworkInput,
+  ): Promise<{ data: { statusCode: 0 } }> {
+    return this.post("/service/social-network/update", data, {
+      hashKeys: undefined,
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Delete_User_Social_Network")
+  @filterInput([
+    "user_guid", // (Required) GUID of the user.
+    "social_network", // (Required) The social network. Please refer Get_Social_Networks for valid values.
+    "username", // (Required) The username in the social network.
+  ])
+  public deleteUserSocialNetwork(
+    data: ISocialNetworkDeleteInput,
+  ): Promise<{ data: { statusCode: 0 } }> {
+    return this.post("/service/social-network/delete", data, {
+      hashKeys: undefined,
     });
   }
 }
