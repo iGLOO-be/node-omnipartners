@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.87.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.86.2...omnipartners@2.87.0) (2021-07-08)
+
+
+### Features
+
+* omnipartners: api: introduce socials management ([8a9b609](https://github.com/iGLOO-be/node-omnipartners/commit/8a9b60911dd93c83c73683f7af42a5a37f73b3d0))
+
+
+
+
+
 ## [2.86.2](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.86.1...omnipartners@2.86.2) (2021-06-29)
 
 **Note:** Version bump only for package omnipartners
