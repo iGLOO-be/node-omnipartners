@@ -227,6 +227,11 @@ export interface IMetadataPartnerRelationType {
   name: string;
 }
 
+interface IBaseMetadataType {
+  code: string;
+  name: string;
+}
+
 export default class Metadata extends Api {
   public defaultHost = "http://metadata.omnipartners.be/";
 
@@ -520,5 +525,13 @@ export default class Metadata extends Api {
     data?: IBaseInput,
   ): Promise<{ data: IMetadataPartnerRelationType[] }> {
     return this._call("get-partner-relation-types", data);
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Get_Social_Networks")
+  @filterInput(["indexed"])
+  public getSocialNetworks(data?: {
+    indexed?: string;
+  }): Promise<{ data: IBaseMetadataType[] }> {
+    return this._call("get-social-networks", data);
   }
 }

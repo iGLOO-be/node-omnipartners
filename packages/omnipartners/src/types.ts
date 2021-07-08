@@ -1235,3 +1235,24 @@ export interface IDeleteUserTagsInput {
   user_tags: string;
   custom_logger_info?: { [key: string]: string };
 }
+
+export interface ISocialNetwork {
+  social_network: string;
+  username: string;
+  follower_count?: number;
+  added_on: string;
+  updated_on: string;
+}
+
+export interface ISocialNetworkInput {
+  user_guid: string;
+  social_network: string;
+  username: string;
+  follower_count?: number;
+}
+
+export interface ISocialNetworkDeleteInput {
+  user_guid: string;
+  social_network: string;
+  username: string;
+}
