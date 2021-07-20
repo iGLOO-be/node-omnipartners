@@ -113,7 +113,7 @@ export default class Identity extends Api {
   public findAccountByPhone(data: {
     mobile_no: string;
     include_loyalty_cards?: boolean;
-  }) {
+  }): Promise<IUserPartial> {
     return this.get("/service/user/resolve-by-mobile-number", data, {
       hashKeys: ["mobile_no"],
       retry: true,
