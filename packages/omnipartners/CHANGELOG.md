@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.89.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.88.0...omnipartners@2.89.0) (2021-07-22)
+
+
+### Features
+
+* omnipartners: loyalty: introduce resolve user guid ([bb128ec](https://github.com/iGLOO-be/node-omnipartners/commit/bb128eccc2ac66297692ebf29824971812da9646))
+
+
+
+
+
 # [2.88.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.87.0...omnipartners@2.88.0) (2021-07-20)
 
 
