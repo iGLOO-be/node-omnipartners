@@ -190,6 +190,14 @@ export interface ILoyaltyListPurchasesInput {
   sort?: string;
 }
 
+export interface ILoyaltyResolveUserGUIDInput {
+  /** don't specify program_id if auth_type === mobile_no */
+  program_id?: string;
+  card_program_id?: string;
+  user_id: string;
+  auth_type: string;
+}
+
 export default class Loyalty extends Api {
   public defaultHost = "https://rewards.clixray.io/points";
 
@@ -653,6 +661,31 @@ export default class Loyalty extends Api {
   }> {
     return this._call("list-purchases", data, {
       hashKeys: ["action", "program_id", "user_guid"],
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Resolve_User_GUID")
+  @filterInput([
+    "program_id", // (Optional) Request sender specify the “program code” related to the loyalty points program here. Its data type is TEXT. But its not a required field now.
+    "card_program_id", // (Optional) This is used to specify the program which the card belong to. This allows the system to identify a user by a card number of some other program associated to him or her. Here request sender should be set “auth_type” parameter as “card_no” and also “user_id” should contain a card number.
+    "user_id", // (Required) Service request sender needs to set card number / mobile number information here. Its data type is TEXT.
+    "auth_type", // (Required) It could be contain ‘card_no’ OR ‘mobile_no’ text value .
+  ])
+  public resolveUserGuid(
+    data: ILoyaltyResolveUserGUIDInput,
+  ): Promise<{
+    data: {
+      user_guid: string;
+      user_profile: {
+        user_status: string;
+        has_email: string;
+        has_mobile_phone: string;
+      };
+    };
+  }> {
+    return this._call("resolveuserguid", data, {
+      hashKey: "sigid",
+      hashKeys: ["action", "program_id", "user_id"],
     });
   }
 }
