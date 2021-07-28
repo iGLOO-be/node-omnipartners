@@ -57,7 +57,10 @@ class UserUpdatePlacesOfPurchaseInput
 @InputType()
 class UserUpdateSubscriptionsInput
   implements
-    Omit<IUserUpdateSubscriptionsInput, "user_guid" | "subscriptions" | "interests"> {
+    Omit<
+      IUserUpdateSubscriptionsInput,
+      "user_guid" | "subscriptions" | "interests"
+    > {
   @Field({ nullable: true })
   public com_prefs?: string;
   @Field(() => [String], { nullable: true })
@@ -299,11 +302,18 @@ export class UserResolver {
     updateSubscriptionsInput: UserUpdateSubscriptionsInput,
   ): Promise<GenericValidationError | undefined> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
+    const interests = (await ctx.omnipartners.metadata.getInterests()).data;
+
     const data: IUserUpdateSubscriptionsInput = {
       ...updateSubscriptionsInput,
       interests: Array.isArray(updateSubscriptionsInput.interests)
-        ? updateSubscriptionsInput.interests.join(",")
-        : updateSubscriptionsInput.interests,
+        ? updateSubscriptionsInput.interests
+            .filter((int) => interests.find((i) => int === i.code))
+            .join(",")
+        : updateSubscriptionsInput.interests
+            ?.split(",")
+            .filter((int) => interests.find((i) => int === i.code))
+            .join(","),
       subscriptions: Array.isArray(updateSubscriptionsInput.subscriptions)
         ? updateSubscriptionsInput.subscriptions.join(",")
         : updateSubscriptionsInput.subscriptions,
