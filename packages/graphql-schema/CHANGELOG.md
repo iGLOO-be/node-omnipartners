@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.88.10](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.88.9...@igloo-be-omnipartners/graphql-schema@1.88.10) (2021-07-28)
+
+
+### Bug Fixes
+
+* graphql-schema: UserResolver: update only known interests ([eefd944](https://github.com/iGLOO-be/node-omnipartners/commit/eefd9444c59f4880b9a891d309a2939c09d814f7))
+
+
+
+
+
 ## [1.88.9](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.88.8...@igloo-be-omnipartners/graphql-schema@1.88.9) (2021-07-22)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
