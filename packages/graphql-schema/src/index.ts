@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 export { buildSchema, BuildSchemaOptions } from "type-graphql";
 
+export { UserLoginByPublicTokenResolver } from "./user/UserLoginByPublicTokenResolver";
 export { DataAnimalBreedResolver } from "./metadata/DataAnimalBreedResolver";
 export { DataAnimalTypeResolver } from "./metadata/DataAnimalTypeResolver";
 export { DataAnimalUniverseResolver } from "./metadata/DataAnimalUniverseResolver";
