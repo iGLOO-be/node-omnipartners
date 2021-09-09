@@ -839,6 +839,7 @@ input ProductsCollectionsDetailInput {
 
 type Query {
   metadataLegalForms(codes: String, lang: String): [LegalForm!]!
+  userLoginByPublicToken(userContextData: JSON, token: String!): UserResult!
   metadataAnimalBreeds(type: String, lang: String): [AnimalBreed!]!
   metadataAnimalTypes(lang: String): [AnimalType!]!
   metadataAnimalUniverses(lang: String): [AnimalUniverse!]!
@@ -874,7 +875,6 @@ type Query {
   user(token: String!): UserResult
   userLogin(userContextData: JSON, password: String!, identifier: String!): UserResult!
   userLoginByAccessToken(userContextData: JSON, access_token: String!): UserResult!
-  userLoginByPublicToken(userContextData: JSON, token: String!): UserResult!
   userEmailExists(email: String!): Boolean!
   userCreateAuthCode(ttl: Float!, value: String!, type: String!): GenericError
   userLoginByCode(auth_code: String!): UserResult
