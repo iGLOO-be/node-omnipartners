@@ -92,7 +92,7 @@ export default class Identity extends Api {
   @filterInput(["session_token", "ttl"])
   public getAccessToken(data: {
     session_token: string;
-    ttl: string;
+    ttl: string | number;
   }): Promise<{
     statusCode: 0;
     data: { token: string };
@@ -573,7 +573,7 @@ export default class Identity extends Api {
   public authenticateByEmail(data: {
     email: string;
     data_options?: IUserDataOptions;
-  }) {
+  }): Promise<IUser> {
     return this.get("/service/auth/email", data, {
       hashKeys: ["email"],
       retry: true,
