@@ -468,7 +468,7 @@ export default class Identity extends Api {
   public revokeLegalForm(data: {
     legal_form_code: string;
     user_guid: string;
-    send_notification: string;
+    send_notification?: "1";
   }) {
     return this.post("/service/legal-form/revoke-legal-form", data, {
       errorMap: {
