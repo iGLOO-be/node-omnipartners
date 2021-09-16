@@ -26,6 +26,7 @@ const mapClixrayFields = (
   | "address_postal_code"
   | "address_city"
   | "address_country"
+  | "address_type"
 > => ({
   address_id: userAddressInput.id,
   address_name: userAddressInput.name,
@@ -35,6 +36,7 @@ const mapClixrayFields = (
   address_postal_code: userAddressInput.postalCode,
   address_city: userAddressInput.city,
   address_country: userAddressInput.country,
+  address_type: userAddressInput.type,
 });
 
 const fieldsMapping = {
@@ -46,6 +48,7 @@ const fieldsMapping = {
   address_postal_code: "postalCode",
   address_city: "city",
   address_country: "country",
+  address_type: "type",
 };
 
 @Resolver(() => User)
@@ -58,10 +61,12 @@ export class UserAddressUpdateResolver {
   ): Promise<UserAddressUpdateResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
-      const address = (await ctx.omnipartners.identity.updateUserAddress({
-        ...mapClixrayFields(userAddressInput),
-        user_guid,
-      })).data;
+      const address = (
+        await ctx.omnipartners.identity.updateUserAddress({
+          ...mapClixrayFields(userAddressInput),
+          user_guid,
+        })
+      ).data;
 
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: userDataOptions,

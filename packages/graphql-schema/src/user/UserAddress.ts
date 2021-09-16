@@ -33,6 +33,9 @@ export class UserAddress {
   @Field()
   public isDefault: boolean;
 
+  @Field()
+  public type?: string;
+
   constructor(data: IUserAddress) {
     Object.assign(this, data);
     this.id = data.address_id;
@@ -45,5 +48,6 @@ export class UserAddress {
     this.city = data.address_city;
     this.country = data.address_country;
     this.isDefault = data.is_default;
+    this.type = data.address_type;
   }
 }

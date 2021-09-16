@@ -960,6 +960,7 @@ type UserAddress {
   city: String
   country: String
   isDefault: Boolean!
+  type: String!
 }
 
 input UserAddressCreateInput {

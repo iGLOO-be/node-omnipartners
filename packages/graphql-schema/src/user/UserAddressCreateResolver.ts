@@ -13,6 +13,9 @@ export class UserAddressCreateInput {
   public name?: string;
 
   @Field({ nullable: true })
+  public type?: string;
+
+  @Field({ nullable: true })
   public streetnum?: string;
 
   @Field({ nullable: true })
@@ -66,6 +69,7 @@ const fieldsMapping = {
   address_postal_code: "postalCode",
   address_city: "city",
   address_country: "country",
+  address_type: "type",
 };
 
 @Resolver(() => User)
