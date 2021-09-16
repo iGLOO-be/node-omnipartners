@@ -50,6 +50,7 @@ const mapClixrayFields = (
   | "address_city"
   | "address_country"
   | "address_is_default"
+  | "address_type"
 > => ({
   address_name: userAddressInput.name,
   address_streetnum: userAddressInput.streetnum,
@@ -59,6 +60,7 @@ const mapClixrayFields = (
   address_city: userAddressInput.city,
   address_country: userAddressInput.country,
   address_is_default: userAddressInput.isDefault ? "1" : "0",
+  address_type: userAddressInput.type,
 });
 
 const fieldsMapping = {

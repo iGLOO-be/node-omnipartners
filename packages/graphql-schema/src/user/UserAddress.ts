@@ -33,7 +33,7 @@ export class UserAddress {
   @Field()
   public isDefault: boolean;
 
-  @Field()
+  @Field({ nullable: true })
   public type?: string;
 
   constructor(data: IUserAddress) {

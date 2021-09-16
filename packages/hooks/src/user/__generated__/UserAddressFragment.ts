@@ -22,7 +22,7 @@ export interface UserAddressFragment_addresses {
   streetnum: string | null;
   city: string | null;
   isDefault: boolean;
-  type: string;
+  type: string | null;
 }
 
 export interface UserAddressFragment {

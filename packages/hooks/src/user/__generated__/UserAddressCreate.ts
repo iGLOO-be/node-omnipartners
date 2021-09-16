@@ -24,7 +24,7 @@ export interface UserAddressCreate_userAddressCreate_result_user_addresses {
   streetnum: string | null;
   city: string | null;
   isDefault: boolean;
-  type: string;
+  type: string | null;
 }
 
 export interface UserAddressCreate_userAddressCreate_result_user {
