@@ -34,6 +34,7 @@ export const UserAddressFragment = gql`
       streetnum
       city
       isDefault
+      type
     }
   }
 `;

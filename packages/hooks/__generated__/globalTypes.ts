@@ -39,6 +39,7 @@ export interface PartnerLocatorInput {
 
 export interface UserAddressCreateInput {
   name?: string | null;
+  type?: string | null;
   streetnum?: string | null;
   street1?: string | null;
   street2?: string | null;
@@ -50,6 +51,7 @@ export interface UserAddressCreateInput {
 
 export interface UserAddressUpdateInput {
   name?: string | null;
+  type?: string | null;
   streetnum?: string | null;
   street1?: string | null;
   street2?: string | null;

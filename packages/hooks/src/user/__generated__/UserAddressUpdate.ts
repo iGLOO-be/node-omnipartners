@@ -24,6 +24,7 @@ export interface UserAddressUpdate_userAddressUpdate_result_user_addresses {
   streetnum: string | null;
   city: string | null;
   isDefault: boolean;
+  type: string;
 }
 
 export interface UserAddressUpdate_userAddressUpdate_result_user {

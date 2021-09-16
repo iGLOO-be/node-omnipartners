@@ -965,6 +965,7 @@ type UserAddress {
 
 input UserAddressCreateInput {
   name: String
+  type: String
   streetnum: String
   street1: String
   street2: String
@@ -976,6 +977,7 @@ input UserAddressCreateInput {
 
 input UserAddressUpdateInput {
   name: String
+  type: String
   streetnum: String
   street1: String
   street2: String
