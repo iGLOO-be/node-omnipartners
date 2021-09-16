@@ -158,6 +158,7 @@ export const useUserAddressCreate = ({
                       street2: "",
                       country: "",
                       streetnum: "",
+                      type: "",
                       ...userAddressCreateInput,
                       isDefault: userAddressCreateInput.isDefault
                         ? true
@@ -213,7 +214,11 @@ const UserAddressUpdateMutation = gql`
   ${UserAddressFragment}
 `;
 
-export const useUserAddressUpdate = () => {
+export const useUserAddressUpdate = ({
+  optimistic = false,
+}: {
+  optimistic?: boolean;
+} = {}) => {
   const userToken = useUserToken();
   const [userAddressUpdate, mutationResult] = useMutation<
     UserAddressUpdate,
@@ -229,11 +234,44 @@ export const useUserAddressUpdate = () => {
       userAddressInput: UserAddressUpdateInput,
       token = userToken,
     ) => {
+      const { user_guid } = decodeToken(token);
       const { data } = await userAddressUpdate({
         variables: {
           token,
           userAddressInput,
         },
+        ...(optimistic && {
+          optimisticResponse: {
+            userAddressUpdate: {
+              __typename: "UserAddressUpdateResult",
+              error: null,
+              result: {
+                __typename: "UserAndAddress",
+                user: {
+                  __typename: "User",
+                  addresses: [
+                    {
+                      __typename: "UserAddress",
+                      name: "",
+                      street1: "",
+                      street2: "",
+                      country: "",
+                      streetnum: "",
+                      type: "",
+                      ...userAddressInput,
+                      isDefault: userAddressInput.isDefault ? true : false,
+                      id: -1,
+                    },
+                  ],
+                  owner: {
+                    __typename: "UserOwner",
+                    guid: user_guid,
+                  },
+                },
+              },
+            },
+          },
+        }),
       });
 
       return data && data.userAddressUpdate;
