@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.89.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.88.12...@igloo-be-omnipartners/graphql-schema@1.89.0) (2021-09-17)
+
+
+### Features
+
+* graphql-schema: UserAddress: add type ([66b95f9](https://github.com/iGLOO-be/node-omnipartners/commit/66b95f95df4bd027b556d6e1e96de6985439382b))
+
+
+
+
+
 ## [1.88.12](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.88.11...@igloo-be-omnipartners/graphql-schema@1.88.12) (2021-09-09)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
