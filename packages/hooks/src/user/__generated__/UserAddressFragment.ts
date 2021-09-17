@@ -17,6 +17,7 @@ export interface UserAddressFragment_addresses {
   id: number;
   name: string | null;
   street1: string | null;
+  street2: string | null;
   postalCode: string | null;
   country: string | null;
   streetnum: string | null;

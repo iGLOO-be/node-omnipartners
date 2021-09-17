@@ -29,6 +29,7 @@ export const UserAddressFragment = gql`
       id
       name
       street1
+      street2
       postalCode
       country
       streetnum
