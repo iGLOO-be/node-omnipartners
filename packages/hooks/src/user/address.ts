@@ -98,6 +98,9 @@ const UserAddressCreateMutation = gql`
         user {
           ...UserAddressFragment
         }
+        address {
+          id
+        }
       }
       error {
         message
@@ -172,6 +175,7 @@ export const useUserAddressCreate = ({
                     guid: user_guid,
                   },
                 },
+                address: { __typename: "UserAddress", id: 0 },
               },
             },
           },

@@ -34,9 +34,15 @@ export interface UserAddressCreate_userAddressCreate_result_user {
   addresses: UserAddressCreate_userAddressCreate_result_user_addresses[];
 }
 
+export interface UserAddressCreate_userAddressCreate_result_address {
+  __typename: "UserAddress";
+  id: number;
+}
+
 export interface UserAddressCreate_userAddressCreate_result {
   __typename: "UserAndAddress";
   user: UserAddressCreate_userAddressCreate_result_user;
+  address: UserAddressCreate_userAddressCreate_result_address;
 }
 
 export interface UserAddressCreate_userAddressCreate_error_validationErrors_errors {
