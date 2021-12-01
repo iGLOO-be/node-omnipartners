@@ -155,7 +155,7 @@ interface IPartnerBreedRelation {
   universe: string;
 }
 
-export interface IPartnerDetails {
+export type IPartnerDetails <T extends Record<string, unknown> = {}> = {
   partner_ext_id: string;
   partner_inv_name: string;
   partner_inv_street1?: string;
@@ -222,17 +222,17 @@ export interface IPartnerDetails {
   partner_logo_medium?: string;
   partner_logo_large?: string;
   links?: IPartnerLinks;
+  partner_short_description_generic?: string;
+  partner_opening_hours?: IPartnerOpeningHours | null;
+  partner_breed_relations?: IPartnerBreedRelation[] | null;
+  stock_level?: string; // This will be returned only if stock level parameter is provided along with "product_ean" or "collection_ref"
   partner_custom_conv?: string;
   partner_custom_discountcode?: string;
   partner_custom_edicode?: string;
   partner_custom_matrix?: string;
   partner_custom_salesmanemail?: string;
   partner_custom_species?: string;
-  partner_short_description_generic?: string;
-  partner_opening_hours?: IPartnerOpeningHours | null;
-  partner_breed_relations?: IPartnerBreedRelation[] | null;
-  stock_level?: string; // This will be returned only if stock level parameter is provided along with "product_ean" or "collection_ref"
-}
+} & T
 
 export interface IPartnerUpdateInput {
   partner_ext_id: string;
