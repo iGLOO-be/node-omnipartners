@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.90.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.89.2...omnipartners@2.90.0) (2021-12-01)
+
+
+### Features
+
+* IPartnerDetails: argument to extend the type ([a23aa2c](https://github.com/iGLOO-be/node-omnipartners/commit/a23aa2c8142c2a50e4cfd4bdad15731f4f2cc8f1))
+
+
+
+
+
 ## [2.89.2](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.89.1...omnipartners@2.89.2) (2021-09-09)
 
 **Note:** Version bump only for package omnipartners
