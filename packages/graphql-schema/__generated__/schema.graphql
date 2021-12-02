@@ -461,6 +461,13 @@ type LegalForm {
   url: String
 }
 
+type LoyaltyBalance {
+  status: String!
+  user_guid: String!
+  user_hold_points: String!
+  user_total_points: String!
+}
+
 type Mutation {
   dealSubscribe(input: DealSubscribeInput!, token: String!): GenericValidationError
   directCashbackDealSubscribe(input: DirectCashbackDealSubscribeInput!, token: String!): GenericValidationError
@@ -481,6 +488,7 @@ type Mutation {
   userPetDelete(token: String!, userPetDeleteInput: UserPetDeleteInput!): UserResult!
   userPetDeleteDietRecommendation(token: String!, userPetDietRecommendationDeleteInput: UserPetDietRecommendationDeleteInput!): UserPetUpdateResult!
   userPetUpdate(token: String!, userPetInput: UserPetUpdateInput!): UserPetUpdateResult!
+  userPublicSubscriptionsUpdate(input: UserPublicSubscriptionsUpdateInput!, publicToken: String!, userEmail: String!): GenericValidationError
   userRecoverPassword(email: String!): GenericError
   userUpdate(token: String!, userInput: UserUpdateInput!): UserUpdateResult!
   userUpdatePlacesOfPurchase(token: String!, updatePlacesOfPurchaseInput: UserUpdatePlacesOfPurchaseInput!): GenericValidationError
@@ -861,6 +869,7 @@ type Query {
     token: String!
   ): DirectCashbackVoucherConnection
   findPartners(partnerLocatorInput: PartnerLocatorInput!): [Partner!]
+  loyaltyRetrieveBalance(card_program_id: String, program_id: String!, token: String!): LoyaltyBalance!
   metadataAccountPasswordPolicy: DataAccountPasswordPolicy
   metadataAnimalBreeds(lang: String, type: String): [AnimalBreed!]!
   metadataAnimalLifestyles(lang: String, type: String): [AnimalLifestyle!]!
@@ -895,6 +904,8 @@ type Query {
   userLogin(identifier: String!, password: String!, userContextData: JSON): UserResult!
   userLoginByAccessToken(access_token: String!, userContextData: JSON): UserResult!
   userLoginByCode(auth_code: String!): UserResult
+  userLoginByPublicToken(token: String!, userContextData: JSON): UserResult!
+  userPublicSubscriptions(publicToken: String!, userEmail: String!): UserPublicSubscriptionsResult
 }
 
 type Subscription {
@@ -1271,6 +1282,19 @@ type UserPlaceOfPurchase {
 type UserPreferences {
   communicationPreferences: [String!]!
   interests: [String!]!
+  subscriptions: [String!]!
+}
+
+type UserPublicSubscriptionsResult {
+  error: GenericError
+  result: UserPublicSubscriptionsUser
+}
+
+input UserPublicSubscriptionsUpdateInput {
+  subscriptions: [String!]!
+}
+
+type UserPublicSubscriptionsUser {
   subscriptions: [String!]!
 }
 
