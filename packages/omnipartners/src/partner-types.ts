@@ -1,3 +1,5 @@
+type booleanNumber = 0 | 1;
+
 export interface IPartnerAccountRelationCreateInput {
   user_guid: string;
   partner_ext_id: string;
@@ -96,10 +98,10 @@ export interface IPartnerLocatorInput {
   search_term?: string;
   radius?: number;
   limit?: number;
-  show_hidden?: 0 | 1;
-  add_cis_guid?: 0 | 1;
+  show_hidden?: booleanNumber;
+  add_cis_guid?: booleanNumber;
   partner_status?: string;
-  include_unknown_stock_level?: 0 | 1;
+  include_unknown_stock_level?: booleanNumber;
 }
 
 export interface IPartnerLocatorLocateInput {
@@ -114,7 +116,7 @@ export interface IPartnerLocatorLocateInput {
   stock_level?: number;
   search_term?: string;
   radius?: number;
-  show_hidden?: 0 | 1;
+  show_hidden?: booleanNumber;
   partner_status?: "A" | "I" | "ANY";
   deal_ref?: string;
   partner_mode?: "subscription" | "redemption" | "referral";
@@ -155,7 +157,7 @@ interface IPartnerBreedRelation {
   universe: string;
 }
 
-export type IPartnerDetails <T extends Record<string, unknown> = {}> = {
+export type IPartnerDetails<T extends Record<string, unknown> = {}> = {
   partner_ext_id: string;
   partner_inv_name: string;
   partner_inv_street1?: string;
@@ -232,7 +234,7 @@ export type IPartnerDetails <T extends Record<string, unknown> = {}> = {
   partner_custom_matrix?: string;
   partner_custom_salesmanemail?: string;
   partner_custom_species?: string;
-} & T
+} & T;
 
 export interface IPartnerUpdateInput {
   partner_ext_id: string;
@@ -283,13 +285,14 @@ export interface IPartnerUpdateInput {
   partner_lat?: string;
   partner_lng?: string;
   partner_status?: string;
-  partner_is_hidden?: 0 | 1;
+  partner_is_hidden?: booleanNumber;
   partner_timezone?: string;
   partner_self_id?: string;
   partner_self_prefix?: string;
   partner_deals_redirection_url?: string;
   partner_referral_code?: string;
   // Optional	partner_custom_xxxxx	Apart from the field specified above custom fields could be added to the profile of a partner. Custom fields should be prefixed by "partner_custom_" for the service to identify them. The value of a custom field could be any string up to 100 characters in length. Field with empty values will be ignored by the service
+  [key: string]: string | Record<string, any> | booleanNumber | undefined;
 }
 
 export interface IPartnerAddOpeningHoursInput {
