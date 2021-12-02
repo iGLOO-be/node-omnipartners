@@ -17,6 +17,7 @@ import {
   ProductCollectionPetRation,
   ProductCollectionPetRationInput,
 } from "./ProductCollectionPetRation";
+import { OmnipartnersError } from "omnipartners";
 
 export class ProductCollectionResolver {
   @Query(() => [ProductCollectionsByTargetingInfoCollection], {
@@ -70,7 +71,10 @@ export class ProductCollectionResolver {
 
       return new ProductCollectionPetRation(res);
     } catch (err) {
-      if (err.isOmnipartnersError && err.code === "OP/OPStatusError/1984") {
+      if (
+        (err as OmnipartnersError).isOmnipartnersError &&
+        (err as OmnipartnersError).code === "OP/OPStatusError/1984"
+      ) {
         return null;
       }
 

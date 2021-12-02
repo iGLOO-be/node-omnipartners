@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 import reduce from "lodash/reduce";
-import fetch from "node-fetch"; // TODO: switch to fetch-retry
+import fetch, { FetchError } from "node-fetch"; // TODO: switch to fetch-retry
 import querystring from "qs";
 import { Response as RequestResponse } from "request";
 import request from "request-promise-native";
@@ -166,9 +166,9 @@ export default class Request extends EventEmitter {
       }
     } catch (e) {
       this.emit("fetchError", e);
-      if (e.type === "request-timeout") {
+      if ((e as FetchError).type === "request-timeout") {
         throw new RequestTimeoutError({ request: this });
-      } else if (e.code === "ECONNRESET") {
+      } else if ((e as FetchError).code === "ECONNRESET") {
         throw new RequestError(this);
       } else {
         throw e;

@@ -4,6 +4,7 @@ import {
   IUserDataOptions,
   IUserUpdatePlacesOfPurchaseInput,
   IUserUpdateSubscriptionsInput,
+  OmnipartnersError,
 } from "omnipartners";
 import {
   Arg,
@@ -30,7 +31,7 @@ export const userDataOptions: IUserDataOptions = [
 @InputType()
 class UserConfirmLegalFormsInput
   implements
-    Omit<IUserConfirmLegalFormsInput, "user_guid" | "legal_form_code"> {
+  Omit<IUserConfirmLegalFormsInput, "user_guid" | "legal_form_code"> {
   @Field(() => [String])
   public legal_form_code!: string | string[];
   @Field()
@@ -57,10 +58,10 @@ class UserUpdatePlacesOfPurchaseInput
 @InputType()
 class UserUpdateSubscriptionsInput
   implements
-    Omit<
-      IUserUpdateSubscriptionsInput,
-      "user_guid" | "subscriptions" | "interests"
-    > {
+  Omit<
+  IUserUpdateSubscriptionsInput,
+  "user_guid" | "subscriptions" | "interests"
+  > {
   @Field({ nullable: true })
   public com_prefs?: string;
   @Field(() => [String], { nullable: true })
@@ -150,7 +151,7 @@ export class UserResolver {
         email,
       });
     } catch (err) {
-      if (err.isOmnipartnersError && err.code === "OP/OPStatusError/3") {
+      if ((err as OmnipartnersError).isOmnipartnersError && (err as OmnipartnersError).code === "OP/OPStatusError/3") {
         return false;
       }
       throw err;
@@ -280,12 +281,12 @@ export class UserResolver {
       ...updateSubscriptionsInput,
       interests: Array.isArray(updateSubscriptionsInput.interests)
         ? updateSubscriptionsInput.interests
-            .filter((int) => interests.find((i) => int === i.code))
-            .join(",")
+          .filter((int) => interests.find((i) => int === i.code))
+          .join(",")
         : updateSubscriptionsInput.interests
-            ?.split(",")
-            .filter((int) => interests.find((i) => int === i.code))
-            .join(","),
+          ?.split(",")
+          .filter((int) => interests.find((i) => int === i.code))
+          .join(","),
       subscriptions: Array.isArray(updateSubscriptionsInput.subscriptions)
         ? updateSubscriptionsInput.subscriptions.join(",")
         : updateSubscriptionsInput.subscriptions,
