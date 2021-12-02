@@ -17,29 +17,29 @@
     "prepare": "yarn build"
   },
   "dependencies": {
-    "date-fns": "^2.18.0",
-    "graphql-tag": "^2.11.0",
+    "date-fns": "^2.27.0",
+    "graphql-tag": "^2.12.6",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
-    "@apollo/client": "^3.3.11",
-    "react": "^17.0.1"
+    "@apollo/client": "^3.5.5",
+    "react": "^17.0.2"
   },
   "devDependencies": {
-    "@apollo/client": "^3.3.11",
+    "@apollo/client": "^3.5.5",
     "@igloo-be-omnipartners/graphql-schema": "^1.89.2",
     "@types/jwt-decode": "^2.2.1",
-    "@typescript-eslint/eslint-plugin": "^4.16.1",
-    "apollo": "^2.32.5",
-    "babel-jest": "^26.6.3",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "apollo": "^2.33.9",
+    "babel-jest": "^27.4.2",
     "eslint-config-prettier": "^7",
     "eslint-plugin-prettier": "^3.3.1",
     "graphql": "^15.5.0",
-    "prettier": "^2.2.1",
-    "react": "^17.0.1",
+    "prettier": "^2.5.0",
+    "react": "^17.0.2",
     "tsdx": "^0.14.1",
-    "tsutils": "^3.20.0",
-    "typescript": "^4.2.2"
+    "tsutils": "^3.21.0",
+    "typescript": "^4.5.2"
   }
 }
