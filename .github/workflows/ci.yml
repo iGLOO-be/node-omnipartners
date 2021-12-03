@@ -6,15 +6,20 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: ["12", "14", "16"]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - run: env
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn install
+      - name: yarn config
+        if: ${{ matrix.node-version == '12' }}
+        run: yarn config set ignore-engines true
+      - name: Install dependencies
+        run: yarn install
       - run: yarn test
         env:
           CI: true
