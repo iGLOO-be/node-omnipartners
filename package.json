@@ -25,6 +25,7 @@
     "tslint-config-prettier": "^1.18.0"
   },
   "resolutions": {
-    "**/graphql": "^15"
+    "**/graphql": "^15",
+    "**/prettier": "^2.5.0"
   }
 }

@@ -63,7 +63,7 @@ export const decodeToken = (token?: string) => {
     try {
       result = decode(token);
     } catch (err) {
-      console.warn("Error during decode user token: " + err.message);
+      console.warn("Error during decode user token: " + (err as Error).message);
     }
   }
 
