@@ -8,121 +8,121 @@
 //==============================================================
 
 export interface DealSubscribeInput {
-  ref: string;
-  partner_extid?: string | null;
-  ean_code?: string | null;
-  collection_ref?: string | null;
-  secure_code?: string | null;
-  pet_guid?: string | null;
+  bic?: string | null;
   child_guid?: string | null;
+  collection_ref?: string | null;
+  delivery_address_id?: string | null;
+  ean_code?: string | null;
   external_tracking_ref?: string | null;
   iban?: string | null;
-  bic?: string | null;
+  partner_extid?: string | null;
+  pet_guid?: string | null;
+  ref: string;
   referral_code?: string | null;
   referral_code_type?: string | null;
-  delivery_address_id?: string | null;
+  secure_code?: string | null;
 }
 
 export interface PartnerLocatorInput {
-  lat: string;
-  lng: string;
-  type?: string | null;
-  radius?: number | null;
-  limit?: number | null;
   collectionRef?: string | null;
-  partner_group_handle?: string[] | null;
   excl_partner_group_handle?: string[] | null;
-  stock_level?: number | null;
-  search_term?: string | null;
+  lat: string;
+  limit?: number | null;
+  lng: string;
+  partner_group_handle?: string[] | null;
   partner_status?: string | null;
+  radius?: number | null;
+  search_term?: string | null;
+  stock_level?: number | null;
+  type?: string | null;
 }
 
 export interface UserAddressCreateInput {
-  name?: string | null;
-  type?: string | null;
-  streetnum?: string | null;
-  street1?: string | null;
-  street2?: string | null;
-  postalCode: string;
   city: string;
   country?: string | null;
   isDefault?: boolean | null;
+  name?: string | null;
+  postalCode: string;
+  street1?: string | null;
+  street2?: string | null;
+  streetnum?: string | null;
+  type?: string | null;
 }
 
 export interface UserAddressUpdateInput {
-  name?: string | null;
-  type?: string | null;
-  streetnum?: string | null;
-  street1?: string | null;
-  street2?: string | null;
-  postalCode: string;
   city: string;
   country?: string | null;
-  isDefault?: boolean | null;
   id: string;
+  isDefault?: boolean | null;
+  name?: string | null;
+  postalCode: string;
+  street1?: string | null;
+  street2?: string | null;
+  streetnum?: string | null;
+  type?: string | null;
 }
 
 export interface UserChildCreateInput {
-  firstName: string;
   birthday: string;
-  gender: string;
   extId?: string | null;
+  firstName: string;
+  gender: string;
 }
 
 export interface UserChildUpdateInput {
-  guid: string;
-  firstName?: string | null;
   birthday?: string | null;
-  gender?: string | null;
   extId?: string | null;
+  firstName?: string | null;
+  gender?: string | null;
+  guid: string;
 }
 
 export interface UserCreateInput {
-  title?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  dob?: string | null;
-  gender?: string | null;
-  telephone?: string | null;
-  mobilePhone?: string | null;
-  email?: string | null;
-  password?: string | null;
-  language?: string | null;
-  country?: string | null;
-  originDetails?: string | null;
-  postalCode?: string | null;
   city?: string | null;
+  country?: string | null;
+  dob?: string | null;
+  email?: string | null;
+  firstName?: string | null;
+  gender?: string | null;
+  language?: string | null;
+  lastName?: string | null;
+  mobilePhone?: string | null;
+  originDetails?: string | null;
+  password?: string | null;
+  postalCode?: string | null;
+  telephone?: string | null;
+  title?: string | null;
 }
 
 export interface UserFavouritesCreateInput {
-  date: any;
-  type: string;
   content: string;
+  date: any;
   source: string;
+  type: string;
 }
 
 export interface UserPetBmiEntry {
-  date: string;
   bmi: number;
+  date: string;
   partner_ext_id?: string | null;
   source: string;
 }
 
 export interface UserPetCreateInput {
-  name: string;
-  type: string;
+  bmi?: UserPetBmiEntry | null;
   breed: string;
+  chipNumber?: string | null;
+  dietRecommendation?: UserPetDietRecommendationEntry | null;
   dob: string;
-  neutered?: boolean | null;
   gender?: string | null;
+  insured?: boolean | null;
+  name: string;
+  neutered?: boolean | null;
   pictureUrl?: string | null;
   placeOfPurchase?: string | null;
-  insured?: boolean | null;
   tattooNumber?: string | null;
-  chipNumber?: string | null;
-  bmi?: UserPetBmiEntry | null;
+  type: string;
   weight?: UserPetWeightEntry | null;
-  dietRecommendation?: UserPetDietRecommendationEntry | null;
 }
 
 export interface UserPetDeleteInput {
@@ -131,8 +131,8 @@ export interface UserPetDeleteInput {
 }
 
 export interface UserPetDietRecommendationEntry {
-  creation_date: string;
   collection_reference: string;
+  creation_date: string;
   expiration_date?: string | null;
   partner_ext_id?: string | null;
   ration?: string | null;
@@ -140,29 +140,29 @@ export interface UserPetDietRecommendationEntry {
 }
 
 export interface UserPetUpdateInput {
-  guid: string;
-  name: string;
-  type?: string | null;
+  bmi?: UserPetBmiEntry | null;
   breed?: string | null;
+  declarativeProduct?: string | null;
+  dietRecommendation?: UserPetDietRecommendationEntry | null;
   dob?: string | null;
   gender?: string | null;
+  guid: string;
+  lifestyle?: string | null;
+  medicalConditions?: string[] | null;
+  name: string;
   neutered?: boolean | null;
   pictureUrl?: string | null;
   placeOfPurchase?: string | null;
-  bmi?: UserPetBmiEntry | null;
-  weight?: UserPetWeightEntry | null;
-  lifestyle?: string | null;
   specialNeeds?: string[] | null;
-  declarativeProduct?: string | null;
-  dietRecommendation?: UserPetDietRecommendationEntry | null;
-  medicalConditions?: string[] | null;
+  type?: string | null;
+  weight?: UserPetWeightEntry | null;
 }
 
 export interface UserPetWeightEntry {
   date: string;
-  weight: number;
   partner_ext_id?: string | null;
   source: string;
+  weight: number;
 }
 
 export interface UserPublicSubscriptionsUpdateInput {
@@ -170,21 +170,21 @@ export interface UserPublicSubscriptionsUpdateInput {
 }
 
 export interface UserUpdateInput {
-  title?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  dob?: string | null;
-  gender?: string | null;
-  telephone?: string | null;
-  mobilePhone?: string | null;
-  email?: string | null;
-  password?: string | null;
-  language?: string | null;
-  country?: string | null;
-  postalCode?: string | null;
   city?: string | null;
+  country?: string | null;
+  dob?: string | null;
+  email?: string | null;
+  firstName?: string | null;
+  gender?: string | null;
+  language?: string | null;
+  lastName?: string | null;
+  mobilePhone?: string | null;
+  password?: string | null;
+  postalCode?: string | null;
   street1?: string | null;
   streetnum?: string | null;
+  telephone?: string | null;
+  title?: string | null;
 }
 
 export interface UserUpdateSubscriptionsInput {

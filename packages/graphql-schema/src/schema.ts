@@ -41,6 +41,9 @@ import { DataAnimalPathologiesResolver } from "./metadata/DataAnimalPathologyRes
 import { DataAnimalStageResolver } from "./metadata/DataAnimalStageResolver";
 import { DataAnimalSpecialNeedResolver } from "./metadata/DataAnimalSpecialNeedResolver";
 import { DataAnimalLifestyleResolver } from "./metadata/DataAnimalLifestyleResolver";
+import { LoyaltyResolver } from "./resolvers/LoyaltyResolver";
+import { UserLoginByPublicTokenResolver } from "./user/UserLoginByPublicTokenResolver";
+import { UserPublicSubscriptions } from "./user/UserPublicSubscriptions";
 
 export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
   typeGraphqlBuildschema({
@@ -81,7 +84,10 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       DataAnimalPathologiesResolver,
       DataAnimalStageResolver,
       DataAnimalSpecialNeedResolver,
-      DataAnimalLifestyleResolver
+      DataAnimalLifestyleResolver,
+      LoyaltyResolver,
+      UserLoginByPublicTokenResolver,
+      UserPublicSubscriptions,
     ],
     ...options,
   });

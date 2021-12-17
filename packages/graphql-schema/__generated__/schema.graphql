@@ -6,8 +6,8 @@
 type AnimalBreed {
   id: String!
   name: String!
-  type: String!
   other: Boolean!
+  type: String!
 }
 
 type AnimalLifestyle {
@@ -18,22 +18,22 @@ type AnimalLifestyle {
 
 type AnimalPathology {
   code: String!
+  hasDedicatedProduct: Boolean!
   name: String!
   species: String
-  hasDedicatedProduct: Boolean!
 }
 
 type AnimalSpecialNeed {
-  reference: String!
-  name: String!
   genericName: String!
+  name: String!
   pathologies: [String!]!
+  reference: String!
 }
 
 type AnimalStage {
-  species: String!
   code: String!
   name: String!
+  species: String!
 }
 
 type AnimalType {
@@ -48,14 +48,14 @@ type AnimalUniverse {
 }
 
 type Country {
-  name: String!
   code: String!
+  name: String!
   order: String
 }
 
 type DataAccountPasswordPolicy {
-  password_format: String
   alt_password_format: String
+  password_format: String
 }
 
 """
@@ -64,121 +64,118 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type Deal {
-  ref: String!
-  name: String!
-  type: String!
-  redeem_days: [String!]!
-  is_locked: Boolean!
-  partner_visibility: String!
-  restrict_registration: Boolean!
-  image_url: String
-  postal_address_required: Boolean!
-  optin_options: [DealOptionOptions!]!
+  allowed_partner_groups: [String!]!
+  available_from: String
+  available_to: String
+  confirmation_text: String!
+  css_file_url: String
+  deal_groups: [String!]
+  description: String!
   display_on_terminal: Float!
-  redeem_duration_value: Float!
-  redeem_duration_unit: String!
-  is_relative_redeem_dates: Boolean!
+  excluded_partner_groups: [String!]!
   google_tracking_id: String
-  status: String!
-  referrer_required: Float!
+  image_url: String
+  internal_barcode: String
+  is_locked: Boolean!
+  is_relative_redeem_dates: Boolean!
+  langs: [String!]!
+  logo_url: String
+  name: String!
+  need_to_scan: Float!
+  optin_options: [DealOptionOptions!]!
+  partner_visibility: String!
+  pet_age_limit_operator: String
+  pet_age_limit_to_unit: String
+  pet_age_limit_to_value: String
+  pet_age_limit_unit: String
+  pet_age_limit_value: [String!]
+  pet_breed: [String!]
   pet_required: String!
   pet_type: String
   pet_universe: String
-  pet_breed: [String!]
-  pet_age_limit_value: [String!]
-  pet_age_limit_unit: String
-  pet_age_limit_operator: String
-  pet_age_limit_to_value: String
-  pet_age_limit_to_unit: String
-  send_voucher_email: Boolean!
-  send_voucher_sms: Boolean!
-  need_to_scan: Float!
-  available_from: String
-  available_to: String
+  postal_address_required: Boolean!
+  presentation_images: DealPresentationImages!
+  products: [DealProduct!]!
+  public_name: String!
+  redeem_days: [String!]!
+  redeem_duration_unit: String!
+  redeem_duration_value: Float!
   redeem_validity_from: String
   redeem_validity_to: String
-  validity_message: String!
-  confirmation_text: String!
-  description: String!
-  slogan: String!
-  public_name: String!
-  site_footer: String!
-  voucher_small_print: String!
   redemption_confirmation_text: String!
   redirect_url: String
-  langs: [String!]!
-  logo_url: String
-  css_file_url: String
-  internal_barcode: String
-  presentation_images: DealPresentationImages!
+  ref: String!
+  referrer_required: Float!
+  registeredPartner(
+    data_options: String
+
+    """Paginate limit"""
+    limit: Float
+    p_length: Float
+    p_page: Float
+    page: Float
+    partner_lat: String
+    partner_lng: String
+    partner_status: String
+    partner_type: String
+    radius: String
+    search_term: String
+    token: String!
+  ): DealPartnerResult!
+  restrict_registration: Boolean!
+  send_voucher_email: Boolean!
+  send_voucher_sms: Boolean!
+  site_footer: String!
+  slogan: String!
+  status: String!
   subscription_count: DealSubscriptionCount!
-  allowed_partner_groups: [String!]!
-  excluded_partner_groups: [String!]!
-  deal_groups: [String!]
-  products: [DealProduct!]!
+  type: String!
   type_details: DealTypeDetails!
+  validity_message: String!
   visiblePartnerForUser(
+    deal_ref: String!
+    favorite_only: Boolean
+
     """Paginate limit"""
     limit: Float
     page: Float
-    deal_ref: String!
-    search: String
-    favorite_only: Boolean
     partner_lat: Float
     partner_lng: Float
     radius: Float
+    search: String
     token: String!
   ): DealPartnerResult!
-  registeredPartner(
-    """Paginate limit"""
-    limit: Float
-    page: Float
-    search_term: String
-    partner_lat: String
-    partner_lng: String
-    radius: String
-    p_page: Float
-    p_length: Float
-    partner_type: String
-    partner_status: String
-    data_options: String
-    token: String!
-  ): DealPartnerResult!
+  voucher_small_print: String!
 }
 
 type DealAmounts {
   EUR: Float
 }
 
-type DealGroup {
-  group_name: String!
-  group_handle: String!
-}
-
 input DealListOffersInput {
-  user_guid: String
-  pet_guid: String
-  child_guid: String
-  show: String
-  from: String
-  to: String
-  redeemed_from: String
-  redeemed_to: String
   barcode: String
-  external_tracking_ref: String
-  partner_extid: String
+  child_guid: String
+  coupon_id: String
+  data_options: String
+  deal_data_options: String
   deal_ref: String
   deal_types: String
-  redemption_request_status: String
-  deal_data_options: String
-  data_options: String
-  coupon_id: String
-  status: String
+  default_lang: String
+  external_tracking_ref: String
+  from: String
   inv_resend_count: String
+  partner_extid: String
+  pet_guid: String
+  q: String
+  redeemed_from: String
+  redeemed_to: String
+  redemption_request_status: String
+  show: String
   sort_field: String
   sort_order: String
-  q: String
-  default_lang: String
+  status: String
+  to: String
+  user_guid: String
 }
 
 type DealListVouchersResult {
@@ -187,39 +184,39 @@ type DealListVouchersResult {
 }
 
 type DealListVouchersResultData {
-  user_guid: String!
-  pet_guid: String
-  child_guid: String
-  ts_created: String!
   barcode: String
-  status: String!
-  deal_ref: String!
-  ts_redeemed: String
-  subs_ts_subscribe: String
+  child_guid: String
   deal: Deal
+  deal_ref: String!
+  pet_guid: String
+  status: String!
+  subs_ts_subscribe: String
+  ts_created: String!
+  ts_redeemed: String
+  user_guid: String!
 }
 
 type DealOptionOptions {
+  can_change: String!
+  default_value: String!
   id: String!
   visible: String!
-  default_value: String!
-  can_change: String!
 }
 
 type DealPartner {
-  id: String!
+  city: String
+  country: String
+  detail(data_options: [String!], lang: String): Partner!
   extid: String!
+  id: String!
+  lat: String
+  lng: String
   name: String!
+  postal_code: String
+  region: String
   street1: String
   street2: String
   streetnum: String
-  postal_code: String
-  city: String
-  region: String
-  country: String
-  lat: String
-  lng: String
-  detail(data_options: [String!], lang: String): Partner!
 }
 
 type DealPartnerResult {
@@ -228,55 +225,55 @@ type DealPartnerResult {
 }
 
 type DealPresentationImages {
-  small: DealStringByLang!
   large: DealStringByLang!
+  small: DealStringByLang!
 }
 
 type DealProduct {
-  ean: String!
-  id: String!
-  label: String!
-  friendly_name: String
-  min_qty: Float!
-  collectionReference: String
-  qty: Float!
-  label_with_qty: String!
   coll_with_qty: String!
   collection(lang: String!): ProductCollectionDetail
+  collectionReference: String
+  ean: String!
+  friendly_name: String
+  id: String!
+  label: String!
+  label_with_qty: String!
+  min_qty: Float!
+  qty: Float!
 }
 
 type DealStringByLang {
+  EN: String
   FR: String
   NL: String
-  EN: String
   forLocale(locale: String!): String
 }
 
 input DealSubscribeInput {
-  ref: String!
-  partner_extid: String
-  ean_code: String
-  collection_ref: String
-  secure_code: String
-  pet_guid: String
+  bic: String
   child_guid: String
+  collection_ref: String
+  delivery_address_id: String
+  ean_code: String
   external_tracking_ref: String
   iban: String
-  bic: String
+  partner_extid: String
+  pet_guid: String
+  ref: String!
   referral_code: String
   referral_code_type: String
-  delivery_address_id: String
+  secure_code: String
 }
 
 type DealSubscriptionCount {
+  IN_PROGRESS: Float!
   REDEEMED: Float!
   SUBSCRIBED: Float!
-  IN_PROGRESS: Float!
 }
 
 type DealTypeDetails {
-  discount_type: String!
   amounts: DealAmounts!
+  discount_type: String!
 }
 
 type DealVisiblePartnerForUserResult {
@@ -285,63 +282,63 @@ type DealVisiblePartnerForUserResult {
 }
 
 type DealVisiblePartnerForUserResultData {
-  id: String!
+  city: String
+  country: String
   extid: String!
+  id: String!
+  lat: String
+  lng: String
   name: String!
+  postal_code: String
+  region: String
   street1: String
   street2: String
   streetnum: String
-  postal_code: String
-  city: String
-  region: String
-  country: String
-  lat: String
-  lng: String
 }
 
 type DirectCashbackDealDetail {
-  id: String!
-  ref: String!
-  redeemDurationValue: Float
-  redeemDurationUnit: String
-  isRelativeRedeemDate: Boolean
-  status: String!
-  publicName: String
   availableFrom: DateTime
   availableTo: DateTime
-  slogan: String
+  id: String!
+  isRelativeRedeemDate: Boolean
+  petRequired: Boolean!
+  presentationImages: DirectCashbackDealDetailImages
+  publicName: String
+  redeemDurationUnit: String
+  redeemDurationValue: Float
   redeemValidityFrom: DateTime
   redeemValidityTo: DateTime
+  ref: String!
   siteFooter: String
-  presentationImages: DirectCashbackDealDetailImages
-  petRequired: Boolean!
+  slogan: String
+  status: String!
 }
 
 type DirectCashbackDealDetailImages {
-  small: LanguageObject
   large: LanguageObject
+  small: LanguageObject
 }
 
 input DirectCashbackDealSubscribeInput {
-  ref: String!
-  pet_guid: String
   child_guid: String
+  pet_guid: String
+  ref: String!
 }
 
 type DirectCashbackRedemptionRequest {
-  id: String!
-  user_guid: String!
-  imageUrl: String!
-  benefitId: String!
   barcode: String!
-  status: String!
-  iban: String!
+  benefitId: String!
   bic: String
   createdOn: DateTime!
-  updatedOn: DateTime!
   deal_ref: String!
-  voucher: DirectCashbackVoucherDetail!
+  iban: String!
+  id: String!
+  imageUrl: String!
+  status: String!
   statusMessage(lang: String!): String
+  updatedOn: DateTime!
+  user_guid: String!
+  voucher: DirectCashbackVoucherDetail!
 }
 
 type DirectCashbackRedemptionRequestConnection {
@@ -357,35 +354,35 @@ type DirectCashbackRedemptionRequestCreateResult {
 input DirectCashbackRedemptionRequestInput {
   barcode: String!
   benefitId: String
-  receiptDate: String!
-  receiptImageMimeType: String!
-  tierPurchaseReceiptImageMimeType: String
-  targetCurrency: String!
-  paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail!
+  benefitProductPurchaseValue: String
   eanBarcode: String
   partnerExtId: String
-  benefitProductPurchaseValue: String
+  paymentDetails: DirectCashbackRedemptionRequestInputPayementDetail!
+  receiptDate: String!
+  receiptImageMimeType: String!
+  targetCurrency: String!
+  tierPurchaseReceiptImageMimeType: String
 }
 
 input DirectCashbackRedemptionRequestInputPayementDetail {
+  accountNumber: String
   iban: String
   sortCode: String
-  accountNumber: String
 }
 
 type DirectCashbackRedemptionRequestURL {
   """URL to upload the ticket image"""
-  url: String!
+  tierPurchaseURL: String
 
   """URL to upload the ticket image"""
-  tierPurchaseURL: String
+  url: String!
 }
 
 type DirectCashbackVoucherBenefit {
-  id: String!
-  productId: [String!]
   amount: String
   currency: String
+  id: String!
+  productId: [String!]
 }
 
 type DirectCashbackVoucherConnection {
@@ -394,66 +391,61 @@ type DirectCashbackVoucherConnection {
 }
 
 type DirectCashbackVoucherDealDetail {
-  id: String!
-  ref: String!
-  redeemDurationValue: Float
-  redeemDurationUnit: String
-  isRelativeRedeemDate: Boolean
-  status: String!
-  publicName: String
   availableFrom: DateTime
   availableTo: DateTime
-  slogan: String
+  benefits: [DirectCashbackVoucherBenefit!]!
+  id: String!
+  isRelativeRedeemDate: Boolean
+  petRequired: Boolean!
+  presentationImages: DirectCashbackDealDetailImages
+  publicName: String
+  redeemDurationUnit: String
+  redeemDurationValue: Float
   redeemValidityFrom: DateTime
   redeemValidityTo: DateTime
+  ref: String!
   siteFooter: String
-  presentationImages: DirectCashbackDealDetailImages
-  petRequired: Boolean!
-  benefits: [DirectCashbackVoucherBenefit!]!
+  slogan: String
+  status: String!
 }
 
 type DirectCashbackVoucherDetail {
-  id: String!
-  user_guid: String!
-  barcode: String
-  status: String!
-  pet_guid: String
   activeRedemptionRequestStatus: String
-  redeemValidityFrom: DateTime
-  redeemValidityTo: DateTime
+  barcode: String
   benefit: DirectCashbackVoucherBenefit
   deal: DirectCashbackVoucherDealDetail!
+  id: String!
+  pet_guid: String
+  redeemValidityFrom: DateTime
+  redeemValidityTo: DateTime
+  status: String!
+  user_guid: String!
 }
 
 type FieldValidationError {
-  field: String!
   errors: [ValidationError!]!
+  field: String!
 }
 
 type GenericError {
-  message: String!
   code: String!
+  message: String!
 }
 
 type GenericValidationError {
+  code: String!
   message: String!
-  code: String!
   validationErrors: [FieldValidationError!]
-}
-
-type Interest {
-  name: String!
-  code: String!
 }
 
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSON
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 type Language {
-  name: String
   code: String!
+  name: String
 }
 
 type LanguageObject {
@@ -463,74 +455,74 @@ type LanguageObject {
 
 type LegalForm {
   code: String!
-  name: String!
   description: String
   forget_on_revoke: Boolean!
+  name: String!
   url: String
 }
 
 type LoyaltyBalance {
-  user_total_points: String!
+  status: String!
   user_guid: String!
   user_hold_points: String!
-  status: String!
+  user_total_points: String!
 }
 
 type Mutation {
   dealSubscribe(input: DealSubscribeInput!, token: String!): GenericValidationError
-  userRecoverPassword(email: String!): GenericError
-  userUpdateRecoveredPassword(password: String!, token: String!): GenericValidationError
-  userConfirmLegalForms(confirmLegalFormsInput: UserConfirmLegalFormsInput!, token: String!): GenericValidationError
-  userUpdateSubscriptions(updateSubscriptionsInput: UserUpdateSubscriptionsInput!, token: String!): GenericValidationError
-  userUpdatePlacesOfPurchase(updatePlacesOfPurchaseInput: UserUpdatePlacesOfPurchaseInput!, token: String!): GenericValidationError
-  userConfirmAccount(token: String!): GenericError
-  userDeleteSelf(token: String!): GenericError
-  userAddressCreate(userAddressInput: UserAddressCreateInput!, token: String!): UserAddressUpdateResult!
-  userAddressUpdate(userAddressInput: UserAddressUpdateInput!, token: String!): UserAddressUpdateResult!
-  userCreate(userInput: UserCreateInput!): UserUpdateResult!
-  userPetCreate(userPetInput: UserPetCreateInput!, token: String!): UserPetUpdateResult!
-  userPetDelete(userPetDeleteInput: UserPetDeleteInput!, token: String!): UserResult!
-  userPetDeleteDietRecommendation(userPetDietRecommendationDeleteInput: UserPetDietRecommendationDeleteInput!, token: String!): UserPetUpdateResult!
-  userPetUpdate(userPetInput: UserPetUpdateInput!, token: String!): UserPetUpdateResult!
-  userUpdate(userInput: UserUpdateInput!, token: String!): UserUpdateResult!
-  userChildUpdate(userChildUpdateInput: UserChildUpdateInput!, token: String!): UserChildResult!
-  userChildCreate(userChildCreateInput: UserChildCreateInput!, token: String!): UserChildResult!
-  userPublicSubscriptionsUpdate(input: UserPublicSubscriptionsUpdateInput!, userEmail: String!, publicToken: String!): GenericValidationError
-  userFavouritesCreate(userFavouritesCreateInput: UserFavouritesCreateInput!, token: String!): UserFavouritesResult!
-  userFavouritesDelete(id: String!, token: String!): UserFavouritesResult!
   directCashbackDealSubscribe(input: DirectCashbackDealSubscribeInput!, token: String!): GenericValidationError
   directCashbackRedemptionRequestCreate(input: DirectCashbackRedemptionRequestInput!, token: String!): DirectCashbackRedemptionRequestCreateResult
-  userPartnerRelationCreate(userPartnerInput: UserPartnerRelationCreateInput!, token: String!): UserPartnerUpdateResult!
-  userPartnerRelationDelete(userPartnerInput: UserPartnerRelationDeleteInput!, token: String!): UserPartnerUpdateResult!
+  userAddressCreate(token: String!, userAddressInput: UserAddressCreateInput!): UserAddressUpdateResult!
+  userAddressUpdate(token: String!, userAddressInput: UserAddressUpdateInput!): UserAddressUpdateResult!
+  userChildCreate(token: String!, userChildCreateInput: UserChildCreateInput!): UserChildResult!
+  userChildUpdate(token: String!, userChildUpdateInput: UserChildUpdateInput!): UserChildResult!
+  userConfirmAccount(token: String!): GenericError
+  userConfirmLegalForms(confirmLegalFormsInput: UserConfirmLegalFormsInput!, token: String!): GenericValidationError
+  userCreate(userInput: UserCreateInput!): UserUpdateResult!
+  userDeleteSelf(token: String!): GenericError
+  userFavouritesCreate(token: String!, userFavouritesCreateInput: UserFavouritesCreateInput!): UserFavouritesResult!
+  userFavouritesDelete(id: String!, token: String!): UserFavouritesResult!
+  userPartnerRelationCreate(token: String!, userPartnerInput: UserPartnerRelationCreateInput!): UserPartnerUpdateResult!
+  userPartnerRelationDelete(token: String!, userPartnerInput: UserPartnerRelationDeleteInput!): UserPartnerUpdateResult!
+  userPetCreate(token: String!, userPetInput: UserPetCreateInput!): UserPetUpdateResult!
+  userPetDelete(token: String!, userPetDeleteInput: UserPetDeleteInput!): UserResult!
+  userPetDeleteDietRecommendation(token: String!, userPetDietRecommendationDeleteInput: UserPetDietRecommendationDeleteInput!): UserPetUpdateResult!
+  userPetUpdate(token: String!, userPetInput: UserPetUpdateInput!): UserPetUpdateResult!
+  userPublicSubscriptionsUpdate(input: UserPublicSubscriptionsUpdateInput!, publicToken: String!, userEmail: String!): GenericValidationError
+  userRecoverPassword(email: String!): GenericError
+  userUpdate(token: String!, userInput: UserUpdateInput!): UserUpdateResult!
+  userUpdatePlacesOfPurchase(token: String!, updatePlacesOfPurchaseInput: UserUpdatePlacesOfPurchaseInput!): GenericValidationError
+  userUpdateRecoveredPassword(password: String!, token: String!): GenericValidationError
+  userUpdateSubscriptions(token: String!, updateSubscriptionsInput: UserUpdateSubscriptionsInput!): GenericValidationError
 }
 
 type PageInfo {
-  hasNextPage: Boolean!
   count: Float!
-  page: Float!
+  hasNextPage: Boolean!
 
   """Paginate limit"""
   limit: Float
+  page: Float!
 }
 
 type Partner {
-  extId: String!
-  street1: String
-  street2: String
-  streetnum: String
-  postalCode: String
   city: String
   country: String
   email: String
-  phone: String
-  name: String
+  extId: String!
   lat: String
   lng: String
+  logo: PartnerLogo!
+  name: String
+  partnerGroups: [String!]
+  phone: String
+  postalCode: String
+  shortDescription: String
+  street1: String
+  street2: String
+  streetnum: String
   type: String
   website: String
-  partnerGroups: [String!]
-  logo: PartnerLogo!
-  shortDescription: String
 }
 
 type PartnerConnection {
@@ -539,46 +531,41 @@ type PartnerConnection {
 }
 
 type PartnerListItem {
-  extId: String!
-  type: String!
-  pubName: String!
-  street1: String
-  streetnum: String
-  postalCode: String
   city: String
   country: String
   detail(data_options: [String!], lang: String): Partner!
+  extId: String!
+  postalCode: String
+  pubName: String!
+  street1: String
+  streetnum: String
+  type: String!
 }
 
 input PartnerListItemInput {
-  type: [String!]
   groupHandle: [String!]
+  type: [String!]
 }
 
 input PartnerLocatorInput {
-  lat: String!
-  lng: String!
-  type: String
-  radius: Float
-  limit: Float
   collectionRef: String
-  partner_group_handle: [String!]
   excl_partner_group_handle: [String!]
-  stock_level: Float
-  search_term: String
+  lat: String!
+  limit: Float
+  lng: String!
+  partner_group_handle: [String!]
   partner_status: String
+  radius: Float
+  search_term: String
+  stock_level: Float
+  type: String
 }
 
 type PartnerLogo {
   default: String
-  small: String
-  medium: String
   large: String
-}
-
-type PartnerRelation {
-  code: String!
-  name: String!
+  medium: String
+  small: String
 }
 
 type PartnerType {
@@ -587,71 +574,71 @@ type PartnerType {
 }
 
 type PlaceOfPurchase {
-  name: String!
   code: String!
+  name: String!
 }
 
 type ProductCollectionAvailablePackage {
-  ean: String!
   code: String!
-  label: String!
-  weight: String
-  netWeight: String
+  containerTypeInfo: String
+  ean: String!
   grossWeight: String
+  label: String!
+  netWeight: String
+  packagingGrossWeight: String
   packagingUnits: String
   packagingValue: String
-  packagingGrossWeight: String
-  containerTypeInfo: String
+  weight: String
 }
 
 type ProductCollectionDetail {
-  reference: String!
-  name: String
-  description: String
-  tagLine: String
-  introduction: String
-  image: String
-  imageSmall: String
-  imageMedium: String
-  imageLarge: String
+  availablePackages(language: String, show_public_products_only: Float, use_https_urls: Float): [ProductCollectionAvailablePackage!]
   benefits: [ProductCollectionDetailBenefits!]
-  products: [ProductCollectionDetailProduct!]
-  relatedCollections: [ProductCollectionDetailRelatedCollection!]
-  keyBenefits: [String!]
-  links: [ProductCollectionLinks!]
-  range: ProductCollectionRange
-  availablePackages(use_https_urls: Float, language: String, show_public_products_only: Float): [ProductCollectionAvailablePackage!]
+  collection_description: String! @deprecated(reason: "old field nomenclature")
+  collection_energy_level: Float! @deprecated(reason: "old field nomenclature")
+  collection_generic_name: String! @deprecated(reason: "old field nomenclature")
+  collection_image: String
+  collection_image_large: String
+  collection_image_medium: String
+  collection_image_small: String
+  collection_introduction: String! @deprecated(reason: "old field nomenclature")
+  collection_name: String! @deprecated(reason: "old field nomenclature")
+  collection_range_family_reference: String! @deprecated(reason: "old field nomenclature")
+  collection_range_reference: String! @deprecated(reason: "old field nomenclature")
+  collection_reference: String! @deprecated(reason: "old field nomenclature")
+  collection_tag_line: String! @deprecated(reason: "old field nomenclature")
+  description: String
   energy_level: Float! @deprecated(reason: "old field nomenclature")
   has_image: Float! @deprecated(reason: "old field nomenclature")
-  collection_reference: String! @deprecated(reason: "old field nomenclature")
-  collection_generic_name: String! @deprecated(reason: "old field nomenclature")
-  collection_name: String! @deprecated(reason: "old field nomenclature")
-  collection_description: String! @deprecated(reason: "old field nomenclature")
-  collection_tag_line: String! @deprecated(reason: "old field nomenclature")
-  collection_introduction: String! @deprecated(reason: "old field nomenclature")
-  collection_range_reference: String! @deprecated(reason: "old field nomenclature")
-  collection_range_family_reference: String! @deprecated(reason: "old field nomenclature")
-  collection_energy_level: Float! @deprecated(reason: "old field nomenclature")
-  collection_image: String
-  collection_image_small: String
-  collection_image_medium: String
-  collection_image_large: String
+  image: String
+  imageLarge: String
+  imageMedium: String
+  imageSmall: String
+  introduction: String
+  keyBenefits: [String!]
+  links: [ProductCollectionLinks!]
+  name: String
+  products: [ProductCollectionDetailProduct!]
+  range: ProductCollectionRange
+  reference: String!
+  relatedCollections: [ProductCollectionDetailRelatedCollection!]
+  tagLine: String
 }
 
 type ProductCollectionDetailBenefits {
-  id: String!
-  title: String
   description: String
+  id: String!
   image: String
+  title: String
 }
 
 type ProductCollectionDetailProduct {
-  ean: String!
   code: String!
-  label: String!
-  weight: String
-  netWeight: String
+  ean: String!
   grossWeight: String
+  label: String!
+  netWeight: String
+  weight: String
 }
 
 type ProductCollectionDetailRelatedCollection {
@@ -660,286 +647,277 @@ type ProductCollectionDetailRelatedCollection {
 }
 
 type ProductCollectionLinks {
-  type: String
-  reference: String
   link: String
+  reference: String
+  type: String
 }
 
 type ProductCollectionPetRation {
+  approximationCodes: [String!]!
   debug: ProductCollectionPetRationDebug!
   energyValue: Float!
-  rationValue: Float!
   energyValueUnit: String!
-  rationValueUnit: String!
-  approximationCodes: [String!]!
-  rationInCupsPerDay: String
   numberOfCupsPerDay: String
+  rationInCupsPerDay: String
+  rationValue: Float!
+  rationValueUnit: String!
 }
 
 type ProductCollectionPetRationDebug {
-  exponent: Float!
   constant: Float!
+  exponent: Float!
 }
 
 input ProductCollectionPetRationInput {
-  pet_guid: String!
-  pet_weight: String
-  pet_predicted_adult_weight: String
-  pet_bcs: String
-  energy_level: String
   collection_reference: String
+  energy_level: String
   language: String
+  pet_bcs: String
+  pet_guid: String!
+  pet_predicted_adult_weight: String
+  pet_weight: String
 }
 
 type ProductCollectionRange {
-  reference: String
-  priority: String
-  name: String
-  tagLine: String
   description: String
+  name: String
+  priority: String
+  reference: String
+  tagLine: String
 }
 
 type ProductCollectionsByPetGUID {
-  reference: String
-  name: String
   description: String
-  tagLine: String
-  introduction: String
   image: String
-  imageSmall: String
-  imageMedium: String
   imageLarge: String
-  range: ProductCollectionRange
+  imageMedium: String
+  imageSmall: String
+  introduction: String
   links: [ProductCollectionLinks!]
+  name: String
+  range: ProductCollectionRange
+  reference: String
+  tagLine: String
 }
 
 input ProductCollectionsByPetGUIDInput {
-  pet_guid: String!
-  user_guid: String
+  add_clientof_partner_groups: String
+  apply_range_exlusions: String
+  component_sort_order: String
+  data_options: [String!]
+  ignore_old_format: String
+  is_gestation: String
+  language: String
+  partner_group_handle: String
   partner_id: String
   partner_id_type: String
-  partner_group_handle: String
-  language: String
-  add_clientof_partner_groups: String
-  use_https_urls: String
-  apply_range_exlusions: String
-  data_options: [String!]
-  is_gestation: String
+  pet_guid: String!
   sort_order: String
-  component_sort_order: String
-  ignore_old_format: String
+  use_https_urls: String
+  user_guid: String
 }
 
 type ProductCollectionsByTargetingInfoCollection {
-  reference: String!
-  generic_name: String!
-  name: String!
-  energy_level: Float!
-  has_image: Boolean!
+  criteria_source_reference: String
   description: String!
-  tag_line: String!
-  introduction: String!
+  energy_level: Float!
+  generic_name: String!
+  has_image: Boolean!
   id: String!
+  images: ProductCollectionsByTargetingInfoCollectionImages
+  introduction: String!
+  max_score: Float!
+  name: String!
+  pf_tracking_reference: String!
+  range_priority_order: String!
+  reference: String!
   score: Float!
   secondary_sorting_weight: String!
-  range_priority_order: String!
-  max_score: Float!
-  pf_tracking_reference: String!
-  criteria_source_reference: String
-  images: ProductCollectionsByTargetingInfoCollectionImages
+  tag_line: String!
 }
 
 type ProductCollectionsByTargetingInfoCollectionImages {
   image: String!
-  image_small: String!
-  image_medium: String!
   image_large: String!
+  image_medium: String!
+  image_small: String!
 }
 
 input ProductCollectionsByTargetingInfoFilterByAllInput {
-  filter_type: String!
-  species_type: String
-  univers: String
-  breed: String
-  neutered: String
-  gender: String
-  purchase_place: String
-  unit: String
   age: String
   age_from: String
   age_to: String
-  range_reference: String
-  pet_bcs: Float
-  pet_weight: String
-  pet_stages: [String!]
-  public_visibility: String
-  partners_visibility: String
+  breed: String
+  filter_type: String!
+  gender: String
+  neutered: String
   partner_types: [String!]
+  partners_visibility: String
   pet_allergens: [String!]
+  pet_bcs: Float
   pet_health_context: [String!]
+  pet_stages: [String!]
+  pet_weight: String
+  public_visibility: String
+  purchase_place: String
+  range_reference: String
+  species_type: String
+  unit: String
+  univers: String
 }
 
 input ProductCollectionsByTargetingInfoInput {
-  partner_id: String
-  partner_id_type: String
-  deal_reference: String
-  partner_group_handle: String
-  pet_guid: String
-  user_guid: String
-  diagnostic_codes: String
-  filter_by_all: [ProductCollectionsByTargetingInfoFilterByAllInput!]
-  filter_type: String
-  species_type: String
-  univers: String
-  breed: String
-  neutered: String
-  gender: String
-  purchase_place: String
-  unit: String
   age: String
   age_from: String
   age_to: String
-  dob: String
-  pathologies: String
-  lifestyle: String
-  operator: String
-  range_reference: String
-  pet_weight: String
-  pet_bcs: String
-  pet_stages: String
-  partners_visibility: String
-  public_visibility: String
-  partner_types: String
-  pet_allergens: String
-  pet_health_context: String
-  language: String
-  use_https_urls: String
-  show_ration: String
   apply_range_exlusions: String
+  breed: String
   data_options: [String!]
+  deal_reference: String
+  diagnostic_codes: String
+  dob: String
+  filter_by_all: [ProductCollectionsByTargetingInfoFilterByAllInput!]
+  filter_type: String
+  gender: String
+  language: String
+  lifestyle: String
+  neutered: String
+  operator: String
+  partner_group_handle: String
+  partner_id: String
+  partner_id_type: String
+  partner_types: String
+  partners_visibility: String
+  pathologies: String
+  pet_allergens: String
+  pet_bcs: String
+  pet_guid: String
+  pet_health_context: String
+  pet_stages: String
+  pet_weight: String
+  public_visibility: String
+  purchase_place: String
+  range_reference: String
   ration_predicted_weight: String
+  show_ration: String
+  species_type: String
+  unit: String
+  univers: String
+  use_https_urls: String
+  user_guid: String
 }
 
 input ProductCollectionsDetailInput {
+  collectionReference: String!
+  componentSortOrder: String
+  dataOptions: [String!]
+  ignoreOld_Format: String
   language: String!
   useHttpUrls: Boolean
-  dataOptions: [String!]
-  componentSortOrder: String
-  ignoreOld_Format: String
-  collectionReference: String!
 }
 
 input ProductsCollectionsDetailInput {
+  componentSortOrder: String
+  dataOptions: [String!]
+  ignoreOld_Format: String
   language: String!
   useHttpUrls: Boolean
-  dataOptions: [String!]
-  componentSortOrder: String
-  ignoreOld_Format: String
 }
 
 type Query {
-  metadataLegalForms(codes: String, lang: String): [LegalForm!]!
-  userLoginByPublicToken(userContextData: JSON, token: String!): UserResult!
-  metadataAnimalBreeds(type: String, lang: String): [AnimalBreed!]!
-  metadataAnimalTypes(lang: String): [AnimalType!]!
-  metadataAnimalUniverses(lang: String): [AnimalUniverse!]!
-  metadataCountries(lang: String): [Country!]!
-  metadataPlaceOfPurchase(lang: String): [PlaceOfPurchase!]!
-  metadataInterest(lang: String): [Interest!]!
-  metadataLanguages(lang: String): [Language!]!
-  metadataSubscriptions(lang: String): [Subscription!]!
-  metadataUserTitles(lang: String): [UserTitle!]!
-  metadataAnimalPathologies(lang: String): [AnimalPathology!]!
-  metadataPartnerRelationTypes: [PartnerRelation!]!
-  metadataAccountPasswordPolicy: DataAccountPasswordPolicy
-  dealProducts(deal_ref: String!): [DealProduct!]
+  deal(deal_ref: String!, default_lang: String): Deal
   dealCheckSecureCode(code: String!, deal_ref: String!): GenericValidationError
+  dealProducts(deal_ref: String!): [DealProduct!]
   dealVisiblePartnerForUser(
+    deal_ref: String!
+    favorite_only: Boolean
+
     """Paginate limit"""
     limit: Float
     page: Float
-    deal_ref: String!
-    search: String
-    favorite_only: Boolean
     partner_lat: Float
     partner_lng: Float
     radius: Float
+    search: String
     token: String!
   ): DealVisiblePartnerForUserResult @deprecated(reason: "Prefer version in Deal.ts")
-  deal(default_lang: String, deal_ref: String!): Deal
-  productCollectionsByTargetingInfo(input: ProductCollectionsByTargetingInfoInput!): [ProductCollectionsByTargetingInfoCollection!]
-  productCollectionsByPetGUID(token: String!, input: ProductCollectionsByPetGUIDInput!): [ProductCollectionsByPetGUID!]
-  productCollectionPetRation(token: String!, input: ProductCollectionPetRationInput!): ProductCollectionPetRation
-  productCollectionDetail(token: String!, input: ProductCollectionsDetailInput!): ProductCollectionDetail
-  productCollectionsDetail(token: String!, input: ProductsCollectionsDetailInput!, collectionsReference: [String!]!): [ProductCollectionDetail!]
-  user(token: String!): UserResult
-  userLogin(userContextData: JSON, password: String!, identifier: String!): UserResult!
-  userLoginByAccessToken(userContextData: JSON, access_token: String!): UserResult!
-  userEmailExists(email: String!): Boolean!
-  userCreateAuthCode(ttl: Float!, value: String!, type: String!): GenericError
-  userLoginByCode(auth_code: String!): UserResult
-  userCheckPasswordTokenValidity(token: String!): Boolean
-  userPublicSubscriptions(userEmail: String!, publicToken: String!): UserPublicSubscriptionsResult
-  findPartners(partnerLocatorInput: PartnerLocatorInput!): [Partner!]
-  loyaltyRetrieveBalance(card_program_id: String, program_id: String!, token: String!): LoyaltyBalance!
   directCashbackDealDetail(ref: String!): DirectCashbackDealDetail
   directCashbackDealListEligible(token: String!): [DirectCashbackDealDetail!]!
   directCashbackDealListEligiblePets(deal_ref: String!, token: String!): [UserPet!]!
   directCashbackRedemptionRequestList(
+    barcode: String
+
     """Paginate limit"""
     limit: Float
     page: Float
-    status: String
-    barcode: String
     sortField: String
     sortOrder: String
+    status: String
     token: String!
   ): DirectCashbackRedemptionRequestConnection!
+  directCashbackVoucherDetail(barcode: String!, deal_data_options: [String!], token: String!): DirectCashbackVoucherDetail
   directCashbackVoucherList(
+    child_guid: String
+    from: String
+
     """Paginate limit"""
     limit: Float
     page: Float
     pet_guid: String
-    child_guid: String
-    from: String
-    to: String
     ref: String
+    to: String
     token: String!
   ): DirectCashbackVoucherConnection
-  directCashbackVoucherDetail(deal_data_options: [String!], barcode: String!, token: String!): DirectCashbackVoucherDetail
+  findPartners(partnerLocatorInput: PartnerLocatorInput!): [Partner!]
+  loyaltyRetrieveBalance(card_program_id: String, program_id: String!, token: String!): LoyaltyBalance!
+  metadataAccountPasswordPolicy: DataAccountPasswordPolicy
+  metadataAnimalBreeds(lang: String, type: String): [AnimalBreed!]!
+  metadataAnimalLifestyles(lang: String, type: String): [AnimalLifestyle!]!
+  metadataAnimalPathologies(lang: String): [AnimalPathology!]!
+  metadataAnimalSpecialNeeds(lang: String): [AnimalSpecialNeed!]!
+  metadataAnimalStages(lang: String, type: String): [AnimalStage!]!
+  metadataAnimalTypes(lang: String): [AnimalType!]!
+  metadataAnimalUniverses(lang: String): [AnimalUniverse!]!
+  metadataCountries(lang: String): [Country!]!
+  metadataLanguages(lang: String): [Language!]!
+  metadataLegalForms(codes: String, lang: String): [LegalForm!]!
   metadataPartnerTypes(lang: String): [PartnerType!]!
+  metadataPlaceOfPurchase(lang: String): [PlaceOfPurchase!]!
+  metadataSubscriptions(lang: String): [Subscription!]!
+  metadataUserTitles(lang: String): [UserTitle!]!
+  partnerDetails(partner_ext_id: String!): [Partner!]
   partnerList(
-    partnerListInput: PartnerListItemInput
-
     """Paginate limit"""
     limit: Float
     page: Float
+    partnerListInput: PartnerListItemInput
   ): PartnerConnection
-  partnerDetails(partner_ext_id: String!): [Partner!]
-  metadataAnimalStages(type: String, lang: String): [AnimalStage!]!
-  metadataAnimalSpecialNeeds(lang: String): [AnimalSpecialNeed!]!
-  metadataAnimalLifestyles(type: String, lang: String): [AnimalLifestyle!]!
+  productCollectionDetail(input: ProductCollectionsDetailInput!, token: String!): ProductCollectionDetail
+  productCollectionPetRation(input: ProductCollectionPetRationInput!, token: String!): ProductCollectionPetRation
+  productCollectionsByPetGUID(input: ProductCollectionsByPetGUIDInput!, token: String!): [ProductCollectionsByPetGUID!]
+  productCollectionsByTargetingInfo(input: ProductCollectionsByTargetingInfoInput!): [ProductCollectionsByTargetingInfoCollection!]
+  productCollectionsDetail(collectionsReference: [String!]!, input: ProductsCollectionsDetailInput!, token: String!): [ProductCollectionDetail!]
+  user(token: String!): UserResult
+  userCheckPasswordTokenValidity(token: String!): Boolean
+  userCreateAuthCode(ttl: Float!, type: String!, value: String!): GenericError
+  userEmailExists(email: String!): Boolean!
+  userLogin(identifier: String!, password: String!, userContextData: JSON): UserResult!
+  userLoginByAccessToken(access_token: String!, userContextData: JSON): UserResult!
+  userLoginByCode(auth_code: String!): UserResult
+  userLoginByPublicToken(token: String!, userContextData: JSON): UserResult!
+  userPublicSubscriptions(publicToken: String!, userEmail: String!): UserPublicSubscriptionsResult
 }
 
 type Subscription {
   code: String!
+  consentText: String
   name: String!
   type: String!
-  consentText: String
 }
 
 type User {
-  owner: UserOwner!
-  token: String!
-  pets(dealRef: String, locale: String): [UserPet!]!
   addresses: [UserAddress!]!
-  preferences: UserPreferences!
-  legalForms(codes: [String!]): UserLegalForms!
-  partners(showInactivePartners: Boolean): UserPartnerRelations!
-  placesOfPurchase: [UserPlaceOfPurchase!]!
   children: [UserChild!]!
-  segments: [UserSegment!]!
-  favourites(type: String, source: String): [UserFavourites!]!
   dealVouchers(
     inputs: DealListOffersInput
 
@@ -947,45 +925,54 @@ type User {
     limit: Float
     page: Float
   ): DealListVouchersResult!
+  favourites(source: String, type: String): [UserFavourites!]!
+  legalForms(codes: [String!]): UserLegalForms!
+  owner: UserOwner!
+  partners(showInactivePartners: Boolean): UserPartnerRelations!
+  pets(dealRef: String, locale: String): [UserPet!]!
+  placesOfPurchase: [UserPlaceOfPurchase!]!
+  preferences: UserPreferences!
+  segments: [UserSegment!]!
+  token: String!
 }
 
 type UserAddress {
-  id: Float!
-  name: String
-  phone: String
-  streetnum: String
-  street1: String
-  street2: String
-  postalCode: String
   city: String
   country: String
+  id: Float!
   isDefault: Boolean!
+  name: String
+  phone: String
+  postalCode: String
+  street1: String
+  street2: String
+  streetnum: String
   type: String
 }
 
 input UserAddressCreateInput {
-  name: String
-  type: String
-  streetnum: String
-  street1: String
-  street2: String
-  postalCode: String!
   city: String!
   country: String
   isDefault: Boolean
+  name: String
+  postalCode: String!
+  street1: String
+  street2: String
+  streetnum: String
+  type: String
 }
 
 input UserAddressUpdateInput {
-  name: String
-  type: String
-  streetnum: String
-  street1: String
-  street2: String
-  postalCode: String!
   city: String!
   country: String
-  isDefault: Boolean
   id: String!
+  isDefault: Boolean
+  name: String
+  postalCode: String!
+  street1: String
+  street2: String
+  streetnum: String
+  type: String
 }
 
 type UserAddressUpdateResult {
@@ -994,13 +981,13 @@ type UserAddressUpdateResult {
 }
 
 type UserAndAddress {
-  user: User!
   address: UserAddress!
+  user: User!
 }
 
 type UserAndChild {
-  user: User!
   child: UserChild!
+  user: User!
 }
 
 type UserAndFavourites {
@@ -1012,8 +999,8 @@ type UserAndPartner {
 }
 
 type UserAndPet {
-  user: User!
   pet: UserPet!
+  user: User!
 }
 
 type UserBreedDetail {
@@ -1023,16 +1010,16 @@ type UserBreedDetail {
 
 type UserChild {
   birthday: DateTime
+  firstName: String!
   gender: String!
   guid: String!
-  firstName: String!
 }
 
 input UserChildCreateInput {
-  firstName: String!
   birthday: String!
-  gender: String!
   extId: String
+  firstName: String!
+  gender: String!
 }
 
 type UserChildResult {
@@ -1041,50 +1028,50 @@ type UserChildResult {
 }
 
 input UserChildUpdateInput {
-  guid: String!
-  firstName: String
   birthday: String
-  gender: String
   extId: String
+  firstName: String
+  gender: String
+  guid: String!
 }
 
 input UserConfirmLegalFormsInput {
-  legal_form_code: [String!]!
   confirmed_place: String!
+  legal_form_code: [String!]!
   send_notification: String
   signature: String
 }
 
 input UserCreateInput {
-  title: String
-  firstName: String
-  lastName: String
-  dob: String
-  gender: String
-  telephone: String
-  mobilePhone: String
-  email: String
-  password: String
-  language: String
-  country: String
-  originDetails: String
-  postalCode: String
   city: String
+  country: String
+  dob: String
+  email: String
+  firstName: String
+  gender: String
+  language: String
+  lastName: String
+  mobilePhone: String
+  originDetails: String
+  password: String
+  postalCode: String
+  telephone: String
+  title: String
 }
 
 type UserFavourites {
-  id: String!
-  date: String!
-  type: String!
   content: String!
+  date: String!
+  id: String!
   source: String!
+  type: String!
 }
 
 input UserFavouritesCreateInput {
-  date: DateTime!
-  type: String!
   content: String!
+  date: DateTime!
   source: String!
+  type: String!
 }
 
 type UserFavouritesResult {
@@ -1098,39 +1085,39 @@ type UserLegalForms {
 }
 
 type UserLegalFormsItems {
-  legalForm: LegalForm!
   confirmed: Boolean!
+  legalForm: LegalForm!
 }
 
 type UserMedicalCondition {
-  name: String!
   code: String!
+  name: String!
 }
 
 type UserOwner {
-  guid: String!
-  firstName: String
-  lastName: String
-  email: String
-  title: String
-  dob: String
-  gender: String
-  mobilePhone: String
-  language: String
+  confirmed: Boolean!
   country: String
+  customerGroup: String
+  dob: String
+  email: String
+  firstName: String
+  gender: String
+  guid: String!
+  language: String
+  lastName: String
+  mobilePhone: String
   postalCode: String
   status: String
-  confirmed: Boolean!
-  customerGroup: String
+  title: String
   type: [String!]
 }
 
 type UserPartnerRelation {
   extId: String!
-  type: String!
+  partner: Partner!
   roles: [String!]!
   shortDescription: String
-  partner: Partner!
+  type: String!
 }
 
 input UserPartnerRelationCreateInput {
@@ -1146,8 +1133,8 @@ input UserPartnerRelationDeleteInput {
 }
 
 type UserPartnerRelations {
-  partof: [UserPartnerRelation!]!
   clientof: [UserPartnerRelation!]!
+  partof: [UserPartnerRelation!]!
 }
 
 type UserPartnerUpdateResult {
@@ -1156,28 +1143,28 @@ type UserPartnerUpdateResult {
 }
 
 type UserPet {
-  name: String!
-  guid: String!
+  bmiSeries: [UserPetBmi!]!
+  breed: String!
+  breedDetails: UserBreedDetail!
+  customPictureUrl: String!
+  declarativeProduct: String @deprecated(reason: "Prefer diet recommendation")
+  dietRecommendations: [UserPetDietRecommendation!]!
   dob: String
   gender: String
-  neutered: Boolean!
-  type: String!
-  breed: String!
-  profileCompletion: Float!
-  declarativeProduct: String @deprecated(reason: "Prefer diet recommendation")
-  breedDetails: UserBreedDetail!
+  guid: String!
   hasPicture: Boolean!
   lastUpdated: DateTime
   lifestyle: String
   medicalConditions: [UserMedicalCondition!]
+  name: String!
+  neutered: Boolean!
+  pictureUrl: String!
+  placeOfPurchase: [UserPetPlaceOfPurchase!]!
+  profileCompletion: Float!
   specialNeeds: [UserPetSpecialNeed!]
   stage: String
-  pictureUrl: String!
-  customPictureUrl: String!
-  placeOfPurchase: [UserPetPlaceOfPurchase!]!
+  type: String!
   weightSeries: [UserPetWeight!]!
-  bmiSeries: [UserPetBmi!]!
-  dietRecommendations: [UserPetDietRecommendation!]!
 }
 
 type UserPetBmi {
@@ -1186,27 +1173,27 @@ type UserPetBmi {
 }
 
 input UserPetBmiEntry {
-  date: String!
   bmi: Float!
+  date: String!
   partner_ext_id: String
   source: String!
 }
 
 input UserPetCreateInput {
-  name: String!
-  type: String!
+  bmi: UserPetBmiEntry
   breed: String!
+  chipNumber: String
+  dietRecommendation: UserPetDietRecommendationEntry
   dob: String!
-  neutered: Boolean
   gender: String
+  insured: Boolean
+  name: String!
+  neutered: Boolean
   pictureUrl: String
   placeOfPurchase: String
-  insured: Boolean
   tattooNumber: String
-  chipNumber: String
-  bmi: UserPetBmiEntry
+  type: String!
   weight: UserPetWeightEntry
-  dietRecommendation: UserPetDietRecommendationEntry
 }
 
 input UserPetDeleteInput {
@@ -1215,8 +1202,8 @@ input UserPetDeleteInput {
 }
 
 type UserPetDietRecommendation {
-  creationDate: String!
   collectionReference: String!
+  creationDate: String!
   expirationDate: String
   partnerExtId: String
   ration: String
@@ -1224,16 +1211,16 @@ type UserPetDietRecommendation {
 }
 
 input UserPetDietRecommendationDeleteInput {
-  pet_guid: String!
-  creation_date: String
   collection_reference: String
-  partner_ext_id: String
+  creation_date: String
   custom_logger_info: String
+  partner_ext_id: String
+  pet_guid: String!
 }
 
 input UserPetDietRecommendationEntry {
-  creation_date: String!
   collection_reference: String!
+  creation_date: String!
   expiration_date: String
   partner_ext_id: String
   ration: String
@@ -1242,32 +1229,32 @@ input UserPetDietRecommendationEntry {
 
 type UserPetPlaceOfPurchase {
   placeId: String!
-  placeRating: String!
   placeRatedOn: DateTime
+  placeRating: String!
 }
 
 type UserPetSpecialNeed {
-  name: String!
   code: String!
+  name: String!
 }
 
 input UserPetUpdateInput {
-  guid: String!
-  name: String!
-  type: String
+  bmi: UserPetBmiEntry
   breed: String
+  declarativeProduct: String
+  dietRecommendation: UserPetDietRecommendationEntry
   dob: String
   gender: String
+  guid: String!
+  lifestyle: String
+  medicalConditions: [String!]
+  name: String!
   neutered: Boolean
   pictureUrl: String
   placeOfPurchase: String
-  bmi: UserPetBmiEntry
-  weight: UserPetWeightEntry
-  lifestyle: String
   specialNeeds: [String!]
-  declarativeProduct: String
-  dietRecommendation: UserPetDietRecommendationEntry
-  medicalConditions: [String!]
+  type: String
+  weight: UserPetWeightEntry
 }
 
 type UserPetUpdateResult {
@@ -1276,15 +1263,15 @@ type UserPetUpdateResult {
 }
 
 type UserPetWeight {
-  weight: String!
   date: String!
+  weight: String!
 }
 
 input UserPetWeightEntry {
   date: String!
-  weight: Float!
   partner_ext_id: String
   source: String!
+  weight: Float!
 }
 
 type UserPlaceOfPurchase {
@@ -1317,38 +1304,38 @@ type UserResult {
 }
 
 type UserSegment {
-  id: Float!
   handle: String!
+  id: Float!
 }
 
 type UserTitle {
   code: String!
-  name: String!
   gender: String!
+  name: String!
 }
 
 input UserUpdateInput {
-  title: String
-  firstName: String
-  lastName: String
-  dob: String
-  gender: String
-  telephone: String
-  mobilePhone: String
-  email: String
-  password: String
-  language: String
-  country: String
-  postalCode: String
   city: String
+  country: String
+  dob: String
+  email: String
+  firstName: String
+  gender: String
+  language: String
+  lastName: String
+  mobilePhone: String
+  password: String
+  postalCode: String
   street1: String
   streetnum: String
+  telephone: String
+  title: String
 }
 
 input UserUpdatePlacesOfPurchaseInput {
+  enabled: Boolean
   place_id: String!
   place_rating: String
-  enabled: Boolean
 }
 
 type UserUpdateResult {
@@ -1363,6 +1350,6 @@ input UserUpdateSubscriptionsInput {
 }
 
 type ValidationError {
-  validator: String!
   message: String!
+  validator: String!
 }

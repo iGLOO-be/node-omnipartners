@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 
 import nock from "nock";
+import { OmnipartnersError } from "..";
 
 export const REGEX_HASH = /[0-9a-z]{40}/i;
 export const NOCK_RECORD = !!process.env.NOCK_RECORD;
@@ -16,7 +17,7 @@ afterEach(() => {
 export function withArguments(data: any, { shouldThrow = false } = {}) {
   return (_: any, _2: string, descriptor: any) => {
     const fn = descriptor.value;
-    descriptor.value = async function() {
+    descriptor.value = async function () {
       const api = new this.Api(this.apiConfig);
       if (this.use) {
         this.use(api);
@@ -28,7 +29,7 @@ export function withArguments(data: any, { shouldThrow = false } = {}) {
       try {
         response = await api[method](data);
       } catch (e) {
-        if (!shouldThrow || !e.isOmnipartnersError) {
+        if (!shouldThrow || !(e as OmnipartnersError/* | Error */).isOmnipartnersError) {
           throw e;
         } else {
           err = e;
@@ -54,7 +55,7 @@ export function withMock({
 }) {
   return (_: any, _2: string, descriptor: any) => {
     const fn = descriptor.value;
-    descriptor.value = async function(...args: any[]) {
+    descriptor.value = async function (...args: any[]) {
       const {
         httpMethod,
         httpPath,
@@ -110,7 +111,7 @@ export function describeMethod(Klass: any) {
     const methods = Object.getOwnPropertyNames(Klass.prototype);
     const filterMethod = (method: string) => method !== "constructor";
 
-    methods.filter(filterMethod).forEach(method => {
+    methods.filter(filterMethod).forEach((method) => {
       it(method, () => {
         const instance = new Klass();
         return instance[method]();

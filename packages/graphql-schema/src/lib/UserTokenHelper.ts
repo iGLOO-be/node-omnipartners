@@ -30,9 +30,9 @@ export class UserTokenHelper<AdditionnalPayload> {
         AdditionnalPayload;
     } catch (err) {
       if (
-        err.name !== "JsonWebTokenError" &&
-        err.name !== "TokenExpiredError" &&
-        err.name !== "SyntaxError"
+        (err as Error).name !== "JsonWebTokenError" &&
+        (err as Error).name !== "TokenExpiredError" &&
+        (err as Error).name !== "SyntaxError"
       ) {
         throw err;
       }
