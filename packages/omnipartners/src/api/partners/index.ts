@@ -73,9 +73,7 @@ export default class Partners extends Api {
     "rows", // (Optional) The “Rows” used for pagination. Number of records per page. Its a number. The default value is 10. The maximum value is 100.
     "show_hidden", // (Optional) States whether to include the hidden partners in the result. (Valid Values: 0 OR 1) default 0
   ])
-  public listPartners(
-    data: IPartnerListItemInput,
-  ): Promise<{
+  public listPartners(data: IPartnerListItemInput): Promise<{
     data: IPartnerListItem[];
     page: string;
     total_rows: string;
@@ -171,7 +169,7 @@ export default class Partners extends Api {
     "lang", // The language used to retrieve the translated contents.If not specified generic values will be returned instead of translated contents.
     "data_options", // This defines information that is returned in the profile object. It should be a comma separated list of values. For more information please refer Data Options.
   ])
-  public partnerDetails({
+  public partnerDetails<T extends Record<string, unknown> = {}>({
     partner_ext_id,
     data_options,
     ...data
@@ -180,7 +178,7 @@ export default class Partners extends Api {
     indexed_result?: string;
     lang?: string;
     data_options?: IPartnerDetailsDataOptions;
-  }): Promise<{ data: IPartnerDetails[] }> {
+  }): Promise<{ data: IPartnerDetails<T>[] }> {
     return this._call(
       "get-partner-details",
       {
@@ -220,10 +218,7 @@ export default class Partners extends Api {
     "partner_ext_id", // (Required) The ext id of the partner.
     "type", // (Optional) Links have a type (photo, video) to start with. If set then gives relative type of records only.
   ])
-  public getLinks(data: {
-    partner_ext_id: string;
-    type: string;
-  }): Promise<{
+  public getLinks(data: { partner_ext_id: string; type: string }): Promise<{
     statusCode: number;
     links: IPartnerLinks;
   }> {
@@ -472,9 +467,7 @@ export default class Partners extends Api {
 
   @doc("https://doc.clixray.com/index.php?title=Retrieve_Partner_Logo_URLs")
   @filterInput(["partner_ext_id"])
-  public getLogoURLs(data: {
-    partner_ext_id: string;
-  }): Promise<{
+  public getLogoURLs(data: { partner_ext_id: string }): Promise<{
     statusCode: number;
     data: {
       partner_logo: string | null;
