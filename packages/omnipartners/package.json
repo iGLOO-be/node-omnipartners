@@ -38,7 +38,7 @@
     "depd": "^2.0.0",
     "fetch-retry": "^5.0.1",
     "lodash": "^4.17.21",
-    "node-fetch": "2",
+    "node-fetch": "3",
     "qs": "^6.10.1",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
