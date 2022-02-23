@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { MutationHookOptions, useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import {
   UserConfirmLegalForms,
@@ -27,11 +27,16 @@ const UserConfirmLegalFormsMutation = gql`
   }
 `;
 
-export const useUserConfirmLegalForms = () => {
+export const useUserConfirmLegalForms = (
+  options?: MutationHookOptions<
+    UserConfirmLegalForms,
+    UserConfirmLegalFormsVariables
+  >,
+) => {
   const [confirmLegalForms, result] = useMutation<
     UserConfirmLegalForms,
     UserConfirmLegalFormsVariables
-  >(UserConfirmLegalFormsMutation);
+  >(UserConfirmLegalFormsMutation, options);
   const userToken = useUserToken();
 
   return {
