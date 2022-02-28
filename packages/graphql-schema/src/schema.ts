@@ -44,6 +44,7 @@ import { DataAnimalLifestyleResolver } from "./metadata/DataAnimalLifestyleResol
 import { LoyaltyResolver } from "./resolvers/LoyaltyResolver";
 import { UserLoginByPublicTokenResolver } from "./user/UserLoginByPublicTokenResolver";
 import { UserPublicSubscriptions } from "./user/UserPublicSubscriptions";
+import { UserPublicTags } from "./user/UserPublicTags";
 
 export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
   typeGraphqlBuildschema({
@@ -88,6 +89,7 @@ export const buildFullSchema = async (options?: Partial<BuildSchemaOptions>) =>
       LoyaltyResolver,
       UserLoginByPublicTokenResolver,
       UserPublicSubscriptions,
+      UserPublicTags,
     ],
     ...options,
   });
