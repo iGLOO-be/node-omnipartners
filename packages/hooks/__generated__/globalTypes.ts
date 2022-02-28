@@ -187,6 +187,12 @@ export interface UserUpdateInput {
   title?: string | null;
 }
 
+export interface UserUpdatePlacesOfPurchaseInput {
+  enabled?: boolean | null;
+  place_id: string;
+  place_rating?: string | null;
+}
+
 export interface UserUpdateSubscriptionsInput {
   com_prefs?: string | null;
   interests?: string[] | null;
