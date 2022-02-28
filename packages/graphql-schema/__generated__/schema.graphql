@@ -906,6 +906,7 @@ type Query {
   userLoginByCode(auth_code: String!): UserResult
   userLoginByPublicToken(token: String!, userContextData: JSON): UserResult!
   userPublicSubscriptions(publicToken: String!, userEmail: String!): UserPublicSubscriptionsResult
+  userPublicTags(publicToken: String!, userEmail: String!): UserPublicTagsResult
 }
 
 type Subscription {
@@ -1296,6 +1297,15 @@ input UserPublicSubscriptionsUpdateInput {
 
 type UserPublicSubscriptionsUser {
   subscriptions: [String!]!
+}
+
+type UserPublicTagsResult {
+  error: GenericError
+  result: UserPublicTagsUser
+}
+
+type UserPublicTagsUser {
+  tags: [String!]!
 }
 
 type UserResult {
