@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.90.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.89.4...@igloo-be-omnipartners/graphql-schema@1.90.0) (2022-02-28)
+
+
+### Features
+
+* introduce useUserPublicTags ([6d007dd](https://github.com/iGLOO-be/node-omnipartners/commit/6d007ddd92dd8eaa6ad6eb44685fdb3a2cf2c3f8))
+
+
+
+
+
 ## [1.89.4](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.89.3...@igloo-be-omnipartners/graphql-schema@1.89.4) (2022-01-04)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
