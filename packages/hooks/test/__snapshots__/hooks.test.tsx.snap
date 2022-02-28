@@ -69,6 +69,7 @@ Array [
   "useUserPetsUpdate",
   "useUserPublicSubscriptions",
   "useUserPublicSubscriptionsUpdate",
+  "useUserPublicTags",
   "useUserRecoverPassword",
   "useUserSegments",
   "useUserSubscriptions",
