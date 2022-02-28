@@ -24,3 +24,4 @@ export * from "./useUserUpdateRecoveredPassword";
 export * from "./useUserDeleteSelf";
 export * from "./useUserUpdateToken";
 export * from "./useUserPublicSubscriptions";
+export * from "./useUserPublicTags";
