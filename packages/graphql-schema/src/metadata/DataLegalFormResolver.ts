@@ -15,6 +15,8 @@ export class LegalForm implements IMetadataLegalForm {
   public forget_on_revoke!: boolean;
   @Field(() => String, { nullable: true })
   public url?: string | null;
+  @Field(() => [String], { nullable: true })
+  public subscriptions?: string[] | null;
 }
 
 @Resolver(() => LegalForm)
@@ -25,9 +27,11 @@ export class DataLegalFormResolver {
     @Arg("lang", { nullable: true }) lang?: string,
     @Arg("codes", { nullable: true }) codes?: string,
   ): Promise<LegalForm[]> {
-    return (await ctx.omnipartners.metadata.getLegalForms({
-      lang,
-      legal_form_codes: codes,
-    })).data;
+    return (
+      await ctx.omnipartners.metadata.getLegalForms({
+        lang,
+        legal_form_codes: codes,
+      })
+    ).data;
   }
 }

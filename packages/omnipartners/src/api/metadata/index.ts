@@ -19,6 +19,7 @@ export interface IMetadataLegalForm {
   description?: string | null;
   forget_on_revoke: boolean;
   url?: string | null;
+  subscriptions?: string[] | null;
 }
 
 export interface IMetadataCounty {
@@ -502,9 +503,7 @@ export default class Metadata extends Api {
 
   @doc("https://doc.clixray.com/index.php?title=Get_Featured_Services_List")
   @filterInput(["lang", "indexed"])
-  public getFeaturedServices(
-    data?: IBaseInput,
-  ): Promise<{
+  public getFeaturedServices(data?: IBaseInput): Promise<{
     data: {
       code: string;
       generic_name: string;
