@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.91.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.90.3...omnipartners@2.91.0) (2022-03-02)
+
+
+### Features
+
+* omnipartners + graphql-schema: get subscriptions linked to legalForms ([5023843](https://github.com/iGLOO-be/node-omnipartners/commit/50238436e5eec43f06526460bd2c8168ae166cf5))
+
+
+
+
+
 ## [2.90.3](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.90.2...omnipartners@2.90.3) (2022-01-04)
 
 **Note:** Version bump only for package omnipartners

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.91.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.90.0...@igloo-be-omnipartners/graphql-schema@1.91.0) (2022-03-02)
+
+
+### Features
+
+* omnipartners + graphql-schema: get subscriptions linked to legalForms ([5023843](https://github.com/iGLOO-be/node-omnipartners/commit/50238436e5eec43f06526460bd2c8168ae166cf5))
+
+
+
+
+
 # [1.90.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.89.4...@igloo-be-omnipartners/graphql-schema@1.90.0) (2022-02-28)
 
 
