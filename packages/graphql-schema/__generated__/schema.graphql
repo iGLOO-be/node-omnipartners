@@ -458,6 +458,7 @@ type LegalForm {
   description: String
   forget_on_revoke: Boolean!
   name: String!
+  subscriptions: [String!]
   url: String
 }
 
