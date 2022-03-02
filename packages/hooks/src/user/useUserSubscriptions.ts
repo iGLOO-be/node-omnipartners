@@ -38,8 +38,9 @@ export const UserSubscriptionsQuery = gql`
   ${UserSubscriptionsFragment}
 `;
 
-export const useUserSubscriptions = () => {
-  const token = useUserToken();
+export const useUserSubscriptions = ({ token: givenToken }: { token?: string } = {}) => {
+  const userToken = useUserToken();
+  const token = givenToken || userToken;
   const res = useQuery<UserSubscriptions, UserSubscriptionsVariables>(
     UserSubscriptionsQuery,
     {
