@@ -60,6 +60,9 @@ export interface ISubscribeToDealInput {
   referral_code_type?: string;
   delivery_address_id?: string;
   lang?: string;
+  utm_source?: string;
+  utm_campaign?: string;
+  utm_medium?: string;
 }
 
 interface ISubscribeToDealReturnPartner {
