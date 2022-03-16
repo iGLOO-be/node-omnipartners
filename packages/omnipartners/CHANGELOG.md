@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.92.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.91.0...omnipartners@2.92.0) (2022-03-16)
+
+
+### Features
+
+* omnipartners: deal-subscribe: add utm optional inputs ([f7dbaee](https://github.com/iGLOO-be/node-omnipartners/commit/f7dbaee894add3ea4288df4eceab0912900c6634))
+
+
+
+
+
 # [2.91.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.90.3...omnipartners@2.91.0) (2022-03-02)
 
 
