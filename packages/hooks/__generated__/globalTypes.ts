@@ -21,6 +21,9 @@ export interface DealSubscribeInput {
   referral_code?: string | null;
   referral_code_type?: string | null;
   secure_code?: string | null;
+  utm_campaign?: string | null;
+  utm_medium?: string | null;
+  utm_source?: string | null;
 }
 
 export interface PartnerLocatorInput {

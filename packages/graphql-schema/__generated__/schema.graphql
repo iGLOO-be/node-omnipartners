@@ -263,6 +263,9 @@ input DealSubscribeInput {
   referral_code: String
   referral_code_type: String
   secure_code: String
+  utm_campaign: String
+  utm_medium: String
+  utm_source: String
 }
 
 type DealSubscriptionCount {

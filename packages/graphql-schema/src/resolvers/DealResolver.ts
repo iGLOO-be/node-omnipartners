@@ -19,7 +19,8 @@ import { GenericValidationError } from "../types/GenericValidationError";
 
 @InputType()
 export class DealSubscribeInput
-  implements Omit<ISubscribeToDealInput, "user_guid"> {
+  implements Omit<ISubscribeToDealInput, "user_guid">
+{
   @Field()
   public ref!: string;
 
@@ -58,6 +59,15 @@ export class DealSubscribeInput
 
   @Field({ nullable: true })
   public delivery_address_id?: string;
+
+  @Field({ nullable: true })
+  public utm_source?: string;
+
+  @Field({ nullable: true })
+  public utm_campaign?: string;
+
+  @Field({ nullable: true })
+  public utm_medium?: string;
 }
 
 export class DealResolver {
