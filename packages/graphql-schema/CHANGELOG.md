@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.92.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.91.1...@igloo-be-omnipartners/graphql-schema@1.92.0) (2022-03-16)
+
+
+### Features
+
+* graphql-schema: DealResolver: DealSubscribeInput: add utm ([72baffc](https://github.com/iGLOO-be/node-omnipartners/commit/72baffc3369c93c5772a2398fa2d6dbaa9588cf8))
+
+
+
+
+
 ## [1.91.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.91.0...@igloo-be-omnipartners/graphql-schema@1.91.1) (2022-03-16)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
