@@ -76,11 +76,14 @@ export const UserPetsQuery = gql`
   ${UserPetsFragment}
 `;
 
-export const useUserPets = ({ token: givenToken }: { token?: string } = {}) => {
+export const useUserPets = ({
+  token: givenToken,
+  skip,
+}: { token?: string; skip?: boolean } = {}) => {
   const userToken = useUserToken();
   const token = givenToken || userToken;
   const res = useQuery<UserPets, UserPetsVariables>(UserPetsQuery, {
-    skip: !token,
+    skip: !token || skip,
     variables: {
       token,
     },
