@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.69.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.68.1...@igloo-be-omnipartners/hooks@0.69.0) (2022-04-12)
+
+
+### Features
+
+* hooks: add `useMetadataLanguages` ([a527634](https://github.com/iGLOO-be/node-omnipartners/commit/a527634b7663f43019c17c10fd2c3e55a919d0a0))
+
+
+
+
+
 ## [0.68.1](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/hooks@0.68.0...@igloo-be-omnipartners/hooks@0.68.1) (2022-03-30)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/hooks
