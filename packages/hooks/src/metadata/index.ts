@@ -11,3 +11,4 @@ export * from "./useMetadataAccountPasswordPolicy";
 export * from "./useMetadataAnimalPathologies";
 export * from "./useMetadataAnimalLifestyles";
 export * from "./useMetadataAnimalSpecialNeeds";
+export * from "./useMetadataLanguages";
