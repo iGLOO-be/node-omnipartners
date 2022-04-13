@@ -35,6 +35,7 @@ Array [
   "useMetadataAnimalTypes",
   "useMetadataAnimalUniverses",
   "useMetadataCountries",
+  "useMetadataLanguages",
   "useMetadataLegalForms",
   "useMetadataPartnerTypes",
   "useMetadataPlaceOfPurchase",
