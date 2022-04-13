@@ -1186,10 +1186,11 @@ input UserPetBmiEntry {
 
 input UserPetCreateInput {
   bmi: UserPetBmiEntry
-  breed: String!
+  breed: String
   chipNumber: String
   dietRecommendation: UserPetDietRecommendationEntry
   dob: String!
+  dobApprox: Float
   gender: String
   insured: Boolean
   name: String!
