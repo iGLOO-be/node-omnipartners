@@ -129,7 +129,7 @@ const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
   > = {
     pet_name: userPetInput.name,
     pet_type: userPetInput.type,
-    pet_breed: userPetInput.breed,
+    pet_breed: userPetInput.breed || "",
     pet_dob: userPetInput.dob,
     pet_dob_approx: userPetInput.dobApprox || 0,
 
