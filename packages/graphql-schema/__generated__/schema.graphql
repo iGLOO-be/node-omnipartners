@@ -1009,8 +1009,8 @@ type UserAndPet {
 }
 
 type UserBreedDetail {
-  name: String!
-  universeId: String!
+  name: String
+  universeId: String
 }
 
 type UserChild {
@@ -1149,7 +1149,7 @@ type UserPartnerUpdateResult {
 
 type UserPet {
   bmiSeries: [UserPetBmi!]!
-  breed: String!
+  breed: String
   breedDetails: UserBreedDetail!
   customPictureUrl: String!
   declarativeProduct: String @deprecated(reason: "Prefer diet recommendation")

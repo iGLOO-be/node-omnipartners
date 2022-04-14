@@ -347,7 +347,7 @@ export interface IUserPet {
   birthDate: string;
   pet_dob: string;
   pet_dob_approx: string;
-  breed: string;
+  breed?: string;
   petType: string;
   pedigreeName: string;
   dateCreated: string;

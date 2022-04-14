@@ -22,11 +22,11 @@ export const userPetDataOptions: IUsetPetDataOptions = [
 
 @ObjectType()
 class UserBreedDetail {
-  @Field()
-  public name!: string;
+  @Field({ nullable: true })
+  public name?: string;
 
-  @Field()
-  public universeId!: string;
+  @Field({ nullable: true })
+  public universeId?: string;
 
   constructor(data: IUserPetBreedDetail) {
     Object.assign(this, data);
@@ -137,7 +137,8 @@ class UserPetDietRecommendation {
 @ObjectType()
 export class UserPet
   implements
-    Pick<Partial<IUserPet>, "name" | "guid" | "gender" | "neutered" | "breed"> {
+    Pick<Partial<IUserPet>, "name" | "guid" | "gender" | "neutered" | "breed">
+{
   @Field()
   public name!: string;
 
@@ -156,8 +157,8 @@ export class UserPet
   @Field()
   public type: string;
 
-  @Field()
-  public breed!: string;
+  @Field({ nullable: true })
+  public breed?: string;
 
   @Field()
   public profileCompletion: number;
