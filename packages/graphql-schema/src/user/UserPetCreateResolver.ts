@@ -44,7 +44,8 @@ export class UserPetWeightEntry implements IUserPetWeightEntry {
 
 @InputType()
 export class UserPetDietRecommendationEntry
-  implements IUserPetDietRecommendationEntry {
+  implements IUserPetDietRecommendationEntry
+{
   @Field()
   public creation_date!: string;
 
@@ -72,11 +73,14 @@ class UserPetCreateInput {
   @Field()
   public type!: string;
 
-  @Field()
-  public breed!: string;
+  @Field({ nullable: true })
+  public breed?: string;
 
   @Field()
   public dob!: string;
+
+  @Field({ nullable: true })
+  public dobApprox?: number;
 
   @Field({ nullable: true })
   public neutered?: boolean;
@@ -121,15 +125,23 @@ const mapClixrayFields = (userPetInput: UserPetCreateInput) => {
     | "chip_number"
     | "pet_insured"
     | "tattoo_number"
+    | "pet_dob_approx"
   > = {
     pet_name: userPetInput.name,
     pet_type: userPetInput.type,
     pet_breed: userPetInput.breed,
     pet_dob: userPetInput.dob,
+    pet_dob_approx: userPetInput.dobApprox || 0,
 
-    ...(typeof userPetInput.gender !== "undefined" && { pet_gender: userPetInput.gender }),
-    ...(typeof userPetInput.tattooNumber !== "undefined" && { chip_number: userPetInput.tattooNumber }),
-    ...(typeof userPetInput.chipNumber !== "undefined" && { chip_number: userPetInput.chipNumber }),
+    ...(typeof userPetInput.gender !== "undefined" && {
+      pet_gender: userPetInput.gender,
+    }),
+    ...(typeof userPetInput.tattooNumber !== "undefined" && {
+      chip_number: userPetInput.tattooNumber,
+    }),
+    ...(typeof userPetInput.chipNumber !== "undefined" && {
+      chip_number: userPetInput.chipNumber,
+    }),
   };
 
   if (typeof userPetInput.neutered !== "undefined") {
@@ -155,6 +167,7 @@ const fieldsMapping = {
   pet_insured: "insured",
   chip_number: "chipNumber",
   tattoo_number: "tattooNumber",
+  pet_dob_approx: "dobApprox",
 };
 
 @Resolver(() => User)

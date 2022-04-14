@@ -113,10 +113,11 @@ export interface UserPetBmiEntry {
 
 export interface UserPetCreateInput {
   bmi?: UserPetBmiEntry | null;
-  breed: string;
+  breed?: string | null;
   chipNumber?: string | null;
   dietRecommendation?: UserPetDietRecommendationEntry | null;
   dob: string;
+  dobApprox?: number | null;
   gender?: string | null;
   insured?: boolean | null;
   name: string;

@@ -405,7 +405,7 @@ export interface IUserPetCreateInput {
   pet_breed_com_id?: string;
   pet_pedigreename?: string;
   pet_dob: string;
-  pet_dob_approx?: string;
+  pet_dob_approx?: number;
   pet_neutered?: "Y" | "N";
   pet_neutering_date?: string;
   pet_gender?: string;
