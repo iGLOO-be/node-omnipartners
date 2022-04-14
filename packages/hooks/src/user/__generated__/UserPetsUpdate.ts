@@ -16,7 +16,7 @@ export interface UserPetsUpdate_userPetUpdate_result_user_owner {
 
 export interface UserPetsUpdate_userPetUpdate_result_user_pets_breedDetails {
   __typename: "UserBreedDetail";
-  name: string;
+  name: string | null;
 }
 
 export interface UserPetsUpdate_userPetUpdate_result_user_pets {
@@ -27,7 +27,7 @@ export interface UserPetsUpdate_userPetUpdate_result_user_pets {
   dob: string | null;
   neutered: boolean;
   type: string;
-  breed: string;
+  breed: string | null;
   breedDetails: UserPetsUpdate_userPetUpdate_result_user_pets_breedDetails;
   pictureUrl: string;
 }
@@ -40,7 +40,7 @@ export interface UserPetsUpdate_userPetUpdate_result_user {
 
 export interface UserPetsUpdate_userPetUpdate_result_pet_breedDetails {
   __typename: "UserBreedDetail";
-  name: string;
+  name: string | null;
 }
 
 export interface UserPetsUpdate_userPetUpdate_result_pet {
@@ -51,7 +51,7 @@ export interface UserPetsUpdate_userPetUpdate_result_pet {
   dob: string | null;
   neutered: boolean;
   type: string;
-  breed: string;
+  breed: string | null;
   breedDetails: UserPetsUpdate_userPetUpdate_result_pet_breedDetails;
   pictureUrl: string;
 }

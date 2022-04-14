@@ -14,7 +14,7 @@ export interface UserPetsFragment_owner {
 
 export interface UserPetsFragment_pets_breedDetails {
   __typename: "UserBreedDetail";
-  name: string;
+  name: string | null;
 }
 
 export interface UserPetsFragment_pets {
@@ -25,7 +25,7 @@ export interface UserPetsFragment_pets {
   dob: string | null;
   neutered: boolean;
   type: string;
-  breed: string;
+  breed: string | null;
   breedDetails: UserPetsFragment_pets_breedDetails;
   pictureUrl: string;
 }

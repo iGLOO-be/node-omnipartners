@@ -9,7 +9,7 @@
 
 export interface UserPetFragment_breedDetails {
   __typename: "UserBreedDetail";
-  name: string;
+  name: string | null;
 }
 
 export interface UserPetFragment {
@@ -20,7 +20,7 @@ export interface UserPetFragment {
   dob: string | null;
   neutered: boolean;
   type: string;
-  breed: string;
+  breed: string | null;
   breedDetails: UserPetFragment_breedDetails;
   pictureUrl: string;
 }

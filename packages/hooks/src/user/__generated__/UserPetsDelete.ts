@@ -16,7 +16,7 @@ export interface UserPetsDelete_userPetDelete_result_owner {
 
 export interface UserPetsDelete_userPetDelete_result_pets_breedDetails {
   __typename: "UserBreedDetail";
-  name: string;
+  name: string | null;
 }
 
 export interface UserPetsDelete_userPetDelete_result_pets {
@@ -27,7 +27,7 @@ export interface UserPetsDelete_userPetDelete_result_pets {
   dob: string | null;
   neutered: boolean;
   type: string;
-  breed: string;
+  breed: string | null;
   breedDetails: UserPetsDelete_userPetDelete_result_pets_breedDetails;
   pictureUrl: string;
 }
