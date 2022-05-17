@@ -48,6 +48,7 @@ export const useUser = ({ token: givenToken }: { token?: string } = {}) => {
     variables: {
       token,
     },
+    notifyOnNetworkStatusChange: true,
   });
 
   return {
