@@ -146,7 +146,7 @@ export class UserPetUpdateResolver {
             ...userPetInput,
             guid: userPetInput.guid || pet.guid,
             name: userPetInput.name || pet.name,
-            breed: userPetInput.breed || pet.breed,
+            breed: userPetInput.breed || pet.breed || "",
             dob: userPetInput.dob || pet.pet_dob,
             gender: userPetInput.gender || pet.gender,
             type: userPetInput.type || pet.type,
