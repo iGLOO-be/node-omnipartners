@@ -1104,7 +1104,7 @@ export default class Deals extends Api {
   @doc(
     "http://doc.omnipartners.be/index.php/Get_List_of_eligible_Direct_Cashback_Deals",
   )
-  @filterInput(["user_guid"])
+  @filterInput(["user_guid", "pet_guid", "child_guid"])
   public listEligibleDirectCashbackDeals(data: {
     user_guid: string;
     pet_guid?: string;
