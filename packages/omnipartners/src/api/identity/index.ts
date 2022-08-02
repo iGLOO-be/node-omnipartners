@@ -885,6 +885,32 @@ export default class Identity extends Api {
     );
   }
 
+  @doc("https://doc.clixray.com/index.php?title=Get_information_by_pet_ext_id")
+  @filterInput(["pet_ext_id", "data_options"])
+  public getPetByExternalId(data: {
+    pet_ext_id: string;
+    data_options?: IUsetPetDataOptions;
+  }): Promise<{ data: IUsetPetWithOwner; statusCode: number }> {
+    return this.get(
+      "/service/pets/get-pet-by-external-id",
+      {
+        ...data,
+        data_options: Array.isArray(data.data_options)
+          ? data.data_options.join(",")
+          : data.data_options,
+      },
+      {
+        errorMap: {
+          9: { message: "Pet not found in the system." },
+          21: { message: "Pet not active in the system." },
+        },
+        hashNoKey: true,
+        hashKeys: ["pet_ext_id"],
+        retry: true,
+      },
+    );
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Add_new_pet")
   @filterInput([
     "user_guid", // (Required) The GUID of the owner of the pet.
