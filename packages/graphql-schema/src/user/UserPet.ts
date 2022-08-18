@@ -166,8 +166,8 @@ export class UserPet
   @Field({ nullable: true, deprecationReason: "Prefer diet recommendation" })
   public declarativeProduct?: string;
 
-  @Field()
-  public breedDetails!: UserBreedDetail;
+  @Field({ nullable: true })
+  public breedDetails?: UserBreedDetail;
 
   @Field()
   public hasPicture: boolean;

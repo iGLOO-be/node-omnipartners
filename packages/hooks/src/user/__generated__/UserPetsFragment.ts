@@ -26,7 +26,7 @@ export interface UserPetsFragment_pets {
   neutered: boolean;
   type: string;
   breed: string | null;
-  breedDetails: UserPetsFragment_pets_breedDetails;
+  breedDetails: UserPetsFragment_pets_breedDetails | null;
   pictureUrl: string;
 }
 

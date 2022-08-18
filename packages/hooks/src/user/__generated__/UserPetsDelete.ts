@@ -28,7 +28,7 @@ export interface UserPetsDelete_userPetDelete_result_pets {
   neutered: boolean;
   type: string;
   breed: string | null;
-  breedDetails: UserPetsDelete_userPetDelete_result_pets_breedDetails;
+  breedDetails: UserPetsDelete_userPetDelete_result_pets_breedDetails | null;
   pictureUrl: string;
 }
 
