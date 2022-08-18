@@ -28,7 +28,7 @@ export interface UserPetsUpdate_userPetUpdate_result_user_pets {
   neutered: boolean;
   type: string;
   breed: string | null;
-  breedDetails: UserPetsUpdate_userPetUpdate_result_user_pets_breedDetails;
+  breedDetails: UserPetsUpdate_userPetUpdate_result_user_pets_breedDetails | null;
   pictureUrl: string;
 }
 
@@ -52,7 +52,7 @@ export interface UserPetsUpdate_userPetUpdate_result_pet {
   neutered: boolean;
   type: string;
   breed: string | null;
-  breedDetails: UserPetsUpdate_userPetUpdate_result_pet_breedDetails;
+  breedDetails: UserPetsUpdate_userPetUpdate_result_pet_breedDetails | null;
   pictureUrl: string;
 }
 
