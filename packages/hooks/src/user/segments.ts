@@ -41,10 +41,14 @@ export const UserSegmentsQuery = gql`
   ${UserSegmentsFragment}
 `;
 
-export const useUserSegments = () => {
-  const token = useUserToken();
+export const useUserSegments = ({
+  token,
+  skip,
+}: { token?: string; skip?: boolean } = {}) => {
+  const defaultToken = useUserToken();
+  token = token || defaultToken;
   const res = useQuery<UserSegments, UserSegmentsVariables>(UserSegmentsQuery, {
-    skip: !token,
+    skip: skip || !token,
     variables: {
       token,
     },
