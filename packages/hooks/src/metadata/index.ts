@@ -6,6 +6,7 @@ export * from "./useMetadataAnimalBreeds";
 export * from "./useMetadataAnimalUniverses";
 export * from "./useMetadataAnimalTypes";
 export * from "./useMetadataPartnerTypes";
+export * from "./useMetadataPartnerTypeRoles";
 export * from "./useMetadataPlaceOfPurchase";
 export * from "./useMetadataAccountPasswordPolicy";
 export * from "./useMetadataAnimalPathologies";
