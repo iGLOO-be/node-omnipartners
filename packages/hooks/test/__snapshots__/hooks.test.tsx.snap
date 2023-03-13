@@ -37,6 +37,7 @@ Array [
   "useMetadataCountries",
   "useMetadataLanguages",
   "useMetadataLegalForms",
+  "useMetadataPartnerTypeRoles",
   "useMetadataPartnerTypes",
   "useMetadataPlaceOfPurchase",
   "useMetadataSubscriptions",
