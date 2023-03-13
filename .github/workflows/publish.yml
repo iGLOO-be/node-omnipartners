@@ -11,7 +11,11 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v1.0.0
+      uses: actions/checkout@v3
+    - name: Use node 16
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
     - name: Git Identity
       run: |
         git config --global user.name 'Loic Mahieu'
