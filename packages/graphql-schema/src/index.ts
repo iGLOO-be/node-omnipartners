@@ -16,6 +16,7 @@ export { DataUserTitleResolver } from "./metadata/DataUserTitleResolver";
 export { DataAnimalPathologiesResolver } from "./metadata/DataAnimalPathologyResolver";
 export * from "./metadata/DataPartnerRelationTypesResolver";
 export * from "./metadata/DataAccountPasswordPolicyResolver";
+export { DataPartnerTypeResolver } from "./metadata/DataPartnerTypeResolver";
 export { DealResolver, DealSubscribeInput } from "./resolvers/DealResolver";
 export { ProductCollectionResolver } from "./products/ProductCollectionResolver";
 export * from "./types/Context";

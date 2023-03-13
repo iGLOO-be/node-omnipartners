@@ -447,6 +447,23 @@ export default class Metadata extends Api {
     return this._call("get-partner-types", data);
   }
 
+  @doc("https://doc.clixray.com/index.php?title=Get_Partner_Type_Roles_List")
+  @filterInput(["indexed", "partner_type"])
+  public getPartnerTypeRoles(data?: {
+    indexed?: string;
+    partner_type?: string;
+  }): Promise<{
+    data: {
+      code: string;
+      name: string;
+      default: 'N' | 'Y';
+      type: string;
+      relationship: "partof" | "clientof";
+    }[];
+  }> {
+    return this._call("get-partner-type-roles", data);
+  }
+
   @doc("http://doc.omnipartners.be/index.php/Get_Product_Ranges")
   @filterInput(["lang", "indexed"])
   public getProductRanges(

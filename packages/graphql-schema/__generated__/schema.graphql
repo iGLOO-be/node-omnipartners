@@ -577,6 +577,13 @@ type PartnerType {
   name: String!
 }
 
+type PartnerTypeRole {
+  code: String!
+  name: String!
+  relationship: String!
+  type: String!
+}
+
 type PlaceOfPurchase {
   code: String!
   name: String!
@@ -885,6 +892,7 @@ type Query {
   metadataCountries(lang: String): [Country!]!
   metadataLanguages(lang: String): [Language!]!
   metadataLegalForms(codes: String, lang: String): [LegalForm!]!
+  metadataPartnerTypeRoles(partnerType: String): [PartnerTypeRole!]!
   metadataPartnerTypes(lang: String): [PartnerType!]!
   metadataPlaceOfPurchase(lang: String): [PlaceOfPurchase!]!
   metadataSubscriptions(lang: String): [Subscription!]!
