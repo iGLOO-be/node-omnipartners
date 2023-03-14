@@ -761,9 +761,9 @@ export interface IRegisterUserInput extends IBaseUserInput {
   // The confirmation status of the user. Valid values will be 0 or 1. Default value is 0. Please refer <b><a href="/index.php/Confirm_User_Accounts" title="Confirm User Accounts">Confirm User Accounts</a></b> for more details.
   user_confirmed?: string;
   // When no password is supplied for the user in the registration request this parameter specifies the method to retrieve a valid password. Valid values are <b>link</b>, <b>password</b> and <b>remoteform</b>. The default value is <b>link</b>. If <b>link</b> is specified the registration confirmation email will contain a link to create a new password. If <b>password</b> is specified the registration confirmation mail will contain a auto generated password for the account. Otherwise the response will contain an additional property called “url”. This property contains a url which a remote site could use to create a new password. Please refer to the <b><a href="/index.php/Update_Password" title="Update Password">Update Password</a></b> page for more details about using this feature.
-  password_mode?: string;
+  password_mode?: "link" | "password" | "remoteform";
   // This state whether the user has a pet. If there is no pet 1 should be passed and otherwise 0 should be passed. When noPets = 1 is passed then the account will be created as an active account even if there is a global / key constraint on pets. In other words this parameter allows to bypass the pet constraint for an active account.
-  noPets: string;
+  noPets: string | 1 | 0;
   // Required if “noPet” is 0. The name of the pet.
   // 50 chars
   pet_name?: string;
@@ -811,7 +811,9 @@ export interface IRegisterUserInput extends IBaseUserInput {
   // The access rights of the user. Multiple values (see metadata page) can be sent mimicking the check boxes in an html form. Please refer <b><a href="/index.php/Access_rights_list" title="Access rights list">Access rights list</a></b> for valid values.
   user_access_rights?: string;
   // This states whether to send the registration confirmation mail or not. If registration confirmation mail is needed the value should be 1 and otherwise it should be 0. The default value is 1.
-  send_welcome_mail?: string;
+  send_welcome_mail?: string | 1 | 0;
+  // This states whether to send the registration confirmation mail and/or sms. The value should be set as an array of values since it support multiple options. Valid values are email and sms
+  send_notification?: "email" | "sms";
   // Stores reference information on the origin of the user. This is used to give more context to the source of the registration. The source is taken automatically from the api key reference.
   // 50 chars
   user_origin_details?: string;
