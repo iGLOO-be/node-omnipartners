@@ -21,6 +21,60 @@ export interface IPartnerGroup {
   is_availability_group: "0" | "1";
 }
 
+const createUpdatePartnerAllowKeys = [
+  "partner_ext_id",
+  "partner_inv_name",
+  "partner_inv_street1",
+  "partner_inv_street2",
+  "partner_inv_streetnum",
+  "partner_inv_postal_code",
+  "partner_inv_city",
+  "partner_inv_region",
+  "partner_inv_country",
+  "partner_pub_name",
+  "partner_pub_street1",
+  "partner_pub_street2",
+  "partner_pub_streetnum",
+  "partner_pub_postal_code",
+  "partner_pub_city",
+  "partner_pub_region",
+  "partner_pub_country",
+  "partner_email",
+  "partner_emergency",
+  "partner_phone",
+  "partner_fax",
+  "partner_website",
+  "partner_facebook",
+  "partner_twitter",
+  "partner_instagram",
+  "partner_linkedin",
+  "partner_whatsapp",
+  "partner_youtube",
+  "partner_vat",
+  "partner_type",
+  "partner_subtype",
+  "partner_prim_cnt_title",
+  "partner_prim_cnt_first_name",
+  "partner_prim_cnt_last_name",
+  "partner_prim_cnt_email",
+  "partner_prim_cnt_mobile",
+  "partner_salesrep",
+  "partner_sales_support",
+  "partner_prim_cnt_language",
+  "partner_short_description",
+  "partner_short_description_translations",
+  "partner_eshop_url",
+  "partner_lat",
+  "partner_lng",
+  "partner_status",
+  "partner_is_hidden",
+  "partner_timezone",
+  "partner_self_id",
+  "partner_self_prefix",
+  "partner_deals_redirection_url",
+  "partner_referral_code",
+];
+
 export default class Partners extends Api {
   public defaultHost = "https://partners.clixray.io/";
 
@@ -300,62 +354,12 @@ export default class Partners extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Update_Partner")
   @filterInput((keys) => {
-    const allowKeys = [
-      "partner_ext_id",
-      "partner_inv_name",
-      "partner_inv_street1",
-      "partner_inv_street2",
-      "partner_inv_streetnum",
-      "partner_inv_postal_code",
-      "partner_inv_city",
-      "partner_inv_region",
-      "partner_inv_country",
-      "partner_pub_name",
-      "partner_pub_street1",
-      "partner_pub_street2",
-      "partner_pub_streetnum",
-      "partner_pub_postal_code",
-      "partner_pub_city",
-      "partner_pub_region",
-      "partner_pub_country",
-      "partner_email",
-      "partner_emergency",
-      "partner_phone",
-      "partner_fax",
-      "partner_website",
-      "partner_facebook",
-      "partner_twitter",
-      "partner_instagram",
-      "partner_linkedin",
-      "partner_whatsapp",
-      "partner_youtube",
-      "partner_vat",
-      "partner_type",
-      "partner_subtype",
-      "partner_prim_cnt_title",
-      "partner_prim_cnt_first_name",
-      "partner_prim_cnt_last_name",
-      "partner_prim_cnt_email",
-      "partner_prim_cnt_mobile",
-      "partner_salesrep",
-      "partner_sales_support",
-      "partner_prim_cnt_language",
-      "partner_short_description",
-      "partner_short_description_translations",
-      "partner_eshop_url",
-      "partner_lat",
-      "partner_lng",
-      "partner_status",
-      "partner_is_hidden",
-      "partner_timezone",
-      "partner_self_id",
-      "partner_self_prefix",
-      "partner_deals_redirection_url",
-      "partner_referral_code",
-    ];
     const rgxFieldCustom = /^partner_custom_/;
     return keys.filter((key) => {
-      return allowKeys.indexOf(key) >= 0 || rgxFieldCustom.test(key);
+      return (
+        createUpdatePartnerAllowKeys.indexOf(key) >= 0 ||
+        rgxFieldCustom.test(key)
+      );
     });
   })
   public updatePartner(
@@ -363,6 +367,41 @@ export default class Partners extends Api {
   ): Promise<{ data: IPartnerDetails }> {
     return this._call("update-partner", data, {
       hashKeys: ["action", "partner_ext_id"],
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Add_Partner")
+  @filterInput((keys) => {
+    const rgxFieldCustom = /^partner_custom_/;
+    return keys.filter((key) => {
+      return (
+        createUpdatePartnerAllowKeys.indexOf(key) >= 0 ||
+        rgxFieldCustom.test(key)
+      );
+    });
+  })
+  public addPartner(
+    data: Omit<
+      Partial<IPartnerUpdateInput>,
+      | "partner_ext_id"
+      | "partner_inv_name"
+      | "partner_pub_name"
+      | "partner_type"
+      | "partner_prim_cnt_language"
+    > &
+      Required<
+        Pick<
+          IPartnerUpdateInput,
+          | "partner_ext_id"
+          | "partner_inv_name"
+          | "partner_pub_name"
+          | "partner_type"
+          | "partner_prim_cnt_language"
+        >
+      >,
+  ): Promise<{ data: IPartnerDetails }> {
+    return this._call("add-partner", data, {
+      hashKeys: ["action", "partner_ext_id", "partner_type"],
     });
   }
 
