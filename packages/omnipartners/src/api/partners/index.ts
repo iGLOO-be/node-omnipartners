@@ -50,6 +50,9 @@ const createUpdatePartnerAllowKeys = [
   "partner_linkedin",
   "partner_whatsapp",
   "partner_youtube",
+  "partner_snap",
+  "partner_pinterest",
+  "partner_viadeo",
   "partner_vat",
   "partner_type",
   "partner_subtype",
@@ -352,7 +355,7 @@ export default class Partners extends Api {
     );
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Update_Partner")
+  @doc("https://doc.clixray.com/index.php/Update_Partner")
   @filterInput((keys) => {
     const rgxFieldCustom = /^partner_custom_/;
     return keys.filter((key) => {
