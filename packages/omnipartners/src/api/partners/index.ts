@@ -76,6 +76,7 @@ const createUpdatePartnerAllowKeys = [
   "partner_self_prefix",
   "partner_deals_redirection_url",
   "partner_referral_code",
+  "partner_group_handles",
 ];
 
 export default class Partners extends Api {
@@ -384,24 +385,17 @@ export default class Partners extends Api {
     });
   })
   public addPartner(
-    data: Omit<
-      Partial<IPartnerUpdateInput>,
-      | "partner_ext_id"
-      | "partner_inv_name"
-      | "partner_pub_name"
-      | "partner_type"
-      | "partner_prim_cnt_language"
+    data: Required<
+      Pick<
+        IPartnerUpdateInput,
+        | "partner_ext_id"
+        | "partner_inv_name"
+        | "partner_pub_name"
+        | "partner_type"
+        | "partner_prim_cnt_language"
+      >
     > &
-      Required<
-        Pick<
-          IPartnerUpdateInput,
-          | "partner_ext_id"
-          | "partner_inv_name"
-          | "partner_pub_name"
-          | "partner_type"
-          | "partner_prim_cnt_language"
-        >
-      >,
+      Partial<IPartnerUpdateInput>,
   ): Promise<{ data: IPartnerDetails }> {
     return this._call("add-partner", data, {
       hashKeys: ["action", "partner_ext_id", "partner_type"],

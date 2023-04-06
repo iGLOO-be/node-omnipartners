@@ -291,6 +291,7 @@ export interface IPartnerUpdateInput {
   partner_self_prefix?: string;
   partner_deals_redirection_url?: string;
   partner_referral_code?: string;
+  partner_group_handles?: string | string[];
   // Optional	partner_custom_xxxxx	Apart from the field specified above custom fields could be added to the profile of a partner. Custom fields should be prefixed by "partner_custom_" for the service to identify them. The value of a custom field could be any string up to 100 characters in length. Field with empty values will be ignored by the service
   [key: string]: string | Record<string, any> | booleanNumber | undefined;
 }
