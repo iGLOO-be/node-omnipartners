@@ -1232,10 +1232,21 @@ export interface IAddUserTagsInput {
   custom_logger_info?: { [key: string]: string };
 }
 
+export interface IAddPetTagsInput {
+  pet_guid: string;
+  pet_tags: string;
+  replace_existing_tags?: string;
+}
+
 export interface IDeleteUserTagsInput {
   user_guid: string;
   user_tags: string;
   custom_logger_info?: { [key: string]: string };
+}
+
+export interface IDeletePetTagsInput {
+  pet_guid: string;
+  pet_tags: string;
 }
 
 export interface ISocialNetwork {
