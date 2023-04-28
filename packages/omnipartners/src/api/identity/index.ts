@@ -53,6 +53,8 @@ import {
   ISocialNetwork,
   ISocialNetworkInput,
   ISocialNetworkDeleteInput,
+  IAddPetTagsInput,
+  IDeletePetTagsInput,
 } from "../../types";
 
 export interface IUserGetPartnerAccountRelationsResult {
@@ -1216,6 +1218,33 @@ export default class Identity extends Api {
   ) {
     return this.post("/service/pets/delete-diet-recommendations", data, {
       hashKeys: undefined,
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Add_Pet_Tags")
+  @filterInput([
+    "pet_guid", // (Required) GUID of the tag adding pet.
+    "pet_tags", // (Required) Tag which is going to add for the pet. Multiple values can be used for this by separating each by a comma. Each tag should contain only a-z A-Z _ characters.
+    "replace_existing_tags", // (Optional) Flag used to determine whether existing tags have to be replaced by the given list or not. If the value is "1" or "yes" then the existing tags will be removed.
+  ])
+  public addPetTags(
+    data: IAddPetTagsInput,
+  ) {
+    return this.post("/service/pet-tags/add-tag", data, {
+      hashKeys: ["pet_guid"],
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Delete_Pet_Tags")
+  @filterInput([
+    "pet_guid", // (Required) GUID of the tag deleting pet.
+    "pet_tags", // (Required) Tag which is going to delete from the user. Multiple values can be used for this by separating each by a comma. If this parameter is not sent or empty value is sent, all tags which are relate to the user will be deleted.
+  ])
+  public deletePetTags(
+    data: IDeletePetTagsInput,
+  ) {
+    return this.post("/service/pet-tags/delete-tag", data, {
+      hashKeys: ["pet_guid"],
     });
   }
 
