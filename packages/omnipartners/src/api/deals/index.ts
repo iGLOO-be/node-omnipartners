@@ -915,6 +915,9 @@ export default class Deals extends Api {
     "referral_code_type", // Referral code type of the referring partner. Valid values are 'referral_code' or 'ext_id'. Default value is 'referral_code'.
     "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
     "lang",
+    "utm_source", // (Optional), UTM source for the subscription
+    "utm_campaign", // (Optional), UTM campaign for the subscription
+    "utm_medium", // (Optional), UTM medium for the subscription
   ])
   public subscribeToDeal(
     data: ISubscribeToDealInput,
