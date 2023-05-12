@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.92.14 (2023-05-12)
+
+**Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
+
+
+
+
+
 ## 1.92.13 (2023-05-05)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
