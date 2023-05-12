@@ -908,7 +908,7 @@ export interface IUserUpdateSubscriptionsInput {
   user_guid: string;
   com_prefs?: string;
   interests?: string;
-  subscriptions?: string;
+  subscriptions?: string | string[];
 }
 
 export interface IUserPlaceOfPurchase {
