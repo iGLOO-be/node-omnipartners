@@ -27,6 +27,7 @@ const mapClixrayFields = (
   | "address_city"
   | "address_country"
   | "address_type"
+  | "address_phone"
 > => ({
   address_id: userAddressInput.id,
   address_name: userAddressInput.name,
@@ -37,6 +38,7 @@ const mapClixrayFields = (
   address_city: userAddressInput.city,
   address_country: userAddressInput.country,
   address_type: userAddressInput.type,
+  address_phone: userAddressInput.phone,
 });
 
 const fieldsMapping = {
@@ -49,6 +51,7 @@ const fieldsMapping = {
   address_city: "city",
   address_country: "country",
   address_type: "type",
+  address_phone: "phone",
 };
 
 @Resolver(() => User)

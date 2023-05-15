@@ -45,6 +45,7 @@ export interface UserAddressCreateInput {
   country?: string | null;
   isDefault?: boolean | null;
   name?: string | null;
+  phone?: string | null;
   postalCode: string;
   street1?: string | null;
   street2?: string | null;
@@ -58,6 +59,7 @@ export interface UserAddressUpdateInput {
   id: string;
   isDefault?: boolean | null;
   name?: string | null;
+  phone?: string | null;
   postalCode: string;
   street1?: string | null;
   street2?: string | null;
