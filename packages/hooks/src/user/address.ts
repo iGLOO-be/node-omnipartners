@@ -36,6 +36,7 @@ export const UserAddressFragment = gql`
       city
       isDefault
       type
+      phone
     }
   }
 `;
@@ -168,6 +169,7 @@ export const useUserAddressCreate = ({
                         ? true
                         : false,
                       id: -1,
+                      phone: ""
                     },
                   ],
                   owner: {
@@ -266,6 +268,7 @@ export const useUserAddressUpdate = ({
                       ...userAddressInput,
                       isDefault: userAddressInput.isDefault ? true : false,
                       id: -1,
+                      phone: ""
                     },
                   ],
                   owner: {

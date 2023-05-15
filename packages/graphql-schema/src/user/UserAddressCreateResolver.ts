@@ -35,6 +35,9 @@ export class UserAddressCreateInput {
 
   @Field({ nullable: true })
   public isDefault?: boolean;
+
+  @Field({ nullable: true })
+  public phone?: string;
 }
 
 const mapClixrayFields = (
@@ -42,7 +45,6 @@ const mapClixrayFields = (
 ): Pick<
   IRegisterUserAddressInput,
   | "address_name"
-  | "address_company"
   | "address_streetnum"
   | "address_street1"
   | "address_street2"
@@ -51,6 +53,7 @@ const mapClixrayFields = (
   | "address_country"
   | "address_is_default"
   | "address_type"
+  | "address_phone"
 > => ({
   address_name: userAddressInput.name,
   address_streetnum: userAddressInput.streetnum,
@@ -61,6 +64,7 @@ const mapClixrayFields = (
   address_country: userAddressInput.country,
   address_is_default: userAddressInput.isDefault ? "1" : "0",
   address_type: userAddressInput.type,
+  address_phone: userAddressInput.phone,
 });
 
 const fieldsMapping = {
@@ -72,6 +76,7 @@ const fieldsMapping = {
   address_city: "city",
   address_country: "country",
   address_type: "type",
+  address_phone: "phone",
 };
 
 @Resolver(() => User)

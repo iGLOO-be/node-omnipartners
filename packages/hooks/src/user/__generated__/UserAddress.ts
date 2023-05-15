@@ -24,6 +24,7 @@ export interface UserAddress_user_result_addresses {
   city: string | null;
   isDefault: boolean;
   type: string | null;
+  phone: string | null;
 }
 
 export interface UserAddress_user_result {

@@ -24,6 +24,7 @@ export interface UserAddressFragment_addresses {
   city: string | null;
   isDefault: boolean;
   type: string | null;
+  phone: string | null;
 }
 
 export interface UserAddressFragment {

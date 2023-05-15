@@ -968,6 +968,7 @@ input UserAddressCreateInput {
   country: String
   isDefault: Boolean
   name: String
+  phone: String
   postalCode: String!
   street1: String
   street2: String
@@ -981,6 +982,7 @@ input UserAddressUpdateInput {
   id: String!
   isDefault: Boolean
   name: String
+  phone: String
   postalCode: String!
   street1: String
   street2: String
