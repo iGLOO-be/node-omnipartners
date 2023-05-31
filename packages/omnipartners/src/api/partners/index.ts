@@ -590,4 +590,19 @@ export default class Partners extends Api {
       retry: true,
     });
   }
+
+  @doc("https://doc.clixray.com/index.php?title=Add_to_Partner_Group")
+  @filterInput(["partner_ext_id", "partner_group_handle", "email_notify"])
+  public addToGroup(data: {
+    partner_ext_id: string;
+    partner_group_handle?: string;
+    email_notify?: true;
+  }): Promise<{
+    statusCode: number;
+  }> {
+    return this._call("add-to-group", data, {
+      hashKeys: ["action", "partner_group_handle", "partner_ext_id"],
+      retry: true,
+    });
+  }
 }
