@@ -8,6 +8,11 @@ async function prepareRequest(request: Request) {
     return;
   }
   const response = request.response;
+
+  if (!request.responseAsJson) {
+    return response.text()
+  }
+
   // Try to resolve JSON response before
   return response
     .json()

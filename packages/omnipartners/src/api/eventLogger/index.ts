@@ -86,6 +86,7 @@ export default class EventLogger extends Api {
           "event_name",
           "event_ts",
         ],
+        responseAsJson: false,
       },
     );
   }
