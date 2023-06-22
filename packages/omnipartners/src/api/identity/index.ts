@@ -138,9 +138,7 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Find_account_GUID_by_public_token")
   @filterInput(["token"])
-  public findAccountByPublicToken(data: {
-    token: string;
-  }): Promise<{
+  public findAccountByPublicToken(data: { token: string }): Promise<{
     data: {
       user_guid: string;
       user_updated_on: string;
@@ -267,9 +265,7 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Retrieve_user_preferences")
   @filterInput(["user_guid"])
-  public retrieveUserSubscriptions(data: {
-    user_guid: string;
-  }): Promise<{
+  public retrieveUserSubscriptions(data: { user_guid: string }): Promise<{
     data: IUserPreferences;
   }> {
     return this.get("/service/preferences/get", data, {
@@ -297,9 +293,7 @@ export default class Identity extends Api {
     "http://doc.omnipartners.be/index.php/Retrieve_places_of_purchase_preferences_of_a_user_account",
   )
   @filterInput(["user_guid"])
-  public retrieveUserPlacesOfPurchase(data: {
-    user_guid: string;
-  }): Promise<{
+  public retrieveUserPlacesOfPurchase(data: { user_guid: string }): Promise<{
     data: null | IUserPlaceOfPurchase[];
   }> {
     return this.get("service/preferences/get-places-of-purchase", data, {
@@ -825,9 +819,19 @@ export default class Identity extends Api {
     total_record_count: string;
     total_pages: number;
   }> {
-    return this.get("/service/partners/get-users/", data, {
-      hashKeys: undefined,
-    });
+    return this.get(
+      "/service/partners/get-users/",
+      {
+        ...data,
+        data_options:
+          data.data_options && Array.isArray(data.data_options)
+            ? data.data_options.join(",")
+            : data.data_options,
+      },
+      {
+        hashKeys: undefined,
+      },
+    );
   }
 
   /*
@@ -1227,9 +1231,7 @@ export default class Identity extends Api {
     "pet_tags", // (Required) Tag which is going to add for the pet. Multiple values can be used for this by separating each by a comma. Each tag should contain only a-z A-Z _ characters.
     "replace_existing_tags", // (Optional) Flag used to determine whether existing tags have to be replaced by the given list or not. If the value is "1" or "yes" then the existing tags will be removed.
   ])
-  public addPetTags(
-    data: IAddPetTagsInput,
-  ) {
+  public addPetTags(data: IAddPetTagsInput) {
     return this.post("/service/pet-tags/add-tag", data, {
       hashKeys: ["pet_guid"],
     });
@@ -1240,9 +1242,7 @@ export default class Identity extends Api {
     "pet_guid", // (Required) GUID of the tag deleting pet.
     "pet_tags", // (Required) Tag which is going to delete from the user. Multiple values can be used for this by separating each by a comma. If this parameter is not sent or empty value is sent, all tags which are relate to the user will be deleted.
   ])
-  public deletePetTags(
-    data: IDeletePetTagsInput,
-  ) {
+  public deletePetTags(data: IDeletePetTagsInput) {
     return this.post("/service/pet-tags/delete-tag", data, {
       hashKeys: ["pet_guid"],
     });
@@ -1312,9 +1312,7 @@ export default class Identity extends Api {
 
   @doc("http://doc.omnipartners.be/index.php/Flush_User_Segment_Cache")
   @filterInput(["user_guid"])
-  public flushUserSegmentCache(data: {
-    user_guid: string;
-  }): Promise<{
+  public flushUserSegmentCache(data: { user_guid: string }): Promise<{
     data: {
       statusCode: number;
     };
@@ -1338,9 +1336,7 @@ export default class Identity extends Api {
     "content", // Text string used to store the content of the favorite.
     "source", // Text string used to identify the source that created the favorite.
   ])
-  public addUserFavourites(
-    data: IUserFavouritesAddInput,
-  ): Promise<{
+  public addUserFavourites(data: IUserFavouritesAddInput): Promise<{
     statusCode: number;
   }> {
     return this.get("/service/user/add-favorite/", data, {
@@ -1375,9 +1371,7 @@ export default class Identity extends Api {
     "user_guid", // The GUID of the user.
     "content_id", // The content ID of the pet owner favorite record
   ])
-  public deleteUserFavourites(
-    data: IUserFavouritesDeleteInput,
-  ): Promise<{
+  public deleteUserFavourites(data: IUserFavouritesDeleteInput): Promise<{
     statusCode: number;
   }> {
     return this.get("/service/user/del-favorite/", data, {
