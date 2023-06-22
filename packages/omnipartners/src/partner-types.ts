@@ -1,3 +1,5 @@
+import { IUserDataOptions } from "./types";
+
 type booleanNumber = 0 | 1;
 
 export interface IPartnerAccountRelationCreateInput {
@@ -17,7 +19,7 @@ export interface IPartnerAccountRelationDeleteInput {
 
 export interface IGetUserPartnerAccountRelationsInput {
   partner_ext_id: string;
-  partner_relationship: string;
+  partner_relationship: "clientof" | "partof";
   show_not_accepted?: string;
   active_users_only?: "1" | "0";
   role?: string;
@@ -25,7 +27,7 @@ export interface IGetUserPartnerAccountRelationsInput {
   group_results_by_status?: "1" | "0";
   page: number;
   records_per_page: number;
-  data_options?: string;
+  data_options?: IUserDataOptions;
 }
 
 export interface IUserPartnerAccountRelation {
