@@ -37,7 +37,13 @@ export interface ILoyaltyRetrieveTransactionHistoryInput {
 export interface ILoyaltyGetPointsExpirationDateInput {
   program_reference: string;
   user_id: string;
-  user_id_type?: "user_loyalty_card_number" | "user_mobile" | "partner_ext_id";
+  user_id_type?:
+    | "user_guid"
+    | "user_loyalty_card_number"
+    | "user_mobile"
+    | "partner_ext_id";
+  number_of_expirations?: number;
+  expiration_date?: string; // Format: YYYY-MM-DD
 }
 
 export interface ILoyaltyPointStampAdditionInput {
@@ -347,8 +353,14 @@ export default class Loyalty extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Get_Points_Expiration_Date")
-  @filterInput(["program_reference", "user_id", "user_id_type"])
+  @doc("https://doc.clixray.com/index.php?title=Get_Points_Expiration_Date")
+  @filterInput([
+    "program_reference",
+    "user_id",
+    "user_id_type",
+    "number_of_expirations",
+    "expiration_date",
+  ])
   public getPointsExpirationDate(
     data: ILoyaltyGetPointsExpirationDateInput,
   ): Promise<ILoyaltyPointsExpirationDate> {
@@ -358,7 +370,9 @@ export default class Loyalty extends Api {
       },
       hashKeys: [
         "action",
+        "expiration_date",
         "key",
+        "number_of_expirations",
         "program_reference",
         "user_id",
         "user_id_type",

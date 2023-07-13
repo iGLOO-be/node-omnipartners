@@ -1199,6 +1199,10 @@ export interface ILoyaltyPointsExpirationDate {
   user_guid: string;
   expiration_date?: string | null;
   expiration_points: string;
+  data?: {
+    expiration_date: string;
+    expiration_points: string;
+  }[];
 }
 
 export interface ILoyaltyPointStampAddition {
