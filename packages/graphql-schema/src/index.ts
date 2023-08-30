@@ -40,6 +40,7 @@ export { UserPublicSubscriptions } from "./user/UserPublicSubscriptions";
 export { PartnerLocatorResolver } from "./partner/PartnerLocatorResolver";
 export { Partner } from "./partner/Partner";
 export * from "./partner/PartnerListItem";
+export { PartnerListItemResolver } from "./partner/ParnerListItemResolver";
 export { AuthenticationError } from "./lib/AuthenticationError";
 export { LoyaltyResolver } from "./resolvers/LoyaltyResolver";
 
