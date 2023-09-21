@@ -48,7 +48,7 @@ const UserLoginQuery = gql`
 
 export const useUserLogin = <
   QUserLogin extends UserLogin = UserLogin,
-  QUserLoginVariables extends UserLoginVariables = UserLoginVariables
+  QUserLoginVariables extends UserLoginVariables = UserLoginVariables,
 >({
   query,
   updateToken,
@@ -110,7 +110,7 @@ export const useLogin = ({ updateToken } = { updateToken: true }) => {
 // The goal here is to get both the result directly from the hook AND
 // by the return of the `login` method.
 
-type LazyQueryTuple<TData, TVariables> = [
+type LazyQueryTuple<TData, TVariables extends OperationVariables> = [
   (
     options?: QueryLazyOptions<TVariables>,
   ) => Promise<QueryResult<TData, TVariables>>,
@@ -119,20 +119,21 @@ type LazyQueryTuple<TData, TVariables> = [
 
 export function useBetterLazyQuery<
   TData = any,
-  TVariables = OperationVariables
+  TVariables extends OperationVariables = OperationVariables,
 >(
   query: DocumentNode,
   options?: LazyQueryHookOptions<TData, TVariables>,
 ): LazyQueryTuple<TData, TVariables> {
   const [execute, result] = useLazyQuery<TData, TVariables>(query, options);
 
-  const resolveRef = useRef<
-    (
-      value:
-        | QueryResult<TData, TVariables>
-        | PromiseLike<QueryResult<TData, TVariables>>,
-    ) => void
-  >();
+  const resolveRef =
+    useRef<
+      (
+        value:
+          | QueryResult<TData, TVariables>
+          | PromiseLike<QueryResult<TData, TVariables>>,
+      ) => void
+    >();
 
   useEffect(() => {
     if (result.called && !result.loading && resolveRef.current) {
