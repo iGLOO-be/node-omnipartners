@@ -11,8 +11,10 @@ const UserLoginByPublicTokenQuery = gql`
   query UserLoginByPublicToken($userContextData: JSON, $token: String!) {
     userLoginByPublicToken(userContextData: $userContextData, token: $token) {
       result {
+        id
         token
         owner {
+          id
           guid
         }
       }

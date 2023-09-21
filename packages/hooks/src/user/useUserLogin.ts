@@ -31,8 +31,10 @@ const UserLoginQuery = gql`
       password: $password
     ) {
       result {
+        id
         token
         owner {
+          id
           guid
         }
       }

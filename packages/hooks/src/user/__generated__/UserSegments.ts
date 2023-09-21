@@ -9,6 +9,7 @@
 
 export interface UserSegments_user_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -20,6 +21,7 @@ export interface UserSegments_user_result_segments {
 
 export interface UserSegments_user_result {
   __typename: "User";
+  id: string;
   token: string;
   owner: UserSegments_user_result_owner;
   segments: UserSegments_user_result_segments[];

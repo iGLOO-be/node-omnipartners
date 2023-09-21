@@ -9,6 +9,7 @@
 
 export interface UserPets_user_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -19,6 +20,7 @@ export interface UserPets_user_result_pets_breedDetails {
 
 export interface UserPets_user_result_pets {
   __typename: "UserPet";
+  id: string;
   guid: string;
   name: string;
   gender: string | null;
@@ -32,6 +34,7 @@ export interface UserPets_user_result_pets {
 
 export interface UserPets_user_result {
   __typename: "User";
+  id: string;
   token: string;
   owner: UserPets_user_result_owner;
   pets: UserPets_user_result_pets[];

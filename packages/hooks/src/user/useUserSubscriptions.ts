@@ -11,6 +11,7 @@ export * from "./__generated__/UserSubscriptions";
 export const UserSubscriptionsFragment = gql`
   fragment UserSubscriptionsFragment on User {
     owner {
+      id
       guid
     }
     preferences {
@@ -23,10 +24,8 @@ export const UserSubscriptionsQuery = gql`
   query UserSubscriptions($token: String!) {
     user(token: $token) {
       result {
+        id
         token
-        owner {
-          guid
-        }
         ...UserSubscriptionsFragment
       }
       error {

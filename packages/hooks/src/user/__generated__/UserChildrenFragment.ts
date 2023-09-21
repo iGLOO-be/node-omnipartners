@@ -9,6 +9,7 @@
 
 export interface UserChildrenFragment_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 

@@ -9,6 +9,7 @@
 
 export interface UserFavouritesDelete_userFavouritesDelete_result_user_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -23,6 +24,7 @@ export interface UserFavouritesDelete_userFavouritesDelete_result_user_favourite
 
 export interface UserFavouritesDelete_userFavouritesDelete_result_user {
   __typename: "User";
+  id: string;
   owner: UserFavouritesDelete_userFavouritesDelete_result_user_owner;
   favourites: UserFavouritesDelete_userFavouritesDelete_result_user_favourites[];
 }

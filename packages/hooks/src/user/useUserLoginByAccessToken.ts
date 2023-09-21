@@ -14,8 +14,10 @@ const UserLoginByAccessTokenQuery = gql`
       access_token: $access_token
     ) {
       result {
+        id
         token
         owner {
+          id
           guid
         }
       }

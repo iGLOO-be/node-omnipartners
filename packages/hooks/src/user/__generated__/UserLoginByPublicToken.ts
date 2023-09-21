@@ -9,11 +9,13 @@
 
 export interface UserLoginByPublicToken_userLoginByPublicToken_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
 export interface UserLoginByPublicToken_userLoginByPublicToken_result {
   __typename: "User";
+  id: string;
   token: string;
   owner: UserLoginByPublicToken_userLoginByPublicToken_result_owner;
 }

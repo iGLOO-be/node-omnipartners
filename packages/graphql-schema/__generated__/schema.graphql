@@ -939,6 +939,7 @@ type User {
     page: Float
   ): DealListVouchersResult!
   favourites(source: String, type: String): [UserFavourites!]!
+  id: String!
   legalForms(codes: [String!]): UserLegalForms!
   owner: UserOwner!
   partners(showInactivePartners: Boolean): UserPartnerRelations!
@@ -1118,6 +1119,7 @@ type UserOwner {
   firstName: String
   gender: String
   guid: String!
+  id: String!
   language: String
   lastName: String
   mobilePhone: String
@@ -1168,6 +1170,7 @@ type UserPet {
   gender: String
   guid: String!
   hasPicture: Boolean!
+  id: String!
   lastUpdated: DateTime
   lifestyle: String
   medicalConditions: [UserMedicalCondition!]

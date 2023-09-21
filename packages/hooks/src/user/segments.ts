@@ -9,6 +9,7 @@ import { useUserToken } from "./tokenContext";
 export const UserSegmentsFragment = gql`
   fragment UserSegmentsFragment on User {
     owner {
+      id
       guid
     }
     segments {
@@ -26,10 +27,8 @@ export const UserSegmentsQuery = gql`
   query UserSegments($token: String!) {
     user(token: $token) {
       result {
+        id
         token
-        owner {
-          guid
-        }
         ...UserSegmentsFragment
       }
       error {

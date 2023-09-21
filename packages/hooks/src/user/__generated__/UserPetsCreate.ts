@@ -11,6 +11,7 @@ import { UserPetCreateInput } from "./../../../__generated__/globalTypes";
 
 export interface UserPetsCreate_userPetCreate_result_user_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -21,6 +22,7 @@ export interface UserPetsCreate_userPetCreate_result_user_pets_breedDetails {
 
 export interface UserPetsCreate_userPetCreate_result_user_pets {
   __typename: "UserPet";
+  id: string;
   guid: string;
   name: string;
   gender: string | null;
@@ -34,6 +36,7 @@ export interface UserPetsCreate_userPetCreate_result_user_pets {
 
 export interface UserPetsCreate_userPetCreate_result_user {
   __typename: "User";
+  id: string;
   owner: UserPetsCreate_userPetCreate_result_user_owner;
   pets: UserPetsCreate_userPetCreate_result_user_pets[];
 }
@@ -45,6 +48,7 @@ export interface UserPetsCreate_userPetCreate_result_pet_breedDetails {
 
 export interface UserPetsCreate_userPetCreate_result_pet {
   __typename: "UserPet";
+  id: string;
   guid: string;
   name: string;
   gender: string | null;

@@ -11,8 +11,10 @@ const UserCreateMutation = gql`
   mutation UserCreate($userInput: UserCreateInput!) {
     userCreate(userInput: $userInput) {
       result {
+        id
         token
         owner {
+          id
           guid
         }
       }

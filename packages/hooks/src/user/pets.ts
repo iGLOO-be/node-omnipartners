@@ -26,6 +26,7 @@ export * from "./__generated__/UserPetsUpdate";
 
 export const UserPetFragment = gql`
   fragment UserPetFragment on UserPet {
+    id
     guid
     name
     gender
@@ -43,6 +44,7 @@ export const UserPetFragment = gql`
 export const UserPetsFragment = gql`
   fragment UserPetsFragment on User {
     owner {
+      id
       guid
     }
     pets {
@@ -61,8 +63,10 @@ export const UserPetsQuery = gql`
   query UserPets($token: String!) {
     user(token: $token) {
       result {
+        id
         token
         owner {
+          id
           guid
         }
         ...UserPetsFragment
@@ -110,6 +114,7 @@ const UserPetsCreateMutation = gql`
     userPetCreate(userPetInput: $userPetInput, token: $token) {
       result {
         user {
+          id
           ...UserPetsFragment
         }
         pet {
@@ -169,6 +174,7 @@ const UserPetsUpdateMutation = gql`
     userPetUpdate(token: $token, userPetInput: $userPetInput) {
       result {
         user {
+          id
           ...UserPetsFragment
         }
         pet {

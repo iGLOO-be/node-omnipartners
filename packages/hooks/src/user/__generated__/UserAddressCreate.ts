@@ -11,6 +11,7 @@ import { UserAddressCreateInput } from "./../../../__generated__/globalTypes";
 
 export interface UserAddressCreate_userAddressCreate_result_user_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -31,6 +32,7 @@ export interface UserAddressCreate_userAddressCreate_result_user_addresses {
 
 export interface UserAddressCreate_userAddressCreate_result_user {
   __typename: "User";
+  id: string;
   owner: UserAddressCreate_userAddressCreate_result_user_owner;
   addresses: UserAddressCreate_userAddressCreate_result_user_addresses[];
 }

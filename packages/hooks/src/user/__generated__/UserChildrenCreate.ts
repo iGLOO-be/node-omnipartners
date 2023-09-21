@@ -11,6 +11,7 @@ import { UserChildCreateInput } from "./../../../__generated__/globalTypes";
 
 export interface UserChildrenCreate_userChildCreate_result_user_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -24,6 +25,7 @@ export interface UserChildrenCreate_userChildCreate_result_user_children {
 
 export interface UserChildrenCreate_userChildCreate_result_user {
   __typename: "User";
+  id: string;
   owner: UserChildrenCreate_userChildCreate_result_user_owner;
   children: UserChildrenCreate_userChildCreate_result_user_children[];
 }

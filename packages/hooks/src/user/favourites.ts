@@ -18,6 +18,7 @@ import { useUserToken } from "./tokenContext";
 export const UserFavouritesFragment = gql`
   fragment UserFavouritesFragment on User {
     owner {
+      id
       guid
     }
     favourites(source: $source, type: $type) {
@@ -95,6 +96,7 @@ const UserFavouritesCreateMutation = gql`
     ) {
       result {
         user {
+          id
           ...UserFavouritesFragment
         }
       }
@@ -160,6 +162,7 @@ const UserFavouritesDeleteMutation = gql`
     userFavouritesDelete(id: $id, token: $token) {
       result {
         user {
+          id
           ...UserFavouritesFragment
         }
       }
@@ -196,6 +199,12 @@ export const useUserFavouritesDelete = ({
   return {
     ...mutationResult,
     userFavouritesDelete: async (id: string) => {
+      const user_guid = `${
+        userFavouritesData &&
+        userFavouritesData.user &&
+        userFavouritesData.user.result &&
+        userFavouritesData.user.result.owner.guid
+      }`;
       const { data } = await userFavouritesDelete({
         variables: {
           id,
@@ -207,13 +216,10 @@ export const useUserFavouritesDelete = ({
           userFavouritesDelete: {
             result: {
               user: {
+                id: user_guid,
                 owner: {
-                  guid: `${
-                    userFavouritesData &&
-                    userFavouritesData.user &&
-                    userFavouritesData.user.result &&
-                    userFavouritesData.user.result.owner.guid
-                  }`,
+                  id: user_guid,
+                  guid: user_guid,
                   __typename: "UserOwner",
                 },
                 favourites:

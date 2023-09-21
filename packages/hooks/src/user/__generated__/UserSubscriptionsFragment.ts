@@ -9,6 +9,7 @@
 
 export interface UserSubscriptionsFragment_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 

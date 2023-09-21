@@ -11,6 +11,7 @@ import { UserPetDeleteInput } from "./../../../__generated__/globalTypes";
 
 export interface UserPetsDelete_userPetDelete_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -21,6 +22,7 @@ export interface UserPetsDelete_userPetDelete_result_pets_breedDetails {
 
 export interface UserPetsDelete_userPetDelete_result_pets {
   __typename: "UserPet";
+  id: string;
   guid: string;
   name: string;
   gender: string | null;

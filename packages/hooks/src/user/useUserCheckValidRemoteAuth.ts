@@ -15,7 +15,9 @@ const UserCheckQuery = gql`
   query UserCheck($token: String!) {
     result: user(token: $token) {
       result {
+        id
         owner {
+          id
           guid
         }
       }

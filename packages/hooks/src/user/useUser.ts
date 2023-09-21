@@ -9,8 +9,10 @@ const UserQuery = gql`
   query User($token: String!) {
     user(token: $token) {
       result {
+        id
         token
         owner {
+          id
           guid
           firstName
           lastName

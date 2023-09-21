@@ -9,6 +9,7 @@
 
 export interface UserPetsFragment_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -19,6 +20,7 @@ export interface UserPetsFragment_pets_breedDetails {
 
 export interface UserPetsFragment_pets {
   __typename: "UserPet";
+  id: string;
   guid: string;
   name: string;
   gender: string | null;

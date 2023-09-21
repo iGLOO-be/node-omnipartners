@@ -9,6 +9,7 @@
 
 export interface UserChildren_user_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 

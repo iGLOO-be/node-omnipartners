@@ -137,8 +137,14 @@ class UserPetDietRecommendation {
 @ObjectType()
 export class UserPet
   implements
-    Pick<Partial<IUserPet>, "name" | "guid" | "gender" | "neutered" | "breed">
+    Pick<
+      Partial<IUserPet>,
+      "name" | "guid" | "gender" | "neutered" | "breed" | "id"
+    >
 {
+  @Field()
+  public id!: string;
+
   @Field()
   public name!: string;
 
