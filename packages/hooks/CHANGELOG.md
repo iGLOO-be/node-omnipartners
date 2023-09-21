@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.69.23 (2023-09-21)
+
+**Note:** Version bump only for package @igloo-be-omnipartners/hooks
+
+
+
+
+
 ## 0.69.22 (2023-08-30)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/hooks
