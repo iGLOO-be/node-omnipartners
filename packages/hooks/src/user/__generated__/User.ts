@@ -9,6 +9,7 @@
 
 export interface User_user_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
   firstName: string | null;
   lastName: string | null;
@@ -23,6 +24,7 @@ export interface User_user_result_owner {
 
 export interface User_user_result {
   __typename: "User";
+  id: string;
   token: string;
   owner: User_user_result_owner;
 }

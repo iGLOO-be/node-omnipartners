@@ -11,7 +11,9 @@ const UserUpdateMutation = gql`
   mutation UserUpdate($token: String!, $userInput: UserUpdateInput!) {
     userUpdate(token: $token, userInput: $userInput) {
       result {
+        id
         owner {
+          id
           guid
           firstName
           lastName
@@ -69,7 +71,9 @@ export const useUserUpdate = ({
               error: null,
               result: {
                 __typename: "User",
+                id: user_guid,
                 owner: {
+                  id: user_guid,
                   __typename: "UserOwner",
                   guid: user_guid,
                   email: "",

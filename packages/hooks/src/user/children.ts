@@ -26,6 +26,7 @@ export * from "./__generated__/UserChildrenUpdate";
 export const UserChildrenFragment = gql`
   fragment UserChildrenFragment on User {
     owner {
+      id
       guid
     }
     children {
@@ -99,6 +100,7 @@ const UserChildrenCreateMutation = gql`
     ) {
       result {
         user {
+          id
           ...UserChildrenFragment
         }
       }
@@ -167,6 +169,7 @@ const UserChildrenUpdateMutation = gql`
     ) {
       result {
         user {
+          id
           ...UserChildrenFragment
         }
       }

@@ -11,6 +11,7 @@ import { UserChildUpdateInput } from "./../../../__generated__/globalTypes";
 
 export interface UserChildrenUpdate_userChildUpdate_result_user_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -24,6 +25,7 @@ export interface UserChildrenUpdate_userChildUpdate_result_user_children {
 
 export interface UserChildrenUpdate_userChildUpdate_result_user {
   __typename: "User";
+  id: string;
   owner: UserChildrenUpdate_userChildUpdate_result_user_owner;
   children: UserChildrenUpdate_userChildUpdate_result_user_children[];
 }

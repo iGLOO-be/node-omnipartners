@@ -27,6 +27,8 @@ export interface ILightUser extends Pick<IUser, "owner" | "session_token"> {}
 @ObjectType()
 class UserOwner {
   @Field()
+  public id!: string;
+  @Field()
   public guid!: string;
   @Field({ nullable: true })
   public firstName!: string;
@@ -100,7 +102,10 @@ export interface IUserOptions<T = {}> {
 }
 
 @ObjectType()
-export class User<T = {}> {
+export class User<T extends {} = {}> {
+  @Field()
+  public id!: string;
+
   @Field(() => UserOwner)
   public owner: UserOwner;
 
@@ -109,6 +114,7 @@ export class User<T = {}> {
 
   constructor(data: ILightUser, { userTokenPayload }: IUserOptions<T> = {}) {
     this.data = data;
+    this.id = data.owner.guid;
     this.owner = {
       ...data.owner,
       postalCode: data.owner.zip,
@@ -275,16 +281,13 @@ export class User<T = {}> {
     const limit = parseInt((connectioArgs.limit as any) || "100", 10);
     const page = parseInt((connectioArgs.page as any) || "1", 10);
 
-    const {
-      data,
-      p_length,
-      p_total,
-    } = await ctx.omnipartners.deals.listVouchers({
-      ...inputs,
-      user_guid,
-      p_page: page - 1,
-      p_length: limit,
-    });
+    const { data, p_length, p_total } =
+      await ctx.omnipartners.deals.listVouchers({
+        ...inputs,
+        user_guid,
+        p_page: page - 1,
+        p_length: limit,
+      });
 
     const count = parseInt(p_total.toString(), 10);
     const hasNextPage = page !== Math.ceil(count / p_length);

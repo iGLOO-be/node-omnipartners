@@ -11,6 +11,7 @@ import { UserFavouritesCreateInput } from "./../../../__generated__/globalTypes"
 
 export interface UserFavouritesCreate_userFavouritesCreate_result_user_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -25,6 +26,7 @@ export interface UserFavouritesCreate_userFavouritesCreate_result_user_favourite
 
 export interface UserFavouritesCreate_userFavouritesCreate_result_user {
   __typename: "User";
+  id: string;
   owner: UserFavouritesCreate_userFavouritesCreate_result_user_owner;
   favourites: UserFavouritesCreate_userFavouritesCreate_result_user_favourites[];
 }

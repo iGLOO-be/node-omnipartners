@@ -16,7 +16,9 @@ export const GetUserPartnersQuery = gql`
   query GetUserPartners($token: String!) {
     user(token: $token) {
       result {
+        id
         owner {
+          id
           guid
         }
         partners {
@@ -55,7 +57,9 @@ const UserPartnerRelationDeleteMutation = gql`
     ) {
       result {
         user {
+          id
           owner {
+            id
             guid
           }
           partners {

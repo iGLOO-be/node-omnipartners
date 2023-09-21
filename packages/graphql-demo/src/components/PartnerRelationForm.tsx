@@ -23,7 +23,9 @@ const UserPartnerRelationCreateMutation = gql`
     ) {
       result {
         user {
+          id
           owner {
+            id
             guid
           }
           partners {

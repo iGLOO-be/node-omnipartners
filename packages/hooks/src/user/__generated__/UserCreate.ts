@@ -11,11 +11,13 @@ import { UserCreateInput } from "./../../../__generated__/globalTypes";
 
 export interface UserCreate_userCreate_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
 export interface UserCreate_userCreate_result {
   __typename: "User";
+  id: string;
   token: string;
   owner: UserCreate_userCreate_result_owner;
 }

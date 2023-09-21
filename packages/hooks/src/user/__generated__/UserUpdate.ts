@@ -11,6 +11,7 @@ import { UserUpdateInput } from "./../../../__generated__/globalTypes";
 
 export interface UserUpdate_userUpdate_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
   firstName: string | null;
   lastName: string | null;
@@ -22,6 +23,7 @@ export interface UserUpdate_userUpdate_result_owner {
 
 export interface UserUpdate_userUpdate_result {
   __typename: "User";
+  id: string;
   owner: UserUpdate_userUpdate_result_owner;
 }
 

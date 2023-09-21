@@ -9,6 +9,7 @@
 
 export interface UserAddress_user_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -29,6 +30,7 @@ export interface UserAddress_user_result_addresses {
 
 export interface UserAddress_user_result {
   __typename: "User";
+  id: string;
   token: string;
   owner: UserAddress_user_result_owner;
   addresses: UserAddress_user_result_addresses[];

@@ -9,11 +9,13 @@
 
 export interface UserCheck_result_result_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
 export interface UserCheck_result_result {
   __typename: "User";
+  id: string;
   owner: UserCheck_result_result_owner;
 }
 

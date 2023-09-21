@@ -14,6 +14,7 @@ export interface UserPetFragment_breedDetails {
 
 export interface UserPetFragment {
   __typename: "UserPet";
+  id: string;
   guid: string;
   name: string;
   gender: string | null;

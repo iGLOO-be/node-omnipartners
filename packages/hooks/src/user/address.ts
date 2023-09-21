@@ -23,6 +23,7 @@ export * from "./__generated__/UserAddressUpdate";
 export const UserAddressFragment = gql`
   fragment UserAddressFragment on User {
     owner {
+      id
       guid
     }
     addresses {
@@ -49,8 +50,10 @@ export const UserAddressQuery = gql`
   query UserAddress($token: String!) {
     user(token: $token) {
       result {
+        id
         token
         owner {
+          id
           guid
         }
         ...UserAddressFragment
@@ -97,6 +100,7 @@ const UserAddressCreateMutation = gql`
     userAddressCreate(userAddressInput: $userAddressInput, token: $token) {
       result {
         user {
+          id
           ...UserAddressFragment
         }
         address {
@@ -155,6 +159,7 @@ export const useUserAddressCreate = ({
                 __typename: "UserAndAddress",
                 user: {
                   __typename: "User",
+                  id: user_guid,
                   addresses: [
                     {
                       __typename: "UserAddress",
@@ -174,6 +179,7 @@ export const useUserAddressCreate = ({
                   ],
                   owner: {
                     __typename: "UserOwner",
+                    id: user_guid,
                     guid: user_guid,
                   },
                 },
@@ -201,6 +207,7 @@ const UserAddressUpdateMutation = gql`
     userAddressUpdate(token: $token, userAddressInput: $userAddressInput) {
       result {
         user {
+          id
           ...UserAddressFragment
         }
       }
@@ -255,6 +262,7 @@ export const useUserAddressUpdate = ({
               result: {
                 __typename: "UserAndAddress",
                 user: {
+                  id: user_guid,
                   __typename: "User",
                   addresses: [
                     {
@@ -273,6 +281,7 @@ export const useUserAddressUpdate = ({
                   ],
                   owner: {
                     __typename: "UserOwner",
+                    id: user_guid,
                     guid: user_guid,
                   },
                 },

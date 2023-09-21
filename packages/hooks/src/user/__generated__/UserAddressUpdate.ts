@@ -11,6 +11,7 @@ import { UserAddressUpdateInput } from "./../../../__generated__/globalTypes";
 
 export interface UserAddressUpdate_userAddressUpdate_result_user_owner {
   __typename: "UserOwner";
+  id: string;
   guid: string;
 }
 
@@ -31,6 +32,7 @@ export interface UserAddressUpdate_userAddressUpdate_result_user_addresses {
 
 export interface UserAddressUpdate_userAddressUpdate_result_user {
   __typename: "User";
+  id: string;
   owner: UserAddressUpdate_userAddressUpdate_result_user_owner;
   addresses: UserAddressUpdate_userAddressUpdate_result_user_addresses[];
 }
