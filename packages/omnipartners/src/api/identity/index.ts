@@ -810,14 +810,17 @@ export default class Identity extends Api {
   public getUserPartnerAccountRelations(
     data: IGetUserPartnerAccountRelationsInput,
   ): Promise<{
-    data: { records: { accepted: IUserPartnerAccountRelation[] } };
-    page: string;
-    recordsPerPage: string;
-    totalRecordCount: string;
-    totalPages: number;
-    records_per_page: string;
-    total_record_count: string;
-    total_pages: number;
+    data: { 
+      records: { accepted: IUserPartnerAccountRelation[] }
+      page: string;
+      records_per_page: string;
+      total_record_count: string;
+      total_pages: number;
+      // Deprecated
+      recordsPerPage: string;
+      totalRecordCount: string;
+      totalPages: number;
+    };
   }> {
     return this.get(
       "/service/partners/get-users/",
