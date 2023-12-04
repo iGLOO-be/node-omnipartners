@@ -810,7 +810,7 @@ export default class Identity extends Api {
   public getUserPartnerAccountRelations(
     data: IGetUserPartnerAccountRelationsInput,
   ): Promise<{
-    data: { 
+    data: {
       records: { accepted: IUserPartnerAccountRelation[] }
       page: string;
       records_per_page: string;
@@ -820,7 +820,7 @@ export default class Identity extends Api {
       recordsPerPage: string;
       totalRecordCount: string;
       totalPages: number;
-    };
+    } | null;
   }> {
     return this.get(
       "/service/partners/get-users/",
