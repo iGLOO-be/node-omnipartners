@@ -1019,6 +1019,8 @@ export interface IDeal extends IDealListItem {
   referral_partner_as_subscription_partner: number;
   redemption_partner_required: number;
   redemption_referral_partner_required: number;
+  can_redeem_without_subscription: number;
+  can_redeem_anonymously: number;
   products: IDealProduct[];
   limitations: {
     max_payments_per_iban: string; // Only for Direct Cashback deals
