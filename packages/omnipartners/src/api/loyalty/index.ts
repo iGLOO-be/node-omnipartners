@@ -520,9 +520,7 @@ export default class Loyalty extends Api {
     "init_points", // (Optional)
     "init_stamps", // (Optional)
   ])
-  public activateCard(
-    data: ILoyaltyActivateCardInput,
-  ): Promise<{
+  public activateCard(data: ILoyaltyActivateCardInput): Promise<{
     status: number;
   }> {
     return this._call("activatecard", data, {
@@ -538,9 +536,7 @@ export default class Loyalty extends Api {
     "shop_id", // (Optional)
     "type", // (Optional)
   ])
-  public getCardStatus(
-    data: ILoyaltyGetCardStatusInput,
-  ): Promise<{
+  public getCardStatus(data: ILoyaltyGetCardStatusInput): Promise<{
     status: number;
     data: {
       partner_extid: string;
@@ -570,9 +566,7 @@ export default class Loyalty extends Api {
     "transaction_ext_id", // (Optional)
     "transaction_ext_origin", // (Optional)
   ])
-  public purchaseProduct(
-    data: ILoyaltyPurchaseProductInput,
-  ): Promise<{
+  public purchaseProduct(data: ILoyaltyPurchaseProductInput): Promise<{
     status: number;
   }> {
     return this._call("purchase", data, {
@@ -600,9 +594,7 @@ export default class Loyalty extends Api {
     "transaction_date", // (Optional) Valid Date value in text. Format: YYYY-MM-DD Eg: "2018-12-29" This value will override the transaction date picked by the system
     "custom_logger_info", // (Optional) Custom values to add as logging values. Ex. {"tag_1":"custom_tag_1", "tag_2":"custom_tag_2"}
   ])
-  public purchase(
-    data: ILoyaltyPurchaseInput,
-  ): Promise<{
+  public purchase(data: ILoyaltyPurchaseInput): Promise<{
     status: number;
     log_id: number;
     transaction_id: number;
@@ -658,9 +650,7 @@ export default class Loyalty extends Api {
     "end_date", // (Optional)It can be null / ignored. This will used to filter the transaction information within this date value range. If it is set then service request sender needs to set start_date as well. Then service will filter and return the result within that date range.
     "sort", // (Optional)This field contains array of string specifying the sort fields and direction.
   ])
-  public listPurchases(
-    data: ILoyaltyListPurchasesInput,
-  ): Promise<{
+  public listPurchases(data: ILoyaltyListPurchasesInput): Promise<{
     data: {
       transaction_id: string;
       partner_ext_id: string;
@@ -685,16 +675,12 @@ export default class Loyalty extends Api {
     "user_id", // (Required) Service request sender needs to set card number / mobile number information here. Its data type is TEXT.
     "auth_type", // (Required) It could be contain ‘card_no’ OR ‘mobile_no’ text value .
   ])
-  public resolveUserGuid(
-    data: ILoyaltyResolveUserGUIDInput,
-  ): Promise<{
-    data: {
-      user_guid: string;
-      user_profile: {
-        user_status: string;
-        has_email: string;
-        has_mobile_phone: string;
-      };
+  public resolveUserGuid(data: ILoyaltyResolveUserGUIDInput): Promise<{
+    user_guid: string;
+    user_profile: {
+      user_status: string;
+      has_email: string;
+      has_mobile_phone: string;
     };
   }> {
     return this._call("resolveuserguid", data, {
