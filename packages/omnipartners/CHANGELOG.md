@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.92.21](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.92.20...omnipartners@2.92.21) (2023-12-12)
+
+
+### Bug Fixes
+
+* omnipartners: IDeal: add can_redeem_without_subscription and can_redeem_anonymously ([870ca97](https://github.com/iGLOO-be/node-omnipartners/commit/870ca97ad42d7706aaa700e4732c9e8c0eab6288))
+
+
+
+
+
 ## 2.92.20 (2023-12-04)
 
 **Note:** Version bump only for package omnipartners
