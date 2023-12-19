@@ -560,6 +560,7 @@ export interface IRedeemVoucherInput {
   bic?: string;
   delivery_address_id?: string;
   ean_code?: string;
+  ref?: string; // required for redemption with account and without subscription
 
   shop_id?: string;
   type?: "terminal" | "extid";
