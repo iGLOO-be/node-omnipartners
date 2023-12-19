@@ -976,6 +976,17 @@ export default class Deals extends Api {
     "referral_code",
     "referral_code_type",
     "barcode",
+    // REDEMPTION WITH ACCOUNT AND WITHOUT SUBSCRIPTION
+    "ref", // (Required) deal reference code
+    "secure_code", // (Required for locked deals), available secure code for the deal
+    "ean_code", // (depend on deal)	EAN code of the product, This is required if the deal restricted to a certain product or product group. Otherwise it can be empty.
+    "external_tracking_ref", // (Optional) External tracking reference code. This needs to be maximum 20 alphanumeric characters long.
+    "bic", // (Optional)	BIC number. This needs to be maximum 12 alphanumeric characters long.
+    "delivery_address_id", // (Optional) Id of the delivery address. The id should be an address id which is taken from List User Addresses
+    "iban", // (Required for "CASHBACK" deals) International Bank Account Number for cashback deal. IBAN needs to be between 15 and 34 alphanumeric characters long.
+    "user_guid", // (Optional) GUID of an active user. This is required if pet_guid or child_guid is not provided.
+    "pet_guid", // (Optional) GUID of a pet. User GUID will be retrieved from this if user_guid is not provided. This is required if the deal restricted for pet limitations. Otherwise it can be empty.
+    "child_guid", // (Optional) GUID of a child. User GUID will be retrieved from this if user_guid is not provided. This is required if the deal restricted for child limitations. Otherwise it can be empty.
   ])
   public redeemVoucher(
     data: IRedeemVoucherInput,
