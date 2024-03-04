@@ -80,6 +80,9 @@ export interface ILoyaltyEshopPurchaseInput {
   source: string;
   transaction_ext_id?: string;
   transaction_ext_origin?: string;
+  supplier?: string;
+  product_id?: string;
+  send_voucher?: "1";
   points: number;
 }
 
@@ -202,6 +205,13 @@ export interface ILoyaltyResolveUserGUIDInput {
   card_program_id?: string;
   user_id: string;
   auth_type: string;
+}
+
+export interface ILoyaltyListGiftCatalogInput {
+  program_id: string;
+  language?: "NL" | "IT" | "FR" | "ES" | "EN" | "DE" | string;
+  starting_record?: string;
+  record_count?: number;
 }
 
 export default class Loyalty extends Api {
@@ -442,6 +452,9 @@ export default class Loyalty extends Api {
     "source",
     "transaction_ext_id",
     "transaction_ext_origin",
+    "supplier",
+    "product_id",
+    "send_voucher",
     "points",
   ])
   public eshopPurchase(
@@ -686,6 +699,35 @@ export default class Loyalty extends Api {
     return this._call("resolveuserguid", data, {
       hashKey: "sigid",
       hashKeys: ["action", "program_id", "user_id"],
+    });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=List_Gift_Catalog")
+  @filterInput([
+    "program_id",
+    "language",
+    "starting_record", // If Request sender needs to filter few records then he need to specify starting record index value here. Its type is TEXT. If this is keep empty then no need to set record_count value as well.
+    "record_count", // If request sender needs to filter the result, then he needs to specify max number of transactions here, then starting_record field value also need to be set.
+  ])
+  public listGiftCatalog(data: ILoyaltyListGiftCatalogInput): Promise<{
+    data: {
+      becharge_product_id: string;
+      becharge_brand_id: string;
+      becharge_brand_name: string;
+      becharge_product_value: string;
+      becharge_product_currency: string;
+      becharge_brand_image: string;
+      becharge_product_image: string;
+      becharge_category: string;
+      becharge_product_value_in_points: number;
+    }[];
+    total_records: string;
+    status: "0" | string;
+    selected_records: number;
+  }> {
+    return this._call("list-gift-catalog", data, {
+      hashKey: "sigid",
+      hashKeys: ["action", "program_id"],
     });
   }
 }
