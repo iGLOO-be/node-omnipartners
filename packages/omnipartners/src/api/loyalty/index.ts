@@ -76,6 +76,7 @@ export interface ILoyaltyPointDeductionInput {
 export interface ILoyaltyEshopPurchaseInput {
   program_id: string;
   shop_id: string;
+  type?: "terminal" | "extid";
   user_id: string;
   source: string;
   transaction_ext_id?: string;
@@ -448,6 +449,7 @@ export default class Loyalty extends Api {
   @filterInput([
     "program_id",
     "shop_id",
+    "type",
     "user_id",
     "source",
     "transaction_ext_id",
