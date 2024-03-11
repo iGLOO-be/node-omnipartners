@@ -972,7 +972,14 @@ export interface IDeal extends IDealListItem {
   child_age_limit_to_value: string;
   child_age_limit_to_unit: string;
   pet_required: "1" | "0";
+  /**
+   * @deprecated Use `pet_universe_included` instead
+   */
   pet_universe?: string | null;
+  pet_universe_included?: string | null;
+  pet_universe_excluded?: string | null;
+  pet_breeds_included?: number[] | null;
+  pet_breeds_excluded?: number[] | null;
   pet_age_limit_value?: string | null;
   pet_age_limit_unit?: "DAY" | "WEEK" | "MONTH" | "YEAR" | null;
   pet_age_limit_operator?: "LOWER" | "EQUAL" | "HIGHER" | "BTW" | "";
