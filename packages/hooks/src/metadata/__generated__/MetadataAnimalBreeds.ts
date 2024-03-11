@@ -13,6 +13,7 @@ export interface MetadataAnimalBreeds_metadataAnimalBreeds {
   name: string;
   other: boolean;
   type: string;
+  universe: string;
 }
 
 export interface MetadataAnimalBreeds {

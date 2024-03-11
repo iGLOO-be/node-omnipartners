@@ -14,6 +14,7 @@ const MetadataAnimalBreedsQuery = gql`
       name
       other
       type
+      universe
     }
   }
 `;

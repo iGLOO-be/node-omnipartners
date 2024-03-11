@@ -14,6 +14,9 @@ export class AnimalBreed implements Pick<IMetadataAnimalBreed, "id" | "name"> {
   @Field()
   public type: string;
 
+  @Field()
+  public universe: string;
+
   @Field(() => Boolean)
   public get other() {
     return yn(this.data.other);
@@ -26,6 +29,7 @@ export class AnimalBreed implements Pick<IMetadataAnimalBreed, "id" | "name"> {
     this.id = data.id;
     this.name = data.name;
     this.type = data.species;
+    this.universe = data.universe;
   }
 }
 

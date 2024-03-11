@@ -8,6 +8,7 @@ type AnimalBreed {
   name: String!
   other: Boolean!
   type: String!
+  universe: String!
 }
 
 type AnimalLifestyle {
