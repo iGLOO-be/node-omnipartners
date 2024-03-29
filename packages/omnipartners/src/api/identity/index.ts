@@ -684,6 +684,7 @@ export default class Identity extends Api {
     "user_guid", // (Required) The GUID of the user.
     "partner_relationship", // (Optional) The relationship between the partner and the account. Valid values are “clientof” and “partof”.
     "partner_relationship_role", // (Optional) The role of the relationship.
+    "partner_groups", // (Optional) A comma separated list of partner group handles. Partners in the relationship will be checked against the groups to see if they belong to at least one group.
     "show_not_accepted", // (Optional) Sates whether to include the relationships that are not in accepted state. Valid values are 1 and 0. Default values is 0.
     "data_options", // (Optional) This defines information that is returned in the partner profiles for the related partners. For more information please refer Partner Data Options.
     "page", // (Optional) The page number to be retrieved.
@@ -693,6 +694,7 @@ export default class Identity extends Api {
     user_guid: string;
     partner_relationship?: "clientof" | "partof";
     partner_relationship_role?: string;
+    partner_groups?: string | string[];
     show_not_accepted?: string;
     data_options?: IPartnerDataOptions;
     page?: string | number;
@@ -704,6 +706,9 @@ export default class Identity extends Api {
       "/service/user/get-partners/",
       {
         ...data,
+        partner_groups: Array.isArray(data.partner_groups)
+          ? data.partner_groups.join(",")
+          : data.partner_groups,
         data_options: Array.isArray(data.data_options)
           ? data.data_options.join(",")
           : data.data_options,
@@ -811,7 +816,7 @@ export default class Identity extends Api {
     data: IGetUserPartnerAccountRelationsInput,
   ): Promise<{
     data: {
-      records: { accepted: IUserPartnerAccountRelation[] }
+      records: { accepted: IUserPartnerAccountRelation[] };
       page: string;
       records_per_page: string;
       total_record_count: string;
