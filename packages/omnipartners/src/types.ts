@@ -1179,8 +1179,10 @@ export interface ILoyaltyTransactionTransactionMessage {
 
 export interface ILoyaltyBalance {
   user_total_points: string;
+  user_total_points_alt: string;
   user_guid: string;
   user_hold_points: string;
+  user_hold_points_alt: string;
   status: string;
   user_profile: ILoyaltyUserProfile;
 }

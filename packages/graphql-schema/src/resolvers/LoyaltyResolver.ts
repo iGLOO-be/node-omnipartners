@@ -3,7 +3,13 @@ import { Arg, Ctx, Field, ObjectType, Query } from "type-graphql";
 import { Context } from "../types/Context";
 
 @ObjectType()
-class LoyaltyBalance implements Omit<ILoyaltyBalance, "user_profile"> {
+class LoyaltyBalance
+  implements
+    Omit<
+      ILoyaltyBalance,
+      "user_profile" | "user_total_points_alt" | "user_hold_points_alt"
+    >
+{
   @Field()
   public user_total_points!: string;
   @Field()
