@@ -320,7 +320,7 @@ export default class Loyalty extends Api {
     3001: { message: "Internal error." },
   };
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_balance")
+  @doc("https://doc.clixray.com/index.php/Retrieve_balance")
   @filterInput([
     "program_id", // (Required) Request sender specify the “program Id” related to the loyalty points program here
     "card_program_id", // (Optional) This is used to specify the program which the card belong to.
