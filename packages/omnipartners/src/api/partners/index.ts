@@ -276,7 +276,7 @@ export default class Partners extends Api {
     "partner_ext_id", // (Required) The ext id of the partner.
     "type", // (Optional) Links have a type (photo, video) to start with. If set then gives relative type of records only.
   ])
-  public getLinks(data: { partner_ext_id: string; type: string }): Promise<{
+  public getLinks(data: { partner_ext_id: string; type?: string }): Promise<{
     statusCode: number;
     links: IPartnerLinks;
   }> {
