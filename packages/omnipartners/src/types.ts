@@ -57,6 +57,8 @@ type IPartnerDataOption =
   | "services"
   // The custom values specified in the partner profile.
   | "extended_profile"
+  // The details of the primary contact.
+  | "primary_contact_details"
   // CIS account guid associated to the partners. This is resolved by using the email address of primary contact.
   | "cis_account_guid"
   // Open hours of the partner.
@@ -256,6 +258,7 @@ export interface IUserPartnerRelationFromGet {
   ptn_vat?: string;
   ptn_type: string;
   ptn_subtype?: string;
+  ptn_prim_cnt_guid?: string;
   ptn_prim_cnt_title?: string;
   ptn_prim_cnt_first_name?: string;
   ptn_prim_cnt_last_name?: string;
