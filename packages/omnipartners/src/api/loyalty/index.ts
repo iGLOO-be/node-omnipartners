@@ -53,7 +53,8 @@ export interface ILoyaltyPointStampAdditionInput {
   user_id: string;
   auth_type?: "user_guid" | "card_no";
   message?: string;
-  source: "SYSTEM" | "WEBSITE";
+  reason?: string;
+  source: string;
   points?: number;
   stamps?: number;
   transaction_ext_id?: string;
@@ -337,7 +338,7 @@ export default class Loyalty extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_transaction_history")
+  @doc("https://doc.clixray.com/index.php/Retrieve_transaction_history")
   @filterInput([
     "program_id",
     "shop_id",
@@ -392,7 +393,7 @@ export default class Loyalty extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Point_/_Stamps_addition")
+  @doc("https://doc.clixray.com/index.php/Point_/_Stamps_addition")
   @filterInput([
     "program_id",
     "shop_id",
@@ -400,6 +401,7 @@ export default class Loyalty extends Api {
     "user_id",
     "auth_type",
     "message",
+    "reason",
     "source",
     "points",
     "stamps",
