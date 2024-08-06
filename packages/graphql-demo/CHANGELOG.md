@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.59.171 (2024-08-06)
+
+**Note:** Version bump only for package @igloo-be-omnipartners/graphql-demo
+
+
+
+
+
 ## 0.59.170 (2024-07-02)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-demo

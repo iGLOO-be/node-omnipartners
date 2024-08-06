@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.92.33 (2024-08-06)
+
+**Note:** Version bump only for package omnipartners
+
+
+
+
+
 ## 2.92.32 (2024-07-02)
 
 **Note:** Version bump only for package omnipartners
