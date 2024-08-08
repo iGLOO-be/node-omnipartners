@@ -34,6 +34,36 @@ export interface ILoyaltyRetrieveTransactionHistoryInput {
     | "transaction_id DESC";
 }
 
+interface ILoyaltyRetrievePartnerTransactionHistoryInput {
+  program_id: string;
+  partner_id: string;
+  partner_id_type: "extid";
+  user_guid?: string;
+  lang?: string;
+  starting_record?: string;
+  record_count?: string;
+  start_date?: string; // YYYY-MM-DD
+  end_date?: string; // YYYY-MM-DD
+}
+interface ILoyaltyRetrievePartnerTransactionHistoryResult {
+  data: {
+    transaction_id: string;
+    user_id: string;
+    action: string;
+    source_user_id: string;
+    total_points: string;
+    transaction_date: string;
+    program_id: string;
+    reason: string;
+    partner_ext_id: string;
+    reason_description: string;
+    total_points_alt: number;
+  }[];
+  total_records: number;
+  selected_records: number;
+  status: string;
+}
+
 export interface ILoyaltyGetPointsExpirationDateInput {
   program_reference: string;
   user_id: string;
@@ -361,6 +391,33 @@ export default class Loyalty extends Api {
         1067: { message: "Key not found" },
       },
       hashKeys: ["action", "program_id", "shop_id", "user_id"],
+      retry: true,
+    });
+  }
+  @doc(
+    "https://doc.clixray.com/index.php?title=Retrieve_partner_transaction_history",
+  )
+  @filterInput([
+    "program_id",
+    "partner_id",
+    "partner_id_type",
+    "user_guid",
+    "lang",
+    "starting_record",
+    "record_count",
+    "start_date",
+    "end_date",
+  ])
+  public retrievePartnerTransactionHistory(
+    data: ILoyaltyRetrievePartnerTransactionHistoryInput,
+  ): Promise<ILoyaltyRetrievePartnerTransactionHistoryResult> {
+    return this._call("partner-transaction-history", data, {
+      errorMap: {
+        1023: { message: "Transaction history records not found" },
+        1024: { message: "Transaction history records retrieve error" },
+        1067: { message: "Key not found" },
+      },
+      hashKeys: undefined,
       retry: true,
     });
   }
