@@ -97,7 +97,7 @@ export interface ILoyaltyPointDeductionInput {
   type?: "terminal" | "extid";
   user_id: string;
   auth_type?: "user_guid" | "card_no";
-  source: "SYSTEM" | "WEBSITE";
+  source: string;
   points: number;
   reason?: "redemption" | "expiration" | "adjustment";
   transaction_ext_id?: string;
@@ -140,6 +140,48 @@ export interface ILoyaltyTransactionHistoryStatsInput {
   start_date?: string;
   end_date?: string;
   filter_null_transactions?: "1";
+}
+
+interface ILoyaltyPartnerTransactionHistoryStatsInput {
+  program_id: string;
+  partner_id: string;
+  partner_id_type: string;
+  user_guid?: string;
+  group_by_user?: 1 | 0;
+  start_date?: string;
+  end_date?: string;
+}
+type ILoyaltyPartnerTransactionAction =
+  | "addition"
+  | "deduction"
+  | "shop-redemption";
+interface ILoyaltyPartnerTransactionHistoryStatsResult {
+  status: number;
+  data: {
+    global: {
+      total_points_added: number;
+      total_points_deducted: number; // negative value
+      actions: {
+        [action in ILoyaltyPartnerTransactionAction]?: {
+          reason: string;
+          count: string;
+          total_points: string;
+        }[];
+      };
+    };
+    grouped_by_user?: {
+      total_points_added: number;
+      total_points_deducted: number; // negative value
+      user_guid: string;
+      actions: {
+        [action in ILoyaltyPartnerTransactionAction]: {
+          reason: string;
+          count: string;
+          total_points: string;
+        }[];
+      };
+    }[];
+  };
 }
 
 export interface ILoyaltyActivateCardInput {
@@ -546,7 +588,7 @@ export default class Loyalty extends Api {
     );
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Get_transaction_history_stats")
+  @doc("https://doc.clixray.com/index.php/Get_transaction_history_stats")
   @filterInput([
     "program_id",
     "shop_id",
@@ -575,6 +617,29 @@ export default class Loyalty extends Api {
       },
       hashKey: "sigid",
       hashKeys: ["action", "program_id", "shop_id", "user_id"],
+    });
+  }
+
+  @doc(
+    "https://doc.clixray.com/index.php?title=Get_partner_transaction_history_stats",
+  )
+  @filterInput([
+    "program_id",
+    "partner_id",
+    "partner_id_type",
+    "user_guid",
+    "group_by_user",
+    "start_date",
+    "end_date",
+  ])
+  public partnerTransactionHistoryStats(
+    data: ILoyaltyPartnerTransactionHistoryStatsInput,
+  ): Promise<ILoyaltyPartnerTransactionHistoryStatsResult> {
+    return this._call("get-partner-transaction-history-stats", data, {
+      errorMap: {
+        1024: { message: "Transaction history records retrieve error" },
+      },
+      hashKeys: undefined,
     });
   }
 
