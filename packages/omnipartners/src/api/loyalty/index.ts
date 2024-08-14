@@ -155,32 +155,27 @@ type ILoyaltyPartnerTransactionAction =
   | "addition"
   | "deduction"
   | "shop-redemption";
+type ILoyaltyPartnerTransactionActionStats = {
+  total_points_added: number;
+  total_points_deducted: number; // negative value
+  total_points_added_alt: number;
+  total_points_deducted_alt: number; // negative value
+  actions: {
+    [action in ILoyaltyPartnerTransactionAction]?: {
+      reason: string;
+      count: number;
+      total_points: number;
+      total_points_alt: number;
+    }[];
+  };
+};
 interface ILoyaltyPartnerTransactionHistoryStatsResult {
   status: number;
   data: {
-    global: {
-      total_points_added: number;
-      total_points_deducted: number; // negative value
-      actions: {
-        [action in ILoyaltyPartnerTransactionAction]?: {
-          reason: string;
-          count: string;
-          total_points: string;
-        }[];
-      };
-    };
-    grouped_by_user?: {
-      total_points_added: number;
-      total_points_deducted: number; // negative value
+    global: ILoyaltyPartnerTransactionActionStats;
+    grouped_by_user?: (ILoyaltyPartnerTransactionActionStats & {
       user_guid: string;
-      actions: {
-        [action in ILoyaltyPartnerTransactionAction]: {
-          reason: string;
-          count: string;
-          total_points: string;
-        }[];
-      };
-    }[];
+    })[];
   };
 }
 
