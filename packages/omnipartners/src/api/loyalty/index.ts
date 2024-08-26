@@ -447,6 +447,7 @@ export default class Loyalty extends Api {
   ])
   public retrievePartnerTransactionHistory(
     data: ILoyaltyRetrievePartnerTransactionHistoryInput,
+    options?: Pick<IApiFetchOptions, "retry">
   ): Promise<ILoyaltyRetrievePartnerTransactionHistoryResult> {
     return this._call("partner-transaction-history", data, {
       errorMap: {
@@ -454,8 +455,9 @@ export default class Loyalty extends Api {
         1024: { message: "Transaction history records retrieve error" },
         1067: { message: "Key not found" },
       },
+      retry: false,
+      ...options,
       hashKeys: undefined,
-      retry: true,
     });
   }
 
