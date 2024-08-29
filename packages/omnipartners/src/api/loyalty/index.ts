@@ -39,6 +39,7 @@ interface ILoyaltyRetrievePartnerTransactionHistoryInput {
   partner_id: string;
   partner_id_type: "extid";
   user_guid?: string;
+  reason?: string;
   lang?: string;
   starting_record?: string;
   record_count?: string;
@@ -439,6 +440,7 @@ export default class Loyalty extends Api {
     "partner_id",
     "partner_id_type",
     "user_guid",
+    "reason",
     "lang",
     "starting_record",
     "record_count",
