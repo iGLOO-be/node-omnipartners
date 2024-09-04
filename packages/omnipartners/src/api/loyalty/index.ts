@@ -59,6 +59,7 @@ interface ILoyaltyRetrievePartnerTransactionHistoryResult {
     partner_ext_id: string;
     reason_description: string;
     total_points_alt: number;
+    transaction_message: Record<string, string>;
   }[];
   total_records: number;
   selected_records: number;
