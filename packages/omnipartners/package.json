@@ -1,6 +1,6 @@
 {
   "name": "omnipartners",
-  "version": "2.92.38",
+  "version": "2.92.39",
   "description": "",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
