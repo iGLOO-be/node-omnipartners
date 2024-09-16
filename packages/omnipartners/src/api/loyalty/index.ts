@@ -99,6 +99,7 @@ export interface ILoyaltyPointDeductionInput {
   type?: "terminal" | "extid";
   user_id: string;
   auth_type?: "user_guid" | "card_no";
+  message?: string;
   source: string;
   points: number;
   reason?: "redemption" | "expiration" | "adjustment";
@@ -520,13 +521,14 @@ export default class Loyalty extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Point_deduction")
+  @doc("https://doc.clixray.com/index.php/Point_deduction")
   @filterInput([
     "program_id",
     "shop_id",
     "type",
     "user_id",
     "auth_type",
+    "message",
     "source",
     "points",
     "reason",
