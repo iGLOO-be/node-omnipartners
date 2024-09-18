@@ -76,9 +76,17 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Update_Password")
+  @doc("https://doc.clixray.com/index.php?title=Update_Password")
   @filterInput(["token", "password"])
-  public updateRecoveredPassword(data: { token: string; password: string }) {
+  public updateRecoveredPassword(data: {
+    token: string;
+    password: string;
+  }): Promise<{
+    statusCode: number;
+    data: {
+      user_guid: string;
+    };
+  }> {
     return this.get("/service/account/create-password", data, {
       hashKeys: ["password"],
     });
