@@ -186,7 +186,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Recover_by_mobile_phone")
+  @doc("https://doc.clixray.com/index.php/Recover_by_mobile_phone")
   @filterInput(["mobile", "message"])
   public recoverPasswordSMS(data: { mobile: string; message?: string }) {
     return this.get("/service/account/recover-password-sms", data, {
