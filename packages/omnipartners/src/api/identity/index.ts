@@ -194,7 +194,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Create_User_Accounts")
+  @doc("https://doc.clixray.com/index.php/Create_User_Accounts")
   public register(data: IRegisterUserInput): Promise<{ data: IUser }> {
     return this.get("/service/user/register", data, {
       errorMap: {

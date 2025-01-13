@@ -766,7 +766,7 @@ export interface IRegisterUserInput extends IBaseUserInput {
   // When no password is supplied for the user in the registration request this parameter specifies the method to retrieve a valid password. Valid values are <b>link</b>, <b>password</b> and <b>remoteform</b>. The default value is <b>link</b>. If <b>link</b> is specified the registration confirmation email will contain a link to create a new password. If <b>password</b> is specified the registration confirmation mail will contain a auto generated password for the account. Otherwise the response will contain an additional property called “url”. This property contains a url which a remote site could use to create a new password. Please refer to the <b><a href="/index.php/Update_Password" title="Update Password">Update Password</a></b> page for more details about using this feature.
   password_mode?: "link" | "password" | "remoteform";
   // This state whether the user has a pet. If there is no pet 1 should be passed and otherwise 0 should be passed. When noPets = 1 is passed then the account will be created as an active account even if there is a global / key constraint on pets. In other words this parameter allows to bypass the pet constraint for an active account.
-  noPets: string | 1 | 0;
+  noPets?: string | 1 | 0;
   // Required if “noPet” is 0. The name of the pet.
   // 50 chars
   pet_name?: string;
@@ -821,7 +821,9 @@ export interface IRegisterUserInput extends IBaseUserInput {
   // 50 chars
   user_origin_details?: string;
   // This defines information that is returned in the profile object. Please refer <b><a href="/index.php/Data_Options" title="Data Options">Data Options</a></b> for valid values. Multiple values could be sent by separating them with commas. If this parameter is not specified or empty only <i>owner_details</i>, <i>pet_details</i>, <i>preferences</i>, <i>loyalty_cards</i>, <i>access_rights</i>, <i>pet_breed_details</i> and <i>pet_medical_condition_details</i> will be included.
-  data_options: IUserDataOptions;
+  data_options?: IUserDataOptions;
+  // Specifies whether an account should be updated during registration if it already exists. Valid values are 0 and 1. Default is 0. This option requires the associated api key to have "Force update active user during registration" permission. Otherwise, it'll result a failure. Only the ext_id of the user will be updated during a forced update and rest of the values will be ignored.
+  force_update?: 1 | 0;
 }
 
 export interface IUserAddress {
