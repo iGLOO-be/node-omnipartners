@@ -1,6 +1,6 @@
 {
   "name": "@igloo-be-omnipartners/hooks",
-  "version": "0.69.47",
+  "version": "0.69.48",
   "main": "dist/index.js",
   "module": "dist/hooks.esm.js",
   "typings": "dist/index.d.ts",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@apollo/client": "^3.5.5",
-    "@igloo-be-omnipartners/graphql-schema": "^1.92.45",
+    "@igloo-be-omnipartners/graphql-schema": "^1.92.46",
     "@types/jwt-decode": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
