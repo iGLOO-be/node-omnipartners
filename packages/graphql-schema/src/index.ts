@@ -43,6 +43,7 @@ export * from "./partner/PartnerListItem";
 export { PartnerListItemResolver } from "./partner/ParnerListItemResolver";
 export { AuthenticationError } from "./lib/AuthenticationError";
 export { LoyaltyResolver } from "./resolvers/LoyaltyResolver";
+export { PartnerResolver } from "./partner/PartnerResolver";
 
 export * from "./user/UserFavouritesResolver";
 export * from "./user/UserFavourites";
