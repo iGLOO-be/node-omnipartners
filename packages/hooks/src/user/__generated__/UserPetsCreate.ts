@@ -28,7 +28,7 @@ export interface UserPetsCreate_userPetCreate_result_user_pets {
   gender: string | null;
   dob: string | null;
   neutered: boolean;
-  type: string;
+  type: string | null;
   breed: string | null;
   breedDetails: UserPetsCreate_userPetCreate_result_user_pets_breedDetails | null;
   pictureUrl: string;
@@ -54,7 +54,7 @@ export interface UserPetsCreate_userPetCreate_result_pet {
   gender: string | null;
   dob: string | null;
   neutered: boolean;
-  type: string;
+  type: string | null;
   breed: string | null;
   breedDetails: UserPetsCreate_userPetCreate_result_pet_breedDetails | null;
   pictureUrl: string;

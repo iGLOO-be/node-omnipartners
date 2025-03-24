@@ -20,7 +20,7 @@ export interface UserPetFragment {
   gender: string | null;
   dob: string | null;
   neutered: boolean;
-  type: string;
+  type: string | null;
   breed: string | null;
   breedDetails: UserPetFragment_breedDetails | null;
   pictureUrl: string;

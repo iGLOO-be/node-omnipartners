@@ -28,7 +28,7 @@ export interface UserPetsDelete_userPetDelete_result_pets {
   gender: string | null;
   dob: string | null;
   neutered: boolean;
-  type: string;
+  type: string | null;
   breed: string | null;
   breedDetails: UserPetsDelete_userPetDelete_result_pets_breedDetails | null;
   pictureUrl: string;

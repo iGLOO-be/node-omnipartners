@@ -1182,7 +1182,7 @@ type UserPet {
   profileCompletion: Float!
   specialNeeds: [UserPetSpecialNeed!]
   stage: String
-  type: String!
+  type: String
   weightSeries: [UserPetWeight!]!
 }
 

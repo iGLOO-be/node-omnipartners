@@ -160,8 +160,8 @@ export class UserPet
   @Field()
   public neutered!: boolean;
 
-  @Field()
-  public type: string;
+  @Field({ nullable: true})
+  public type?: string;
 
   @Field({ nullable: true })
   public breed?: string;

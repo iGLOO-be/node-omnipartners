@@ -28,7 +28,7 @@ export interface UserPetsUpdate_userPetUpdate_result_user_pets {
   gender: string | null;
   dob: string | null;
   neutered: boolean;
-  type: string;
+  type: string | null;
   breed: string | null;
   breedDetails: UserPetsUpdate_userPetUpdate_result_user_pets_breedDetails | null;
   pictureUrl: string;
@@ -54,7 +54,7 @@ export interface UserPetsUpdate_userPetUpdate_result_pet {
   gender: string | null;
   dob: string | null;
   neutered: boolean;
-  type: string;
+  type: string | null;
   breed: string | null;
   breedDetails: UserPetsUpdate_userPetUpdate_result_pet_breedDetails | null;
   pictureUrl: string;
