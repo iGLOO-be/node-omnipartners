@@ -1268,13 +1268,14 @@ export default class Identity extends Api {
     Manage children
   */
 
-  @doc("http://doc.omnipartners.be/index.php/Add_new_child")
+  @doc("https://doc.clixray.com/index.php?title=Add_new_child")
   @filterInput([
     "user_guid", // (Required)	The GUID of the parent account.
     "child_first_name", // (Required)	The name of the child.
     "child_birthday", // (Required)	The birthday of the child in the format YYYY-MM-DD.
     "child_gender", // (Optional)	The gender of the child. Valid values are “M”, “F” and “U” (for unknown).
     "child_ext_id", // (Optional)	The external id of the child. This should be a unique value.
+    "multiples", // Valid values are '1' OR '0' When adding a child allow replacement of existing child if existing child has a Date of Birth within x days. X is an optional config parameter, not editable. If the parameter is set then replacement will be automatic unless the "multiples" option is used
   ])
   public createChild(
     data: IUserChildCreateInput,
@@ -1284,7 +1285,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_child_information")
+  @doc("https://doc.clixray.com/index.php/Retrieve_child_information")
   @filterInput([
     "user_guid", // (Required)	The GUID of the parent account.
   ])

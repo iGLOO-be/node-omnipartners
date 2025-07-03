@@ -572,6 +572,7 @@ export interface IUserChild {
   child_parent: string;
   child_status: string;
   child_ext_id: string;
+  child_multiples?: string[] | null;
 }
 
 export interface IUserChildCreateInput {
@@ -580,6 +581,7 @@ export interface IUserChildCreateInput {
   child_birthday: string;
   child_gender: string;
   child_ext_id?: string;
+  multiples?: 1 | 0;
 }
 
 export interface IUserChildUpdateInput

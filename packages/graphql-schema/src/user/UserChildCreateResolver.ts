@@ -21,11 +21,18 @@ export class UserChildCreateInput {
 
   @Field({ nullable: true })
   public extId?: string;
+
+  @Field({ nullable: true })
+  public multiples?: boolean;
 }
 
 type IMapClixrayFieldsResult = Pick<
   IUserChildCreateInput,
-  "child_first_name" | "child_birthday" | "child_gender" | "child_ext_id"
+  | "child_first_name"
+  | "child_birthday"
+  | "child_gender"
+  | "child_ext_id"
+  | "multiples"
 >;
 const mapClixrayFields = (userChildCreateInput: UserChildCreateInput) => {
   const result = pickBy<IMapClixrayFieldsResult>({
@@ -33,6 +40,12 @@ const mapClixrayFields = (userChildCreateInput: UserChildCreateInput) => {
     child_birthday: userChildCreateInput.birthday,
     child_gender: userChildCreateInput.gender,
     child_ext_id: userChildCreateInput.extId,
+    multiples:
+      userChildCreateInput.multiples !== undefined
+        ? userChildCreateInput.multiples === true
+          ? 1
+          : 0
+        : undefined,
   });
 
   return result as IMapClixrayFieldsResult;
@@ -54,10 +67,12 @@ export class UserChildCreateResolver {
   ): Promise<UserChildResult> {
     const { user_guid } = ctx.userTokenHelper.parse(token);
     try {
-      const child = (await ctx.omnipartners.identity.createChild({
-        user_guid,
-        ...mapClixrayFields(userChildCreateInput),
-      })).data;
+      const child = (
+        await ctx.omnipartners.identity.createChild({
+          user_guid,
+          ...mapClixrayFields(userChildCreateInput),
+        })
+      ).data;
       const user = await ctx.omnipartners.identity.authenticateByGUID({
         data_options: userDataOptions,
         user_guid,
