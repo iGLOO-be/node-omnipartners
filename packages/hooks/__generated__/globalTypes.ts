@@ -72,6 +72,7 @@ export interface UserChildCreateInput {
   extId?: string | null;
   firstName: string;
   gender: string;
+  multiples?: boolean | null;
 }
 
 export interface UserChildUpdateInput {

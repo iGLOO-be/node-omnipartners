@@ -1037,6 +1037,7 @@ input UserChildCreateInput {
   extId: String
   firstName: String!
   gender: String!
+  multiples: Boolean
 }
 
 type UserChildResult {
