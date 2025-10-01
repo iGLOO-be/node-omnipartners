@@ -234,10 +234,19 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Edit_User_Accounts")
-  public update(data: IUserUpdateInput): Promise<{ data: IUserOwner }> {
+  @doc("http://doc.clixray.com/index.php/Edit_User_Accounts")
+  public update(
+    data: IUserUpdateInput,
+    options?: { locale?: string },
+  ): Promise<{ data: IUserOwner }> {
     return this.get("/service/user/update", data, {
       hashKeys: ["user_email", "user_guid"],
+      ...(options &&
+        options.locale && {
+          headers: {
+            "X-LANGUAGE": options.locale,
+          },
+        }),
     });
   }
 
@@ -490,16 +499,25 @@ export default class Identity extends Api {
     "data_options",
     "partner_data_options",
   ])
-  public async authenticate(data: {
-    identifier: string;
-    password: string;
-    data_options?: IUserDataOptions;
-    partner_data_options?: string;
-  }): Promise<IUser> {
+  public async authenticate(
+    data: {
+      identifier: string;
+      password: string;
+      data_options?: IUserDataOptions;
+      partner_data_options?: string;
+    },
+    options?: { locale?: string },
+  ): Promise<IUser> {
     const result = await this.get("/service/auth/credentials", data, {
       hashKeys: ["identifier", "password"],
       hashNoKey: true,
       retry: true,
+      ...(options &&
+        options.locale && {
+          headers: {
+            "X-LANGUAGE": options.locale,
+          },
+        }),
     });
     return result;
   }
