@@ -68,7 +68,7 @@ export default class Identity extends Api {
     19: { message: "Partner not found." },
   };
 
-  @doc("http://doc.omnipartners.be/index.php/Delete_User_Accounts")
+  @doc("http://doc.clixray.com/index.php/Delete_User_Accounts")
   @filterInput(["user_guid"])
   public deleteUser(data: { user_guid: string }) {
     return this.get("/service/account/delete", data, {
@@ -92,13 +92,13 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Check_Password_Token_Validity")
+  @doc("http://doc.clixray.com/index.php/Check_Password_Token_Validity")
   @filterInput(["token"])
   public checkPasswordTokenValidity(data: { token: string }) {
     return this.get("/service/account/check-password-token-validity", data);
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Create_Access_Token")
+  @doc("http://doc.clixray.com/index.php/Create_Access_Token")
   @filterInput(["session_token", "ttl"])
   public getAccessToken(data: {
     session_token: string;
@@ -110,14 +110,14 @@ export default class Identity extends Api {
     return this.get("/service/access-tokens/get-token", data);
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Delete_Access_Token")
+  @doc("http://doc.clixray.com/index.php/Delete_Access_Token")
   @filterInput(["token"])
   public deleteAccessToken(data: { token: string }) {
     return this.get("/service/access-tokens/delete-token", data);
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Find_account_GUID_by_mobile_phone_(strict)",
+    "http://doc.clixray.com/index.php/Find_account_GUID_by_mobile_phone_(strict)",
   )
   @filterInput(["mobile_no", "include_loyalty_cards"])
   public findAccountByPhone(data: {
@@ -130,9 +130,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Find_account_GUID_by_email_(strict)",
-  )
+  @doc("http://doc.clixray.com/index.php/Find_account_GUID_by_email_(strict)")
   @filterInput(["email", "include_user_type"])
   public findAccountByEmail(data: {
     email: string;
@@ -144,7 +142,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Find_account_GUID_by_public_token")
+  @doc("http://doc.clixray.com/index.php/Find_account_GUID_by_public_token")
   @filterInput(["token"])
   public findAccountByPublicToken(data: { token: string }): Promise<{
     data: {
@@ -157,9 +155,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Find_account_GUID_by_partner_ext_id",
-  )
+  @doc("http://doc.clixray.com/index.php/Find_account_GUID_by_partner_ext_id")
   @filterInput(["partner_ext_id"])
   public findAccountByPartnerExtId(data: { partner_ext_id: string }) {
     return this.get("/service/user/resolve-by-partner", data, {
@@ -168,7 +164,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Recover_by_email_or_user_id")
+  @doc("http://doc.clixray.com/index.php/Recover_by_email_or_user_id")
   @filterInput(["uid", "mode", "url"])
   public recoverPassword(data: { uid: string; mode?: string; url?: string }) {
     return this.get("/service/account/recover-password", data, {
@@ -210,7 +206,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Force_Activate_User_Account")
+  @doc("http://doc.clixray.com/index.php/Force_Activate_User_Account")
   @filterInput(["user_guid"])
   public forceActivate(data: { user_guid: string }) {
     return this.get("/service/account/force-activate", data, {
@@ -224,7 +220,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Confirm_User_Accounts")
+  @doc("http://doc.clixray.com/index.php/Confirm_User_Accounts")
   @filterInput(["identifier"])
   public confirmUserAccount(data: { identifier: string }) {
     return this.get("/service/account/confirm", data, {
@@ -245,7 +241,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_Users_List")
+  @doc("http://doc.clixray.com/index.php/Retrieve_Users_List")
   @filterInput([
     "first_name",
     "last_name",
@@ -271,7 +267,7 @@ export default class Identity extends Api {
     return this.get("/service/profile/get-user-lis", data, { retry: true });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_user_preferences")
+  @doc("http://doc.clixray.com/index.php/Retrieve_user_preferences")
   @filterInput(["user_guid"])
   public retrieveUserSubscriptions(data: { user_guid: string }): Promise<{
     data: IUserPreferences;
@@ -285,7 +281,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Update_user_preferences")
+  @doc("http://doc.clixray.com/index.php/Update_user_preferences")
   @filterInput(["user_guid", "com_prefs", "interests", "subscriptions"])
   public updateSubscriptions(data: IUserUpdateSubscriptionsInput) {
     return this.get("/service/preferences/update", data, {
@@ -298,7 +294,7 @@ export default class Identity extends Api {
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Retrieve_places_of_purchase_preferences_of_a_user_account",
+    "http://doc.clixray.com/index.php/Retrieve_places_of_purchase_preferences_of_a_user_account",
   )
   @filterInput(["user_guid"])
   public retrieveUserPlacesOfPurchase(data: { user_guid: string }): Promise<{
@@ -316,7 +312,7 @@ export default class Identity extends Api {
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Add_a_place_of_purchase_preference_to_the_user_account",
+    "http://doc.clixray.com/index.php/Add_a_place_of_purchase_preference_to_the_user_account",
   )
   @filterInput(["user_guid", "place_id", "place_rating"])
   public updateUserPlacesOfPurchase(data: IUserUpdatePlacesOfPurchaseInput) {
@@ -332,7 +328,7 @@ export default class Identity extends Api {
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Delete_a_place_of_purchase_preference_from_a_user_account",
+    "http://doc.clixray.com/index.php/Delete_a_place_of_purchase_preference_from_a_user_account",
   )
   @filterInput(["user_guid", "place_id"])
   public deleteUserPlacesOfPurchase(data: {
@@ -344,7 +340,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/List_User_Addresses")
+  @doc("http://doc.clixray.com/index.php/List_User_Addresses")
   @filterInput(["user_guid"])
   public listUserAddress(data: {
     user_guid: string;
@@ -355,7 +351,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Add_User_Address")
+  @doc("http://doc.clixray.com/index.php/Add_User_Address")
   @filterInput([
     "user_guid", // (Required)
     "address_type",
@@ -383,7 +379,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Update_User_Address")
+  @doc("http://doc.clixray.com/index.php/Update_User_Address")
   @filterInput([
     "user_guid", // (Required)
     "address_id",
@@ -419,7 +415,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Delete_User_Address")
+  @doc("http://doc.clixray.com/index.php/Delete_User_Address")
   @filterInput(["user_guid", "address_id"])
   public deleteUserAddress(data: { user_guid: string; address_id: string }) {
     return this.post("/service/user-address/delete", data, {
@@ -431,7 +427,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Confirm_Legal_Form")
+  @doc("http://doc.clixray.com/index.php/Confirm_Legal_Form")
   @filterInput([
     "legal_form_code",
     "user_guid",
@@ -459,7 +455,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Get_Confirmed_Legal_Forms")
+  @doc("http://doc.clixray.com/index.php/Get_Confirmed_Legal_Forms")
   @filterInput(["user_guid"])
   public getConfirmedLegalForm(data: {
     user_guid: string;
@@ -467,7 +463,7 @@ export default class Identity extends Api {
     return this.post("/service/legal-form/get-confirmed-legal-forms", data);
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Revoke_Legal_Form")
+  @doc("http://doc.clixray.com/index.php/Revoke_Legal_Form")
   @filterInput(["legal_form_code", "user_guid", "send_notification"])
   public revokeLegalForm(data: {
     legal_form_code: string;
@@ -486,7 +482,7 @@ export default class Identity extends Api {
   */
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_User_Credentials",
+    "https://doc.clixray.com/index.php/Retrieve_Profile_Using_User_Credentials",
   )
   @filterInput([
     "identifier",
@@ -508,9 +504,7 @@ export default class Identity extends Api {
     return result;
   }
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_User_GUID_ONLY",
-  )
+  @doc("http://doc.clixray.com/index.php/Retrieve_Profile_Using_User_GUID_ONLY")
   @filterInput(["user_guid", "data_options"])
   public authenticateByGUID(data: {
     user_guid: string;
@@ -524,13 +518,13 @@ export default class Identity extends Api {
           ? data.data_options.join(",")
           : data.data_options,
       },
-      { retry: true },
+      {
+        retry: true,
+      },
     );
   }
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Session_Tokens",
-  )
+  @doc("http://doc.clixray.com/index.php/Retrieve_Profile_Using_Session_Tokens")
   @filterInput(["session_token", "data_options"])
   public authenticateBySessionToken(data: {
     session_token: string;
@@ -539,9 +533,7 @@ export default class Identity extends Api {
     return this.get("/service/auth/session-token", data, { retry: true });
   }
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Access_Tokens",
-  )
+  @doc("http://doc.clixray.com/index.php/Retrieve_Profile_Using_Access_Tokens")
   @filterInput([
     "access_token",
     "data_options",
@@ -571,7 +563,7 @@ export default class Identity extends Api {
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Email_ONLY_Service",
+    "http://doc.clixray.com/index.php/Retrieve_Profile_Using_Email_ONLY_Service",
   )
   @filterInput(["email", "data_options"])
   public authenticateByEmail(data: {
@@ -592,7 +584,7 @@ export default class Identity extends Api {
     "data_options", // (Optional)	This defines information that is returned in the profile object. For more information please refer Data Options.
     "pet_data_options", // (Optional)	This defines information that is returned in the pet object. For more information please refer Pet Data Options.
     "partner_data_options", // (Optional)	This defines information that is returned in the partner profiles for the related partners. For more information please refer Partner Data Options.
-    "pet_partner_type", // (Optional)	Pet's partner type code. Please refer http://doc.omnipartners.be/index.php/Get_Partner_Types_List for the codes of the types.
+    "pet_partner_type", // (Optional)	Pet's partner type code. Please refer http://doc.clixray.com/index.php/Get_Partner_Types_List for the codes of the types.
     "related_partners_filter_xxxx", // (Optional)	A set of filters that could be used to filter partner relationships. For more information please refer Partner Relationship Filter.
   ])
   public authenticateByExternalId({
@@ -634,7 +626,7 @@ export default class Identity extends Api {
     );
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Create_Auth_Code")
+  @doc("http://doc.clixray.com/index.php/Create_Auth_Code")
   @filterInput(["type", "value", "ttl"])
   public createAuthCode(data: {
     type: "email" | "mobile";
@@ -659,7 +651,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_Profile_Using_Auth_Code")
+  @doc("http://doc.clixray.com/index.php/Retrieve_Profile_Using_Auth_Code")
   @filterInput(["auth_code"])
   public async authenticateByCode(data: {
     auth_code: string;
@@ -687,7 +679,7 @@ export default class Identity extends Api {
     Manage partners
   */
 
-  @doc("http://doc.omnipartners.be/index.php/Get_partners_-_account_relations")
+  @doc("http://doc.clixray.com/index.php/Get_partners_-_account_relations")
   @filterInput([
     "user_guid", // (Required) The GUID of the user.
     "partner_relationship", // (Optional) The relationship between the partner and the account. Valid values are “clientof” and “partof”.
@@ -760,7 +752,7 @@ export default class Identity extends Api {
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Update_partner_-_account_relation_status",
+    "http://doc.clixray.com/index.php/Update_partner_-_account_relation_status",
   )
   @filterInput([
     "user_guid", // (Required) The GUID of the user.
@@ -786,9 +778,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Delete_a_partner_-_account_relation",
-  )
+  @doc("http://doc.clixray.com/index.php/Delete_a_partner_-_account_relation")
   @filterInput([
     "user_guid", // (Required) The GUID of the user.
     "partner_ext_id", // (Required) The external id of the partner.
@@ -854,7 +844,7 @@ export default class Identity extends Api {
     Manage pets
   */
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_pet_information")
+  @doc("http://doc.clixray.com/index.php/Retrieve_pet_information")
   @filterInput(["user_guid", "data_options"])
   public getPets(
     data: { user_guid: string; data_options?: IUsetPetDataOptions },
@@ -882,7 +872,7 @@ export default class Identity extends Api {
     );
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Get_information_by_pet_guid")
+  @doc("http://doc.clixray.com/index.php/Get_information_by_pet_guid")
   @filterInput(["pet_guid", "data_options"])
   public getPet(data: {
     pet_guid: string;
@@ -933,7 +923,7 @@ export default class Identity extends Api {
     );
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Add_new_pet")
+  @doc("http://doc.clixray.com/index.php/Add_new_pet")
   @filterInput([
     "user_guid", // (Required) The GUID of the owner of the pet.
     "pet_name", // (Required) The name of the pet.
@@ -968,7 +958,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Delete_existing_pet")
+  @doc("http://doc.clixray.com/index.php/Delete_existing_pet")
   @filterInput([
     "pet_guid", // (Required) GUID of the pet.
     "pet_deletion_cause", // (Optional) Code of pet deletion cause. Please refer Animal deletion causes list for valid values.
@@ -979,7 +969,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Animal_deletion_causes_list")
+  @doc("http://doc.clixray.com/index.php/Animal_deletion_causes_list")
   @filterInput([
     "lang", // (Optional) The language in which the list of animal types must be retrieved. Please refer Language list for valid values.
   ])
@@ -989,7 +979,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Update_pet_information")
+  @doc("http://doc.clixray.com/index.php/Update_pet_information")
   @filterInput([
     "pet_guid",
     "pet_name",
@@ -1025,7 +1015,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_pet_picture")
+  @doc("http://doc.clixray.com/index.php/Retrieve_pet_picture")
   public getPetPictureUrl(data: {
     pet_guid: string;
     w?: number;
@@ -1037,7 +1027,7 @@ export default class Identity extends Api {
     return `${uri}?${querystring.stringify(qs)}`;
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Update_pet_picture")
+  @doc("http://doc.clixray.com/index.php/Update_pet_picture")
   @filterInput(["pet_guid", "pet_picture"])
   public updatePetPicture(data: {
     pet_guid: string;
@@ -1054,11 +1044,11 @@ export default class Identity extends Api {
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Add_a_place_of_purchase_preference_to_the_pet_account",
+    "http://doc.clixray.com/index.php/Add_a_place_of_purchase_preference_to_the_pet_account",
   )
   @filterInput([
     "pet_guid", // (Required)	The GUID of the pet.
-    "place_id", // (Required)	Identification code of the place of purchase. Valid codes can be listed from http://doc.omnipartners.be/index.php/Get_Place_of_Purchase.
+    "place_id", // (Required)	Identification code of the place of purchase. Valid codes can be listed from http://doc.clixray.com/index.php/Get_Place_of_Purchase.
     "place_rating", // (Required)	Rating of the place of purchase. The scale is 1 to 5.
     "replace_existing_preferences", // (Optional)	If this is set to yes/1, then the preferences of the pet are replaced by this single new entry. Applicable values are 'yes' or '1' / 'no' or '0'. Default value for this is 'yes'.
   ])
@@ -1071,7 +1061,7 @@ export default class Identity extends Api {
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Retrieve_places_of_purchase_preferences_of_a_pet_account",
+    "http://doc.clixray.com/index.php/Retrieve_places_of_purchase_preferences_of_a_pet_account",
   )
   @filterInput([
     "pet_guid", // (Required)	The GUID of the pet.
@@ -1085,11 +1075,11 @@ export default class Identity extends Api {
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Delete_a_place_of_purchase_preference_from_a_pet_account",
+    "http://doc.clixray.com/index.php/Delete_a_place_of_purchase_preference_from_a_pet_account",
   )
   @filterInput([
     "pet_guid", // (Required)	The GUID of the pet.
-    "place_id", // (Required)	Identification code of the place of purchase. Valid codes can be listed from http://doc.omnipartners.be/index.php/Get_Place_of_Purchase.
+    "place_id", // (Required)	Identification code of the place of purchase. Valid codes can be listed from http://doc.clixray.com/index.php/Get_Place_of_Purchase.
     "place_rating", // (Required)	Rating of the place of purchase. The scale is 1 to 5.
     "replace_existing_preferences", // (Optional)	If this is set to yes/1, then the preferences of the pet are replaced by this single new entry. Applicable values are 'yes' or '1' / 'no' or '0'. Default value for this is 'yes'.
   ])
@@ -1101,7 +1091,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Add_weight_entry")
+  @doc("http://doc.clixray.com/index.php/Add_weight_entry")
   @filterInput([
     "pet_guid", // (Required)The GUID of the pet.
     "date", // (Required)Date value for the pet weight record. Date format is ”YYYY-MM-DD”.
@@ -1116,7 +1106,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_weight_Series")
+  @doc("http://doc.clixray.com/index.php/Retrieve_weight_Series")
   @filterInput([
     "pet_guid", // (Required)The GUID of the pet.
     "partner_ext_id", // (Optional)Ext ID of the partner who adds the entry.
@@ -1130,7 +1120,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Delete_weight_entry")
+  @doc("http://doc.clixray.com/index.php/Delete_weight_entry")
   @filterInput([
     "pet_guid", // (Required)The GUID of the pet.
     "date", // (Required)Date value for the pet weight record. Date format is ”YYYY-MM-DD”.
@@ -1147,7 +1137,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Add_body_mass_index_entry")
+  @doc("http://doc.clixray.com/index.php/Add_body_mass_index_entry")
   @filterInput([
     "pet_guid", // (Required)The GUID of the pet.
     "date", // (Required)Date value for the pet weight record. Date format is ”YYYY-MM-DD”.
@@ -1161,7 +1151,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Retrieve_body_mass_index_Series")
+  @doc("http://doc.clixray.com/index.php/Retrieve_body_mass_index_Series")
   @filterInput([
     "pet_guid", // (Required)The GUID of the pet.
     "partner_ext_id", // (Optional)Ext ID of the partner who adds the entry.
@@ -1175,7 +1165,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Delete_body_mass_index_entry")
+  @doc("http://doc.clixray.com/index.php/Delete_body_mass_index_entry")
   @filterInput([
     "pet_guid", // (Required)The GUID of the pet.
     "date", // (Required)Date value for the pet weight record. Date format is ”YYYY-MM-DD”.
@@ -1297,7 +1287,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Update_child_information")
+  @doc("http://doc.clixray.com/index.php/Update_child_information")
   @filterInput([
     "child_guid", // (Required)	The GUID of the child.
     "child_first_name", // (Optional)	The first name of the child.
@@ -1317,7 +1307,7 @@ export default class Identity extends Api {
     Manage segments
   */
 
-  @doc("http://doc.omnipartners.be/index.php/Get_User_Segments")
+  @doc("http://doc.clixray.com/index.php/Get_User_Segments")
   @filterInput(["user_guid"])
   public getUserSegments(data: {
     user_guid: string;
@@ -1327,7 +1317,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc("http://doc.omnipartners.be/index.php/Flush_User_Segment_Cache")
+  @doc("http://doc.clixray.com/index.php/Flush_User_Segment_Cache")
   @filterInput(["user_guid"])
   public flushUserSegmentCache(data: { user_guid: string }): Promise<{
     data: {
@@ -1343,9 +1333,7 @@ export default class Identity extends Api {
     Manage favourites
   */
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Add_a_favourite_to_the_user_account",
-  )
+  @doc("http://doc.clixray.com/index.php/Add_a_favourite_to_the_user_account")
   @filterInput([
     "user_guid", // The GUID of the user.
     "date", // Date value for the favorite to be added (YYYY-MM-DD).
@@ -1361,9 +1349,7 @@ export default class Identity extends Api {
     });
   }
 
-  @doc(
-    "http://doc.omnipartners.be/index.php/Retrieve_favourites_of_a_user_account",
-  )
+  @doc("http://doc.clixray.com/index.php/Retrieve_favourites_of_a_user_account")
   @filterInput([
     "user_guid", // (Required) The GUID of the user.
     "type", // (Optional) Text string used to define the type of favorite (eg: video / picture).
@@ -1382,7 +1368,7 @@ export default class Identity extends Api {
   }
 
   @doc(
-    "http://doc.omnipartners.be/index.php/Delete_a_favourite_from_a_user_account",
+    "http://doc.clixray.com/index.php/Delete_a_favourite_from_a_user_account",
   )
   @filterInput([
     "user_guid", // The GUID of the user.
