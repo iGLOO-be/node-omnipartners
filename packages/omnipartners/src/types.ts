@@ -827,6 +827,8 @@ export interface IRegisterUserInput extends IBaseUserInput {
   data_options?: IUserDataOptions;
   // Specifies whether an account should be updated during registration if it already exists. Valid values are 0 and 1. Default is 0. This option requires the associated api key to have "Force update active user during registration" permission. Otherwise, it'll result a failure. Only the ext_id of the user will be updated during a forced update and rest of the values will be ignored.
   force_update?: 1 | 0;
+  // User context is used to create a user with a context for the existing user with a password. This will applicable only if user_password field is not empty. Valid value format is a-z0-9_-
+  user_context?: string;
 }
 
 export interface IUserAddress {
