@@ -43,7 +43,7 @@ import {
   IUserUpdateInput,
   IUserUpdatePlacesOfPurchaseInput,
   IUserUpdateSubscriptionsInput,
-  IUsetPetDataOptions,
+  IUserPetDataOptions,
   IUsetPetWithOwner,
   IUserPetDietRecommendationAddInput,
   IUserPetDietRecommendationEntry,
@@ -131,10 +131,11 @@ export default class Identity extends Api {
   }
 
   @doc("http://doc.clixray.com/index.php/Find_account_GUID_by_email_(strict)")
-  @filterInput(["email", "include_user_type"])
+  @filterInput(["email", "include_user_type", "user_context"])
   public findAccountByEmail(data: {
     email: string;
     include_user_type?: string;
+    user_context?: string;
   }): Promise<IUserPartial> {
     return this.get("/service/user/resolve-by-email", data, {
       hashKeys: ["email"],
@@ -497,7 +498,14 @@ export default class Identity extends Api {
     "identifier",
     "password",
     "data_options",
+    "pet_data_options",
+    "pet_partner_type",
     "partner_data_options",
+    "related_partners_filter_relation",
+    "related_partners_filter_types",
+    "related_partners_filter_groups",
+    "related_partners_filter_roles",
+    "user_context",
   ])
   public async authenticate(
     data: {
@@ -505,6 +513,13 @@ export default class Identity extends Api {
       password: string;
       data_options?: IUserDataOptions;
       partner_data_options?: string;
+      pet_data_options?: IUserPetDataOptions;
+      pet_partner_type?: string;
+      related_partners_filter_relation?: "clientof" | "partof";
+      related_partners_filter_types?: string;
+      related_partners_filter_groups?: string;
+      related_partners_filter_roles?: string;
+      user_context?: string;
     },
     options?: { locale?: string },
   ): Promise<IUser> {
@@ -556,7 +571,13 @@ export default class Identity extends Api {
     "access_token",
     "data_options",
     "partner_data_options",
-    "related_partners_filter_xxxx",
+    "pet_data_options",
+    "pet_partner_type",
+    "related_partners_filter_relation",
+    "related_partners_filter_types",
+    "related_partners_filter_groups",
+    "related_partners_filter_roles",
+    "user_context",
   ])
   public authenticateByAccessToken({
     data_options,
@@ -564,8 +585,14 @@ export default class Identity extends Api {
   }: {
     access_token: string;
     data_options?: IUserDataOptions;
-    partner_data_options?: string;
-    related_partners_filter_xxxx?: string;
+    partner_data_options?: IPartnerDataOptions;
+    pet_data_options?: IUserPetDataOptions;
+    pet_partner_type?: string;
+    related_partners_filter_relation?: "clientof" | "partof";
+    related_partners_filter_types?: string;
+    related_partners_filter_groups?: string;
+    related_partners_filter_roles?: string;
+    user_context?: string;
   }): Promise<IUser> {
     return this.get(
       "/service/auth/access-token",
@@ -613,7 +640,7 @@ export default class Identity extends Api {
   }: {
     user_ext_id: string;
     data_options?: IUserDataOptions;
-    pet_data_options?: IUsetPetDataOptions;
+    pet_data_options?: IUserPetDataOptions;
     partner_data_options?: IPartnerDataOptions;
     pet_partner_type?: string;
     related_partners_filter_xxxx?: string;
@@ -865,7 +892,7 @@ export default class Identity extends Api {
   @doc("http://doc.clixray.com/index.php/Retrieve_pet_information")
   @filterInput(["user_guid", "data_options"])
   public getPets(
-    data: { user_guid: string; data_options?: IUsetPetDataOptions },
+    data: { user_guid: string; data_options?: IUserPetDataOptions },
     options?: { locale?: string },
   ): Promise<{ data: IUserPet[] }> {
     return this.get(
@@ -894,7 +921,7 @@ export default class Identity extends Api {
   @filterInput(["pet_guid", "data_options"])
   public getPet(data: {
     pet_guid: string;
-    data_options?: IUsetPetDataOptions;
+    data_options?: IUserPetDataOptions;
   }): Promise<{ data: IUsetPetWithOwner }> {
     return this.get(
       "/service/pets/get-pet",
@@ -919,7 +946,7 @@ export default class Identity extends Api {
   @filterInput(["pet_ext_id", "data_options"])
   public getPetByExternalId(data: {
     pet_ext_id: string;
-    data_options?: IUsetPetDataOptions;
+    data_options?: IUserPetDataOptions;
   }): Promise<{ data: IUsetPetWithOwner; statusCode: number }> {
     return this.get(
       "/service/pets/get-pet-by-external-id",

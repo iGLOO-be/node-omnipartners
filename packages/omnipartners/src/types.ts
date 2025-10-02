@@ -23,7 +23,7 @@ type IUserDataOption =
   | "-access_rights";
 export type IUserDataOptions = IUserDataOption[] | IUserDataOption;
 
-type IUsetPetDataOption =
+type IUserPetDataOption =
   // Basic information of the pet
   // The most basic information of the pet which includes name, species, breed, date of birth.
   | "basic_details"
@@ -44,7 +44,7 @@ type IUsetPetDataOption =
   | "pet_eco_systems"
   // Information of pet tags.
   | "user_tags";
-export type IUsetPetDataOptions = IUsetPetDataOption[] | IUsetPetDataOption;
+export type IUserPetDataOptions = IUserPetDataOption[] | IUserPetDataOption;
 
 type IPartnerDataOption =
   // Basic information of the partner
@@ -695,6 +695,7 @@ export interface IUser {
 export interface IUserUpdateInput extends IBaseUserInput {
   // The GUID of the user.
   user_guid: string;
+  user_context?: string;
 }
 
 interface IBaseUserInput {
