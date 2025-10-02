@@ -1287,9 +1287,16 @@ export default class Identity extends Api {
   ])
   public createChild(
     data: IUserChildCreateInput,
+    options?: { locale?: string },
   ): Promise<{ data: IUserChild }> {
     return this.post("/service/children/add", data, {
       hashKeys: undefined,
+      ...(options &&
+        options.locale && {
+          headers: {
+            "X-LANGUAGE": options.locale,
+          },
+        }),
     });
   }
 
@@ -1315,9 +1322,16 @@ export default class Identity extends Api {
   ])
   public updateChild(
     data: IUserChildUpdateInput,
+    options?: { locale?: string },
   ): Promise<{ data: IUserChild }> {
     return this.post("/service/children/update", data, {
       hashKeys: undefined,
+      ...(options &&
+        options.locale && {
+          headers: {
+            "X-LANGUAGE": options.locale,
+          },
+        }),
     });
   }
 
