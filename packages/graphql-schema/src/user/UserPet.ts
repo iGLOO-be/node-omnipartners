@@ -6,12 +6,12 @@ import {
   IUserPetWeightEntry,
   IUserPetDietRecommendationEntry,
   IUserPetMedicalCondition,
-  IUsetPetDataOptions,
+  IUserPetDataOptions,
 } from "omnipartners";
 import { Ctx, Field, ObjectType } from "type-graphql";
 import { Context } from "..";
 
-export const userPetDataOptions: IUsetPetDataOptions = [
+export const userPetDataOptions: IUserPetDataOptions = [
   "basic_details",
   "special_needs",
   "breed_details",
@@ -160,7 +160,7 @@ export class UserPet
   @Field()
   public neutered!: boolean;
 
-  @Field({ nullable: true})
+  @Field({ nullable: true })
   public type?: string;
 
   @Field({ nullable: true })
