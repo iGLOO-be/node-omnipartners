@@ -292,8 +292,17 @@ export default class Identity extends Api {
   }
 
   @doc("http://doc.clixray.com/index.php/Update_user_preferences")
-  @filterInput(["user_guid", "com_prefs", "interests", "subscriptions"])
-  public updateSubscriptions(data: IUserUpdateSubscriptionsInput) {
+  @filterInput([
+    "user_guid",
+    "com_prefs",
+    "interests",
+    "subscriptions",
+    "replace",
+  ])
+  public updateSubscriptions(data: IUserUpdateSubscriptionsInput): Promise<{
+    statusCode: number;
+    data: IUserPreferences;
+  }> {
     return this.get("/service/preferences/update", data, {
       errorMap: {
         8: { message: "Error saving data to the database." },

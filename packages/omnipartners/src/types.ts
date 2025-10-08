@@ -919,6 +919,7 @@ export interface IUserUpdateSubscriptionsInput {
   com_prefs?: string;
   interests?: string;
   subscriptions?: string | string[];
+  replace?: 1 | 0;
 }
 
 export interface IUserPlaceOfPurchase {
