@@ -166,8 +166,13 @@ export default class Identity extends Api {
   }
 
   @doc("http://doc.clixray.com/index.php/Recover_by_email_or_user_id")
-  @filterInput(["uid", "mode", "url"])
-  public recoverPassword(data: { uid: string; mode?: string; url?: string }) {
+  @filterInput(["uid", "mode", "url", "user_context"])
+  public recoverPassword(data: {
+    uid: string;
+    mode?: "link" | "password" | "remoteform";
+    url?: string;
+    user_context?: string;
+  }) {
     return this.get("/service/account/recover-password", data, {
       errorMap: {
         27: {
