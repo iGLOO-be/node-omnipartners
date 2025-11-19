@@ -743,6 +743,27 @@ export interface ICollectionPetRation {
   number_of_cups_per_day: string;
 }
 
+export interface IAddProductInput {
+  product_ean: string;
+  product_label: string;
+  product_code: string;
+  product_status: 1 | 0;
+  product_collection_reference?: string;
+  product_collection_gen_name?: string;
+  product_group_handles?: string;
+  product_friendly_name?: string;
+  product_rr_price?: string;
+  product_pp_price?: string;
+  product_weight?: string;
+  product_gross_weight?: string;
+  product_packaging_container_type?: string;
+  product_packaging_value?: string;
+  product_packaging_units?: string;
+  product_packaging_gross_weight?: string;
+  product_publicly_not_available?: 1 | 0;
+  custom_fields?: Record<string, string>;
+}
+
 export default class Products extends Api {
   public defaultHost = "https://products.clixray.io/";
 
@@ -1071,9 +1092,7 @@ export default class Products extends Api {
     "collection_reference", // (Optional) Reference of a Collection.
     "language", // (Optional) Language ID will use to translate the units of the result. (see http://doc.omnipartners.be/index.php/Language_list)
   ])
-  public getCollectionPetRation(
-    data?: IGetCollectionPetRationInput,
-  ): Promise<{
+  public getCollectionPetRation(data?: IGetCollectionPetRationInput): Promise<{
     data: ICollectionPetRation;
   }> {
     return this._call("get-collection-pet-ration", data, {
@@ -1140,9 +1159,7 @@ export default class Products extends Api {
     "language", // (Optional) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
     "data_options", // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
   ])
-  public getArticlesByPetGuid(
-    data: IGetArticleByPetGuidInput,
-  ): Promise<{
+  public getArticlesByPetGuid(data: IGetArticleByPetGuidInput): Promise<{
     data: IGetArticlesByTargetingInformation[];
   }> {
     return this._call(
@@ -1169,9 +1186,7 @@ export default class Products extends Api {
     "language", // (Optional) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
     "data_options", // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
   ])
-  public getArticlesByUserGuid(
-    data: IGetArticleByUserGuidInput,
-  ): Promise<{
+  public getArticlesByUserGuid(data: IGetArticleByUserGuidInput): Promise<{
     data: IGetArticlesByTargetingInformation[];
   }> {
     return this._call(
@@ -1197,9 +1212,7 @@ export default class Products extends Api {
     "language", // (Required) Language ID, you can find this by using the following service. http://doc.omnipartners.be/index.php/Language_list
     "data_options", // (Optional) This defines information that is returned in the response. Multiple values should be comma separated. For more information please refer Data Options.
   ])
-  public getArticle(
-    data: IGetArticleInput,
-  ): Promise<{
+  public getArticle(data: IGetArticleInput): Promise<{
     data: IGetArticlesByTargetingInformation;
   }> {
     return this._call(
@@ -1214,6 +1227,58 @@ export default class Products extends Api {
       },
       {
         errorMap: {},
+        retry: true,
+      },
+    );
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Add_Product")
+  @filterInput([
+    "product_ean", // Required max 20 digits
+    "product_label", // Required
+    "product_code", // Required
+    "product_status", // Required 1 or 0
+    "product_collection_reference", // Optional
+    "product_collection_gen_name", // Optional
+    "product_group_handles", // Optional
+    "product_friendly_name", // Optional
+    "product_rr_price", // Optional
+    "product_pp_price", // Optional
+    "product_weight", // Optional in grams
+    "product_gross_weight", // Optional in grams
+    "product_packaging_container_type", // Optional
+    "product_packaging_value", // Optional
+    "product_packaging_units", // Optional
+    "product_packaging_gross_weight", // Optional
+    "product_publicly_not_available", // Optional 1 or 0
+    "custom_fields", // Optional
+  ])
+  public addProduct({
+    custom_fields,
+    ...data
+  }: IAddProductInput): Promise<{ statusCode: number }> {
+    return this._call(
+      "add-product",
+      {
+        ...data,
+        ...(custom_fields
+          ? Object.entries(custom_fields).map(([key, value]) => ({
+              [`pro_${key}`]: value,
+            }))
+          : {}),
+      },
+      {
+        errorMap: {
+          1039: {
+            message:
+              "Invalid data. This code is returned upon data validation failure. A property named 'errors' in the returned object will contain more details of the failure.",
+          },
+          1978: {
+            message:
+              "Invalid collection reference. Collection reference is invalid.",
+          },
+          2012: { message: "Error when adding a new collection." },
+        },
         retry: true,
       },
     );
