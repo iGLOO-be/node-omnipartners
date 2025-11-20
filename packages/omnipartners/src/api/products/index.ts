@@ -744,7 +744,7 @@ export interface ICollectionPetRation {
 }
 
 export interface IAddProductInput {
-  product_ean: string;
+  product_ean: number | string;
   product_label: string;
   product_code: string;
   product_status: 1 | 0;
@@ -754,12 +754,12 @@ export interface IAddProductInput {
   product_friendly_name?: string;
   product_rr_price?: string;
   product_pp_price?: string;
-  product_weight?: string;
-  product_gross_weight?: string;
+  product_weight?: number;
+  product_gross_weight?: number;
   product_packaging_container_type?: string;
   product_packaging_value?: string;
-  product_packaging_units?: string;
-  product_packaging_gross_weight?: string;
+  product_packaging_units?: number;
+  product_packaging_gross_weight?: number;
   product_publicly_not_available?: 1 | 0;
   custom_fields?: Record<string, string>;
 }
@@ -1255,32 +1255,30 @@ export default class Products extends Api {
   ])
   public addProduct({
     custom_fields,
-    ...data
+    ...fields
   }: IAddProductInput): Promise<{ statusCode: number }> {
-    return this._call(
-      "add-product",
-      {
-        ...data,
-        ...(custom_fields
-          ? Object.entries(custom_fields).map(([key, value]) => ({
-              [`pro_${key}`]: value,
-            }))
-          : {}),
-      },
-      {
-        errorMap: {
-          1039: {
-            message:
-              "Invalid data. This code is returned upon data validation failure. A property named 'errors' in the returned object will contain more details of the failure.",
-          },
-          1978: {
-            message:
-              "Invalid collection reference. Collection reference is invalid.",
-          },
-          2012: { message: "Error when adding a new collection." },
+    const data = {
+      ...fields,
+      product_ean: Number(fields.product_ean),
+      ...(custom_fields
+        ? Object.entries(custom_fields).map(([key, value]) => ({
+            [`pro_${key}`]: value,
+          }))
+        : {}),
+    };
+    return this._call("add-product", data, {
+      errorMap: {
+        1039: {
+          message:
+            "Invalid data. This code is returned upon data validation failure. A property named 'errors' in the returned object will contain more details of the failure.",
         },
-        retry: true,
+        1978: {
+          message:
+            "Invalid collection reference. Collection reference is invalid.",
+        },
+        2012: { message: "Error when adding a new collection." },
       },
-    );
+      hashKeys: undefined, // all keys are hashed
+    });
   }
 }

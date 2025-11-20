@@ -451,7 +451,7 @@ export default class Loyalty extends Api {
   ])
   public retrievePartnerTransactionHistory(
     data: ILoyaltyRetrievePartnerTransactionHistoryInput,
-    options?: Pick<IApiFetchOptions, "retry">
+    options?: Pick<IApiFetchOptions, "retry">,
   ): Promise<ILoyaltyRetrievePartnerTransactionHistoryResult> {
     return this._call("partner-transaction-history", data, {
       errorMap: {
@@ -775,6 +775,9 @@ export default class Loyalty extends Api {
         ...data,
       },
       {
+        errorMap: {
+          4001: { message: "Access denied action" },
+        },
         hashKeys: undefined,
       },
     );
