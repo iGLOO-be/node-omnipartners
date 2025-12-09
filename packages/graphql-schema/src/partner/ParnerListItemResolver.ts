@@ -45,9 +45,9 @@ export class PartnerListItemResolver {
       ...(partnerListInput && partnerListInput.toOmnipartners()),
     });
 
-    const count = parseInt(res.total_rows, 10);
-    const limit = parseInt(res.rows, 10);
-    const page = parseInt(res.page, 10);
+    const count = Number(res.total_rows);
+    const limit = Number(res.rows);
+    const page = Number(res.page);
     const hasNextPage = page !== Math.ceil(count / limit);
 
     return {
