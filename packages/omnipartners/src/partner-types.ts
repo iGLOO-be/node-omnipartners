@@ -82,8 +82,8 @@ export interface IPartnerListItemInput {
   search_strict?: string;
   partner_status?: string;
   partner_updated_date?: string;
-  page?: string;
-  rows?: string;
+  page?: string | number;
+  rows?: string | number;
   show_hidden?: string;
 }
 

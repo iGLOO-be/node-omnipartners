@@ -134,8 +134,9 @@ export default class Partners extends Api {
   public listPartners(data: IPartnerListItemInput): Promise<{
     data: IPartnerListItem[];
     page: string;
-    total_rows: string;
     rows: string;
+    total_rows: number;
+    total_pages: number;
   }> {
     return this._call("get-partners", data, { retry: true });
   }
