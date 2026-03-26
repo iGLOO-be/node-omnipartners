@@ -14,9 +14,9 @@ export interface IFetchResponse {
   text: () => Promise<string>;
   headers: IncomingHttpHeaders;
   ok: boolean;
-  size: number;
+  size?: number;
   statusText: string;
-  timeout: number;
+  timeout?: number;
 }
 
 export default class Response {

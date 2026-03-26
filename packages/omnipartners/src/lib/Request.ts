@@ -1,9 +1,7 @@
 import { EventEmitter } from "events";
 import reduce from "lodash/reduce";
-import fetch, { FetchError } from "node-fetch"; // TODO: switch to fetch-retry
 import querystring from "qs";
-import { Response as RequestResponse } from "request";
-import request from "request-promise-native";
+import { Readable } from "stream";
 import { v4 as uuid } from "uuid";
 import { RequestError, RequestTimeoutError } from "./errors";
 import Response, { IFetchResponse } from "./Response";
@@ -107,68 +105,80 @@ export default class Request extends EventEmitter {
     let fetchRes: IFetchResponse;
 
     try {
-      if (this.multipart) {
-        const requestRes = (await request(uri, {
-          headers: this.headers,
-          formData: this.body,
-          method: this.method,
-          timeout: this.timeout,
-          resolveWithFullResponse: true,
-        })) as RequestResponse;
+      const headers = { ...this.headers };
+      let body: BodyInit | undefined;
 
-        fetchRes = {
-          status: requestRes.statusCode,
-          text: async () => requestRes.body,
-          headers: requestRes.headers,
-          ok: true,
-          size: 0,
-          statusText: requestRes.statusMessage,
-          timeout: this.timeout || 0,
-        };
+      if (this.multipart && this.body) {
+        const formData = new FormData();
+        for (const [key, value] of Object.entries(
+          this.body as Record<string, unknown>,
+        )) {
+          if (value === undefined || value === null) continue;
+          if (typeof value === "string") {
+            formData.append(key, value);
+          } else if (value instanceof Readable) {
+            const chunks: Buffer[] = [];
+            for await (const chunk of value) {
+              chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+            }
+            formData.append(key, new Blob([Buffer.concat(chunks)]));
+          } else if (
+            value &&
+            typeof value === "object" &&
+            "value" in value &&
+            "options" in value
+          ) {
+            const { value: buf, options } = value as {
+              value: Buffer;
+              options: { filename: string };
+            };
+            formData.append(key, new Blob([buf]), options.filename);
+          } else {
+            formData.append(key, String(value));
+          }
+        }
+        // Remove Content-Type so fetch sets it automatically with the correct boundary
+        delete headers["Content-Type"];
+        body = formData;
       } else {
-        const tempRes = await fetch(uri, {
-          body: this.json ? JSON.stringify(this.body) : this.body,
-          headers: this.headers,
-          method: this.method,
-          timeout: this.timeout,
-          // TODO:
-          // retries: this.retries,
-          // retryDelay: this.retryDelay
-        });
-
-        const rawHeaders =
-          typeof tempRes.headers.values === "function"
-            ? tempRes.headers.values()
-            : typeof tempRes.headers.raw === "function"
-            ? tempRes.headers.raw()
-            : {};
-        const flatHeaders = reduce(
-          rawHeaders,
-          (res, value, name) => ({
-            ...res,
-            [name]:
-              Array.isArray(value) && value.length === 1
-                ? value.join("")
-                : value,
-          }),
-          {},
-        );
-
-        fetchRes = {
-          status: tempRes.status,
-          text: () => tempRes.text(),
-          headers: flatHeaders,
-          ok: tempRes.ok,
-          size: tempRes.size,
-          statusText: tempRes.statusText,
-          timeout: tempRes.timeout,
-        };
+        body = this.json ? JSON.stringify(this.body) : this.body;
       }
+
+      const controller = new AbortController();
+      const timeoutId = this.timeout
+        ? setTimeout(() => controller.abort(), this.timeout)
+        : undefined;
+
+      const rawRes = await fetch(uri, {
+        body,
+        headers,
+        method: this.method,
+        signal: controller.signal,
+      }).finally(() => {
+        if (timeoutId !== undefined) clearTimeout(timeoutId);
+      });
+
+      const flatHeaders: { [key: string]: string } = {};
+      rawRes.headers.forEach((value: string, name: string) => {
+        flatHeaders[name] = value;
+      });
+
+      fetchRes = {
+        status: rawRes.status,
+        text: () => rawRes.text(),
+        headers: flatHeaders,
+        ok: rawRes.ok,
+        statusText: rawRes.statusText,
+      };
     } catch (e) {
       this.emit("fetchError", e);
-      if ((e as FetchError).type === "request-timeout") {
+      const err = e as { name?: string; code?: string; cause?: { code?: string } };
+      if (err.name === "TimeoutError" || err.name === "AbortError") {
         throw new RequestTimeoutError({ request: this });
-      } else if ((e as FetchError).code === "ECONNRESET") {
+      } else if (
+        err.code === "ECONNRESET" ||
+        err.cause?.code === "ECONNRESET"
+      ) {
         throw new RequestError(this);
       } else {
         throw e;
