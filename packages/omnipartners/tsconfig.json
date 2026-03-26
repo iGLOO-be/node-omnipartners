@@ -6,6 +6,7 @@
     "module": "commonjs",
     "types": ["@types/jest"],
     "experimentalDecorators": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   }
 }

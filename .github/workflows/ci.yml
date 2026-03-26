@@ -3,22 +3,34 @@ on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: Test ${{ matrix.package.name }} (Node ${{ matrix.node-version }})
 
     strategy:
+      fail-fast: false
       matrix:
-        node-version: ["16", "22", "24"]
+        node-version: ["22", "24", "25"]
+        package:
+          - name: omnipartners
+            workspace: omnipartners
+          - name: graphql-schema
+            workspace: "@igloo-be-omnipartners/graphql-schema"
+          - name: hooks
+            workspace: "@igloo-be-omnipartners/hooks"
+          # - name: graphql-demo
+          #   workspace: "@igloo-be-omnipartners/graphql-demo"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: env
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
       - name: yarn config
         run: yarn config set ignore-engines true
       - name: Install dependencies
         run: yarn install
-      - run: yarn test
+      - name: Test ${{ matrix.package.name }}
+        run: yarn workspace ${{ matrix.package.workspace }} test
         env:
           CI: true

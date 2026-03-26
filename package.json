@@ -11,7 +11,7 @@
     "prepare": "lerna run --ignore \"*/graphql-demo\" build"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=22"
   },
   "workspaces": {
     "packages": [
