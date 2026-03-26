@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.93.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.92.56...omnipartners@2.93.0) (2026-03-26)
+
+
+### Features
+
+* Omnipartners : remove node-fetch and request-promise-native ([614204b](https://github.com/iGLOO-be/node-omnipartners/commit/614204b985e4dbd79c0a5d372319c419c876bfaf))
+
+
+
+
+
 ## 2.92.56 (2025-12-09)
 
 **Note:** Version bump only for package omnipartners

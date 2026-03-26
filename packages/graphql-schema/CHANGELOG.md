@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.93.0](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.92.59...@igloo-be-omnipartners/graphql-schema@1.93.0) (2026-03-26)
+
+
+### Features
+
+* graphql-schema : use jsonwebtoken 9 for compatibility with node 25 ([b2af6f5](https://github.com/iGLOO-be/node-omnipartners/commit/b2af6f5447350ccbc89dcab2cdd1390e12add662))
+
+
+
+
+
 ## 1.92.59 (2025-12-09)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
