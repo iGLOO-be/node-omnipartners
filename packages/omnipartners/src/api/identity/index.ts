@@ -69,8 +69,8 @@ export default class Identity extends Api {
   };
 
   @doc("http://doc.clixray.com/index.php/Delete_User_Accounts")
-  @filterInput(["user_guid"])
-  public deleteUser(data: { user_guid: string }) {
+  @filterInput(["user_guid", "user_context"])
+  public deleteUser(data: { user_guid: string; user_context?: string }) {
     return this.get("/service/account/delete", data, {
       hashKeys: ["user_guid"],
     });
