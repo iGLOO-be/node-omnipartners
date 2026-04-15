@@ -5,6 +5,10 @@ on:
     branches:
     - master
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   Publish_Workflow:
     runs-on: ubuntu-latest
@@ -12,12 +16,13 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Use node 22
       uses: actions/setup-node@v4
       with:
         node-version: 22
-    - name: yarn config
-      run: yarn config set ignore-engines true
+        registry-url: 'https://registry.npmjs.org'
     - name: Git Identity
       run: |
         git config --global user.name 'Loic Mahieu'
@@ -33,16 +38,8 @@ jobs:
       run: yarn install --pure-lockfile
     - name: Build
       run: yarn build
-    - name: Authenticate with Registry
-      run: |
-          yarn logout
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> $HOME/.npmrc
-          npm whoami
-      env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     - name: Publish with Lerna
       run: yarn lerna publish --yes --message 'chore(release)'
       env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
