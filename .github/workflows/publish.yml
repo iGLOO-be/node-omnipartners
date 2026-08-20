@@ -23,6 +23,8 @@ jobs:
       with:
         node-version: 24
         registry-url: 'https://registry.npmjs.org'
+    - name: Upgrade npm for publish compatibility
+      run: npm install -g npm@latest
     - name: yarn config
       run: yarn config set ignore-engines true
     - name: Git Identity
@@ -41,7 +43,10 @@ jobs:
     - name: Build
       run: yarn build
     - name: Publish with Lerna
-      run: yarn lerna publish --yes --message 'chore(release)'
+      run: |
+        yarn lerna publish --yes --message 'chore(release)' || true
+        yarn lerna publish from-git --yes
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
