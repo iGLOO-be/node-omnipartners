@@ -45,7 +45,7 @@ jobs:
     - name: Publish with Lerna
       run: |
         yarn lerna publish --yes --message 'chore(release)' || true
-        yarn lerna publish from-git --yes
+        yarn lerna publish from-package --yes
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
