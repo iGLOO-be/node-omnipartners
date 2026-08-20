@@ -6,16 +6,18 @@
   "command": {
     "publish": {
       "allowBranch": ["master"],
+      "excludeDependents": true,
       "ignoreChanges": ["ignored-file", "*.md"],
-      "message": "chore(release): publish",
+      "message": "chore(release) [skip ci]",
       "yes": true
     },
     "version": {
       "allowBranch": "master",
       "conventionalCommits": true,
       "createRelease": "github",
+      "excludeDependents": true,
       "yes": true,
-      "message": "chore(release): publish [skip ci]"
+      "message": "chore(release) [skip ci]"
     }
   },
   "version": "independent"
