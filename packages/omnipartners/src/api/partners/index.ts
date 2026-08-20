@@ -115,7 +115,7 @@ export default class Partners extends Api {
     );
   }
 
-  @doc("http://doc.omnipartners.be/index.php/List_Partners")
+  @doc("https://doc.clixray.com/index.php?title=List_Partners")
   @filterInput([
     "partner_type", // (Optional) The “Partner Type” used to filter and retrieve partners information relative to the types. Eg: "shops,vets,suppliers" .
     "partner_group_handle", // (Optional) The “Partner Group Handle” used to filter the partners with that partner group handle's. Eg: "handle_1,handle_2" .
