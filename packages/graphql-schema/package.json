@@ -9,6 +9,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": "https://github.com/iGLOO-be/node-omnipartners",
   "scripts": {
     "test": "yarn build && jest",
     "build": "yarn build:schema && tsc",
