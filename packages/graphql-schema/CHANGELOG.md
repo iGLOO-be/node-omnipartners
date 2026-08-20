@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.93.3](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.93.2...@igloo-be-omnipartners/graphql-schema@1.93.3) (2026-08-20)
+
+
+### Bug Fixes
+
+* **ci:** add repository url for npm provenance validation ([bb14565](https://github.com/iGLOO-be/node-omnipartners/commit/bb1456562b417df89621c820437aecc90181918b))
+
+
+
+
+
 ## [1.93.2](https://github.com/iGLOO-be/node-omnipartners/compare/@igloo-be-omnipartners/graphql-schema@1.93.1...@igloo-be-omnipartners/graphql-schema@1.93.2) (2026-08-20)
 
 **Note:** Version bump only for package @igloo-be-omnipartners/graphql-schema
