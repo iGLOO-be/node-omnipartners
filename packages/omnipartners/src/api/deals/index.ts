@@ -44,6 +44,34 @@ interface IUpdateSecureCodePropertiesInput {
   deal_ref?: string;
 }
 
+export interface ISecureCodeByReferralPartnerListInput {
+  partner_ext_id: string;
+  deal_ref?: string;
+  status?: string;
+  p_length?: string | number;
+  p_page?: string | number;
+}
+
+export interface ISecureCodeByReferralPartnerListItem {
+  code: string;
+  status: string;
+  expiry_date: string;
+  deal_reference: string;
+}
+
+export interface ISecureCodeCountInput {
+  deal_ref: string;
+  status?: "AVAILABLE" | "PUBLISHED";
+  referral_partner_ext_id?: string;
+}
+
+export interface ISecureCodeCountItem {
+  code_expiry_date: string;
+  code_count: string;
+  total_codes_count: string;
+  code_available_percentage: number;
+}
+
 export interface ISubscribeToDealInput {
   user_guid: string;
   ref: string;
@@ -1112,6 +1140,77 @@ export default class Deals extends Api {
             "Invalid status provided. Valid values are 'AVAILABLE' and 'PUBLISHED'.",
         },
         3130: { message: "Error on updating the record." },
+      },
+    });
+  }
+
+  @doc(
+    "https://doc.clixray.com/index.php?title=List_secure_codes_by_referral_partner",
+  )
+  @filterInput([
+    "partner_ext_id", // (Required) Ext ID of the referral partner.
+    "deal_ref", // (Optional) Filtering secure code deal reference
+    "status", // (Optional) Status of the secure code. Defaults to 'AVAILABLE' if not sent.
+    "p_length", // (Optional) Item per page
+    "p_page", // (Optional) current page. start at 0
+  ])
+  public listSecureCodesByReferralPartner(
+    data: ISecureCodeByReferralPartnerListInput,
+  ): Promise<{
+    data: ISecureCodeByReferralPartnerListItem[];
+  } & IPageInfo> {
+    const { p_page, p_length, ...rest } = data;
+
+    return this._call(
+      "list-secure-codes-by-referral-partner",
+      {
+        ...rest,
+        ...(p_page !== undefined && { p_page: String(p_page) }),
+        ...(p_length !== undefined && { p_length: String(p_length) }),
+      },
+      {
+        hashKeys: undefined,
+        retry: true,
+        errorMap: {
+          1019: { message: "Can't resolve partner." },
+          1024: {
+            message:
+              "When hash validation fails. Probably incorrect hash generation in the client request.",
+          },
+          3035: { message: "Invalid deal reference provided." },
+          3059: {
+            message: "Parameter 'partner_ext_id' not available in the request.",
+          },
+          3129: { message: "Invalid secure code status provided." },
+        },
+      },
+    );
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Get_secure_code_count")
+  @filterInput([
+    "deal_ref", // (Required) Deal reference of the access codes.
+    "status", // (Optional) The status of the access code. Valid values are 'AVAILABLE' and 'PUBLISHED'.
+    "referral_partner_ext_id", // (Optional) Ext ID of the referral partner.
+  ])
+  public getSecureCodeCount(data: ISecureCodeCountInput): Promise<{
+    data:
+      | ISecureCodeCountItem[]
+      | Record<string, Record<string, ISecureCodeCountItem>>;
+  }> {
+    return this._call("get-access-codes-count", data, {
+      hashKeys: undefined,
+      retry: true,
+      errorMap: {
+        1019: { message: "Referral partner ext id not exist." },
+        1024: { message: "Invalid hash." },
+        3026: { message: 'Required parameter "deal_ref" is not defined.' },
+        3035: { message: "Invalid deal reference is defined." },
+        3062: { message: "Missing required parameters." },
+        3129: {
+          message:
+            'Invalid status provided. Valid values are "AVAILABLE" and "PUBLISHED".',
+        },
       },
     });
   }
