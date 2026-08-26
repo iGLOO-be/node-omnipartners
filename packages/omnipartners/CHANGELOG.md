@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.93.4](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.93.3...omnipartners@2.93.4) (2026-08-26)
+
+
+### Bug Fixes
+
+* **omnipartners:** clarify secure code list hash and 1006 error ([8c820ee](https://github.com/iGLOO-be/node-omnipartners/commit/8c820ee752a6428ac15f1a4cd6d28c3b973a99eb))
+
+
+
+
+
 ## [2.93.3](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.93.2...omnipartners@2.93.3) (2026-08-20)
 
 **Note:** Version bump only for package omnipartners
