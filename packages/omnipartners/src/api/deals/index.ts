@@ -1169,9 +1169,14 @@ export default class Deals extends Api {
         ...(p_length !== undefined && { p_length: String(p_length) }),
       },
       {
+        // Clixray doc: sha1 of all request fields except hash, sorted alphabetically + secret.
         hashKeys: undefined,
         retry: true,
         errorMap: {
+          1006: {
+            message:
+              "Unauthorized access. The Deals service key must have the list-secure-codes-by-referral-partner feature enabled.",
+          },
           1019: { message: "Can't resolve partner." },
           1024: {
             message:
