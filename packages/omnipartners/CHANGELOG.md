@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.94.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.93.4...omnipartners@2.94.0) (2026-08-26)
+
+
+### Features
+
+* **omnipartners:** add getDealsStatusList for deal subscription statuses ([ffd3657](https://github.com/iGLOO-be/node-omnipartners/commit/ffd36571a35f2a1e95beb6b6fa06075b88da0b02))
+
+
+
+
+
 ## [2.93.4](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.93.3...omnipartners@2.93.4) (2026-08-26)
 
 
