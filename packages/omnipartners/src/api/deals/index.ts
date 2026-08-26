@@ -44,6 +44,20 @@ interface IUpdateSecureCodePropertiesInput {
   deal_ref?: string;
 }
 
+/** Deal subscription statuses returned by getDealsStatusList. */
+export type IDealSubscriptionStatus =
+  | "INVITED"
+  | "SUBSCRIBED"
+  | "IN_PROGRESS"
+  | "PAYMENT_PENDING"
+  | "REDEEMED"
+  | "DELETED-REDEEM_EXPIRED"
+  | "DELETED-SAVING_EXPIRED"
+  | "DELETED-PAYMENT_CANCEL"
+  | "SUBSCRIPTION_INACTIVE"
+  | "SUBSCRIBED-RETAIN"
+  | "DELETED-SUBSCRIBED_RETAIN_EXPIRED";
+
 export interface ISecureCodeByReferralPartnerListInput {
   partner_ext_id: string;
   deal_ref?: string;
@@ -788,6 +802,13 @@ export default class Deals extends Api {
     return this._call("list-deals", data, {
       retry: true,
     });
+  }
+
+  @doc("https://doc.clixray.com/index.php?title=Get_deals_status_list")
+  public getDealsStatusList(): Promise<{
+    data: IDealSubscriptionStatus[];
+  }> {
+    return this._call("get-deal-status-list", {}, { retry: true });
   }
 
   @doc("http://doc.omnipartners.be/index.php/Get_deals_details")
