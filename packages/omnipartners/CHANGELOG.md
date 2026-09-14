@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.95.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.94.0...omnipartners@2.95.0) (2026-09-14)
+
+
+### Features
+
+* **omnipartners:** extend secure code list/count types for Clixray filters ([22140a6](https://github.com/iGLOO-be/node-omnipartners/commit/22140a6def902a329a4a40d8598149422399b4d5))
+
+
+
+
+
 # [2.94.0](https://github.com/iGLOO-be/node-omnipartners/compare/omnipartners@2.93.4...omnipartners@2.94.0) (2026-08-26)
 
 
