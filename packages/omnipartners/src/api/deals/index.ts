@@ -58,10 +58,27 @@ export type IDealSubscriptionStatus =
   | "SUBSCRIBED-RETAIN"
   | "DELETED-SUBSCRIBED_RETAIN_EXPIRED";
 
+export type ISecureCodeStatus =
+  | "ALL"
+  | "AVAILABLE"
+  | "PUBLISHED"
+  | "CONFIRMED"
+  | "USED"
+  | "EXPIRED";
+
+export type ISecureCodeCountDateFilterOn =
+  | "CREATION"
+  | "UPDATE"
+  | "ts_created"
+  | "ts_updated";
+
 export interface ISecureCodeByReferralPartnerListInput {
   partner_ext_id: string;
   deal_ref?: string;
-  status?: string;
+  status?: ISecureCodeStatus;
+  search_filter?: string;
+  date_start?: string;
+  date_end?: string;
   p_length?: string | number;
   p_page?: string | number;
 }
@@ -69,14 +86,18 @@ export interface ISecureCodeByReferralPartnerListInput {
 export interface ISecureCodeByReferralPartnerListItem {
   code: string;
   status: string;
-  expiry_date: string;
+  creation_date: string;
+  expiry_date: string | null;
   deal_reference: string;
 }
 
 export interface ISecureCodeCountInput {
   deal_ref: string;
-  status?: "AVAILABLE" | "PUBLISHED";
+  status?: ISecureCodeStatus;
   referral_partner_ext_id?: string;
+  date_start?: string;
+  date_end?: string;
+  date_filter_on?: ISecureCodeCountDateFilterOn;
 }
 
 export interface ISecureCodeCountItem {
@@ -1171,7 +1192,10 @@ export default class Deals extends Api {
   @filterInput([
     "partner_ext_id", // (Required) Ext ID of the referral partner.
     "deal_ref", // (Optional) Filtering secure code deal reference
-    "status", // (Optional) Status of the secure code. Defaults to 'AVAILABLE' if not sent.
+    "status", // (Optional) Status of the secure code. Valid values are 'ALL', 'AVAILABLE', 'PUBLISHED', 'CONFIRMED', 'USED', and 'EXPIRED'. Defaults to 'AVAILABLE' if not sent.
+    "search_filter", // (Optional) Filter secure codes containing this value (e.g. "RECO-").
+    "date_start", // (Optional) Filter on secure code creation date (YYYY-MM-DD).
+    "date_end", // (Optional) Filter on secure code creation date (YYYY-MM-DD).
     "p_length", // (Optional) Item per page
     "p_page", // (Optional) current page. start at 0
   ])
@@ -1207,7 +1231,10 @@ export default class Deals extends Api {
           3059: {
             message: "Parameter 'partner_ext_id' not available in the request.",
           },
-          3129: { message: "Invalid secure code status provided." },
+          3129: {
+            message:
+              'Invalid secure code status provided. Valid values are "ALL", "AVAILABLE", "PUBLISHED", "CONFIRMED", "USED", and "EXPIRED".',
+          },
         },
       },
     );
@@ -1216,8 +1243,11 @@ export default class Deals extends Api {
   @doc("https://doc.clixray.com/index.php?title=Get_secure_code_count")
   @filterInput([
     "deal_ref", // (Required) Deal reference of the access codes.
-    "status", // (Optional) The status of the access code. Valid values are 'AVAILABLE' and 'PUBLISHED'.
+    "status", // (Optional) The status of the access code. Valid values are 'ALL', 'AVAILABLE', 'PUBLISHED', 'CONFIRMED', 'USED', and 'EXPIRED'.
     "referral_partner_ext_id", // (Optional) Ext ID of the referral partner.
+    "date_start", // (Optional) Filter start date (YYYY-MM-DD).
+    "date_end", // (Optional) Filter end date (YYYY-MM-DD).
+    "date_filter_on", // (Optional) Date field used by date_start/date_end. Valid values are 'CREATION', 'UPDATE', 'ts_created', and 'ts_updated'.
   ])
   public getSecureCodeCount(data: ISecureCodeCountInput): Promise<{
     data:
@@ -1235,7 +1265,7 @@ export default class Deals extends Api {
         3062: { message: "Missing required parameters." },
         3129: {
           message:
-            'Invalid status provided. Valid values are "AVAILABLE" and "PUBLISHED".',
+            'Invalid status provided. Valid values are "ALL", "AVAILABLE", "PUBLISHED", "CONFIRMED", "USED", and "EXPIRED".',
         },
       },
     });
